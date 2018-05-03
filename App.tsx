@@ -10,6 +10,7 @@ import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import SignUpScreen from './src/screens/SignUpScreen';
 import {headerStyle} from "./src/styles/Styles";
+import DonateScreen from './src/screens/DonateScreen';
 
 // YellowBox.ignoreWarnings([
 //   'Warning: componentWillMount is deprecated',
@@ -81,10 +82,7 @@ const DrawerNav = DrawerNavigator({
 
 const DetailsTabNav = TabNavigator({
     DetailsScreen: {
-      screen: DetailsScreen,
-      navigationOptions: {
-        title: 'Details',
-      }
+      screen: DetailsScreen
     },
     FilmographyScreen: {
       screen: FilmographyScreen,
@@ -129,6 +127,9 @@ const StackNav = StackNavigator({
     },
     Details: {
       screen: DetailsTabNav,
+    },
+    Donate: {
+      screen: DonateScreen,
     },
     Login: {
       screen: LoginScreen,

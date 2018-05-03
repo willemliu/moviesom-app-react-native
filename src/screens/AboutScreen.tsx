@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import {textStyle, viewStyle} from "../styles/Styles";
-import { WebBrowser } from 'expo';
 
 export default class AboutScreen extends React.Component<any> {
     static navigationOptions = {
@@ -18,7 +17,7 @@ export default class AboutScreen extends React.Component<any> {
         return (
             <View style={viewStyle.view}>
                 <Text>About {this.props.navigation.getParam('name')}.</Text>
-                <Text style={textStyle.button} onPress={() => WebBrowser.openBrowserAsync('https://www.moviesom.com/donate.html')}>Donate.</Text>
+                <Text style={textStyle.button} onPress={() => this.props.navigation.navigate('Donate')}>Donate.</Text>
             </View>
         );
     }

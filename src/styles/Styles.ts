@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { Constants } from 'expo';
 
 const movieSomColor = '#008CBA';
 
@@ -9,7 +8,6 @@ export const viewStyle = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingTop: Constants.statusBarHeight,
     },
     drawer: {
         flex: 1,
