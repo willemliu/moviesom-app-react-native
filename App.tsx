@@ -24,9 +24,43 @@ export default class App extends React.Component<any> {
   }
 }
 
+const HomeTabNav = TabNavigator({
+  Search: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: 'Search',
+    }
+  },
+  Personal: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: 'Personal',
+    }
+  },
+  Watchlist: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: 'Watchlist',
+    }
+  },
+}, {
+  tabBarPosition: 'bottom',
+  tabBarOptions: {
+    style: {
+        backgroundColor: '#008CBA',
+    },
+    activeTintColor: '#fff',
+    activeBackgroundColor: '#008CBA',
+    inactiveBackgroundColor: '#008CBA',
+    indicatorStyle: {
+      backgroundColor: '#fff'
+    },
+  },
+});
+
 const DrawerNav = DrawerNavigator({
   Home: {
-    screen: HomeScreen,
+    screen: HomeTabNav,
   },
 }, {
   contentComponent: DrawerContainer,
@@ -45,7 +79,7 @@ const DrawerNav = DrawerNavigator({
   })
 });
 
-const TabNav = TabNavigator({
+const DetailsTabNav = TabNavigator({
     DetailsScreen: {
       screen: DetailsScreen,
       navigationOptions: {
@@ -94,7 +128,7 @@ const StackNav = StackNavigator({
       screen: AboutScreen,
     },
     Details: {
-      screen: TabNav,
+      screen: DetailsTabNav,
     },
     Login: {
       screen: LoginScreen,
