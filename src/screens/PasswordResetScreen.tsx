@@ -16,7 +16,7 @@ export default class PasswordResetScreen extends React.Component<any> {
     render() {
         return (
             <View style={viewStyle.view}>
-                <Text onPress={this.props.navigation.back()} style={textStyle.button}>Reset password</Text>
+                <Text onPress={() => this.props.navigation.goBack()} style={textStyle.button}>Reset password</Text>
             </View>
         );
     }

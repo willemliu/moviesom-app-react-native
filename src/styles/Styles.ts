@@ -50,4 +50,9 @@ export const textStyle = StyleSheet.create({
         borderWidth: 1,
         textAlign: 'center'
     },
+    smallLink: {
+        marginTop: 15,
+        fontSize: 12,
+        color: movieSomColor,
+    }
 });

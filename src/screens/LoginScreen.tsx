@@ -29,6 +29,7 @@ export default class LoginScreen extends React.Component<any> {
         return (
             <View style={viewStyle.view}>
                 <Text onPress={this.login} style={textStyle.button}>Login</Text>
+                <Text onPress={() => this.props.navigation.navigate('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
             </View>
         );
     }
