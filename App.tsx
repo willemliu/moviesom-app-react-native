@@ -1,5 +1,5 @@
-import { YellowBox, StyleSheet, Image, Text, View, AsyncStorage } from 'react-native';
-import { StackNavigator, DrawerNavigator, TabNavigator, NavigationActions } from 'react-navigation';
+import { YellowBox, Image, Text, View, AsyncStorage, Linking } from 'react-native';
+import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import DetailsScreen from './src/screens/DetailsScreen';
 import DrawerContainer from './src/components/DrawerContainer';
@@ -9,23 +9,12 @@ import LoginScreen from './src/screens/LoginScreen';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import SignUpScreen from './src/screens/SignUpScreen';
+import {headerStyle} from "./src/styles/Styles";
 
-YellowBox.ignoreWarnings([
-  'Warning: componentWillMount is deprecated',
-  'Warning: componentWillReceiveProps is deprecated',
-]);
-
-const styles = StyleSheet.create({
-  header: {
-    flex: 1,
-    backgroundColor: '#008CBA',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  headerImage: {
-    flex: 1,
-  },
-});
+// YellowBox.ignoreWarnings([
+//   'Warning: componentWillMount is deprecated',
+//   'Warning: componentWillReceiveProps is deprecated',
+// ]);
 
 export default class App extends React.Component<any> {
   render() {
@@ -119,7 +108,7 @@ const StackNav = StackNavigator({
 }, {
     navigationOptions: ({navigation}) => ({
       title: 'MovieSom',
-      headerTitle: <View style={styles.header}><Image style={styles.headerImage} resizeMode="center" resizeMethod="scale" source={require('./img/title.png')}/></View>,
+      headerTitle: <View style={headerStyle.view}><Image style={headerStyle.image} resizeMode="center" resizeMethod="scale" source={require('./img/title.png')}/></View>,
       headerStyle: {
         backgroundColor: '#008CBA',
       },
@@ -135,3 +124,20 @@ const StackNav = StackNavigator({
       headerTintColor: '#fff',
   })
 });
+
+const handleUrl = ({url}: any) => {
+    alert(url);
+    // alert(`Linked to app with path: ${path} and data: ${JSON.stringify(queryParams)}`);
+};
+
+Linking.addEventListener('url', handleUrl);
+
+(async () => {
+    try {
+        const url = await Linking.getInitialURL();
+        console.log('Initial URL', url);
+        if (url) { handleUrl({url}); }
+    } catch (e) {
+        console.error(e);
+    }
+})();

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
+import {textStyle, viewStyle} from "../styles/Styles";
 
 export default class PasswordResetScreen extends React.Component<any> {
     static navigationOptions = {
@@ -14,29 +15,9 @@ export default class PasswordResetScreen extends React.Component<any> {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text onPress={this.props.navigation.back()} style={styles.textButton}>Reset password</Text>
+            <View style={viewStyle.view}>
+                <Text onPress={this.props.navigation.back()} style={textStyle.button}>Reset password</Text>
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    textButton: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      color: '#008CBA',
-      padding: 15,
-      margin: 5,
-      borderRadius: 2,
-      borderColor: '#008CBA',
-      borderWidth: 1,
-      textAlign: 'center'
-    }
-});

@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import {Image, Linking, Text, View} from 'react-native';
+import {textStyle, viewStyle} from "../styles/Styles";
 
 export default class HomeScreen extends React.Component<any> {
     static navigationOptions = {
@@ -14,33 +15,13 @@ export default class HomeScreen extends React.Component<any> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={viewStyle.view}>
                 <Text>Open up App.ts to start working on your app!</Text>
                 <Text>Changes you make will automatically reload.</Text>
                 <Text>Shake your phone to open the developer menu.</Text>
-                <Text onPress={() => this.props.navigation.navigate('About', {name: 'Willem Liu'})} style={styles.textButton}>About</Text>
-                <Text onPress={() => this.props.navigation.navigate('Details', {depth: 0, name: 'Willem Liu'})} style={styles.textButton}>Details</Text>
+                <Text onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')} style={textStyle.button}>Linking</Text>
+                <Text onPress={() => this.props.navigation.navigate('Details', {depth: 0, name: 'Willem Liu'})} style={textStyle.button}>Details</Text>
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    textButton: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#008CBA',
-        padding: 15,
-        margin: 5,
-        borderRadius: 2,
-        borderColor: '#008CBA',
-        borderWidth: 1,
-        textAlign: 'center'
-    }
-});

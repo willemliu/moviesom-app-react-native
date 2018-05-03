@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
+import { Text, ScrollView } from 'react-native';
+import {textStyle, viewStyle} from "../styles/Styles";
 
 export default class DetailsScreen extends React.Component<any> {
     static navigationOptions = {
@@ -8,7 +9,7 @@ export default class DetailsScreen extends React.Component<any> {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.scrollView}>
+            <ScrollView contentContainerStyle={viewStyle.scrollView}>
                 <Text>Details</Text>
                 <Text>Depth {this.props.navigation.getParam('depth')}.</Text>
                 <Text>Details {this.props.navigation.getParam('name')}.</Text>
@@ -16,7 +17,7 @@ export default class DetailsScreen extends React.Component<any> {
                 <Text onPress={() => this.props.navigation.navigate('Details', {
                     depth: this.props.navigation.getParam('depth') + 1,
                     name: this.props.navigation.getParam('name')
-                })} style={styles.textButton}>Details {this.props.navigation.getParam('depth') + 1}</Text>
+                })} style={textStyle.button}>Details {this.props.navigation.getParam('depth') + 1}</Text>
 
                 <Text>1Open up App.ts to start working on your app!</Text>
                 <Text>2Changes you make will automatically reload.</Text>
@@ -52,20 +53,3 @@ export default class DetailsScreen extends React.Component<any> {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    scrollView: {
-      backgroundColor: '#fff',
-    },
-    textButton: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#008CBA',
-        padding: 15,
-        margin: 5,
-        borderRadius: 2,
-        borderColor: '#008CBA',
-        borderWidth: 1,
-        textAlign: 'center'
-    }
-});

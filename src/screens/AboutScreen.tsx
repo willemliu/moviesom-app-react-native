@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
+import {textStyle, viewStyle} from "../styles/Styles";
+import { WebBrowser } from 'expo';
 
 export default class AboutScreen extends React.Component<any> {
     static navigationOptions = {
@@ -14,18 +16,10 @@ export default class AboutScreen extends React.Component<any> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={viewStyle.view}>
                 <Text>About {this.props.navigation.getParam('name')}.</Text>
+                <Text style={textStyle.button} onPress={() => WebBrowser.openBrowserAsync('https://www.moviesom.com/donate.html')}>Donate.</Text>
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-});

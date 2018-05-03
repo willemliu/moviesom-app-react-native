@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import {textStyle, viewStyle} from "../styles/Styles";
 
 export default class DrawerContainer extends React.Component<any, any> {
     props: any;
@@ -40,53 +41,33 @@ export default class DrawerContainer extends React.Component<any, any> {
         const { navigation } = this.props;
         console.log('render loggedIn', this.state.loggedIn);
         return (
-            <View style={styles.container}>
+            <View style={viewStyle.drawer}>
                 <Text
                     onPress={() => navigation.navigate('Home')}
-                    style={styles.textButton}>
+                    style={textStyle.button}>
                         Home
                 </Text>
                 {this.state.loggedIn ? null : <Text
                     onPress={() => navigation.navigate('Login')}
-                    style={styles.textButton}>
+                    style={textStyle.button}>
                         Login
                 </Text>}
                 {this.state.loggedIn ? null : <Text
                     onPress={() => navigation.navigate('SignUp')}
-                    style={styles.textButton}>
+                    style={textStyle.button}>
                         Sign up
                 </Text>}
                 {this.state.loggedIn ? <Text
                     onPress={this.logOut}
-                    style={styles.textButton}>
+                    style={textStyle.button}>
                         Logout
                 </Text> : null}
                 <Text
-                    onPress={() => navigation.navigate('About')}
-                    style={styles.textButton}>
+                    onPress={() => navigation.navigate('About', {name: 'Willem Liu'})}
+                    style={textStyle.button}>
                         About
                 </Text>
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 40,
-    paddingHorizontal: 20
-  },
-  textButton: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#008CBA',
-    padding: 15,
-    margin: 5,
-    borderRadius: 2,
-    borderColor: '#008CBA',
-    borderWidth: 1,
-    textAlign: 'center'
-  }
-});

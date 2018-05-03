@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, ScrollView } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import {textStyle, viewStyle} from "../styles/Styles";
 
 export default class FilmographyScreen extends React.Component<any> {
     static navigationOptions = {
@@ -18,7 +19,7 @@ export default class FilmographyScreen extends React.Component<any> {
 
     render() {
         return (
-            <ScrollView style={styles.scrollView}>
+            <ScrollView style={viewStyle.scrollView}>
                 <Text>Filmography</Text>
                 <Text>Depth {this.props.navigation.getParam('depth')}.</Text>
                 <Text>Filmography {this.props.navigation.getParam('name')}.</Text>
@@ -26,32 +27,9 @@ export default class FilmographyScreen extends React.Component<any> {
                     depth: this.props.navigation.getParam('depth') + 1,
                     name: this.props.navigation.getParam('name')
                     })
-                } style={styles.textButton}>Filmography {this.props.navigation.getParam('depth') + 1}</Text>
+                } style={textStyle.button}>Filmography {this.props.navigation.getParam('depth') + 1}</Text>
 
             </ScrollView>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    scrollView: {
-      backgroundColor: '#fff',
-    },
-    textButton: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#008CBA',
-        padding: 15,
-        margin: 5,
-        borderRadius: 2,
-        borderColor: '#008CBA',
-        borderWidth: 1,
-        textAlign: 'center'
-    }
-});
