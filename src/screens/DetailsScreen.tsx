@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Share, Text, ScrollView } from 'react-native';
 import {textStyle, viewStyle} from "../styles/Styles";
 
 export default class DetailsScreen extends React.Component<any> {
@@ -18,6 +18,15 @@ export default class DetailsScreen extends React.Component<any> {
                     depth: this.props.navigation.getParam('depth') + 1,
                     name: this.props.navigation.getParam('name')
                 })} style={textStyle.button}>Details {this.props.navigation.getParam('depth') + 1}</Text>
+
+                <Text onPress={() => Share.share({
+                    title: 'Share this',
+                    message: `Awesome message to share
+https://www.moviesom.com/moviesom.php?tmdbMovieId=500`,
+                    url: 'https://www.moviesom.com/?tmdbMovieId=500'
+                }, {
+                    dialogTitle: 'MovieSom share'
+                })} style={textStyle.button}>Share</Text>
 
                 <Text>1Open up App.ts to start working on your app!</Text>
                 <Text>2Changes you make will automatically reload.</Text>

@@ -3,6 +3,12 @@
   "displayName": "react-native-ts",
   "expo": {
     "sdkVersion": "26.0.0",
+    "name": "react-native-ts",
+    "description": "React Native test application showcasing navigation logic.",
+    "icon": "./assets/eyecon512x512.png",
+    "version": "3.0.0",
+    "githubUrl": "https://github.com/willemliu/react-native-ts-test",
+    "primaryColor": "#008CBA",
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
       "transformer": "node_modules/react-native-typescript-transformer/index.js"
@@ -12,6 +18,15 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
-    }
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.moviesom"
+    },
+    "notification": {
+      "icon": "./assets/eyecon48x48grey.png",
+      "color": "#000000"
+    },
+    "facebookAppId": "1445254942214300"
   }
 }

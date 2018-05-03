@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Constants } from 'expo';
 
+const movieSomColor = '#008CBA';
+
 export const viewStyle = StyleSheet.create({
     view: {
         flex: 1,
@@ -12,8 +14,8 @@ export const viewStyle = StyleSheet.create({
     drawer: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 40,
-        paddingHorizontal: 20
+        paddingTop: 15,
+        paddingHorizontal: 15,
     },
     scrollView: {
         backgroundColor: '#fff',
@@ -23,7 +25,7 @@ export const viewStyle = StyleSheet.create({
 export const headerStyle = StyleSheet.create({
     view: {
         flex: 1,
-        backgroundColor: '#008CBA',
+        backgroundColor: movieSomColor,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
@@ -36,11 +38,15 @@ export const textStyle = StyleSheet.create({
     button: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#008CBA',
-        padding: 15,
+        backgroundColor: movieSomColor,
+        color: '#fff',
+        paddingTop: 10,
+        paddingRight: 15,
+        paddingBottom: 10,
+        paddingLeft: 15,
         margin: 5,
-        borderRadius: 2,
-        borderColor: '#008CBA',
+        borderRadius: 3,
+        borderColor: movieSomColor,
         borderWidth: 1,
         textAlign: 'center'
     },
