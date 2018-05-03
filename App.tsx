@@ -135,7 +135,6 @@ Linking.addEventListener('url', handleUrl);
 (async () => {
     try {
         const url = await Linking.getInitialURL();
-        console.log('Initial URL', url);
         if (url) { handleUrl({url}); }
     } catch (e) {
         console.error(e);

@@ -12,7 +12,6 @@ export default class DrawerContainer extends React.Component<any, any> {
         this.state = {
             loggedIn: this.props.navigation.getParam('loggedIn', null)
         };
-        console.log('DrawerContainer constructor state', this.props.navigation.getParam('loggedIn', null));
         this.checkLogin();
     }
 
@@ -33,13 +32,10 @@ export default class DrawerContainer extends React.Component<any, any> {
             actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
         });
         this.props.navigation.dispatch(resetAction);
-
-        console.log('logOut', await AsyncStorage.getItem('loggedIn'));
     }
 
     render() {
         const { navigation } = this.props;
-        console.log('render loggedIn', this.state.loggedIn);
         return (
             <View style={viewStyle.drawer}>
                 <Text
