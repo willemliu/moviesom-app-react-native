@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, AsyncStorage } from 'react-native';
+import { Text, View, AsyncStorage, Linking } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle} from "../styles/Styles";
 
@@ -58,6 +58,10 @@ export default class DrawerContainer extends React.Component<any, any> {
                     style={textStyle.button}>
                         Logout
                 </Text> : null}
+
+                <Text onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')} style={textStyle.button}>Link external</Text>
+                <Text onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})} style={textStyle.button}>MovieSom</Text>
+
                 <Text
                     onPress={() => navigation.navigate('About', {name: 'Willem Liu'})}
                     style={textStyle.button}>

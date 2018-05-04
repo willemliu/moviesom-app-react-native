@@ -1,16 +1,15 @@
-import { YellowBox, Image, Text, View, AsyncStorage, Linking } from 'react-native';
-import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
+import { YellowBox, Image, Text, View, Modal, TouchableHighlight, Linking } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
-import DetailsScreen from './src/screens/DetailsScreen';
-import DrawerContainer from './src/components/DrawerContainer';
-import FilmographyScreen from './src/screens/FilmographyScreen';
-import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import SignUpScreen from './src/screens/SignUpScreen';
-import {headerStyle} from "./src/styles/Styles";
+import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
 import DonateScreen from './src/screens/DonateScreen';
+import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
+import DrawerScreen from './src/screens/DrawerScreen';
+import TMDb from './src/tmdb/TMDb';
 
 // YellowBox.ignoreWarnings([
 //   'Warning: componentWillMount is deprecated',
@@ -18,115 +17,75 @@ import DonateScreen from './src/screens/DonateScreen';
 // ]);
 
 export default class App extends React.Component<any> {
+
+  state: any = {
+    modalVisible: false
+  };
+
+  private tmdb = new TMDb();
+
+  constructor(props: any) {
+      super(props);
+      Linking.addEventListener('url', this.handleUrl);
+      this.checkInitialUrl();
+      this.tmdb.getConfig();
+  }
+
+  checkInitialUrl = async () => {
+      try {
+          const url = await Linking.getInitialURL();
+          if (url) { this.handleUrl({url}); }
+      } catch (e) {
+          console.error(e);
+      }
+  }
+
+  handleUrl = ({url}: any) => {
+      this.setState({
+          // modalVisible: true,
+          url
+      });
+  }
+
+  hideModal = () => {
+      this.setState({
+          modalVisible: false
+      });
+  }
+
   render() {
     return (
-      <StackNav/>
+      <View style={{flex: 1}}>
+        <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={this.hideModal}>
+            <View style={viewStyle.view}>
+                <View>
+                    <Text>URL: {this.state.url}</Text>
+                    <TouchableHighlight
+                        onPress={this.hideModal}>
+                        <Text style={textStyle.button}>Close</Text>
+                    </TouchableHighlight>
+                </View>
+            </View>
+        </Modal>
+        <StackNav/>
+      </View>
     );
   }
 }
 
-const HomeTabNav = TabNavigator({
-  Search: {
-    screen: HomeScreen,
-    navigationOptions: {
-      title: 'Search',
-    }
-  },
-  Personal: {
-    screen: HomeScreen,
-    navigationOptions: {
-      title: 'Personal',
-    }
-  },
-  Watchlist: {
-    screen: HomeScreen,
-    navigationOptions: {
-      title: 'Watchlist',
-    }
-  },
-}, {
-  tabBarPosition: 'bottom',
-  tabBarOptions: {
-    style: {
-        backgroundColor: '#008CBA',
-    },
-    activeTintColor: '#fff',
-    activeBackgroundColor: '#008CBA',
-    inactiveBackgroundColor: '#008CBA',
-    indicatorStyle: {
-      backgroundColor: '#fff'
-    },
-  },
-});
-
-const DrawerNav = DrawerNavigator({
-  Home: {
-    screen: HomeTabNav,
-  },
-}, {
-  contentComponent: DrawerContainer,
-  navigationOptions: ({navigation}) => ({
-    headerStyle: {
-      backgroundColor: '#008CBA',
-    },
-    headerLeft: (
-      <Text onPress={async () => {
-        navigation.navigate('DrawerToggle', {
-          loggedIn: await AsyncStorage.getItem('loggedIn')
-        });
-        console.log('drawer loggedIn', await AsyncStorage.getItem('loggedIn') === '1');
-      }}>Menu</Text>
-    )
-  })
-});
-
-const DetailsTabNav = TabNavigator({
-    DetailsScreen: {
-      screen: DetailsScreen
-    },
-    FilmographyScreen: {
-      screen: FilmographyScreen,
-      navigationOptions: {
-        title: 'Filmography',
-      }
-    },
-    FilmographyScreen2: {
-      screen: FilmographyScreen,
-      navigationOptions: {
-        title: 'Filmography2',
-      }
-    },
-    FilmographyScreen3: {
-      screen: FilmographyScreen,
-      navigationOptions: {
-        title: 'Filmography3',
-      }
-    }
-}, {
-    tabBarPosition: 'bottom',
-    tabBarOptions: {
-    style: {
-        backgroundColor: '#008CBA',
-    },
-    activeTintColor: '#fff',
-    activeBackgroundColor: '#008CBA',
-    inactiveBackgroundColor: '#008CBA',
-    indicatorStyle: {
-      backgroundColor: '#fff'
-    },
-  },
-  backBehavior: 'none',
-});
-
 const StackNav = StackNavigator({
     Drawer: {
-      screen: DrawerNav,
+      screen: DrawerScreen,
     },
     About: {
       screen: AboutScreen,
     },
     Details: {
-      screen: DetailsTabNav,
+      screen: PersonDetailsScreen,
     },
     Donate: {
       screen: DonateScreen,
@@ -159,19 +118,3 @@ const StackNav = StackNavigator({
       headerTintColor: '#fff',
   })
 });
-
-const handleUrl = ({url}: any) => {
-    alert(url);
-    // alert(`Linked to app with path: ${path} and data: ${JSON.stringify(queryParams)}`);
-};
-
-Linking.addEventListener('url', handleUrl);
-
-(async () => {
-    try {
-        const url = await Linking.getInitialURL();
-        if (url) { handleUrl({url}); }
-    } catch (e) {
-        console.error(e);
-    }
-})();

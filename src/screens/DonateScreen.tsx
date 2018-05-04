@@ -1,6 +1,6 @@
 import React from 'react';
-import { WebView, View, Text } from 'react-native';
-import {textStyle, viewStyle} from "../styles/Styles";
+import {textStyle, viewStyle, webViewStyle} from "../styles/Styles";
+import InlineWebView from "../components/InlineWebView";
 
 export default class DonateScreen extends React.Component<any> {
     static navigationOptions = {
@@ -9,11 +9,7 @@ export default class DonateScreen extends React.Component<any> {
 
     render() {
         return (
-            <WebView
-                source={{uri: 'https://www.moviesom.com/donate.html'}}
-                startInLoadingState={true}
-                style={viewStyle.view}
-            />
+            <InlineWebView url={this.props.navigation.getParam('url', 'https://www.moviesom.com/donate.html')}/>
         );
     }
 }
