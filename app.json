@@ -21,7 +21,8 @@
     },
     "android": {
       "googleServicesFile": "./google-services.json",
-      "package": "com.moviesom"
+      "package": "com.moviesom",
+      "permissions": []
     },
     "notification": {
       "icon": "./assets/eyecon48x48grey.png",
