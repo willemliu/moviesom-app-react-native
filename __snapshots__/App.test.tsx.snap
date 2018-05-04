@@ -1295,6 +1295,7 @@ exports[`renders without crashing 1`] = `
                             stickyHeaderIndices={Array []}
                             style={
                               Object {
+                                "backgroundColor": "#323232",
                                 "flex": 1,
                                 "width": "100%",
                               }
@@ -1336,36 +1337,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      0
-                                       
-                                      title0
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description0 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          0
+                                           
+                                          title0
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description0 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1401,36 +1434,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      1
-                                       
-                                      title1
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description1 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          1
+                                           
+                                          title1
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description1 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1466,36 +1531,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      2
-                                       
-                                      title2
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description2 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          2
+                                           
+                                          title2
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description2 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1531,36 +1628,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      3
-                                       
-                                      title3
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description3 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          3
+                                           
+                                          title3
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description3 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1596,36 +1725,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      4
-                                       
-                                      title4
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description4 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          4
+                                           
+                                          title4
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description4 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1661,36 +1822,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      5
-                                       
-                                      title5
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description5 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          5
+                                           
+                                          title5
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description5 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1726,36 +1919,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      6
-                                       
-                                      title6
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description6 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          6
+                                           
+                                          title6
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description6 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1791,36 +2016,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      7
-                                       
-                                      title7
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description7 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          7
+                                           
+                                          title7
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description7 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1856,36 +2113,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      8
-                                       
-                                      title8
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description8 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          8
+                                           
+                                          title8
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description8 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1921,36 +2210,68 @@ exports[`renders without crashing 1`] = `
                                   <View
                                     style={
                                       Object {
-                                        "backgroundColor": "#ff0",
-                                        "borderRadius": 2,
-                                        "marginBottom": 15,
-                                        "padding": 15,
-                                        "shadowColor": "#000000",
-                                        "shadowOffset": Object {
-                                          "height": 1,
-                                          "width": 0.3,
-                                        },
-                                        "shadowOpacity": 0.3,
-                                        "shadowRadius": 1,
+                                        "backgroundColor": "#fff",
+                                        "borderRadius": 3,
+                                        "marginTop": 10,
+                                        "paddingBottom": 10,
+                                        "paddingTop": 10,
                                       }
                                     }
                                   >
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
+                                    <View
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "flexDirection": "row",
+                                        }
+                                      }
                                     >
-                                      9
-                                       
-                                      title9
-                                    </Text>
-                                    <Text
-                                      accessible={true}
-                                      allowFontScaling={true}
-                                      ellipsizeMode="tail"
-                                    >
-                                      Description9 Description Description Description Description Description Description Description Description Description Description
-                                    </Text>
+                                      <Image
+                                        loadingIndicatorSource={1}
+                                        resizeMode="contain"
+                                        source={
+                                          Object {
+                                            "uri": "https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg",
+                                          }
+                                        }
+                                        style={
+                                          Object {
+                                            "marginRight": 10,
+                                            "width": 75,
+                                          }
+                                        }
+                                      />
+                                      <View
+                                        style={
+                                          Object {
+                                            "flex": 3,
+                                          }
+                                        }
+                                      >
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                          style={
+                                            Object {
+                                              "fontSize": 18,
+                                              "marginBottom": 5,
+                                            }
+                                          }
+                                        >
+                                          9
+                                           
+                                          title9
+                                        </Text>
+                                        <Text
+                                          accessible={true}
+                                          allowFontScaling={true}
+                                          ellipsizeMode="tail"
+                                        >
+                                          Description9 Description Description Description Description Description Description Description Description Description Description
+                                        </Text>
+                                      </View>
+                                    </View>
                                   </View>
                                 </View>
                               </View>
@@ -1966,79 +2287,37 @@ exports[`renders without crashing 1`] = `
                           <View
                             style={
                               Object {
+                                "borderColor": "#008CBA",
+                                "borderTopLeftRadius": 3,
+                                "borderTopRightRadius": 3,
+                                "borderWidth": 2,
                                 "flexDirection": "row",
-                              }
-                            }
-                          >
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              onPress={[Function]}
-                              style={
-                                Object {
-                                  "backgroundColor": "#008CBA",
-                                  "borderColor": "#008CBA",
-                                  "borderRadius": 3,
-                                  "borderWidth": 1,
-                                  "color": "#fff",
-                                  "fontSize": 18,
-                                  "fontWeight": "bold",
-                                  "margin": 5,
-                                  "paddingBottom": 10,
-                                  "paddingLeft": 15,
-                                  "paddingRight": 15,
-                                  "paddingTop": 10,
-                                  "textAlign": "center",
-                                }
-                              }
-                            >
-                              Link external
-                            </Text>
-                            <Text
-                              accessible={true}
-                              allowFontScaling={true}
-                              ellipsizeMode="tail"
-                              onPress={[Function]}
-                              style={
-                                Object {
-                                  "backgroundColor": "#008CBA",
-                                  "borderColor": "#008CBA",
-                                  "borderRadius": 3,
-                                  "borderWidth": 1,
-                                  "color": "#fff",
-                                  "fontSize": 18,
-                                  "fontWeight": "bold",
-                                  "margin": 5,
-                                  "paddingBottom": 10,
-                                  "paddingLeft": 15,
-                                  "paddingRight": 15,
-                                  "paddingTop": 10,
-                                  "textAlign": "center",
-                                }
-                              }
-                            >
-                              MovieSom
-                            </Text>
-                          </View>
-                          <TextInput
-                            allowFontScaling={true}
-                            autoCorrect={false}
-                            clearButtonMode="while-editing"
-                            keyboardType="web-search"
-                            onChangeText={[Function]}
-                            placeholder="Search movie/tv series/person"
-                            style={
-                              Object {
-                                "borderBottomColor": "#e1e1e1",
-                                "fontSize": 18,
-                                "height": 40,
-                                "paddingLeft": 5,
-                                "paddingRight": 5,
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <TextInput
+                              accessibilityLabel="Search movie or tv series or person"
+                              allowFontScaling={true}
+                              autoCorrect={false}
+                              clearButtonMode="always"
+                              keyboardType="web-search"
+                              onChangeText={[Function]}
+                              placeholder="Search movie/tv series/person"
+                              style={
+                                Object {
+                                  "fontSize": 18,
+                                  "height": 50,
+                                  "marginBottom": 5,
+                                  "paddingBottom": 10,
+                                  "paddingLeft": 5,
+                                  "paddingRight": 5,
+                                  "width": "100%",
+                                }
+                              }
+                              underlineColorAndroid="#008CBA"
+                            />
+                          </View>
                           <View
                             style={
                               Array [
@@ -2155,7 +2434,13 @@ exports[`renders without crashing 1`] = `
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                            />
+                          </View>
                           <View
                             collapsable={undefined}
                             style={
@@ -2170,7 +2455,13 @@ exports[`renders without crashing 1`] = `
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                            />
+                          </View>
                         </View>
                         <Text
                           accessible={true}
@@ -2258,7 +2549,13 @@ exports[`renders without crashing 1`] = `
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                            />
+                          </View>
                           <View
                             collapsable={undefined}
                             style={
@@ -2273,7 +2570,13 @@ exports[`renders without crashing 1`] = `
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                            />
+                          </View>
                         </View>
                         <Text
                           accessible={true}
@@ -2361,7 +2664,13 @@ exports[`renders without crashing 1`] = `
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                            />
+                          </View>
                           <View
                             collapsable={undefined}
                             style={
@@ -2376,7 +2685,13 @@ exports[`renders without crashing 1`] = `
                                 "width": "100%",
                               }
                             }
-                          />
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                            />
+                          </View>
                         </View>
                         <Text
                           accessible={true}
@@ -2571,6 +2886,56 @@ exports[`renders without crashing 1`] = `
                       }
                     }
                   >
+                    Link external
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    onPress={[Function]}
+                    style={
+                      Object {
+                        "backgroundColor": "#008CBA",
+                        "borderColor": "#008CBA",
+                        "borderRadius": 3,
+                        "borderWidth": 1,
+                        "color": "#fff",
+                        "fontSize": 18,
+                        "fontWeight": "bold",
+                        "margin": 5,
+                        "paddingBottom": 10,
+                        "paddingLeft": 15,
+                        "paddingRight": 15,
+                        "paddingTop": 10,
+                        "textAlign": "center",
+                      }
+                    }
+                  >
+                    MovieSom
+                  </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    onPress={[Function]}
+                    style={
+                      Object {
+                        "backgroundColor": "#008CBA",
+                        "borderColor": "#008CBA",
+                        "borderRadius": 3,
+                        "borderWidth": 1,
+                        "color": "#fff",
+                        "fontSize": 18,
+                        "fontWeight": "bold",
+                        "margin": 5,
+                        "paddingBottom": 10,
+                        "paddingLeft": 15,
+                        "paddingRight": 15,
+                        "paddingTop": 10,
+                        "textAlign": "center",
+                      }
+                    }
+                  >
                     About
                   </Text>
                 </View>
@@ -2682,14 +3047,38 @@ exports[`renders without crashing 1`] = `
                 }
               }
             >
-              <Text
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
                 accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                onPress={[Function]}
+                collapsable={undefined}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                    "padding": 10,
+                  }
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
               >
-                Menu
-              </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                />
+              </View>
             </View>
             <View
               collapsable={undefined}

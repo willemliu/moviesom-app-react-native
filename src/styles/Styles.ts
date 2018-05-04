@@ -1,6 +1,6 @@
 import { StyleSheet, Platform } from 'react-native';
 
-const movieSomColor = '#008CBA';
+export const movieSomColor = '#008CBA';
 
 export const viewStyle = StyleSheet.create({
     view: {
@@ -49,9 +49,30 @@ export const textStyle = StyleSheet.create({
         textAlign: 'center',
     },
     smallLink: {
-        marginTop: 15,
+        marginTop: 10,
+        marginBottom: 10,
         fontSize: 12,
         color: movieSomColor,
+    }
+});
+
+export const textInputStyle = StyleSheet.create({
+    textInput: {
+        height: 50,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 10,
+        marginBottom: 5,
+        fontSize: 18,
+        width: '100%',
+    },
+    passwordsDontMatch: {
+        height: 50,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 10,
+        marginBottom: 5,
+        fontSize: 18,
     }
 });
 
@@ -73,18 +94,28 @@ export const webViewStyle = StyleSheet.create({
     }
 });
 
+export const searchScreenStyle = StyleSheet.create({
+    flatList: {
+        flex: 1,
+        width: '100%',
+        backgroundColor: '#323232',
+    }
+});
+
 export const searchResultStyle = StyleSheet.create({
     view: {
-        marginBottom: 15,
-        padding: 15,
-        backgroundColor: "#ff0",
-        borderRadius: 2,
-        shadowColor: "#000000",
-        shadowOpacity: 0.3,
-        shadowRadius: 1,
-        shadowOffset: {
-          height: 1,
-          width: 0.3,
-        }
-    }
+        marginTop: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: "#fff",
+        borderRadius: 3,
+    },
+    title: {
+        fontSize: 18,
+        marginBottom: 5,
+    },
+    image: {
+        width: 75,
+        marginRight: 10,
+    },
 });

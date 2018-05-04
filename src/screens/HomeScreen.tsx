@@ -1,27 +1,32 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import SearchScreen from './SearchScreen';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const HomeTabNav = TabNavigator({
     Search: {
         screen: SearchScreen,
         navigationOptions: {
             title: 'Search',
+            tabBarIcon: <MaterialIcons name="search" size={32} color='#fff'/>
         }
     },
     Personal: {
         screen: SearchScreen,
         navigationOptions: {
             title: 'Personal',
+            tabBarIcon: <MaterialIcons name="person" size={32} color='#fff'/>
         }
     },
     Watchlist: {
         screen: SearchScreen,
         navigationOptions: {
             title: 'Watchlist',
+            tabBarIcon: <MaterialIcons name="playlist-add" size={32} color='#fff'/>
         }
     },
 }, {
+    lazy: false,
     tabBarPosition: 'bottom',
     tabBarOptions: {
         style: {

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Text } from 'react-native';
+import {TouchableOpacity, View, Text, Image} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 
@@ -17,10 +17,20 @@ export default class SearchResult extends React.Component<Props, any> {
 
     render() {
         return (
-            <TouchableOpacity onPress={this.handleOnPress}>
+            <TouchableOpacity onPress={this.handleOnPress} activeOpacity={0.9}>
                 <View style={searchResultStyle.view}>
-                    <Text>{this.props.id} {this.props.title}</Text>
-                    <Text>{this.props.description}</Text>
+                    <View style={{flex: 1, flexDirection: 'row'}}>
+                        <Image
+                            style={searchResultStyle.image}
+                            resizeMode='contain'
+                            source={{uri: 'https://image.tmdb.org/t/p/w92/30oXQKwibh0uANGMs0Sytw3uN22.jpg'}}
+                            loadingIndicatorSource={require('../../assets/eyecon48x48grey.png')}
+                        />
+                        <View style={{flex: 3}}>
+                            <Text style={searchResultStyle.title}>{this.props.id} {this.props.title}</Text>
+                            <Text>{this.props.description}</Text>
+                        </View>
+                    </View>
                 </View>
             </TouchableOpacity>
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList} from 'react-native';
-import {textStyle, viewStyle} from "../styles/Styles";
+import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle} from "../styles/Styles";
 import SearchResult from '../components/SearchResult';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
@@ -28,7 +28,7 @@ export default class SearchScreen extends React.Component<any, any> {
         };
     }
 
-    keyExtractor = (item: any, index: number) => item.id;
+    keyExtractor = (item: any, index: number) => `${item.id}`;
 
     handleOnPress = (id: number) => {
         this.setState((state: any) => {
@@ -45,25 +45,25 @@ export default class SearchScreen extends React.Component<any, any> {
         return (
             <View style={viewStyle.view}>
                 <FlatList
-                    style={{flex: 1, width: '100%'}}
+                    style={searchScreenStyle.flatList}
                     data={this.state.data}
                     extraData={this.state}
                     keyExtractor={this.keyExtractor}
                     renderItem={(data) => <SearchResult {...data.item} handleOnPress={this.handleOnPress}/>}
                 />
 
-                <View style={{flexDirection: 'row'}}>
-                    <Text onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')} style={textStyle.button}>Link external</Text>
-                    <Text onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})} style={textStyle.button}>MovieSom</Text>
+                <View style={{flexDirection: 'row', borderColor: '#008CBA', borderWidth: 2, borderTopLeftRadius: 3, borderTopRightRadius: 3, width: '100%'}}>
+                    <TextInput
+                        accessibilityLabel='Search movie or tv series or person'
+                        style={textInputStyle.textInput}
+                        onChangeText={(searchText) => { this.setState({searchText}); }}
+                        placeholder='Search movie/tv series/person'
+                        autoCorrect={false}
+                        clearButtonMode='always'
+                        keyboardType='web-search'
+                        underlineColorAndroid={movieSomColor}
+                    />
                 </View>
-                <TextInput
-                    style={{height: 40, width: '100%', paddingLeft: 5, paddingRight: 5, fontSize: 18, borderBottomColor: '#e1e1e1'}}
-                    onChangeText={(searchText) => { this.setState({searchText}); }}
-                    placeholder='Search movie/tv series/person'
-                    autoCorrect={false}
-                    clearButtonMode='while-editing'
-                    keyboardType='web-search'
-                />
                 <KeyboardSpacer/>
             </View>
         );

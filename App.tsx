@@ -1,10 +1,6 @@
-import { YellowBox, Image, Text, View, AsyncStorage, Modal, TouchableHighlight, Linking } from 'react-native';
-import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
+import { YellowBox, Image, Text, View, Modal, TouchableHighlight, Linking } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
-import DetailsScreen from './src/screens/DetailsScreen';
-import DrawerContainer from './src/components/DrawerContainer';
-import FilmographyScreen from './src/screens/FilmographyScreen';
-import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
@@ -42,7 +38,7 @@ export default class App extends React.Component<any> {
 
   handleUrl = ({url}: any) => {
       this.setState({
-          modalVisible: true,
+          // modalVisible: true,
           url
       });
   }
