@@ -35,7 +35,7 @@ export default class SearchResult extends React.Component<Props, any> {
     };
 
     componentDidMount() {
-        this.getImage(getPosterUrl(this.props.poster_path));
+        this.loadImage(this.props.poster_path);
     }
 
     handleOnPress = () => {
@@ -43,12 +43,13 @@ export default class SearchResult extends React.Component<Props, any> {
     }
 
     /**
-     * Tries to get the image from the given URL. It determines the width and height which
+     * Tries to load the image from the given URL. It determines the width and height which
      * is required in order to show the image. Otherwise it will be 0x0.
      * When all conditions are met the `image` state is set with a JSX Element triggering
      * a re-render.
      */
-    getImage = (url: string) => {
+    loadImage = async (posterPath: string|null|undefined) => {
+        const url = await getPosterUrl(posterPath);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({
@@ -57,7 +58,6 @@ export default class SearchResult extends React.Component<Props, any> {
                             style={{width, height, marginBottom: 10}}
                             resizeMode='contain'
                             source={{uri: url}}
-                            loadingIndicatorSource={require('../../assets/eyecon48x48grey.png')}
                         />
                     )
                 });
