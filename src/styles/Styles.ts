@@ -72,3 +72,19 @@ export const webViewStyle = StyleSheet.create({
         justifyContent: 'center',
     }
 });
+
+export const searchResultStyle = StyleSheet.create({
+    view: {
+        marginBottom: 15,
+        padding: 15,
+        backgroundColor: "#ff0",
+        borderRadius: 2,
+        shadowColor: "#000000",
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 0.3,
+        }
+    }
+});
