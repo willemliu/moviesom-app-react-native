@@ -52,8 +52,10 @@ export default class SearchScreen extends React.Component<any, any> {
                     renderItem={(data) => <SearchResult {...data.item} handleOnPress={this.handleOnPress}/>}
                 />
 
-                <Text onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')} style={textStyle.button}>Linking</Text>
-                <Text onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})} style={textStyle.button}>MovieSom</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Text onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')} style={textStyle.button}>Link external</Text>
+                    <Text onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})} style={textStyle.button}>MovieSom</Text>
+                </View>
                 <TextInput
                     style={{height: 40, width: '100%', paddingLeft: 5, paddingRight: 5, fontSize: 18, borderBottomColor: '#e1e1e1'}}
                     onChangeText={(searchText) => { this.setState({searchText}); }}

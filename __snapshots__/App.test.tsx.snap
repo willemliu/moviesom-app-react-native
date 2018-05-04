@@ -1963,56 +1963,64 @@ exports[`renders without crashing 1`] = `
                               />
                             </View>
                           </RCTScrollView>
-                          <Text
-                            accessible={true}
-                            allowFontScaling={true}
-                            ellipsizeMode="tail"
-                            onPress={[Function]}
+                          <View
                             style={
                               Object {
-                                "backgroundColor": "#008CBA",
-                                "borderColor": "#008CBA",
-                                "borderRadius": 3,
-                                "borderWidth": 1,
-                                "color": "#fff",
-                                "fontSize": 18,
-                                "fontWeight": "bold",
-                                "margin": 5,
-                                "paddingBottom": 10,
-                                "paddingLeft": 15,
-                                "paddingRight": 15,
-                                "paddingTop": 10,
-                                "textAlign": "center",
+                                "flexDirection": "row",
                               }
                             }
                           >
-                            Linking
-                          </Text>
-                          <Text
-                            accessible={true}
-                            allowFontScaling={true}
-                            ellipsizeMode="tail"
-                            onPress={[Function]}
-                            style={
-                              Object {
-                                "backgroundColor": "#008CBA",
-                                "borderColor": "#008CBA",
-                                "borderRadius": 3,
-                                "borderWidth": 1,
-                                "color": "#fff",
-                                "fontSize": 18,
-                                "fontWeight": "bold",
-                                "margin": 5,
-                                "paddingBottom": 10,
-                                "paddingLeft": 15,
-                                "paddingRight": 15,
-                                "paddingTop": 10,
-                                "textAlign": "center",
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              onPress={[Function]}
+                              style={
+                                Object {
+                                  "backgroundColor": "#008CBA",
+                                  "borderColor": "#008CBA",
+                                  "borderRadius": 3,
+                                  "borderWidth": 1,
+                                  "color": "#fff",
+                                  "fontSize": 18,
+                                  "fontWeight": "bold",
+                                  "margin": 5,
+                                  "paddingBottom": 10,
+                                  "paddingLeft": 15,
+                                  "paddingRight": 15,
+                                  "paddingTop": 10,
+                                  "textAlign": "center",
+                                }
                               }
-                            }
-                          >
-                            MovieSom
-                          </Text>
+                            >
+                              Link external
+                            </Text>
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              onPress={[Function]}
+                              style={
+                                Object {
+                                  "backgroundColor": "#008CBA",
+                                  "borderColor": "#008CBA",
+                                  "borderRadius": 3,
+                                  "borderWidth": 1,
+                                  "color": "#fff",
+                                  "fontSize": 18,
+                                  "fontWeight": "bold",
+                                  "margin": 5,
+                                  "paddingBottom": 10,
+                                  "paddingLeft": 15,
+                                  "paddingRight": 15,
+                                  "paddingTop": 10,
+                                  "textAlign": "center",
+                                }
+                              }
+                            >
+                              MovieSom
+                            </Text>
+                          </View>
                           <TextInput
                             allowFontScaling={true}
                             autoCorrect={false}
