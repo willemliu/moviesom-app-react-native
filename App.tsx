@@ -9,6 +9,7 @@ import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
 import DonateScreen from './src/screens/DonateScreen';
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
+import TMDb from './src/tmdb/TMDb';
 
 // YellowBox.ignoreWarnings([
 //   'Warning: componentWillMount is deprecated',
@@ -21,10 +22,13 @@ export default class App extends React.Component<any> {
     modalVisible: false
   };
 
+  private tmdb = new TMDb();
+
   constructor(props: any) {
       super(props);
       Linking.addEventListener('url', this.handleUrl);
       this.checkInitialUrl();
+      this.tmdb.getConfig();
   }
 
   checkInitialUrl = async () => {

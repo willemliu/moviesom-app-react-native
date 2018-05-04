@@ -44,9 +44,11 @@ export default class LoginScreen extends React.Component<any> {
                         secureTextEntry={true}
                         underlineColorAndroid={movieSomColor}
                     />
+                    <Text onPress={this.login} style={textStyle.button}>Login</Text>
+                    <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+                        <Text onPress={() => this.props.navigation.navigate('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
+                    </View>
                 </View>
-                <Text onPress={this.login} style={textStyle.button}>Login</Text>
-                <Text onPress={() => this.props.navigation.navigate('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
                 <KeyboardSpacer/>
             </View>
         );

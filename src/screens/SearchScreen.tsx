@@ -31,13 +31,6 @@ export default class SearchScreen extends React.Component<any, any> {
     keyExtractor = (item: any, index: number) => `${item.id}`;
 
     handleOnPress = (id: number) => {
-        this.setState((state: any) => {
-            // copy the map rather than modifying state.
-            const selected = new Map(state.selected);
-            selected.set(id, !selected.get(id)); // toggle
-            return {selected};
-        });
-
         this.props.navigation.navigate('Details', {depth: 0, id, name: id});
     }
 

@@ -11,7 +11,7 @@ export default class AboutScreen extends React.Component<any> {
         return (
             <View style={viewStyle.view}>
                 <Text>About {this.props.navigation.getParam('name')}.</Text>
-                <Text style={textStyle.button} onPress={() => this.props.navigation.navigate('Donate')}>Donate.</Text>
+                <Text style={textStyle.button} onPress={() => this.props.navigation.navigate('Donate')}>Donate</Text>
             </View>
         );
     }
