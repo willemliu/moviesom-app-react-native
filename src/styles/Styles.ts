@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const movieSomColor = '#008CBA';
 
@@ -46,11 +46,29 @@ export const textStyle = StyleSheet.create({
         borderRadius: 3,
         borderColor: movieSomColor,
         borderWidth: 1,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     smallLink: {
         marginTop: 15,
         fontSize: 12,
         color: movieSomColor,
+    }
+});
+
+export const webViewStyle = StyleSheet.create({
+    webView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        marginTop: (Platform.OS) === 'ios' ? 20 : 0,
+    },
+    activityIndicator: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
