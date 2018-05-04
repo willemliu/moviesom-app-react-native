@@ -23,11 +23,11 @@ export default class LoginScreen extends React.Component<any> {
     render() {
         return (
             <View style={viewStyle.view}>
-                <View style={{flex: 1, flexDirection: 'column', width: '80%', maxWidth: 400, justifyContent: 'center'}}>
+                <View style={viewStyle.formView}>
                     <TextInput
                         accessibilityLabel='E-mail address'
                         style={textInputStyle.textInput}
-                        onChangeText={(searchText) => { this.setState({searchText}); }}
+                        onChangeText={(email) => { this.setState({email}); }}
                         placeholder='E-mail'
                         autoCorrect={false}
                         clearButtonMode='always'

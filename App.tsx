@@ -9,7 +9,7 @@ import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
 import DonateScreen from './src/screens/DonateScreen';
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
-import TMDb from './src/tmdb/TMDb';
+import {getConfig} from './src/tmdb/TMDb';
 
 // YellowBox.ignoreWarnings([
 //   'Warning: componentWillMount is deprecated',
@@ -22,13 +22,11 @@ export default class App extends React.Component<any> {
     modalVisible: false
   };
 
-  private tmdb = new TMDb();
-
   constructor(props: any) {
       super(props);
       Linking.addEventListener('url', this.handleUrl);
       this.checkInitialUrl();
-      this.tmdb.getConfig();
+      getConfig();
   }
 
   checkInitialUrl = async () => {
@@ -102,7 +100,7 @@ const StackNav = StackNavigator({
 }, {
     navigationOptions: ({navigation}) => ({
       title: 'MovieSom',
-      headerTitle: <View style={headerStyle.view}><Image style={headerStyle.image} resizeMode="center" resizeMethod="scale" source={require('./img/title.png')}/></View>,
+      headerTitle: <View style={headerStyle.view}><Image style={headerStyle.image} resizeMode="center" source={require('./img/title.png')}/></View>,
       headerStyle: {
         backgroundColor: '#008CBA',
       },

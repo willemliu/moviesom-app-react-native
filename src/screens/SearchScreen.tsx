@@ -1,36 +1,38 @@
 import React from 'react';
 import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList} from 'react-native';
-import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle} from "../styles/Styles";
+import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import SearchResult from '../components/SearchResult';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { get } from '../tmdb/TMDb';
 
 export default class SearchScreen extends React.Component<any, any> {
     static navigationOptions = {
         title: 'Search',
+        data: []
     };
 
-    state: any;
-
     data: any[] = [];
+    state: any = {data: this.data};
 
     constructor(props: any) {
         super(props);
-        for (let i = 0; i < 100; ++i) {
-            this.data.push({
-                id: i,
-                title: `title${i}`,
-                description: `Description${i} Description Description Description Description Description Description Description Description Description Description`
-            });
-        }
-        this.state = {
-            selected: new Map<string, boolean>(),
-            data: this.data
-        };
+    }
+
+    componentDidMount() {
+        this.getInitialData();
+    }
+
+    getInitialData = async () => {
+        const upcoming = await get('/movie/now_playing').then((data) => data.json());
+        this.setState({
+            data: upcoming.results
+        });
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}`;
 
-    handleOnPress = (id: number) => {
+    handleOnPress = (id: number|null|undefined) => {
+        if (id === null || id === undefined) { return ; }
         this.props.navigation.navigate('Details', {depth: 0, id, name: id});
     }
 
@@ -48,13 +50,13 @@ export default class SearchScreen extends React.Component<any, any> {
                 <View style={{flexDirection: 'row', borderColor: '#008CBA', borderWidth: 2, borderTopLeftRadius: 3, borderTopRightRadius: 3, width: '100%'}}>
                     <TextInput
                         accessibilityLabel='Search movie or tv series or person'
-                        style={textInputStyle.textInput}
+                        style={searchScreenStyle.searchInput}
                         onChangeText={(searchText) => { this.setState({searchText}); }}
                         placeholder='Search movie/tv series/person'
                         autoCorrect={false}
                         clearButtonMode='always'
                         keyboardType='web-search'
-                        underlineColorAndroid={movieSomColor}
+                        underlineColorAndroid={transparentColor}
                     />
                 </View>
                 <KeyboardSpacer/>

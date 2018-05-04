@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 
 export const movieSomColor = '#008CBA';
+export const transparentColor = 'transparent';
 
 export const viewStyle = StyleSheet.create({
     view: {
@@ -18,6 +19,13 @@ export const viewStyle = StyleSheet.create({
     scrollView: {
         backgroundColor: '#fff',
     },
+    formView: {
+        flex: 1,
+        flexDirection: 'column',
+        width: '80%',
+        maxWidth: 400,
+        justifyContent: 'center'
+    }
 });
 
 export const headerStyle = StyleSheet.create({
@@ -28,7 +36,7 @@ export const headerStyle = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        flex: 1,
+        height: 20
     },
 });
 
@@ -58,7 +66,7 @@ export const textStyle = StyleSheet.create({
 
 export const textInputStyle = StyleSheet.create({
     textInput: {
-        height: 50,
+        height: 40,
         paddingLeft: 5,
         paddingRight: 5,
         paddingBottom: 10,
@@ -99,23 +107,37 @@ export const searchScreenStyle = StyleSheet.create({
         flex: 1,
         width: '100%',
         backgroundColor: '#323232',
-    }
+    },
+    searchInput: {
+        height: 40,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 10,
+        marginTop: 5,
+        fontSize: 18,
+        width: '100%',
+    },
 });
 
 export const searchResultStyle = StyleSheet.create({
     view: {
         marginTop: 10,
-        paddingTop: 10,
-        paddingBottom: 10,
+        padding: 10,
         backgroundColor: "#fff",
         borderRadius: 3,
     },
     title: {
         fontSize: 18,
         marginBottom: 5,
+        marginLeft: 10,
+    },
+    overview: {
+        marginLeft: 10,
     },
     image: {
-        width: 75,
-        marginRight: 10,
+        flex: 0,
+        width: 92,
+        height: 168,
+        backgroundColor: '#f00',
     },
 });

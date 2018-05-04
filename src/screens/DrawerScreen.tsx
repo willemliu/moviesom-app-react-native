@@ -17,7 +17,7 @@ contentComponent: DrawerContainer,
             backgroundColor: '#008CBA',
         },
         headerLeft: (
-            <TouchableOpacity style={{padding: 10}} onPress={async () => {
+            <TouchableOpacity style={{paddingLeft: 5}} onPress={async () => {
                 navigation.navigate('DrawerToggle', {
                     loggedIn: await AsyncStorage.getItem('loggedIn')
                 });

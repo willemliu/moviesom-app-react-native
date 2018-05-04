@@ -26,7 +26,6 @@ const HomeTabNav = TabNavigator({
         }
     },
 }, {
-    lazy: false,
     tabBarPosition: 'bottom',
     tabBarOptions: {
         style: {
