@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, AsyncStorage, Linking } from 'react-native';
+import { Text, View, AsyncStorage, Linking, TouchableNativeFeedback, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle} from "../styles/Styles";
+import TouchTextButton from './TouchTextButton';
 
 export default class DrawerContainer extends React.Component<any, any> {
     props: any;
@@ -38,35 +39,45 @@ export default class DrawerContainer extends React.Component<any, any> {
         const { navigation } = this.props;
         return (
             <View style={viewStyle.drawer}>
-                <Text
+                <TouchTextButton
+                    style={textStyle.button}
                     onPress={() => navigation.navigate('Home')}
-                    style={textStyle.button}>
-                        Home
-                </Text>
-                {this.state.loggedIn ? null : <Text
-                    onPress={() => navigation.navigate('Login')}
-                    style={textStyle.button}>
-                        Login
-                </Text>}
-                {this.state.loggedIn ? null : <Text
-                    onPress={() => navigation.navigate('SignUp')}
-                    style={textStyle.button}>
-                        Sign up
-                </Text>}
-                {this.state.loggedIn ? <Text
-                    onPress={this.logOut}
-                    style={textStyle.button}>
-                        Logout
-                </Text> : null}
+                >Home</TouchTextButton>
 
-                <Text onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')} style={textStyle.button}>Link external</Text>
-                <Text onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})} style={textStyle.button}>MovieSom</Text>
+                {this.state.loggedIn ? null : (
+                    <TouchTextButton
+                        style={textStyle.button}
+                        onPress={() => navigation.navigate('Login')}
+                    >Login</TouchTextButton>
+                )}
 
-                <Text
+                {this.state.loggedIn ? null : (
+                    <TouchTextButton
+                        style={textStyle.button}
+                        onPress={() => navigation.navigate('SignUp')}
+                    >Sign up</TouchTextButton>
+                )}
+
+                {this.state.loggedIn ? (
+                    <TouchTextButton
+                        style={textStyle.button}
+                        onPress={this.logOut}
+                    >Log out</TouchTextButton>
+                ) : null}
+
+                <TouchTextButton
+                    style={textStyle.button}
+                    onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')}
+                >Link external</TouchTextButton>
+                <TouchTextButton
+                    style={textStyle.button}
+                    onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})}
+                >MovieSom</TouchTextButton>
+
+                <TouchTextButton
+                    style={textStyle.button}
                     onPress={() => navigation.navigate('About', {name: 'Willem Liu'})}
-                    style={textStyle.button}>
-                        About
-                </Text>
+                >About</TouchTextButton>
             </View>
         );
     }

@@ -61,7 +61,7 @@ export const textStyle = StyleSheet.create({
         marginBottom: 10,
         fontSize: 12,
         color: movieSomColor,
-    }
+    },
 });
 
 export const textInputStyle = StyleSheet.create({
@@ -129,10 +129,10 @@ export const searchResultStyle = StyleSheet.create({
     title: {
         fontSize: 18,
         marginBottom: 5,
-        marginLeft: 10,
+        marginLeft: 5,
     },
     overview: {
-        marginLeft: 10,
+        marginLeft: 5,
     },
     image: {
         flex: 0,

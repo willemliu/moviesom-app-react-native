@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, AsyncStorage, TextInput } from 'react-native';
+import { StyleSheet, Image, Text, View, AsyncStorage, TextInput, TouchableNativeFeedback, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import TouchTextButton from '../components/TouchTextButton';
 
 export default class LoginScreen extends React.Component<any> {
     static navigationOptions = {
@@ -44,8 +45,14 @@ export default class LoginScreen extends React.Component<any> {
                         secureTextEntry={true}
                         underlineColorAndroid={movieSomColor}
                     />
-                    <Text onPress={this.login} style={textStyle.button}>Login</Text>
-                    <View style={{alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+                    <TouchTextButton
+                        style={textStyle.button}
+                        onPress={this.login}
+                    >Login</TouchTextButton>
+
+                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
+                        <Text onPress={() => this.props.navigation.navigate('SignUp')} style={textStyle.smallLink}>Sign up</Text>
+                        <Text style={textStyle.smallLink}> | </Text>
                         <Text onPress={() => this.props.navigation.navigate('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
                     </View>
                 </View>

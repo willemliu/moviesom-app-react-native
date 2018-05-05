@@ -1,9 +1,10 @@
-import {TouchableOpacity, View, Text, Image} from 'react-native';
+import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor } from '../styles/Styles';
 import { getPosterUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
+import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 
 export interface Props {
     handleOnPress: (id: number|null|undefined) => void;
@@ -21,6 +22,7 @@ export interface Props {
     vote_count?: number;
     video?: boolean;
     vote_average?: number;
+    navigation: NavigationScreenProp<NavigationRoute>;
 }
 
 export default class SearchResult extends React.Component<Props, any> {
@@ -55,7 +57,13 @@ export default class SearchResult extends React.Component<Props, any> {
                 this.setState({
                     image: (
                         <Image
-                            style={{width, height, marginBottom: 10}}
+                            style={{
+                                width,
+                                height,
+                                maxWidth: width / 2,
+                                maxHeight: height / 2,
+                                alignSelf: 'baseline',
+                                marginBottom: 10}}
                             resizeMode='contain'
                             source={{uri: url}}
                         />
@@ -65,35 +73,94 @@ export default class SearchResult extends React.Component<Props, any> {
         }
     }
 
+    watched = async () => {
+        const loggedIn = await AsyncStorage.getItem('loggedIn');
+        if (loggedIn) {
+            alert('watched');
+        } else {
+            this.props.navigation.navigate('Login');
+        }
+    }
+
+    unwatched = async () => {
+        const loggedIn = await AsyncStorage.getItem('loggedIn');
+        if (loggedIn) {
+            alert('unwatched');
+        } else {
+            this.props.navigation.navigate('Login');
+        }
+    }
+
+    wantToWatch = async () => {
+        const loggedIn = await AsyncStorage.getItem('loggedIn');
+        if (loggedIn) {
+            alert('want to watch');
+        } else {
+            this.props.navigation.navigate('Login');
+        }
+    }
+
+    share = async () => {
+        const loggedIn = await AsyncStorage.getItem('loggedIn');
+        if (loggedIn) {
+            alert('share');
+        } else {
+            this.props.navigation.navigate('Login');
+        }
+    }
+
     render() {
         return (
-            <TouchableOpacity onPress={this.handleOnPress} activeOpacity={0.9}>
+            <TouchableNativeFeedback
+                onPress={this.handleOnPress}
+                background={TouchableNativeFeedback.SelectableBackground()}
+            >
                 <View style={searchResultStyle.view}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
-                        <View style={{flex: 1}}>
+                    <View style={{flex: 0, flexDirection: 'row'}}>
+                        <View style={{flex: 2}}>
                             {this.state.image}
-                            <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center'}}>
-                                <TouchableOpacity style={{flex: 0}} onPress={() => alert('test')} activeOpacity={0.9}>
-                                    <MaterialIcons name="add-circle-outline" size={32} color={movieSomColor}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{flex: 0}} onPress={() => alert('test2')} activeOpacity={0.9}>
-                                    <MaterialIcons name="remove-circle-outline" size={32} color={movieSomColor}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{flex: 0}} onPress={() => alert('test3')} activeOpacity={0.9}>
-                                    <MaterialIcons name="star-border" size={32} color={movieSomColor}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{flex: 0}} onPress={() => alert('test4')} activeOpacity={0.9}>
-                                    <MaterialIcons name="share" size={32} color={movieSomColor}/>
-                                </TouchableOpacity>
-                            </View>
                         </View>
-                        <View style={{flex: 3, marginLeft: 10}}>
+                        <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}>{this.props.title} ({format(parse(this.props.release_date as string), 'YYYY')})</Text>
                             <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
                         </View>
                     </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        alignItems: 'center'}}>
+                        <TouchableNativeFeedback
+                            style={{flex: 0}}
+                            onPress={this.watched}
+                            background={TouchableNativeFeedback.SelectableBackground()}
+                        >
+                            <View><MaterialIcons name="add-circle-outline" size={32} color={movieSomColor}/></View>
+                        </TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            style={{flex: 0}}
+                            onPress={this.unwatched}
+                            background={TouchableNativeFeedback.SelectableBackground()}
+                        >
+                            <View><MaterialIcons name="remove-circle-outline" size={32} color={movieSomColor}/></View>
+                        </TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            style={{flex: 0}}
+                            onPress={this.wantToWatch}
+                            background={TouchableNativeFeedback.SelectableBackground()}
+                        >
+                            <View><MaterialIcons name="star-border" size={32} color={movieSomColor}/></View>
+                        </TouchableNativeFeedback>
+                        <TouchableNativeFeedback
+                            style={{flex: 0}}
+                            onPress={this.share}
+                            background={TouchableNativeFeedback.SelectableBackground()}
+                        >
+                            <View><MaterialIcons name="share" size={32} color={movieSomColor}/></View>
+                        </TouchableNativeFeedback>
+                    </View>
                 </View>
-            </TouchableOpacity>
+            </TouchableNativeFeedback>
         );
     }
 }
