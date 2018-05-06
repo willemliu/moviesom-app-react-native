@@ -99,6 +99,12 @@ export const searchScreenStyle = StyleSheet.create({
         fontSize: 18,
         width: '100%',
     },
+    searchBar: {
+        flexDirection: 'row',
+        borderColor: '#008CBA',
+        borderWidth: 2,
+        width: '100%',
+    },
 });
 
 export const searchResultStyle = StyleSheet.create({

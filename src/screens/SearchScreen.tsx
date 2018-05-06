@@ -62,8 +62,8 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     search = async (searchText: string = this.searchText) => {
-        console.log('search text', searchText);
         if (searchText) {
+            this.searchText = this.searchText;
             await this.getSearchMulti();
         } else {
             await this.getNowPlaying();
@@ -98,7 +98,6 @@ export default class SearchScreen extends React.Component<any, any> {
 
     getSearchResultTemplate = (data: any): JSX.Element|null => {
         const item  = Object.assign({}, {media_type: 'movie'}, data.item, );
-        console.log(item.media_type);
         let result = null;
         switch (item.media_type) {
             case 'tv':
@@ -148,7 +147,7 @@ export default class SearchScreen extends React.Component<any, any> {
                     onEndReached={this.loadNextPage}
                 />
 
-                <View style={{flexDirection: 'row', borderColor: '#008CBA', borderWidth: 2, borderTopLeftRadius: 3, borderTopRightRadius: 3, width: '100%'}}>
+                <View style={searchScreenStyle.searchBar}>
                     <TextInput
                         accessibilityLabel='Search movie or tv series or person'
                         style={searchScreenStyle.searchInput}

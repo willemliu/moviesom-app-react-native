@@ -111,7 +111,6 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     }
 
     render() {
-        console.log(this.props.media_type);
         if (this.props.media_type !== 'movie') { return null; }
         return (
             <TouchableNativeFeedback
