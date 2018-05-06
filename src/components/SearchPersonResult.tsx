@@ -26,7 +26,7 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                     width: 46,
                     height: 68,
                 }}
-                resizeMode='contain'
+                resizeMode='cover'
                 source={require('../../assets/eyecon256x256.png')}
             />
         )
@@ -57,7 +57,7 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                                 width: Math.min(width / 2, 46),
                                 height: Math.min(height / 2, 68),
                             }}
-                            resizeMode='contain'
+                            resizeMode='cover'
                             source={{uri: url}}
                         />
                     )

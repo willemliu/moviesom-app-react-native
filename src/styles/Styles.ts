@@ -81,6 +81,7 @@ export const webViewStyle = StyleSheet.create({
         bottom: 0,
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex: 1,
     }
 });
 
