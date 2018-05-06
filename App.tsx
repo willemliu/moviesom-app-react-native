@@ -13,11 +13,13 @@ import {getConfig} from './src/tmdb/TMDb';
 import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
 import TvDetailsScreen from './src/screens/TvDetailsScreen';
 import TouchTextButton from './src/components/TouchTextButton';
+import { dataStore, DataContext } from './src/contexts/DataContext';
 
 export default class App extends React.Component<any> {
 
   state: any = {
     modalVisible: false,
+    store: dataStore
   };
 
   constructor(props: any) {
@@ -25,6 +27,11 @@ export default class App extends React.Component<any> {
       Linking.addEventListener('url', this.handleUrl);
       this.checkInitialUrl();
       getConfig();
+      if (this.state.store.addListener) { this.state.store.addListener(this.dataUpdateListener); }
+  }
+
+  dataUpdateListener = (data: any) => {
+    console.log('App received data update');
   }
 
   checkInitialUrl = async () => {
@@ -66,7 +73,9 @@ export default class App extends React.Component<any> {
                 </View>
             </View>
         </Modal>
-        <StackNav/>
+        <DataContext.Provider value={this.state.store}>
+          <StackNav/>
+        </DataContext.Provider>
       </View>
     );
   }

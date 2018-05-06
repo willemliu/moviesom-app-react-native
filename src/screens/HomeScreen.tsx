@@ -6,7 +6,7 @@ import { withData } from '../contexts/DataContext';
 
 const HomeTabNav = TabNavigator({
     Search: {
-        screen: SearchScreen,
+        screen: withData(SearchScreen),
         navigationOptions: {
             title: 'Search',
             tabBarIcon: <MaterialIcons name="search" size={32} color='#fff'/>

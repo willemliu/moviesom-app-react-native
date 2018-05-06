@@ -25,16 +25,26 @@ export default class SearchScreen extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
+        if (this.props.addListener) { this.props.addListener(this.dataUpdateListener); }
     }
 
     componentDidMount() {
         this.getNowPlaying();
     }
 
+    shouldComponentUpdate(nextProps: any, nextState: any) {
+        return (this.state.data !== nextState.data);
+    }
+
+    dataUpdateListener = (data: any) => {
+        console.log('SearchScreen received update event');
+    }
+
     getNowPlaying = async (page: number = 1) => {
         this.loadingPage.push(page);
         const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
+        if (this.props.addMovies) { this.props.addMovies(data.results); }
         this.setState({
             data: (page === 1) ? data.results : this.state.data.concat(...data.results)
         });
