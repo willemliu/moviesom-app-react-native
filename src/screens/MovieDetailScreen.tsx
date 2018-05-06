@@ -16,6 +16,7 @@ export default class MovieDetailScreen extends React.Component<any> {
                     <View style={{backgroundColor: '#fff'}}>
                         <Text style={searchResultStyle.title}>{navigation.getParam('title')}</Text>
                         <Text style={searchResultStyle.overview}>{navigation.getParam('overview')}</Text>
+                        <TouchTextButton onPress={this.props.watched}>Show data</TouchTextButton>
                         <TouchTextButton
                             onPress={() => Share.share({
                                 title: navigation.getParam('title'),

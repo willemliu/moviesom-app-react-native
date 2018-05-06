@@ -17,7 +17,7 @@ import TouchTextButton from './src/components/TouchTextButton';
 export default class App extends React.Component<any> {
 
   state: any = {
-    modalVisible: false
+    modalVisible: false,
   };
 
   constructor(props: any) {

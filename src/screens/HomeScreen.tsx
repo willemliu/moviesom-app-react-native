@@ -2,6 +2,7 @@ import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import SearchScreen from './SearchScreen';
 import { MaterialIcons } from '@expo/vector-icons';
+import { withData } from '../contexts/DataContext';
 
 const HomeTabNav = TabNavigator({
     Search: {

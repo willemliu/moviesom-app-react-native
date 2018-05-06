@@ -33,26 +33,26 @@ export default class SearchScreen extends React.Component<any, any> {
 
     getNowPlaying = async (page: number = 1) => {
         this.loadingPage.push(page);
-        const upcoming = await get('/movie/now_playing', `page=${page}`).then((data) => data.json());
+        const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.setState({
-            data: (page === 1) ? upcoming.results : this.state.data.concat(...upcoming.results)
+            data: (page === 1) ? data.results : this.state.data.concat(...data.results)
         });
-        this.page = parseInt(upcoming.page, 10);
-        this.totalPages = parseInt(upcoming.total_pages, 10);
-        this.totalResults = parseInt(upcoming.total_results, 10);
+        this.page = parseInt(data.page, 10);
+        this.totalPages = parseInt(data.total_pages, 10);
+        this.totalResults = parseInt(data.total_results, 10);
     }
 
     getSearchMulti = async (page: number = 1) => {
         this.loadingPage.push(page);
-        const upcoming = await get('/search/multi', `page=${page}&query=${encodeURI(this.searchText)}`).then((data) => data.json());
+        const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.searchText)}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.setState({
-            data: (page === 1) ? upcoming.results : this.state.data.concat(...upcoming.results)
+            data: (page === 1) ? data.results : this.state.data.concat(...data.results)
         });
-        this.page = parseInt(upcoming.page, 10);
-        this.totalPages = parseInt(upcoming.total_pages, 10);
-        this.totalResults = parseInt(upcoming.total_results, 10);
+        this.page = parseInt(data.page, 10);
+        this.totalPages = parseInt(data.total_pages, 10);
+        this.totalResults = parseInt(data.total_results, 10);
     }
 
     loadNextPage = async () => {
