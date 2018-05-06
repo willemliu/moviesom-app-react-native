@@ -13,7 +13,6 @@ export default class AboutScreen extends React.Component<any> {
             <View style={viewStyle.view}>
                 <Text>MovieSom app developed by {this.props.navigation.getParam('name')}.</Text>
                 <TouchTextButton
-                    style={textStyle.button}
                     onPress={() => this.props.navigation.navigate('Donate')}
                 >Donate</TouchTextButton>
             </View>

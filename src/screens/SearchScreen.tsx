@@ -11,28 +11,53 @@ export default class SearchScreen extends React.Component<any, any> {
         data: []
     };
 
-    data: any[] = [];
     state: any = {
-        data: this.data,
+        searchTimestamp: new Date().getTime(),
+        data: [],
         refreshing: false
     };
+    private page = 1;
+    private totalPages = 1;
+    private totalResults = 1;
+    private loadingPage: number[] = [];
 
     constructor(props: any) {
         super(props);
     }
 
     componentDidMount() {
-        this.getInitialData();
+        this.getNowPlaying();
     }
 
-    getInitialData = async () => {
-        const upcoming = await get('/movie/now_playing').then((data) => data.json());
+    getNowPlaying = async (page: number = 1) => {
+        this.loadingPage.push(page);
+        const upcoming = await get('/movie/now_playing', `page=${page}`).then((data) => data.json());
+        this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.setState({
-            data: upcoming.results
+            // searchTimestamp: new Date().getTime(),
+            data: this.state.data.concat(...upcoming.results)
         });
+        this.page = parseInt(upcoming.page, 10);
+        this.totalPages = parseInt(upcoming.total_pages, 10);
+        this.totalResults = parseInt(upcoming.total_results, 10);
     }
 
-    keyExtractor = (item: any, index: number) => `${item.id}`;
+    loadNextPage = async () => {
+        if (this.page < this.totalPages && this.loadingPage.indexOf(this.page) === -1) {
+            await this.getNowPlaying(this.page + 1);
+        }
+    }
+
+    search = async () => {
+        if (this.state.searchText) {
+            this.getNowPlaying();
+        } else {
+            this.setState({data: []});
+            // this.setState({searchTimestamp: new Date().getTime()});
+        }
+    }
+
+    keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     handleOnPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
@@ -48,6 +73,7 @@ export default class SearchScreen extends React.Component<any, any> {
                     data={this.state.data}
                     extraData={this.state}
                     keyExtractor={this.keyExtractor}
+                    initialNumToRender={4}
                     renderItem={(data) => (
                         <SearchResult
                             {...data.item}
@@ -55,12 +81,9 @@ export default class SearchScreen extends React.Component<any, any> {
                             navigation={this.props.navigation}
                         />
                     )}
-                    refreshControl={(
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={() => {setTimeout(() => { this.setState({refreshing: false}); }, 1000); }}
-                        />
-                    )}
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.search}
+                    onEndReached={this.loadNextPage}
                 />
 
                 <View style={{flexDirection: 'row', borderColor: '#008CBA', borderWidth: 2, borderTopLeftRadius: 3, borderTopRightRadius: 3, width: '100%'}}>

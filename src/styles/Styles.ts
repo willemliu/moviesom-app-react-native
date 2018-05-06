@@ -16,9 +16,6 @@ export const viewStyle = StyleSheet.create({
         paddingTop: 15,
         paddingHorizontal: 15,
     },
-    scrollView: {
-        backgroundColor: '#fff',
-    },
     formView: {
         flex: 1,
         flexDirection: 'column',
@@ -41,21 +38,6 @@ export const headerStyle = StyleSheet.create({
 });
 
 export const textStyle = StyleSheet.create({
-    button: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        backgroundColor: movieSomColor,
-        color: '#fff',
-        paddingTop: 10,
-        paddingRight: 15,
-        paddingBottom: 10,
-        paddingLeft: 15,
-        margin: 5,
-        borderRadius: 3,
-        borderColor: movieSomColor,
-        borderWidth: 1,
-        textAlign: 'center',
-    },
     smallLink: {
         marginTop: 10,
         marginBottom: 10,
@@ -139,5 +121,25 @@ export const searchResultStyle = StyleSheet.create({
         width: 92,
         height: 168,
         backgroundColor: '#f00',
+    },
+});
+
+export const touchTextButtonStyle = StyleSheet.create({
+    view: {
+        backgroundColor: movieSomColor,
+        paddingTop: 10,
+        paddingRight: 15,
+        paddingBottom: 10,
+        paddingLeft: 15,
+        margin: 5,
+        borderRadius: 3,
+        borderColor: movieSomColor,
+        borderWidth: 1,
+    },
+    text: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#fff',
+        textAlign: 'center',
     },
 });

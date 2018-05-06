@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, TouchableNativeFeedback, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle} from "../styles/Styles";
 
@@ -19,16 +19,12 @@ export default class FilmographyScreen extends React.Component<any> {
 
     render() {
         return (
-            <ScrollView style={viewStyle.scrollView}>
-                <Text>Filmography</Text>
-                <Text>Depth {this.props.navigation.getParam('depth')}.</Text>
-                <Text>Filmography {this.props.navigation.getParam('name')}.</Text>
-                <Text onPress={() => this.filmography({
-                    depth: this.props.navigation.getParam('depth') + 1,
-                    name: this.props.navigation.getParam('name')
-                    })
-                } style={textStyle.button}>Filmography {this.props.navigation.getParam('depth') + 1}</Text>
-
+            <ScrollView style={{backgroundColor: '#fff'}}>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
+                    <View style={{backgroundColor: '#fff'}}>
+                        <Text>Filmography</Text>
+                    </View>
+                </TouchableNativeFeedback>
             </ScrollView>
         );
     }

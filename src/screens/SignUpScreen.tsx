@@ -3,6 +3,7 @@ import { StyleSheet, Image, Text, View, AsyncStorage, TextInput } from 'react-na
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import TouchTextButton from '../components/TouchTextButton';
 
 export default class SignUpScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -70,7 +71,7 @@ export default class SignUpScreen extends React.Component<any, any> {
                         secureTextEntry={true}
                         underlineColorAndroid={this.state.passwordsMatch ? movieSomColor : '#f00'}
                     />
-                    <Text onPress={this.login} style={textStyle.button}>Sign up</Text>
+                    <TouchTextButton onPress={this.login}>Sign up</TouchTextButton>
                 </View>
                 <KeyboardSpacer/>
             </View>

@@ -1,4 +1,4 @@
-import { YellowBox, Image, Text, View, Modal, TouchableHighlight, Linking } from 'react-native';
+import { Image, Text, View, Modal, TouchableHighlight, Linking } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -10,11 +10,6 @@ import DonateScreen from './src/screens/DonateScreen';
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
 import {getConfig} from './src/tmdb/TMDb';
-
-// YellowBox.ignoreWarnings([
-//   'Warning: componentWillMount is deprecated',
-//   'Warning: componentWillReceiveProps is deprecated',
-// ]);
 
 export default class App extends React.Component<any> {
 

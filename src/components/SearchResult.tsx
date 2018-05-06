@@ -25,7 +25,7 @@ export interface Props {
     navigation: NavigationScreenProp<NavigationRoute>;
 }
 
-export default class SearchResult extends React.Component<Props, any> {
+export default class SearchResult extends React.PureComponent<Props, any> {
     state: any = {
         image: (
             <Image
@@ -58,10 +58,8 @@ export default class SearchResult extends React.Component<Props, any> {
                     image: (
                         <Image
                             style={{
-                                width,
-                                height,
-                                maxWidth: width / 2,
-                                maxHeight: height / 2,
+                                width: width / 2,
+                                height: height / 2,
                                 alignSelf: 'baseline',
                                 marginBottom: 10}}
                             resizeMode='contain'
@@ -76,7 +74,7 @@ export default class SearchResult extends React.Component<Props, any> {
     watched = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert('watched');
+            alert(`watched ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -85,7 +83,7 @@ export default class SearchResult extends React.Component<Props, any> {
     unwatched = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert('unwatched');
+            alert(`unwatched ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -94,7 +92,7 @@ export default class SearchResult extends React.Component<Props, any> {
     wantToWatch = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert('want to watch');
+            alert(`want to watch ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -103,7 +101,7 @@ export default class SearchResult extends React.Component<Props, any> {
     share = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert('share');
+            alert(`share ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -122,7 +120,7 @@ export default class SearchResult extends React.Component<Props, any> {
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}>{this.props.title} ({format(parse(this.props.release_date as string), 'YYYY')})</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
+                            <Text style={searchResultStyle.overview} numberOfLines={3}>{this.props.overview}</Text>
                         </View>
                     </View>
                     <View style={{
@@ -135,28 +133,28 @@ export default class SearchResult extends React.Component<Props, any> {
                             onPress={this.watched}
                             background={TouchableNativeFeedback.SelectableBackground()}
                         >
-                            <View><MaterialIcons name="add-circle-outline" size={32} color={movieSomColor}/></View>
+                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="add-circle-outline" size={32} color={movieSomColor}/></View>
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
                             style={{flex: 0}}
                             onPress={this.unwatched}
                             background={TouchableNativeFeedback.SelectableBackground()}
                         >
-                            <View><MaterialIcons name="remove-circle-outline" size={32} color={movieSomColor}/></View>
+                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="remove-circle-outline" size={32} color={movieSomColor}/></View>
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
                             style={{flex: 0}}
                             onPress={this.wantToWatch}
                             background={TouchableNativeFeedback.SelectableBackground()}
                         >
-                            <View><MaterialIcons name="star-border" size={32} color={movieSomColor}/></View>
+                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="star-border" size={32} color={movieSomColor}/></View>
                         </TouchableNativeFeedback>
                         <TouchableNativeFeedback
                             style={{flex: 0}}
                             onPress={this.share}
                             background={TouchableNativeFeedback.SelectableBackground()}
                         >
-                            <View><MaterialIcons name="share" size={32} color={movieSomColor}/></View>
+                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="share" size={32} color={movieSomColor}/></View>
                         </TouchableNativeFeedback>
                     </View>
                 </View>
