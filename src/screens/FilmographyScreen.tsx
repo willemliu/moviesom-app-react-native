@@ -10,7 +10,7 @@ export default class FilmographyScreen extends React.Component<any> {
 
     filmography = (params: any) => {
         const navigate = NavigationActions.navigate({
-            routeName: 'Details',
+            routeName: 'MovieDetails',
             params,
             // action: NavigationActions.navigate({ routeName: 'FilmographyScreen', params })
         });

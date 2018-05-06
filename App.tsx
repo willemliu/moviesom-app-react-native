@@ -10,6 +10,9 @@ import DonateScreen from './src/screens/DonateScreen';
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
 import {getConfig} from './src/tmdb/TMDb';
+import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
+import TvDetailsScreen from './src/screens/TvDetailsScreen';
+import TouchTextButton from './src/components/TouchTextButton';
 
 export default class App extends React.Component<any> {
 
@@ -57,10 +60,9 @@ export default class App extends React.Component<any> {
             <View style={viewStyle.view}>
                 <View>
                     <Text>URL: {this.state.url}</Text>
-                    <TouchableHighlight
-                        onPress={this.hideModal}>
-                        <Text style={textStyle.button}>Close</Text>
-                    </TouchableHighlight>
+                    <TouchTextButton
+                        onPress={this.hideModal}>Close
+                    </TouchTextButton>
                 </View>
             </View>
         </Modal>
@@ -77,7 +79,13 @@ const StackNav = StackNavigator({
     About: {
       screen: AboutScreen,
     },
-    Details: {
+    MovieDetails: {
+      screen: MovieDetailsScreen,
+    },
+    TvDetails: {
+      screen: TvDetailsScreen,
+    },
+    PersonDetails: {
       screen: PersonDetailsScreen,
     },
     Donate: {

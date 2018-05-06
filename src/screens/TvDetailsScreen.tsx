@@ -1,21 +1,21 @@
-import PersonDetailScreen from './PersonDetailScreen';
+import TvDetailScreen from './TvDetailScreen';
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';
 
-const MovieDetailsTabNav = TabNavigator({
+const DetailsTabNav = TabNavigator({
     DetailsScreen: {
-      screen: PersonDetailScreen
+      screen: TvDetailScreen
     },
-    FilmographyScreen: {
+    Crew: {
       screen: FilmographyScreen,
       navigationOptions: {
-        title: 'Filmography',
+        title: 'Cast & Crew',
       }
     },
-    Pictures: {
+    Seasons: {
       screen: FilmographyScreen,
       navigationOptions: {
-        title: 'Pictures',
+        title: 'Seasons',
       }
     },
 }, {
@@ -34,4 +34,4 @@ const MovieDetailsTabNav = TabNavigator({
   backBehavior: 'none',
 });
 
-export default MovieDetailsTabNav;
+export default DetailsTabNav;

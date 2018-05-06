@@ -1,9 +1,11 @@
 import React from 'react';
 import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList, RefreshControl, TouchableNativeFeedback} from 'react-native';
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
-import SearchResult from '../components/SearchResult';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
+import SearchMovieResult from '../components/SearchMovieResult';
+import SearchTvResult from '../components/SearchTvResult';
+import SearchPersonResult from '../components/SearchPersonResult';
 
 export default class SearchScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -12,10 +14,10 @@ export default class SearchScreen extends React.Component<any, any> {
     };
 
     state: any = {
-        searchTimestamp: new Date().getTime(),
         data: [],
         refreshing: false
     };
+    private searchText: string = '';
     private page = 1;
     private totalPages = 1;
     private totalResults = 1;
@@ -34,8 +36,19 @@ export default class SearchScreen extends React.Component<any, any> {
         const upcoming = await get('/movie/now_playing', `page=${page}`).then((data) => data.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.setState({
-            // searchTimestamp: new Date().getTime(),
-            data: this.state.data.concat(...upcoming.results)
+            data: (page === 1) ? upcoming.results : this.state.data.concat(...upcoming.results)
+        });
+        this.page = parseInt(upcoming.page, 10);
+        this.totalPages = parseInt(upcoming.total_pages, 10);
+        this.totalResults = parseInt(upcoming.total_results, 10);
+    }
+
+    getSearchMulti = async (page: number = 1) => {
+        this.loadingPage.push(page);
+        const upcoming = await get('/search/multi', `page=${page}&query=${encodeURI(this.searchText)}`).then((data) => data.json());
+        this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
+        this.setState({
+            data: (page === 1) ? upcoming.results : this.state.data.concat(...upcoming.results)
         });
         this.page = parseInt(upcoming.page, 10);
         this.totalPages = parseInt(upcoming.total_pages, 10);
@@ -48,21 +61,76 @@ export default class SearchScreen extends React.Component<any, any> {
         }
     }
 
-    search = async () => {
-        if (this.state.searchText) {
-            this.getNowPlaying();
+    search = async (searchText: string = this.searchText) => {
+        console.log('search text', searchText);
+        if (searchText) {
+            await this.getSearchMulti();
         } else {
-            this.setState({data: []});
-            // this.setState({searchTimestamp: new Date().getTime()});
+            await this.getNowPlaying();
         }
+        this.state.refreshing = false;
+    }
+
+    refresh = async () => {
+        this.page = 1;
+        this.search();
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
-    handleOnPress = (id: number|null|undefined) => {
+    handleMoviePress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
         const result = this.state.data.find((item: any) => item.id === id);
-        this.props.navigation.navigate('Details', result);
+        this.props.navigation.navigate('MovieDetails', result);
+    }
+
+    handleTvPress = (id: number|null|undefined) => {
+        if (id === null || id === undefined) { return ; }
+        const result = this.state.data.find((item: any) => item.id === id);
+        this.props.navigation.navigate('TvDetails', result);
+    }
+
+    handlePersonPress = (id: number|null|undefined) => {
+        if (id === null || id === undefined) { return ; }
+        const result = this.state.data.find((item: any) => item.id === id);
+        this.props.navigation.navigate('PersonDetails', result);
+    }
+
+    getSearchResultTemplate = (data: any): JSX.Element|null => {
+        const item  = Object.assign({}, {media_type: 'movie'}, data.item, );
+        console.log(item.media_type);
+        let result = null;
+        switch (item.media_type) {
+            case 'tv':
+                result = (
+                    <SearchTvResult
+                        {...item}
+                        handleOnPress={this.handleTvPress}
+                        navigation={this.props.navigation}
+                    />
+                );
+                break;
+            case 'person':
+                result = (
+                    <SearchPersonResult
+                        {...item}
+                        handleOnPress={this.handlePersonPress}
+                        navigation={this.props.navigation}
+                    />
+                );
+                break;
+            default:
+            case 'movie':
+                result = (
+                    <SearchMovieResult
+                        {...item}
+                        handleOnPress={this.handleMoviePress}
+                        navigation={this.props.navigation}
+                    />
+                );
+                break;
+        }
+        return result;
     }
 
     render() {
@@ -74,15 +142,9 @@ export default class SearchScreen extends React.Component<any, any> {
                     extraData={this.state}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}
-                    renderItem={(data) => (
-                        <SearchResult
-                            {...data.item}
-                            handleOnPress={this.handleOnPress}
-                            navigation={this.props.navigation}
-                        />
-                    )}
+                    renderItem={this.getSearchResultTemplate}
                     refreshing={this.state.refreshing}
-                    onRefresh={this.search}
+                    onRefresh={this.refresh}
                     onEndReached={this.loadNextPage}
                 />
 
@@ -90,12 +152,14 @@ export default class SearchScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='Search movie or tv series or person'
                         style={searchScreenStyle.searchInput}
-                        onChangeText={(searchText) => { this.setState({searchText}); }}
+                        onChangeText={(searchText) => { this.searchText = searchText; }}
                         placeholder='Search movie/tv series/person'
                         autoCorrect={false}
                         clearButtonMode='always'
                         keyboardType='web-search'
                         underlineColorAndroid={transparentColor}
+                        onSubmitEditing={(e) => { this.page = 1; this.search(e.nativeEvent.text); }}
+                        enablesReturnKeyAutomatically={true}
                     />
                 </View>
                 <KeyboardSpacer/>

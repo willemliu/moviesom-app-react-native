@@ -1,43 +1,39 @@
 import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor } from '../styles/Styles';
-import { getPosterUrl } from '../tmdb/TMDb';
+import { getProfileUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 
 export interface Props {
     handleOnPress: (id: number|null|undefined) => void;
-    poster_path?: string|null;
+    profile_path?: string|null;
     adult?: boolean;
-    overview?: string;
-    release_date?: string;
-    genre_ids?: number[];
     id?: number;
-    original_title?: string;
-    original_language?: string;
-    title?: string;
-    backdrop_path?: string|null;
+    media_type?: string;
+    known_for?: any; // TODO type
+    name?: string;
     popularity?: number;
-    vote_count?: number;
-    video?: boolean;
-    vote_average?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
 }
 
-export default class SearchResult extends React.PureComponent<Props, any> {
+export default class SearchPersonResult extends React.PureComponent<Props, any> {
     state: any = {
         image: (
             <Image
-                style={{marginBottom: 10}}
+                style={{
+                    width: 46,
+                    height: 68,
+                }}
                 resizeMode='contain'
-                source={require('../../assets/eyecon48x48grey.png')}
+                source={require('../../assets/eyecon256x256.png')}
             />
         )
     };
 
     componentDidMount() {
-        this.loadImage(this.props.poster_path);
+        this.loadImage(this.props.profile_path);
     }
 
     handleOnPress = () => {
@@ -50,18 +46,17 @@ export default class SearchResult extends React.PureComponent<Props, any> {
      * When all conditions are met the `image` state is set with a JSX Element triggering
      * a re-render.
      */
-    loadImage = async (posterPath: string|null|undefined) => {
-        const url = await getPosterUrl(posterPath);
+    loadImage = async (profilePath: string|null|undefined) => {
+        const url = await getProfileUrl(profilePath);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({
                     image: (
                         <Image
                             style={{
-                                width: width / 2,
-                                height: height / 2,
-                                alignSelf: 'baseline',
-                                marginBottom: 10}}
+                                width: Math.min(width / 2, 46),
+                                height: Math.min(height / 2, 68),
+                            }}
                             resizeMode='contain'
                             source={{uri: url}}
                         />
@@ -108,6 +103,7 @@ export default class SearchResult extends React.PureComponent<Props, any> {
     }
 
     render() {
+        if (this.props.media_type !== 'person') { return null; }
         return (
             <TouchableNativeFeedback
                 onPress={this.handleOnPress}
@@ -119,8 +115,7 @@ export default class SearchResult extends React.PureComponent<Props, any> {
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.title} ({format(parse(this.props.release_date as string), 'YYYY')})</Text>
-                            <Text style={searchResultStyle.overview} numberOfLines={3}>{this.props.overview}</Text>
+                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.name}</Text>
                         </View>
                     </View>
                     <View style={{

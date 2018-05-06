@@ -3,9 +3,9 @@ import { Share, Text, ScrollView, TouchableNativeFeedback, View } from 'react-na
 import {textStyle, viewStyle, searchResultStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
-export default class DetailsScreen extends React.Component<any> {
+export default class TvDetailScreen extends React.Component<any> {
     static navigationOptions = {
-        title: 'Details',
+        title: 'TV Details',
     };
 
     render() {
@@ -14,13 +14,13 @@ export default class DetailsScreen extends React.Component<any> {
             <ScrollView style={{backgroundColor: '#fff'}}>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
                     <View style={{backgroundColor: '#fff'}}>
-                        <Text style={searchResultStyle.title}>{navigation.getParam('title')}</Text>
+                        <Text style={searchResultStyle.title}>{navigation.getParam('name')}</Text>
                         <Text style={searchResultStyle.overview}>{navigation.getParam('overview')}</Text>
                         <TouchTextButton
                             onPress={() => Share.share({
-                                title: navigation.getParam('title'),
-                                message: `${navigation.getParam('overview')} https://www.moviesom.com/moviesom.php?tmdbMovieId=${navigation.getParam('id')}`,
-                                url: `https://www.moviesom.com/?tmdbMovieId=${navigation.getParam('id')}`
+                                title: navigation.getParam('name'),
+                                message: `${navigation.getParam('overview')} https://www.moviesom.com/moviesom.php?tmdbTvId=${navigation.getParam('id')}`,
+                                url: `https://www.moviesom.com/moviesom.php?tmdbTvId=${navigation.getParam('id')}`
                             }, {
                                 dialogTitle: 'MovieSom share'
                             })}
