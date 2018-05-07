@@ -1,12 +1,11 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
-import SearchScreen from './SearchScreen';
+import { SearchScreen } from '../redux/MoviesReducer';
 import { MaterialIcons } from '@expo/vector-icons';
-import { withData } from '../contexts/DataContext';
 
 const HomeTabNav = TabNavigator({
     Search: {
-        screen: withData(SearchScreen),
+        screen: SearchScreen,
         navigationOptions: {
             title: 'Search',
             tabBarIcon: <MaterialIcons name="search" size={32} color='#fff'/>

@@ -3,7 +3,7 @@ import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatLi
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
-import SearchMovieResult from '../components/SearchMovieResult';
+import { SearchMovieResult } from '../redux/MoviesReducer';
 import SearchTvResult from '../components/SearchTvResult';
 import SearchPersonResult from '../components/SearchPersonResult';
 
@@ -25,29 +25,17 @@ export default class SearchScreen extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-        if (this.props.addListener) { this.props.addListener(this.dataUpdateListener); }
     }
 
     componentDidMount() {
         this.getNowPlaying();
     }
 
-    shouldComponentUpdate(nextProps: any, nextState: any) {
-        return (this.state.data !== nextState.data);
-    }
-
-    dataUpdateListener = (data: any) => {
-        console.log('SearchScreen received update event');
-    }
-
     getNowPlaying = async (page: number = 1) => {
         this.loadingPage.push(page);
         const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
-        if (this.props.addMovies) { this.props.addMovies(data.results); }
-        this.setState({
-            data: (page === 1) ? data.results : this.state.data.concat(...data.results)
-        });
+        (data.results as any[]).forEach((value: any) => this.props.actions.addMovie(value));
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
         this.totalResults = parseInt(data.total_results, 10);
@@ -57,9 +45,14 @@ export default class SearchScreen extends React.Component<any, any> {
         this.loadingPage.push(page);
         const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.searchText)}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
-        this.setState({
-            data: (page === 1) ? data.results : this.state.data.concat(...data.results)
-        });
+        // this.setState({
+        //     data: (page === 1) ? data.results : this.state.data.concat(...data.results)
+        // });
+        if (page === 1) {
+            this.props.actions.setMovies(data.results);
+        } else {
+            (data.results as any[]).forEach((value: any) => this.props.actions.addMovie(value));
+        }
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
         this.totalResults = parseInt(data.total_results, 10);
@@ -90,7 +83,7 @@ export default class SearchScreen extends React.Component<any, any> {
 
     handleMoviePress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.state.data.find((item: any) => item.id === id);
+        const result = this.props.movies.find((item: any) => item.id === id);
         this.props.navigation.navigate('MovieDetails', result);
     }
 
@@ -107,7 +100,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     getSearchResultTemplate = (data: any): JSX.Element|null => {
-        const item  = Object.assign({}, {media_type: 'movie'}, data.item, );
+        const item  = Object.assign({}, {media_type: 'movie'}, data.item);
         let result = null;
         switch (item.media_type) {
             case 'tv':
@@ -132,7 +125,9 @@ export default class SearchScreen extends React.Component<any, any> {
             case 'movie':
                 result = (
                     <SearchMovieResult
-                        {...item}
+                        id={item.id}
+                        media_type={'movie'}
+                        ownMovie={item}
                         handleOnPress={this.handleMoviePress}
                         navigation={this.props.navigation}
                     />
@@ -147,7 +142,7 @@ export default class SearchScreen extends React.Component<any, any> {
             <View style={viewStyle.view}>
                 <FlatList
                     style={searchScreenStyle.flatList}
-                    data={this.state.data}
+                    data={this.props.movies}
                     extraData={this.state}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}

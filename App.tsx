@@ -13,13 +13,16 @@ import {getConfig} from './src/tmdb/TMDb';
 import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
 import TvDetailsScreen from './src/screens/TvDetailsScreen';
 import TouchTextButton from './src/components/TouchTextButton';
-import { dataStore, DataContext } from './src/contexts/DataContext';
+import { createStore } from 'redux';
+import {Provider} from "react-redux";
+import { rootReducer } from './src/redux/rootReducer';
+
+const store = createStore(rootReducer);
 
 export default class App extends React.Component<any> {
 
   state: any = {
     modalVisible: false,
-    store: dataStore
   };
 
   constructor(props: any) {
@@ -27,7 +30,6 @@ export default class App extends React.Component<any> {
       Linking.addEventListener('url', this.handleUrl);
       this.checkInitialUrl();
       getConfig();
-      if (this.state.store.addListener) { this.state.store.addListener(this.dataUpdateListener); }
   }
 
   dataUpdateListener = (data: any) => {
@@ -73,9 +75,9 @@ export default class App extends React.Component<any> {
                 </View>
             </View>
         </Modal>
-        <DataContext.Provider value={this.state.store}>
+        <Provider store={store}>
           <StackNav/>
-        </DataContext.Provider>
+        </Provider>
       </View>
     );
   }
