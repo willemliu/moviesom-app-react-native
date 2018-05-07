@@ -33,7 +33,7 @@ export function tmdbReducer(state: any = defaultState, action: any) {
     }
 }
 
-export function mapItemStateToProps(state: any, ownProps: any) {
+function mapItemStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.items.find((value: any) => {
             let result = false;
@@ -47,13 +47,13 @@ export function mapItemStateToProps(state: any, ownProps: any) {
     };
 }
 
-export function withItems(Function: any) {
+function withItems(Function: any) {
     return (state: any, ownProps: any) => {
         return Object.assign({}, Function(state, ownProps), {items: state.tmdb.items});
     };
 }
 
-export function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
+function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
     return {
         actions: bindActionCreators(TmdbActions as any, dispatch)
     };

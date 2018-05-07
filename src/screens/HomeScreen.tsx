@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabNavigator } from 'react-navigation';
-import { SearchScreen } from '../redux/TmdbReducer';
+import { SearchScreen } from '../redux/search/SearchReducer';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const HomeTabNav = TabNavigator({

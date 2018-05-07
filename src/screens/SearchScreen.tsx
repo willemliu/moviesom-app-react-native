@@ -51,10 +51,16 @@ export default class SearchScreen extends React.Component<any, any> {
 
     updateStore = (results: any[], replace: boolean = false) => {
         if (replace) {
-            this.props.actions.setItems(results);
-        } else {
-            (results as any[]).forEach((value: any) => this.props.actions.addItem(value));
+            this.props.searchActions.setSearchItems(results);
         }
+        (results as any[]).forEach((value: any) => {
+            // Always add items to the `tmdb` Redux store.
+            this.props.actions.addItem(value);
+            // Add to the `search` Redux store when not replacing the search results list.
+            if (!replace) {
+                this.props.searchActions.addSearchItem(value);
+            }
+        });
     }
 
     loadNextPage = async () => {
@@ -82,19 +88,19 @@ export default class SearchScreen extends React.Component<any, any> {
 
     handleMoviePress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.movies.find((item: any) => item.id === id);
+        const result = this.props.items.find((item: any) => item.id === id);
         this.props.navigation.navigate('MovieDetails', result);
     }
 
     handleTvPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.state.data.find((item: any) => item.id === id);
+        const result = this.props.items.find((item: any) => item.id === id);
         this.props.navigation.navigate('TvDetails', result);
     }
 
     handlePersonPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.state.data.find((item: any) => item.id === id);
+        const result = this.props.items.find((item: any) => item.id === id);
         this.props.navigation.navigate('PersonDetails', result);
     }
 
@@ -141,8 +147,8 @@ export default class SearchScreen extends React.Component<any, any> {
             <View style={viewStyle.view}>
                 <FlatList
                     style={searchScreenStyle.flatList}
-                    data={this.props.items}
-                    extraData={this.state}
+                    data={this.props.searchItems}
+                    extraData={this.props}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}
                     renderItem={this.getSearchResultTemplate}
