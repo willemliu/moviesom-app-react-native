@@ -15,11 +15,15 @@ export function movieReducer(state: any = defaultState, action: any) {
     switch (action.type) {
         case ADD_MOVIE:
             console.info(`Reduce ${ADD_MOVIE}`);
-            let movieState = newState.movies.find((value: any, index: number) => value.id === action.movie.id);
-            if (movieState) {
-                console.log('Update movie');
-                movieState = Object.assign(movieState, action.movie);
-            } else {
+            const movieState = newState.movies.find((value: any, index: number, arr: any[]) => {
+                const sameItem = value.id === action.movie.id;
+                if (sameItem) {
+                    console.log('Update movie');
+                    arr[index] = Object.assign({}, value, action.movie);
+                }
+                return sameItem;
+            });
+            if (!movieState) {
                 newState.movies.push(action.movie);
             }
             return newState;
@@ -31,9 +35,8 @@ export function movieReducer(state: any = defaultState, action: any) {
     }
 }
 
-export function mapMoviesStateToProps(state: any, ownProps: any) {
+export function mapMovieStateToProps(state: any, ownProps: any) {
     return {
-        movies: state.movies.movies,
         ownMovie: state.movies.movies.find((value: any) => {
             let result = false;
             if (ownProps.navigation) {
@@ -46,17 +49,23 @@ export function mapMoviesStateToProps(state: any, ownProps: any) {
     };
 }
 
+export function withMovies(Function: any) {
+    return (state: any, ownProps: any) => {
+        return Object.assign({}, Function(state, ownProps), {movies: state.movies.movies});
+    };
+}
+
 export function mapMoviesDispatchToProps(dispatch: any, ownProps: any) {
     return {
         actions: bindActionCreators(MovieActions as any, dispatch)
     };
 }
 
-const searchMovieResult = connect(mapMoviesStateToProps, mapMoviesDispatchToProps)(SearchMovieResult);
+const searchMovieResult = connect(mapMovieStateToProps, mapMoviesDispatchToProps)(SearchMovieResult);
 export {searchMovieResult as SearchMovieResult};
 
-const movieDetailScreen = connect(mapMoviesStateToProps, mapMoviesDispatchToProps)(MovieDetailScreen);
+const movieDetailScreen = connect(mapMovieStateToProps, mapMoviesDispatchToProps)(MovieDetailScreen);
 export {movieDetailScreen as MovieDetailScreen};
 
-const searchScreen = connect(mapMoviesStateToProps, mapMoviesDispatchToProps)(SearchScreen);
+const searchScreen = connect(withMovies(mapMovieStateToProps), mapMoviesDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};
