@@ -22,15 +22,20 @@ export async function getConfig() {
     if (!configDate || (configDate && (new Date().getTime() - parseInt(configDate, 10)) > 86400000)) {
         const configuration = await get(`/configuration`)
         .then((data: any) => data.json());
-        AsyncStorage.setItem('tmdbConfig', configuration);
+        AsyncStorage.setItem('tmdbConfig', JSON.stringify(configuration));
         AsyncStorage.setItem('tmdbConfigDate', `${new Date().getTime()}`);
-        // console.log('Configuration loaded from TMDb');
+        // console.log('Configuration loaded from TMDb', configuration);
         return configuration;
     } else {
         const configuration = JSON.parse(await AsyncStorage.getItem('tmdbConfig'));
-        // console.log('Configuration loaded from cache');
+        // console.log('Configuration loaded from cache', configuration);
         return configuration;
     }
+}
+
+async function clearLocalConfiguration() {
+    await AsyncStorage.removeItem('tmdbConfigDate');
+    await AsyncStorage.removeItem('tmdbConfig');
 }
 
 export async function getPosterUrl(posterPath: string|null|undefined) {
@@ -45,4 +50,11 @@ export async function getProfileUrl(profilePath: string|null|undefined) {
     if (!profilePath) { return null; }
     const configuration = await getConfig();
     return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[0]}${profilePath}`;
+}
+
+export async function getBackdropUrl(backdropPath: string|null|undefined) {
+    console.log('Get backdrop url', backdropPath);
+    if (!backdropPath) { return null; }
+    const configuration = await getConfig();
+    return `${configuration.images.secure_base_url}${configuration.images.backdrop_sizes[1]}${backdropPath}`;
 }
