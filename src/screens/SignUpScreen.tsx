@@ -25,7 +25,6 @@ export default class SignUpScreen extends React.Component<any, any> {
     }
 
     checkPasswords = (password: string) => {
-        console.log(this.state.password === password, this.state.password, password);
         if (password.length && this.state.password !== password) {
             this.setState({
                 passwordsMatch: false

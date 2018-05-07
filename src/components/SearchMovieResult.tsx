@@ -8,25 +8,21 @@ import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 
 export interface Props {
     handleOnPress: (id: number|null|undefined) => void;
+    poster_path?: string|null;
+    adult?: boolean;
+    overview?: string;
+    release_date?: string;
+    genre_ids?: number[];
     id?: number;
     media_type?: string;
-    ownMovie: {
-        poster_path?: string|null;
-        adult?: boolean;
-        overview?: string;
-        release_date?: string;
-        genre_ids?: number[];
-        id?: number;
-        media_type?: string;
-        original_title?: string;
-        original_language?: string;
-        title?: string;
-        backdrop_path?: string|null;
-        popularity?: number;
-        vote_count?: number;
-        video?: boolean;
-        vote_average?: number;
-    };
+    original_title?: string;
+    original_language?: string;
+    title?: string;
+    backdrop_path?: string|null;
+    popularity?: number;
+    vote_count?: number;
+    video?: boolean;
+    vote_average?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
 }
 
@@ -45,11 +41,11 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     };
 
     componentDidMount() {
-        this.loadImage(this.props.ownMovie.poster_path);
+        this.loadImage(this.props.poster_path);
     }
 
     handleOnPress = () => {
-        if (this.props.handleOnPress) { this.props.handleOnPress(this.props.ownMovie.id); }
+        if (this.props.handleOnPress) { this.props.handleOnPress(this.props.id); }
     }
 
     /**
@@ -82,7 +78,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     watched = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert(`watched ${this.props.ownMovie.id}`);
+            alert(`watched ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -91,7 +87,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     unwatched = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert(`unwatched ${this.props.ownMovie.id}`);
+            alert(`unwatched ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -100,7 +96,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     wantToWatch = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert(`want to watch ${this.props.ownMovie.id}`);
+            alert(`want to watch ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -109,7 +105,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     share = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
-            alert(`share ${this.props.ownMovie.id}`);
+            alert(`share ${this.props.id}`);
         } else {
             this.props.navigation.navigate('Login');
         }
@@ -128,8 +124,8 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.ownMovie.title ? this.props.ownMovie.title : this.props.ownMovie.original_title}{this.props.ownMovie.release_date ? ` (${format(parse(this.props.ownMovie.release_date as string), 'YYYY')})` : null}</Text>
-                            <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.ownMovie.overview}</Text>
+                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
                     <View style={{

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import { movieReducer as movies } from './MoviesReducer';
+import { tmdbReducer as tmdb } from './TmdbReducer';
 
 /**
  * Combine individual reducers to one root reducer to be used by Redux.
  */
 const rootReducer = combineReducers({
-    movies
+    tmdb
 });
 
 export { rootReducer };

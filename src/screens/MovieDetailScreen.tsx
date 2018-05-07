@@ -17,9 +17,9 @@ export default class MovieDetailScreen extends React.Component<any> {
     };
 
     updateMovieTest = () => {
-        this.props.actions.addMovie({
-            id: this.props.ownMovie.id,
-            title: `${this.props.ownMovie.title}` + 1
+        this.props.actions.addItem({
+            id: this.props.id,
+            title: `${this.props.title}` + 1
         });
     }
 
@@ -28,14 +28,14 @@ export default class MovieDetailScreen extends React.Component<any> {
             <ScrollView style={{backgroundColor: '#fff'}}>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
                     <View style={{backgroundColor: '#fff'}}>
-                        <Text style={searchResultStyle.title}>{this.props.ownMovie.title}</Text>
-                        <Text style={searchResultStyle.overview}>{this.props.ownMovie.overview}</Text>
+                        <Text style={searchResultStyle.title}>{this.props.title}</Text>
+                        <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
                         <TouchTextButton onPress={this.updateMovieTest}>Show data</TouchTextButton>
                         <TouchTextButton
                             onPress={() => Share.share({
-                                title: this.props.ownMovie.title,
-                                message: `${this.props.ownMovie.overview} https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.ownMovie.id}`,
-                                url: `https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.ownMovie.id}`
+                                title: this.props.title,
+                                message: `${this.props.overview} https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.ownMovie.id}`,
+                                url: `https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.id}`
                             }, {
                                 dialogTitle: 'MovieSom share'
                             })}

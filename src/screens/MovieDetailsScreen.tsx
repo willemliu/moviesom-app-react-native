@@ -1,6 +1,6 @@
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';
-import { MovieDetailScreen } from '../redux/MoviesReducer';
+import { MovieDetailScreen } from '../redux/TmdbReducer';
 
 const DetailsTabNav = TabNavigator({
     DetailsScreen: {

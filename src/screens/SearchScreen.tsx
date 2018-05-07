@@ -3,19 +3,17 @@ import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatLi
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
-import { SearchMovieResult } from '../redux/MoviesReducer';
+import { SearchMovieResult } from '../redux/TmdbReducer';
 import SearchTvResult from '../components/SearchTvResult';
 import SearchPersonResult from '../components/SearchPersonResult';
 
 export default class SearchScreen extends React.Component<any, any> {
     static navigationOptions = {
-        title: 'Search',
-        data: []
+        title: 'Search'
     };
 
     state: any = {
-        data: [],
-        refreshing: false
+        refreshing: true
     };
     private searchText: string = '';
     private page = 1;
@@ -28,14 +26,14 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        this.getNowPlaying();
+        this.search();
     }
 
     getNowPlaying = async (page: number = 1) => {
         this.loadingPage.push(page);
         const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
-        (data.results as any[]).forEach((value: any) => this.props.actions.addMovie(value));
+        this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
         this.totalResults = parseInt(data.total_results, 10);
@@ -45,17 +43,18 @@ export default class SearchScreen extends React.Component<any, any> {
         this.loadingPage.push(page);
         const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.searchText)}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
-        // this.setState({
-        //     data: (page === 1) ? data.results : this.state.data.concat(...data.results)
-        // });
-        if (page === 1) {
-            this.props.actions.setMovies(data.results);
-        } else {
-            (data.results as any[]).forEach((value: any) => this.props.actions.addMovie(value));
-        }
+        this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
         this.totalResults = parseInt(data.total_results, 10);
+    }
+
+    updateStore = (results: any[], replace: boolean = false) => {
+        if (replace) {
+            this.props.actions.setItems(results);
+        } else {
+            (results as any[]).forEach((value: any) => this.props.actions.addItem(value));
+        }
     }
 
     loadNextPage = async () => {
@@ -71,7 +70,7 @@ export default class SearchScreen extends React.Component<any, any> {
         } else {
             await this.getNowPlaying();
         }
-        this.state.refreshing = false;
+        this.setState({refreshing: false});
     }
 
     refresh = async () => {
@@ -142,7 +141,7 @@ export default class SearchScreen extends React.Component<any, any> {
             <View style={viewStyle.view}>
                 <FlatList
                     style={searchScreenStyle.flatList}
-                    data={this.props.movies}
+                    data={this.props.items}
                     extraData={this.state}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}
