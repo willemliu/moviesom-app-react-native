@@ -23,7 +23,7 @@ export default class MovieDetailScreen extends React.Component<any, any> {
         image: (
             <Image
                 style={{
-                    flex: 1,
+                    width: 390,
                     height: 219,
                 }}
                 resizeMode='cover'
