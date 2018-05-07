@@ -5,16 +5,18 @@ import { ADD_ITEM, SET_ITEMS } from './TmdbActions';
 import SearchMovieResult from '../components/SearchMovieResult';
 import MovieDetailScreen from '../screens/MovieDetailScreen';
 import SearchScreen from '../screens/SearchScreen';
+import TvDetailScreen from '../screens/TvDetailScreen';
+import PersonDetailScreen from '../screens/PersonDetailScreen';
 
 const defaultState = {
-    items: new Array()
+    tmdbItems: new Array()
 };
 
 export function tmdbReducer(state: any = defaultState, action: any) {
     const newState = Object.assign({}, state);
     switch (action.type) {
         case ADD_ITEM:
-            const itemState = newState.items.find((value: any, index: number, arr: any[]) => {
+            const itemState = newState.tmdbItems.find((value: any, index: number, arr: any[]) => {
                 const sameItem = value.id === action.item.id;
                 if (sameItem) {
                     arr[index] = Object.assign({}, value, action.item);
@@ -22,11 +24,11 @@ export function tmdbReducer(state: any = defaultState, action: any) {
                 return sameItem;
             });
             if (!itemState) {
-                newState.items.push(action.item);
+                newState.tmdbItems.push(action.item);
             }
             return newState;
         case SET_ITEMS:
-            newState.items = action.items;
+            newState.tmdbItems = action.items;
             return newState;
         default:
             return newState;
@@ -35,7 +37,7 @@ export function tmdbReducer(state: any = defaultState, action: any) {
 
 function mapItemStateToProps(state: any, ownProps: any) {
     return {
-        ...(state.tmdb.items.find((value: any) => {
+        ...(state.tmdb.tmdbItems.find((value: any) => {
             let result = false;
             if (ownProps.navigation) {
                 result = (ownProps.navigation.getParam('id') === value.id) || (value.id === ownProps.id);
@@ -49,7 +51,7 @@ function mapItemStateToProps(state: any, ownProps: any) {
 
 function withItems(Function: any) {
     return (state: any, ownProps: any) => {
-        return Object.assign({}, Function(state, ownProps), {items: state.tmdb.items});
+        return Object.assign({}, Function(state, ownProps), {tmdbItems: state.tmdb.tmdbItems});
     };
 }
 
@@ -64,6 +66,12 @@ export {searchMovieResult as SearchMovieResult};
 
 const movieDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(MovieDetailScreen);
 export {movieDetailScreen as MovieDetailScreen};
+
+const tvDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(TvDetailScreen);
+export {tvDetailScreen as TvDetailScreen};
+
+const personDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(PersonDetailScreen);
+export {personDetailScreen as PersonDetailScreen};
 
 const searchScreen = connect(withItems(mapItemStateToProps), mapTmdbDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};

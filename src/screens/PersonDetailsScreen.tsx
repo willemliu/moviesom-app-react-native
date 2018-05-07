@@ -1,4 +1,4 @@
-import PersonDetailScreen from './PersonDetailScreen';
+import { PersonDetailScreen } from '../redux/TmdbReducer';
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';
 

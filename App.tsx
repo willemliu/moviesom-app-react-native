@@ -1,4 +1,4 @@
-import { Image, Text, View, Modal, TouchableHighlight, Linking } from 'react-native';
+import { Image, Text, View, Modal, TouchableHighlight, Linking, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import LoginScreen from './src/screens/LoginScreen';
@@ -13,11 +13,11 @@ import {getConfig} from './src/tmdb/TMDb';
 import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
 import TvDetailsScreen from './src/screens/TvDetailsScreen';
 import TouchTextButton from './src/components/TouchTextButton';
-import { createStore } from 'redux';
+import { createStore, Store } from 'redux';
 import {Provider} from "react-redux";
 import { rootReducer } from './src/redux/rootReducer';
 
-const store = createStore(rootReducer);
+console.disableYellowBox = true;
 
 export default class App extends React.Component<any> {
 
@@ -30,10 +30,24 @@ export default class App extends React.Component<any> {
       Linking.addEventListener('url', this.handleUrl);
       this.checkInitialUrl();
       getConfig();
+      this.createStore();
   }
 
-  dataUpdateListener = (data: any) => {
-    console.log('App received data update');
+  createStore = async () => {
+    const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
+    let store: Store;
+    if (preloadedState) {
+      store = createStore(rootReducer, preloadedState);
+      console.log('Load Redux store');
+    } else {
+      console.log('Create Redux store');
+      store = createStore(rootReducer);
+    }
+    store.subscribe(async () => {
+      console.log('Save Redux store');
+      await AsyncStorage.setItem('store', JSON.stringify(this.state.store.getState()));
+    });
+    this.setState({store});
   }
 
   checkInitialUrl = async () => {
@@ -75,9 +89,9 @@ export default class App extends React.Component<any> {
                 </View>
             </View>
         </Modal>
-        <Provider store={store}>
+        {this.state.store ? <Provider store={this.state.store}>
           <StackNav/>
-        </Provider>
+        </Provider> : null}
       </View>
     );
   }

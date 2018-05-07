@@ -88,19 +88,19 @@ export default class SearchScreen extends React.Component<any, any> {
 
     handleMoviePress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.items.find((item: any) => item.id === id);
+        const result = this.props.tmdbItems.find((item: any) => item.id === id);
         this.props.navigation.navigate('MovieDetails', result);
     }
 
     handleTvPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.items.find((item: any) => item.id === id);
+        const result = this.props.tmdbItems.find((item: any) => item.id === id);
         this.props.navigation.navigate('TvDetails', result);
     }
 
     handlePersonPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.items.find((item: any) => item.id === id);
+        const result = this.props.tmdbItems.find((item: any) => item.id === id);
         this.props.navigation.navigate('PersonDetails', result);
     }
 

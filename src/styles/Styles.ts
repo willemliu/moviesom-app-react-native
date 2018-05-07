@@ -116,7 +116,7 @@ export const searchResultStyle = StyleSheet.create({
         borderRadius: 3,
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         marginBottom: 5,
         marginLeft: 5,
     },
