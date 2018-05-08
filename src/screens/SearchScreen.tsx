@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList, RefreshControl, TouchableNativeFeedback} from 'react-native';
+import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList, RefreshControl, TouchableNativeFeedback, AsyncStorage} from 'react-native';
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
@@ -13,9 +13,9 @@ export default class SearchScreen extends React.Component<any, any> {
     };
 
     state: any = {
-        refreshing: true
+        refreshing: true,
+        searchText: '',
     };
-    private searchText: string = '';
     private page = 1;
     private totalPages = 1;
     private totalResults = 1;
@@ -26,12 +26,23 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        this.search();
+        if (!this.props.searchItems) {
+            this.search();
+        } else {
+            this.setState({
+                refreshing: false,
+            });
+            AsyncStorage.getItem('searchText').then((searchText) => { if (searchText) { this.setState({searchText}); }} );
+        }
     }
 
     getNowPlaying = async (page: number = 1) => {
         this.loadingPage.push(page);
         const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
+        data.results.forEach((value: any, idx: number, arr: any[]) => {
+            // Set media_type to movie for every item as they come without media_type.
+            arr[idx].media_type = 'movie';
+        });
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
@@ -41,7 +52,7 @@ export default class SearchScreen extends React.Component<any, any> {
 
     getSearchMulti = async (page: number = 1) => {
         this.loadingPage.push(page);
-        const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.searchText)}`).then((payload) => payload.json());
+        const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.state.searchText)}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
@@ -69,9 +80,10 @@ export default class SearchScreen extends React.Component<any, any> {
         }
     }
 
-    search = async (searchText: string = this.searchText) => {
+    search = async (searchText: string = this.state.searchText) => {
         if (searchText) {
-            this.searchText = this.searchText;
+            // Store searchText in storage for next sessions.
+            AsyncStorage.setItem('searchText', searchText);
             await this.getSearchMulti();
         } else {
             await this.getNowPlaying();
@@ -161,7 +173,7 @@ export default class SearchScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='Search movie or tv series or person'
                         style={searchScreenStyle.searchInput}
-                        onChangeText={(searchText) => { this.searchText = searchText; }}
+                        onChangeText={(searchText) => { this.setState({searchText}); }}
                         placeholder='Search movie/tv series/person'
                         autoCorrect={false}
                         clearButtonMode='always'
@@ -169,6 +181,7 @@ export default class SearchScreen extends React.Component<any, any> {
                         underlineColorAndroid={transparentColor}
                         onSubmitEditing={(e) => { this.page = 1; this.search(e.nativeEvent.text); }}
                         enablesReturnKeyAutomatically={true}
+                        value={this.state.searchText}
                     />
                 </View>
                 <KeyboardSpacer/>

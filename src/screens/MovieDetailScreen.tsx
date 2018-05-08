@@ -34,9 +34,10 @@ export default class MovieDetailScreen extends React.Component<any, any> {
 
     getDetails = async () => {
         console.log('Get movie details');
-        const movie = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
-        await this.loadImage(movie.backdrop_path);
-        this.props.actions.addItem(movie);
+        const item = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+        item.media_type = 'movie';
+        await this.loadImage(item.backdrop_path);
+        this.props.actions.addItem(item);
     }
 
     /**
@@ -46,15 +47,13 @@ export default class MovieDetailScreen extends React.Component<any, any> {
      * a re-render.
      */
     loadImage = async (backdropPath: string|null|undefined) => {
-        const url = await getBackdropUrl(backdropPath);
-        if (url) {
-            Image.getSize(url, (width: number, height: number) => {
-                this.setState({
-                    imageUrl: url,
-                });
+        const imageUrl = await getBackdropUrl(backdropPath);
+        if (imageUrl) {
+            Image.getSize(imageUrl, (width: number, height: number) => {
+                this.setState({imageUrl});
             }, (e) => { console.error(e); });
         } else {
-            console.log('backdrop path not found', url);
+            console.log('backdrop path not found', imageUrl);
         }
     }
 
@@ -100,7 +99,6 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor: '#fff'}}>
-                            {this.state.image}
                             <Text style={searchResultStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview}>{this.props.budget ? `Budget: ${this.props.budget}` : null}</Text>
                             <Text style={searchResultStyle.overview}>{this.props.revenue ? `Revenue: ${this.props.revenue}` : null}</Text>
@@ -130,9 +128,9 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                                 transform: [{translateY: imageTranslate}]
                             },
                         ]}
-                        loadingIndicatorSource={require('../../assets/eyecon512x512.png')}
+                        loadingIndicatorSource={require('../../assets/eyecon1080x657.png')}
                         resizeMode='cover'
-                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon512x512.png')}
+                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
                     />
 
                     <View style={animatedHeaderStyle.bar}>
