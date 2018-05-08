@@ -73,24 +73,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
         }
     }
 
-    watched = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`watched ${this.props.id}`);
-        } else {
-            this.props.navigation.navigate('Login');
-        }
-    }
-
-    unwatched = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`unwatched ${this.props.id}`);
-        } else {
-            this.props.navigation.navigate('Login');
-        }
-    }
-
     wantToWatch = async () => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         if (loggedIn) {
@@ -131,20 +113,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                         flexWrap: 'wrap',
                         justifyContent: 'center',
                         alignItems: 'center'}}>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.watched}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="add-circle-outline" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.unwatched}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="remove-circle-outline" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
                         <TouchableNativeFeedback
                             style={{flex: 0}}
                             onPress={this.wantToWatch}
