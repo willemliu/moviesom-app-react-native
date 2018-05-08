@@ -78,11 +78,11 @@ export default class TvDetailScreen extends React.Component<any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor: '#fff'}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
-                            {this.props.type ? <Text style={detailStyle.overview}>Type: ${this.props.type}</Text> : null}
-                            {this.props.episode_runtime ? <Text style={detailStyle.overview}>Runtime: ${this.props.episode_runtime}</Text> : null}
-                            {this.props.first_air_date ? <Text style={detailStyle.overview}>First air date: ${format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
-                            {this.props.number_of_seasons ? <Text style={detailStyle.overview}>Seasons: ${this.props.number_of_seasons}</Text> : null}
-                            {this.props.number_of_episodes ? <Text style={detailStyle.overview}>Episodes: ${this.props.number_of_episodes}</Text> : null}
+                            {this.props.type ? <Text style={detailStyle.overview}>Type: {this.props.type}</Text> : null}
+                            {this.props.episode_runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_runtime}</Text> : null}
+                            {this.props.first_air_date ? <Text style={detailStyle.overview}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
+                            {this.props.number_of_seasons ? <Text style={detailStyle.overview}>Seasons: {this.props.number_of_seasons}</Text> : null}
+                            {this.props.number_of_episodes ? <Text style={detailStyle.overview}>Episodes: {this.props.number_of_episodes}</Text> : null}
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <TouchTextButton
                                 onPress={() => Share.share({
