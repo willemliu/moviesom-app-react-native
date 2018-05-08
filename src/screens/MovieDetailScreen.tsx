@@ -1,6 +1,6 @@
 import React from 'react';
-import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image } from 'react-native';
-import {textStyle, viewStyle, searchResultStyle} from "../styles/Styles";
+import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet } from 'react-native';
+import {textStyle, viewStyle, searchResultStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format, parse } from 'date-fns';
@@ -20,16 +20,7 @@ export default class MovieDetailScreen extends React.Component<any, any> {
     };
 
     state: any = {
-        image: (
-            <Image
-                style={{
-                    width: 390,
-                    height: 219,
-                }}
-                resizeMode='cover'
-                source={require('../../assets/eyecon512x512.png')}
-            />
-        )
+        scrollY: new Animated.Value(0),
     };
 
     constructor(props: any) {
@@ -59,17 +50,7 @@ export default class MovieDetailScreen extends React.Component<any, any> {
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({
-                    image: (
-                        <Image
-                            style={{
-                                flex: 1,
-                                height: 219,
-                            }}
-                            loadingIndicatorSource={require('../../assets/eyecon512x512.png')}
-                            resizeMode='cover'
-                            source={{uri: url}}
-                        />
-                    )
+                    imageUrl: url,
                 });
             }, (e) => { console.error(e); });
         } else {
@@ -85,29 +66,80 @@ export default class MovieDetailScreen extends React.Component<any, any> {
     }
 
     render() {
+        const headerHeight = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE],
+            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+            extrapolate: 'clamp',
+        });
+        const imageOpacity = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
+            outputRange: [1, 1, 0.4],
+            extrapolate: 'clamp',
+        });
+
+        const imageTranslate = this.state.scrollY.interpolate({
+            inputRange: [0, HEADER_SCROLL_DISTANCE],
+            outputRange: [0, -50],
+            extrapolate: 'clamp',
+        });
+
         return (
-            <ScrollView style={{backgroundColor: '#fff'}}>
-                <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
-                    <View style={{backgroundColor: '#fff'}}>
-                        {this.state.image}
-                        <Text style={searchResultStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                        <Text style={searchResultStyle.overview}>{this.props.budget ? `Budget: ${this.props.budget}` : null}</Text>
-                        <Text style={searchResultStyle.overview}>{this.props.revenue ? `Revenue: ${this.props.revenue}` : null}</Text>
-                        <Text style={searchResultStyle.overview}>{this.props.runtime ? `Runtime: ${this.props.runtime}` : null}</Text>
-                        <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
-                        <TouchTextButton onPress={this.updateMovieTest}>Show data</TouchTextButton>
-                        <TouchTextButton
-                            onPress={() => Share.share({
-                                title: this.props.title,
-                                message: `${this.props.overview} https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.ownMovie.id}`,
-                                url: `https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.id}`
-                            }, {
-                                dialogTitle: 'MovieSom share'
-                            })}
-                        >Share</TouchTextButton>
+            <View style={{backgroundColor: '#fff'}}>
+                <ScrollView
+                    scrollEventThrottle={16}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+                    )}
+                    style={{backgroundColor: '#fff'}}
+                >
+                    <Text
+                        style={{
+                            width: 390,
+                            height: HEADER_MAX_HEIGHT,
+                        }}
+                    />
+                    <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
+                        <View style={{backgroundColor: '#fff'}}>
+                            {this.state.image}
+                            <Text style={searchResultStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.overview}>{this.props.budget ? `Budget: ${this.props.budget}` : null}</Text>
+                            <Text style={searchResultStyle.overview}>{this.props.revenue ? `Revenue: ${this.props.revenue}` : null}</Text>
+                            <Text style={searchResultStyle.overview}>{this.props.runtime ? `Runtime: ${this.props.runtime}` : null}</Text>
+                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
+                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
+                            <TouchTextButton onPress={this.updateMovieTest}>Show data</TouchTextButton>
+                            <TouchTextButton
+                                onPress={() => Share.share({
+                                    title: this.props.title,
+                                    message: `${this.props.overview} https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.id}`,
+                                    url: `https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.id}`
+                                }, {
+                                    dialogTitle: 'MovieSom share'
+                                })}
+                            >Share</TouchTextButton>
+                        </View>
+                    </TouchableNativeFeedback>
+                </ScrollView>
+                <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
+                    <Animated.Image
+                        style={[
+                            animatedHeaderStyle.backgroundImage,
+                            {
+                                flex: 1,
+                                opacity: imageOpacity,
+                                transform: [{translateY: imageTranslate}]
+                            },
+                        ]}
+                        loadingIndicatorSource={require('../../assets/eyecon512x512.png')}
+                        resizeMode='cover'
+                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon512x512.png')}
+                    />
+
+                    <View style={animatedHeaderStyle.bar}>
+                        <Text style={animatedHeaderStyle.title}>{this.props.title}</Text>
                     </View>
-                </TouchableNativeFeedback>
-            </ScrollView>
+                </Animated.View>
+            </View>
         );
     }
 }

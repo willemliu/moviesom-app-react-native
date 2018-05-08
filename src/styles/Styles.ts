@@ -150,3 +150,49 @@ export const touchTextButtonStyle = StyleSheet.create({
         textAlign: 'center',
     },
 });
+
+export const HEADER_MAX_HEIGHT = 219;
+export const HEADER_MIN_HEIGHT = 50;
+export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+export const animatedHeaderStyle = StyleSheet.create({
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#fff',
+        overflow: 'hidden',
+    },
+    bar: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    title: {
+        backgroundColor: 'transparent',
+        color: 'white',
+        fontSize: 25,
+        textShadowRadius: 10,
+        textShadowColor: '#000',
+        shadowOpacity: 1.0,
+        textShadowOffset: {
+            width: 1,
+            height: 1,
+        }
+    },
+    scrollViewContent: {
+        marginTop: HEADER_MAX_HEIGHT,
+    },
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: HEADER_MAX_HEIGHT,
+        resizeMode: 'contain',
+    },
+});
