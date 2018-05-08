@@ -1,6 +1,6 @@
 import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image, Dimensions } from 'react-native';
-import {textStyle, viewStyle, searchResultStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT} from "../styles/Styles";
+import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 
@@ -97,8 +97,8 @@ export default class DetailsScreen extends React.Component<any, any> {
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor: '#fff'}}>
-                            <Text style={searchResultStyle.title}>{this.props.name}</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.biography}</Text>
+                            <Text style={detailStyle.title}>{this.props.name}</Text>
+                            <Text style={detailStyle.overview}>{this.props.biography}</Text>
                             <TouchTextButton
                                 onPress={() => Share.share({
                                     title: this.props.name,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet } from 'react-native';
-import {textStyle, viewStyle, searchResultStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT} from "../styles/Styles";
+import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format, parse } from 'date-fns';
@@ -99,12 +99,12 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor: '#fff'}}>
-                            <Text style={searchResultStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.budget ? `Budget: ${this.props.budget}` : null}</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.revenue ? `Revenue: ${this.props.revenue}` : null}</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.runtime ? `Runtime: ${this.props.runtime}` : null}</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
-                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
+                            <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={detailStyle.overview}>{this.props.budget ? `Budget: ${this.props.budget}` : null}</Text>
+                            <Text style={detailStyle.overview}>{this.props.revenue ? `Revenue: ${this.props.revenue}` : null}</Text>
+                            <Text style={detailStyle.overview}>{this.props.runtime ? `Runtime: ${this.props.runtime}` : null}</Text>
+                            <Text style={detailStyle.overview}>{this.props.overview}</Text>
+                            <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <TouchTextButton onPress={this.updateMovieTest}>Show data</TouchTextButton>
                             <TouchTextButton
                                 onPress={() => Share.share({

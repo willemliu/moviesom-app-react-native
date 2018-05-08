@@ -1,6 +1,6 @@
 import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View } from 'react-native';
-import {textStyle, viewStyle, searchResultStyle} from "../styles/Styles";
+import {textStyle, viewStyle, detailStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
 export default class TvDetailScreen extends React.Component<any> {
@@ -14,8 +14,8 @@ export default class TvDetailScreen extends React.Component<any> {
             <ScrollView style={{backgroundColor: '#fff'}}>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
                     <View style={{backgroundColor: '#fff'}}>
-                        <Text style={searchResultStyle.title}>{navigation.getParam('name')}</Text>
-                        <Text style={searchResultStyle.overview}>{navigation.getParam('overview')}</Text>
+                        <Text style={detailStyle.title}>{navigation.getParam('name')}</Text>
+                        <Text style={detailStyle.overview}>{navigation.getParam('overview')}</Text>
                         <TouchTextButton
                             onPress={() => Share.share({
                                 title: navigation.getParam('name'),

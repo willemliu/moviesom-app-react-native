@@ -131,6 +131,25 @@ export const searchResultStyle = StyleSheet.create({
     },
 });
 
+export const detailStyle = StyleSheet.create({
+    view: {
+        marginTop: 10,
+        padding: 10,
+        backgroundColor: "#fff",
+        borderRadius: 3,
+    },
+    title: {
+        fontSize: 20,
+        marginBottom: 10,
+        marginLeft: 10,
+    },
+    overview: {
+        fontSize: 16,
+        marginLeft: 10,
+        marginBottom: 10,
+    },
+});
+
 export const touchTextButtonStyle = StyleSheet.create({
     view: {
         backgroundColor: movieSomColor,
