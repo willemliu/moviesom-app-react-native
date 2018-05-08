@@ -46,8 +46,8 @@ export default class MovieDetailScreen extends React.Component<any, any> {
      * When all conditions are met the `image` state is set with a JSX Element triggering
      * a re-render.
      */
-    loadImage = async (backdropPath: string|null|undefined) => {
-        const imageUrl = await getBackdropUrl(backdropPath);
+    loadImage = async (imagePath: string|null|undefined) => {
+        const imageUrl = await getBackdropUrl(imagePath);
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});
@@ -100,10 +100,9 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor: '#fff'}}>
                             <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            <Text style={detailStyle.overview}>{this.props.budget ? `Budget: ${this.props.budget}` : null}</Text>
-                            <Text style={detailStyle.overview}>{this.props.revenue ? `Revenue: ${this.props.revenue}` : null}</Text>
-                            <Text style={detailStyle.overview}>{this.props.runtime ? `Runtime: ${this.props.runtime}` : null}</Text>
-                            <Text style={detailStyle.overview}>{this.props.overview}</Text>
+                            {this.props.budget ? <Text style={detailStyle.overview}>Budget: $ {parseInt(this.props.budget, 10).toLocaleString()}</Text> : null}
+                            {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: $ {parseInt(this.props.revenue, 10).toLocaleString()}</Text> : null}
+                            {this.props.runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.runtime}</Text> : null}
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <TouchTextButton onPress={this.updateMovieTest}>Show data</TouchTextButton>
                             <TouchTextButton

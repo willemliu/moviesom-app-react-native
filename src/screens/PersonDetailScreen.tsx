@@ -52,8 +52,8 @@ export default class DetailsScreen extends React.Component<any, any> {
      * When all conditions are met the `image` state is set with a JSX Element triggering
      * a re-render.
      */
-    loadImage = async (backdropPath: string|null|undefined) => {
-        const imageUrl = await getBackdropUrl(backdropPath);
+    loadImage = async (imagePath: string|null|undefined) => {
+        const imageUrl = await getBackdropUrl(imagePath);
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});
