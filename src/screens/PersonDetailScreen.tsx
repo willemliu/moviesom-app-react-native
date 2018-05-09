@@ -15,6 +15,13 @@ export default class DetailsScreen extends React.Component<any, any> {
 
     componentDidMount() {
         this.getDetails();
+        Dimensions.addEventListener('change', ({window, screen}) => { this.checkOrientation(window.width, window.height); });
+        const {width, height} = Dimensions.get('window');
+        this.checkOrientation(width, height);
+    }
+
+    checkOrientation = (width: number, height: number) => {
+        this.props.navigation.setParams({hideTabBar: (width > height)});
     }
 
     getDetails = async () => {

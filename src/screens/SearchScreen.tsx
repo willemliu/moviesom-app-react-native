@@ -17,8 +17,7 @@ export default class SearchScreen extends React.Component<any, any> {
         searchText: '',
     };
     private page = 1;
-    private totalPages = 1;
-    private totalResults = 1;
+    private totalPages = 2;
     private loadingPage: number[] = [];
 
     constructor(props: any) {
@@ -29,10 +28,12 @@ export default class SearchScreen extends React.Component<any, any> {
         if (!this.props.searchItems) {
             this.search();
         } else {
-            this.setState({
-                refreshing: false,
+            AsyncStorage.getItem('searchText').then((searchText) => {
+                this.setState({
+                    refreshing: false,
+                    searchText
+                });
             });
-            AsyncStorage.getItem('searchText').then((searchText) => { if (searchText) { this.setState({searchText}); }} );
         }
     }
 
@@ -47,7 +48,6 @@ export default class SearchScreen extends React.Component<any, any> {
         this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
-        this.totalResults = parseInt(data.total_results, 10);
     }
 
     getSearchMulti = async (page: number = 1) => {
@@ -57,7 +57,6 @@ export default class SearchScreen extends React.Component<any, any> {
         this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
-        this.totalResults = parseInt(data.total_results, 10);
     }
 
     updateStore = (results: any[], replace: boolean = false) => {
@@ -75,6 +74,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     loadNextPage = async () => {
+        console.log('load next page', this.loadingPage.indexOf(this.page) === -1);
         if (this.page < this.totalPages && this.loadingPage.indexOf(this.page) === -1) {
             await this.getNowPlaying(this.page + 1);
         }

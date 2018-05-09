@@ -32,6 +32,10 @@ const MovieDetailsTabNav = TabNavigator({
     },
   },
   backBehavior: 'none',
+  navigationOptions: ({navigation}) => ({
+    tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) !== true,
+    animationEnabled: true
+  }),
 });
 
 export default MovieDetailsTabNav;

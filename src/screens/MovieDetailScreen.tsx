@@ -1,5 +1,5 @@
 import React from 'react';
-import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet } from 'react-native';
+import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet, Dimensions, ScaledSize } from 'react-native';
 import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
@@ -30,6 +30,13 @@ export default class MovieDetailScreen extends React.Component<any, any> {
 
     componentDidMount() {
         this.getDetails();
+        Dimensions.addEventListener('change', ({window, screen}) => { this.checkOrientation(window.width, window.height); });
+        const {width, height} = Dimensions.get('window');
+        this.checkOrientation(width, height);
+    }
+
+    checkOrientation = (width: number, height: number) => {
+        this.props.navigation.setParams({hideTabBar: (width > height)});
     }
 
     getDetails = async () => {
