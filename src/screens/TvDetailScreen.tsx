@@ -102,6 +102,7 @@ export default class TvDetailScreen extends React.Component<any> {
                             animatedHeaderStyle.backgroundImage,
                             {
                                 flex: 1,
+                                width: '100%',
                                 opacity: imageOpacity,
                                 transform: [{translateY: imageTranslate}]
                             },
