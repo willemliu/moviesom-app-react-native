@@ -1,6 +1,6 @@
 import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image, Dimensions } from 'react-native';
-import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT} from "../styles/Styles";
+import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 
@@ -81,13 +81,13 @@ export default class DetailsScreen extends React.Component<any, any> {
             extrapolate: 'clamp',
         });
         return (
-            <View style={{backgroundColor: '#fff'}}>
+            <View style={{backgroundColor}}>
                 <ScrollView
                     scrollEventThrottle={16}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor: '#fff'}}
+                    style={{backgroundColor}}
                 >
                     <Text
                         style={{
@@ -96,7 +96,7 @@ export default class DetailsScreen extends React.Component<any, any> {
                         }}
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
-                        <View style={{backgroundColor: '#fff'}}>
+                        <View style={{backgroundColor}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
                             <TouchTextButton
@@ -116,7 +116,6 @@ export default class DetailsScreen extends React.Component<any, any> {
                         style={[
                             animatedHeaderStyle.backgroundImage,
                             {
-                                flex: 1,
                                 opacity: imageOpacity,
                                 transform: [{translateY: imageTranslate}]
                             },

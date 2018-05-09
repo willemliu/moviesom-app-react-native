@@ -1,6 +1,6 @@
 import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet } from 'react-native';
-import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT} from "../styles/Styles";
+import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format, parse } from 'date-fns';
@@ -83,13 +83,13 @@ export default class MovieDetailScreen extends React.Component<any, any> {
         });
 
         return (
-            <View style={{backgroundColor: '#fff'}}>
+            <View style={{backgroundColor}}>
                 <ScrollView
                     scrollEventThrottle={16}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor: '#fff'}}
+                    style={{backgroundColor}}
                 >
                     <Text
                         style={{
@@ -98,7 +98,7 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                         }}
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
-                        <View style={{backgroundColor: '#fff'}}>
+                        <View style={{backgroundColor}}>
                         <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                             {this.props.budget ? <Text style={detailStyle.overview}>Budget: $ {parseInt(this.props.budget, 10).toLocaleString()}</Text> : null}
                             {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: $ {parseInt(this.props.revenue, 10).toLocaleString()}</Text> : null}
@@ -122,8 +122,6 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                         style={[
                             animatedHeaderStyle.backgroundImage,
                             {
-                                flex: 1,
-                                width: '100%',
                                 opacity: imageOpacity,
                                 transform: [{translateY: imageTranslate}]
                             },

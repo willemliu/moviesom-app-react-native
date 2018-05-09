@@ -1,6 +1,6 @@
 import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image } from 'react-native';
-import {textStyle, viewStyle, detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle} from "../styles/Styles";
+import {textStyle, viewStyle, detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format } from 'date-fns';
@@ -61,13 +61,13 @@ export default class TvDetailScreen extends React.Component<any> {
             extrapolate: 'clamp',
         });
         return (
-            <View>
+            <View style={{backgroundColor}}>
                 <ScrollView
                     scrollEventThrottle={16}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor: '#fff'}}
+                    style={{backgroundColor}}
                 >
                     <Text
                         style={{
@@ -76,7 +76,7 @@ export default class TvDetailScreen extends React.Component<any> {
                         }}
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
-                        <View style={{backgroundColor: '#fff'}}>
+                        <View style={{backgroundColor}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
                             {this.props.type ? <Text style={detailStyle.overview}>Type: {this.props.type}</Text> : null}
                             {this.props.episode_runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_runtime}</Text> : null}
@@ -101,8 +101,6 @@ export default class TvDetailScreen extends React.Component<any> {
                         style={[
                             animatedHeaderStyle.backgroundImage,
                             {
-                                flex: 1,
-                                width: '100%',
                                 opacity: imageOpacity,
                                 transform: [{translateY: imageTranslate}]
                             },
