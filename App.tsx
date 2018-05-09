@@ -6,7 +6,6 @@ import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import SignUpScreen from './src/screens/SignUpScreen';
 import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
-import DonateScreen from './src/screens/DonateScreen';
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
 import {getConfig} from './src/tmdb/TMDb';
@@ -16,6 +15,7 @@ import TouchTextButton from './src/components/TouchTextButton';
 import { createStore, Store } from 'redux';
 import {Provider} from "react-redux";
 import { rootReducer } from './src/redux/rootReducer';
+import WebScreen from './src/screens/WebScreen';
 
 console.disableYellowBox = true;
 
@@ -114,7 +114,10 @@ const StackNav = StackNavigator({
       screen: PersonDetailsScreen,
     },
     Donate: {
-      screen: DonateScreen,
+      screen: WebScreen,
+      navigationOptions: {
+        title: 'Donate'
+      }
     },
     Login: {
       screen: LoginScreen,
@@ -124,6 +127,9 @@ const StackNav = StackNavigator({
     },
     SignUp: {
       screen: SignUpScreen,
+    },
+    Web: {
+      screen: WebScreen,
     },
 }, {
     navigationOptions: ({navigation}) => ({

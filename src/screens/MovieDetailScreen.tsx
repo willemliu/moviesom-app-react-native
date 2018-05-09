@@ -107,6 +107,9 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor}}>
                         <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            {this.props.homepage ? <TouchTextButton
+                                    onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
+                                >Homepage</TouchTextButton> : null}
                             {this.props.budget ? <Text style={detailStyle.overview}>Budget: $ {parseInt(this.props.budget, 10).toLocaleString()}</Text> : null}
                             {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: $ {parseInt(this.props.revenue, 10).toLocaleString()}</Text> : null}
                             {this.props.runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.runtime}</Text> : null}

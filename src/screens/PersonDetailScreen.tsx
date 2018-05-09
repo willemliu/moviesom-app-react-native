@@ -105,6 +105,9 @@ export default class DetailsScreen extends React.Component<any, any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
+                            {this.props.homepage ? <TouchTextButton
+                                    onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
+                                >Homepage</TouchTextButton> : null}
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
                             <TouchTextButton
                                 onPress={() => Share.share({

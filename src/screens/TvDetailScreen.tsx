@@ -85,6 +85,9 @@ export default class TvDetailScreen extends React.Component<any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
+                            {this.props.homepage ? <TouchTextButton
+                                    onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
+                                >Homepage</TouchTextButton> : null}
                             {this.props.type ? <Text style={detailStyle.overview}>Type: {this.props.type}</Text> : null}
                             {this.props.episode_runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_runtime}</Text> : null}
                             {this.props.first_air_date ? <Text style={detailStyle.overview}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
