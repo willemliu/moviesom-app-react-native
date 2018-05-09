@@ -7,6 +7,8 @@ import MovieDetailScreen from '../screens/MovieDetailScreen';
 import SearchScreen from '../screens/SearchScreen';
 import TvDetailScreen from '../screens/TvDetailScreen';
 import PersonDetailScreen from '../screens/PersonDetailScreen';
+import CastAndCrewScreen from '../screens/CastAndCrewScreen';
+import SearchPersonResult from '../components/SearchPersonResult';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -17,14 +19,18 @@ export function tmdbReducer(state: any = defaultState, action: any) {
     switch (action.type) {
         case ADD_ITEM:
             const itemState = newState.tmdbItems.find((value: any, index: number, arr: any[]) => {
-                const sameItem = (value.id === action.item.id && value.media_type === action.item.media_type);
+                const sameItem = (value.id === action.item.id
+                    && action.item.media_type
+                    && value.media_type === action.item.media_type);
                 // Merge the new item with the old and return it.
                 if (sameItem) {
+                    console.log('MERGE', action.item.media_type, action.item.id);
                     arr[index] = Object.assign({}, value, action.item);
                 }
                 return sameItem;
             });
             if (!itemState) {
+                console.log('INSERT', action.item.media_type, action.item.id);
                 newState.tmdbItems.push(action.item);
             }
             return newState;
@@ -40,9 +46,12 @@ function mapItemStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
             let result = false;
-            if (ownProps.navigation) {
-                result = (ownProps.navigation.getParam('id') === value.id && ownProps.navigation.getParam('media_type') === value.media_type)
-                || (value.id === ownProps.id && value.media_type === ownProps.media_type);
+            // When a very specific case.
+            if (ownProps.navigation && ownProps.searchItems) {
+                result = (ownProps.navigation.getParam('id') === value.id
+                        && ownProps.navigation.getParam('media_type')
+                        && ownProps.navigation.getParam('media_type') === value.media_type)
+                    || (value.id === ownProps.id && value.media_type && value.media_type === ownProps.media_type);
             } else {
                 result = (value.id === ownProps.id && value.media_type === ownProps.media_type);
             }
@@ -66,6 +75,9 @@ function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
 const searchMovieResult = connect(mapItemStateToProps, mapTmdbDispatchToProps)(SearchMovieResult);
 export {searchMovieResult as SearchMovieResult};
 
+const searchPersonResult = connect(mapItemStateToProps, mapTmdbDispatchToProps)(SearchPersonResult);
+export {searchPersonResult as SearchPersonResult};
+
 const movieDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(MovieDetailScreen);
 export {movieDetailScreen as MovieDetailScreen};
 
@@ -77,3 +89,6 @@ export {personDetailScreen as PersonDetailScreen};
 
 const searchScreen = connect(withItems(mapItemStateToProps), mapTmdbDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};
+
+const castAndCrewScreen = connect(withItems(mapItemStateToProps), mapTmdbDispatchToProps)(CastAndCrewScreen);
+export {castAndCrewScreen as CastAndCrewScreen};

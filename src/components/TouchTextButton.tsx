@@ -7,7 +7,7 @@ export interface Props {
     onPress: (event: GestureResponderEvent) => void;
     style?: StyleProp<TextStyle>;
     children?: any;
-    buttonStyle?: StyleProp<TextStyle>;
+    textStyle?: StyleProp<TextStyle>;
 }
 
 export default class TouchTextButton extends React.Component<Props, any> {
@@ -17,8 +17,8 @@ export default class TouchTextButton extends React.Component<Props, any> {
                 onPress={this.props.onPress}
                 background={TouchableNativeFeedback.SelectableBackground()}
             >
-                <View style={this.props.buttonStyle ? this.props.buttonStyle : touchTextButtonStyle.view}>
-                    <Text style={this.props.style ? this.props.style : touchTextButtonStyle.text}>{this.props.children}</Text>
+                <View style={[touchTextButtonStyle.view, this.props.style]}>
+                    <Text style={[touchTextButtonStyle.text, this.props.textStyle]}>{this.props.children}</Text>
                 </View>
             </TouchableNativeFeedback>
         );

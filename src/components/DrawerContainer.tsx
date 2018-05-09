@@ -39,32 +39,36 @@ export default class DrawerContainer extends React.Component<any, any> {
         const { navigation } = this.props;
         return (
             <View style={viewStyle.drawer}>
-                <TouchTextButton onPress={() => navigation.navigate('Home')}>Home</TouchTextButton>
+                <TouchTextButton style={{marginBottom: 10}} onPress={() => navigation.navigate('Home')}>Home</TouchTextButton>
 
                 {this.state.loggedIn ? null : (
-                    <TouchTextButton onPress={() => navigation.navigate('Login')}>Login</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => navigation.navigate('Login')}>Login</TouchTextButton>
                 )}
 
                 {this.state.loggedIn ? null : (
-                    <TouchTextButton onPress={() => navigation.navigate('SignUp')}>Sign up</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => navigation.navigate('SignUp')}>Sign up</TouchTextButton>
                 )}
 
                 {this.state.loggedIn ? (
-                    <TouchTextButton onPress={this.logOut}>Log out</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={this.logOut}>Log out</TouchTextButton>
                 ) : null}
 
                 <TouchTextButton
+                    style={{marginBottom: 10}}
                     onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')}
                 >Link external</TouchTextButton>
                 <TouchTextButton
+                    style={{marginBottom: 10}}
                     onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})}
                 >MovieSom</TouchTextButton>
 
                 <TouchTextButton
+                    style={{marginBottom: 10}}
                     onPress={() => navigation.navigate('About', {name: 'Willem Liu'})}
                 >About</TouchTextButton>
 
                 <TouchTextButton
+                    style={{marginBottom: 10}}
                     onPress={async () => await AsyncStorage.removeItem('store')}
                 >Clear DB</TouchTextButton>
 

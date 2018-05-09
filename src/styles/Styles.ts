@@ -134,16 +134,9 @@ export const searchResultStyle = StyleSheet.create({
 export const detailStyle = StyleSheet.create({
     title: {
         fontSize: 20,
-        marginBottom: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        textAlign: 'center',
     },
     overview: {
         fontSize: 16,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 10,
     },
 });
 
@@ -154,7 +147,6 @@ export const touchTextButtonStyle = StyleSheet.create({
         paddingRight: 15,
         paddingBottom: 10,
         paddingLeft: 15,
-        margin: 5,
         borderRadius: 3,
         borderColor: movieSomColor,
         borderWidth: 1,
@@ -192,6 +184,7 @@ export const animatedHeaderStyle = StyleSheet.create({
         backgroundColor: 'transparent',
         color: 'white',
         fontSize: 25,
+        textAlign: 'center',
         textShadowRadius: 10,
         textShadowColor: '#000',
         shadowOpacity: 1.0,

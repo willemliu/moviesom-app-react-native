@@ -23,7 +23,7 @@ export default class PasswordResetScreen extends React.Component<any> {
                         keyboardType='email-address'
                         underlineColorAndroid={movieSomColor}
                     />
-                    <TouchTextButton onPress={() => this.props.navigation.goBack()}>Reset password</TouchTextButton>
+                    <TouchTextButton style={{margin: 5}} onPress={() => this.props.navigation.goBack()}>Reset password</TouchTextButton>
                 </View>
                 <KeyboardSpacer/>
             </View>

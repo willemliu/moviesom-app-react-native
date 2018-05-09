@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, ScrollView, TouchableNativeFeedback, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import {textStyle, viewStyle} from "../styles/Styles";
+import {textStyle, viewStyle, backgroundColor} from "../styles/Styles";
 
 export default class FilmographyScreen extends React.Component<any> {
     static navigationOptions = {
@@ -19,9 +19,9 @@ export default class FilmographyScreen extends React.Component<any> {
 
     render() {
         return (
-            <ScrollView style={{backgroundColor: '#fff'}}>
+            <ScrollView style={{backgroundColor}}>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
-                    <View style={{backgroundColor: '#fff'}}>
+                    <View style={{backgroundColor, margin: 10}}>
                         <Text>Filmography</Text>
                     </View>
                 </TouchableNativeFeedback>

@@ -3,9 +3,8 @@ import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatLi
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
-import { SearchMovieResult } from '../redux/TmdbReducer';
+import { SearchMovieResult, SearchPersonResult } from '../redux/TmdbReducer';
 import SearchTvResult from '../components/SearchTvResult';
-import SearchPersonResult from '../components/SearchPersonResult';
 
 export default class SearchScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -107,19 +106,19 @@ export default class SearchScreen extends React.Component<any, any> {
 
     handleMoviePress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => item.id === id);
+        const result = this.props.tmdbItems.find((item: any) => (item.id === id && item.media_type === 'movie'));
         this.props.navigation.navigate('MovieDetails', result);
     }
 
     handleTvPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => item.id === id);
+        const result = this.props.tmdbItems.find((item: any) => (item.id === id && item.media_type === 'tv'));
         this.props.navigation.navigate('TvDetails', result);
     }
 
     handlePersonPress = (id: number|null|undefined) => {
         if (id === null || id === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => item.id === id);
+        const result = this.props.tmdbItems.find((item: any) => (item.id === id && item.media_type === 'person'));
         this.props.navigation.navigate('PersonDetails', result);
     }
 
@@ -167,7 +166,7 @@ export default class SearchScreen extends React.Component<any, any> {
                 <FlatList
                     style={searchScreenStyle.flatList}
                     data={this.props.searchItems}
-                    extraData={this.props}
+                    extraData={this.props.searchItems}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}
                     renderItem={this.getSearchResultTemplate}

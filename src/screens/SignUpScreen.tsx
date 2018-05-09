@@ -70,7 +70,7 @@ export default class SignUpScreen extends React.Component<any, any> {
                         secureTextEntry={true}
                         underlineColorAndroid={this.state.passwordsMatch ? movieSomColor : '#f00'}
                     />
-                    <TouchTextButton onPress={this.login}>Sign up</TouchTextButton>
+                    <TouchTextButton style={{margin: 5}} onPress={this.login}>Sign up</TouchTextButton>
                 </View>
                 <KeyboardSpacer/>
             </View>

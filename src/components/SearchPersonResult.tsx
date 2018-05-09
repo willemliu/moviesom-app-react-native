@@ -1,4 +1,4 @@
-import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
+import {View, Text, Image, AsyncStorage, TouchableNativeFeedback, TextStyle, StyleProp} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor } from '../styles/Styles';
 import { getProfileUrl } from '../tmdb/TMDb';
@@ -13,9 +13,12 @@ export interface Props {
     id?: number;
     media_type?: string;
     known_for?: any; // TODO type
+    title?: string;
     name?: string;
+    biography?: string;
     popularity?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
+    style?: StyleProp<TextStyle>;
 }
 
 export default class SearchPersonResult extends React.PureComponent<Props, any> {
@@ -29,7 +32,8 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                 resizeMode='cover'
                 source={require('../../assets/eyecon256x256.png')}
             />
-        )
+        ),
+        media_type: 'person'
     };
 
     componentDidMount() {
@@ -82,13 +86,14 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                 onPress={this.handleOnPress}
                 background={TouchableNativeFeedback.SelectableBackground()}
             >
-                <View style={searchResultStyle.view}>
+                <View style={[searchResultStyle.view, this.props.style]}>
                     <View style={{flex: 0, flexDirection: 'row'}}>
                         <View style={{flex: 2}}>
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.name}</Text>
+                            <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>
                     <View style={{

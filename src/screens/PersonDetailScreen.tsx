@@ -87,6 +87,7 @@ export default class DetailsScreen extends React.Component<any, any> {
             outputRange: [0, -50],
             extrapolate: 'clamp',
         });
+
         return (
             <View style={{backgroundColor}}>
                 <ScrollView

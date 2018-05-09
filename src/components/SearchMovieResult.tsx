@@ -38,7 +38,8 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                 resizeMode='cover'
                 source={require('../../assets/eyecon256x256.png')}
             />
-        )
+        ),
+        media_type: 'person'
     };
 
     componentDidMount() {

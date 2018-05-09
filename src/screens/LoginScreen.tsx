@@ -45,7 +45,7 @@ export default class LoginScreen extends React.Component<any> {
                         secureTextEntry={true}
                         underlineColorAndroid={movieSomColor}
                     />
-                    <TouchTextButton onPress={this.login}>Login</TouchTextButton>
+                    <TouchTextButton style={{margin: 5}} onPress={this.login}>Login</TouchTextButton>
 
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
                         <Text onPress={() => this.props.navigation.navigate('SignUp')} style={textStyle.smallLink}>Sign up</Text>
