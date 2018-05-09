@@ -18,6 +18,7 @@ export function tmdbReducer(state: any = defaultState, action: any) {
         case ADD_ITEM:
             const itemState = newState.tmdbItems.find((value: any, index: number, arr: any[]) => {
                 const sameItem = (value.id === action.item.id && value.media_type === action.item.media_type);
+                // Merge the new item with the old and return it.
                 if (sameItem) {
                     arr[index] = Object.assign({}, value, action.item);
                 }

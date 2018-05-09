@@ -25,7 +25,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        if (!this.props.searchItems) {
+        if (!this.props.searchItems || !this.props.searchItems.length) {
             this.search();
         } else {
             AsyncStorage.getItem('searchText').then((searchText) => {
@@ -59,9 +59,15 @@ export default class SearchScreen extends React.Component<any, any> {
         this.totalPages = parseInt(data.total_pages, 10);
     }
 
+    /**
+     * Make sure the TMDb items in the Store are up-to-date.
+     */
     updateStore = (results: any[], replace: boolean = false) => {
         if (replace) {
             this.props.searchActions.setSearchItems(results);
+            results.forEach((value: any) => {
+                this.props.actions.addItem(value);
+            });
         }
         (results as any[]).forEach((value: any) => {
             // Always add items to the `tmdb` Redux store.
@@ -81,6 +87,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     search = async (searchText: string = this.state.searchText) => {
+        console.log('Search', searchText);
         if (searchText) {
             // Store searchText in storage for next sessions.
             AsyncStorage.setItem('searchText', searchText);

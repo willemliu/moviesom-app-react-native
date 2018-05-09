@@ -137,6 +137,7 @@ export const detailStyle = StyleSheet.create({
         marginBottom: 10,
         marginLeft: 10,
         marginRight: 10,
+        textAlign: 'center',
     },
     overview: {
         fontSize: 16,

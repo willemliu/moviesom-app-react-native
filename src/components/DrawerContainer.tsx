@@ -63,6 +63,11 @@ export default class DrawerContainer extends React.Component<any, any> {
                 <TouchTextButton
                     onPress={() => navigation.navigate('About', {name: 'Willem Liu'})}
                 >About</TouchTextButton>
+
+                <TouchTextButton
+                    onPress={async () => await AsyncStorage.removeItem('store')}
+                >Clear DB</TouchTextButton>
+
             </View>
         );
     }

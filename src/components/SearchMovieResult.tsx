@@ -24,6 +24,7 @@ export interface Props {
     video?: boolean;
     vote_average?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
+    test?: number;
 }
 
 export default class SearchMovieResult extends React.PureComponent<Props, any> {
@@ -126,7 +127,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.test}{this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>

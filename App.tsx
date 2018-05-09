@@ -44,7 +44,6 @@ export default class App extends React.Component<any> {
       store = createStore(rootReducer);
     }
     store.subscribe(async () => {
-      console.log('Save Redux store');
       await AsyncStorage.setItem('store', JSON.stringify(this.state.store.getState()));
     });
     this.setState({store});
