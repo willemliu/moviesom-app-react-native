@@ -87,12 +87,12 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     search = async (searchText: string = this.state.searchText) => {
-        console.log('Search', searchText);
         if (searchText) {
             // Store searchText in storage for next sessions.
             AsyncStorage.setItem('searchText', searchText);
             await this.getSearchMulti();
         } else {
+            AsyncStorage.removeItem('searchText');
             await this.getNowPlaying();
         }
         this.setState({refreshing: false});
