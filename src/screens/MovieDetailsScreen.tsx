@@ -3,13 +3,10 @@ import { CastAndCrewScreen, MovieDetailScreen } from '../redux/TmdbReducer';
 
 const DetailsTabNav = TabNavigator({
     DetailsScreen: {
-      screen: MovieDetailScreen
+      screen: MovieDetailScreen,
     },
-    Crew: {
+    CastAndCrew: {
       screen: CastAndCrewScreen,
-      navigationOptions: {
-        title: 'Cast & Crew',
-      }
     },
 }, {
     tabBarPosition: 'bottom',

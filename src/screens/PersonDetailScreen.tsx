@@ -70,6 +70,14 @@ export default class DetailsScreen extends React.Component<any, any> {
         }
     }
 
+    test = () => {
+        this.props.actions.addItem({
+            id: this.props.id,
+            media_type: this.props.media_type,
+            test: this.props.test ? this.props.test + 1 : 1
+        });
+    }
+
     render() {
         const headerHeight = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -105,11 +113,12 @@ export default class DetailsScreen extends React.Component<any, any> {
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor}}>
-                            <Text style={detailStyle.title}>{this.props.name}</Text>
+                            <Text style={detailStyle.title}>{this.props.test}{this.props.name}</Text>
                             {this.props.homepage ? <TouchTextButton
                                     onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
                                 >Homepage</TouchTextButton> : null}
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
+                            <TouchTextButton onPress={this.test}>Show data</TouchTextButton>
                             <TouchTextButton
                                 onPress={() => Share.share({
                                     title: this.props.name,
@@ -135,10 +144,6 @@ export default class DetailsScreen extends React.Component<any, any> {
                         resizeMode='cover'
                         source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
                     />
-
-                    <View style={animatedHeaderStyle.bar}>
-                        <Text style={animatedHeaderStyle.title}>{this.props.name}</Text>
-                    </View>
                 </Animated.View>
             </View>
         );

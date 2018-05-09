@@ -2,7 +2,7 @@ import { PersonDetailScreen } from '../redux/TmdbReducer';
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';
 
-const MovieDetailsTabNav = TabNavigator({
+const PersonDetailsTabNav = TabNavigator({
     DetailsScreen: {
       screen: PersonDetailScreen
     },
@@ -38,4 +38,4 @@ const MovieDetailsTabNav = TabNavigator({
   }),
 });
 
-export default MovieDetailsTabNav;
+export default PersonDetailsTabNav;

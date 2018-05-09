@@ -2,7 +2,7 @@ import { TvDetailScreen } from '../redux/TmdbReducer';
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';
 
-const DetailsTabNav = TabNavigator({
+const TvDetailsTabNav = TabNavigator({
     DetailsScreen: {
       screen: TvDetailScreen
     },
@@ -38,4 +38,4 @@ const DetailsTabNav = TabNavigator({
   }),
 });
 
-export default DetailsTabNav;
+export default TvDetailsTabNav;

@@ -123,6 +123,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     getSearchResultTemplate = (data: any): JSX.Element|null => {
+        // Make sure item has media_type when that's not set.
         const item  = Object.assign({}, {media_type: 'movie'}, data.item);
         let result = null;
         switch (item.media_type) {
@@ -149,8 +150,6 @@ export default class SearchScreen extends React.Component<any, any> {
                 result = (
                     <SearchMovieResult
                         id={item.id}
-                        media_type={'movie'}
-                        ownMovie={item}
                         handleOnPress={this.handleMoviePress}
                         navigation={this.props.navigation}
                     />

@@ -93,7 +93,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
     }
 
     render() {
-        if (this.props.media_type !== 'tv') { return null; }
         return (
             <TouchableNativeFeedback
                 onPress={this.handleOnPress}

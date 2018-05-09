@@ -7,7 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 
 export interface Props {
-    handleOnPress: (id: number|null|undefined) => void;
+    handleOnPress: (person: any) => void;
     profile_path?: string|null;
     adult?: boolean;
     id?: number;
@@ -19,6 +19,7 @@ export interface Props {
     popularity?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
     style?: StyleProp<TextStyle>;
+    test?: string;
 }
 
 export default class SearchPersonResult extends React.PureComponent<Props, any> {
@@ -33,7 +34,6 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                 source={require('../../assets/eyecon256x256.png')}
             />
         ),
-        media_type: 'person'
     };
 
     componentDidMount() {
@@ -41,7 +41,7 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
     }
 
     handleOnPress = () => {
-        if (this.props.handleOnPress) { this.props.handleOnPress(this.props.id); }
+        if (this.props.handleOnPress) { this.props.handleOnPress(this.props); }
     }
 
     /**
@@ -80,7 +80,6 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
     }
 
     render() {
-        if (this.props.media_type !== 'person') { return null; }
         return (
             <TouchableNativeFeedback
                 onPress={this.handleOnPress}
@@ -92,7 +91,7 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.name}</Text>
+                            <Text style={searchResultStyle.title}>{this.props.test}{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.name}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>

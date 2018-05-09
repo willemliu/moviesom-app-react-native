@@ -25,7 +25,6 @@ export default class MovieDetailScreen extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-        this.props = props;
     }
 
     componentDidMount() {
@@ -64,7 +63,7 @@ export default class MovieDetailScreen extends React.Component<any, any> {
         }
     }
 
-    updateMovieTest = () => {
+    test = () => {
         this.props.actions.addItem({
             id: this.props.id,
             media_type: this.props.media_type,
@@ -115,7 +114,7 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                             {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: $ {parseInt(this.props.revenue, 10).toLocaleString()}</Text> : null}
                             {this.props.runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.runtime}</Text> : null}
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <TouchTextButton onPress={this.updateMovieTest}>Show data</TouchTextButton>
+                            <TouchTextButton onPress={this.test}>Show data</TouchTextButton>
                             <TouchTextButton
                                 onPress={() => Share.share({
                                     title: this.props.title,
@@ -141,10 +140,6 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                         resizeMode='cover'
                         source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
                     />
-
-                    <View style={animatedHeaderStyle.bar}>
-                        <Text style={animatedHeaderStyle.title}>{this.props.title}</Text>
-                    </View>
                 </Animated.View>
             </View>
         );

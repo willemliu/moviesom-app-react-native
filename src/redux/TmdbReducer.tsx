@@ -9,6 +9,8 @@ import TvDetailScreen from '../screens/TvDetailScreen';
 import PersonDetailScreen from '../screens/PersonDetailScreen';
 import CastAndCrewScreen from '../screens/CastAndCrewScreen';
 import SearchPersonResult from '../components/SearchPersonResult';
+import MovieDetailsScreen from '../screens/MovieDetailsScreen';
+import { navigationParamsToProps } from '../utils/navigation';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -42,19 +44,36 @@ export function tmdbReducer(state: any = defaultState, action: any) {
     }
 }
 
-function mapItemStateToProps(state: any, ownProps: any) {
+function mapMovieStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
-            let result = false;
-            // When a very specific case.
-            if (ownProps.navigation && ownProps.searchItems) {
-                result = (ownProps.navigation.getParam('id') === value.id
-                        && ownProps.navigation.getParam('media_type')
-                        && ownProps.navigation.getParam('media_type') === value.media_type)
-                    || (value.id === ownProps.id && value.media_type && value.media_type === ownProps.media_type);
-            } else {
-                result = (value.id === ownProps.id && value.media_type === ownProps.media_type);
-            }
+            const result = (value.id === ownProps.id && value.media_type === 'movie')
+            || (ownProps.navigation
+                && value.id === ownProps.navigation.getParam('id')
+                && ownProps.navigation.getParam('media_type') === 'movie');
+            return result;
+        }))
+    };
+}
+function mapPersonStateToProps(state: any, ownProps: any) {
+    return {
+        ...(state.tmdb.tmdbItems.find((value: any) => {
+            const result = (value.id === ownProps.id && value.media_type === 'person')
+            || (ownProps.navigation
+                && value.id === ownProps.navigation.getParam('id')
+                && ownProps.navigation.getParam('media_type') === 'person');
+            return result;
+        }))
+    };
+}
+function mapTvStateToProps(state: any, ownProps: any) {
+    return {
+        ...(state.tmdb.tmdbItems.find((value: any) => {
+            const result = (value.id === ownProps.id && value.media_type === 'tv')
+            || (ownProps.navigation
+                && value.id === ownProps.navigation.getParam('id')
+                && ownProps.navigation.getParam('media_type') === 'tv');
+            console.log(...value);
             return result;
         }))
     };
@@ -72,23 +91,23 @@ function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
     };
 }
 
-const searchMovieResult = connect(mapItemStateToProps, mapTmdbDispatchToProps)(SearchMovieResult);
+const searchMovieResult = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(SearchMovieResult);
 export {searchMovieResult as SearchMovieResult};
 
-const searchPersonResult = connect(mapItemStateToProps, mapTmdbDispatchToProps)(SearchPersonResult);
+const searchPersonResult = connect(mapPersonStateToProps, mapTmdbDispatchToProps)(SearchPersonResult);
 export {searchPersonResult as SearchPersonResult};
 
-const movieDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(MovieDetailScreen);
+const movieDetailScreen = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(MovieDetailScreen);
 export {movieDetailScreen as MovieDetailScreen};
 
-const tvDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(TvDetailScreen);
+const tvDetailScreen = connect(mapTvStateToProps, mapTmdbDispatchToProps)(TvDetailScreen);
 export {tvDetailScreen as TvDetailScreen};
 
-const personDetailScreen = connect(mapItemStateToProps, mapTmdbDispatchToProps)(PersonDetailScreen);
+const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(PersonDetailScreen));
 export {personDetailScreen as PersonDetailScreen};
 
-const searchScreen = connect(withItems(mapItemStateToProps), mapTmdbDispatchToProps)(SearchScreen);
+const searchScreen = connect(withItems(mapMovieStateToProps), mapTmdbDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};
 
-const castAndCrewScreen = connect(withItems(mapItemStateToProps), mapTmdbDispatchToProps)(CastAndCrewScreen);
+const castAndCrewScreen = navigationParamsToProps(connect(withItems(mapPersonStateToProps), mapTmdbDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
