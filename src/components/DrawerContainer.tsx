@@ -39,14 +39,14 @@ export default class DrawerContainer extends React.Component<any, any> {
         const { navigation } = this.props;
         return (
             <View style={viewStyle.drawer}>
-                <TouchTextButton style={{marginBottom: 10}} onPress={() => navigation.navigate('Home')}>Home</TouchTextButton>
+                <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('Home'))}>Home</TouchTextButton>
 
                 {this.state.loggedIn ? null : (
-                    <TouchTextButton style={{marginBottom: 10}} onPress={() => navigation.navigate('Login')}>Login</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('Login'))}>Login</TouchTextButton>
                 )}
 
                 {this.state.loggedIn ? null : (
-                    <TouchTextButton style={{marginBottom: 10}} onPress={() => navigation.navigate('SignUp')}>Sign up</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('SignUp'))}>Sign up</TouchTextButton>
                 )}
 
                 {this.state.loggedIn ? (
@@ -55,16 +55,16 @@ export default class DrawerContainer extends React.Component<any, any> {
 
                 <TouchTextButton
                     style={{marginBottom: 10}}
-                    onPress={() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500')}
+                    onPress={() => requestAnimationFrame(() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500'))}
                 >Link external</TouchTextButton>
                 <TouchTextButton
                     style={{marginBottom: 10}}
-                    onPress={() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'})}
+                    onPress={() => requestAnimationFrame(() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'}))}
                 >MovieSom</TouchTextButton>
 
                 <TouchTextButton
                     style={{marginBottom: 10}}
-                    onPress={() => navigation.navigate('About', {name: 'Willem Liu'})}
+                    onPress={() => requestAnimationFrame(() => navigation.navigate('About', {name: 'Willem Liu'}))}
                 >About</TouchTextButton>
 
                 <TouchTextButton

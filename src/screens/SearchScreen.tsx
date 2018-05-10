@@ -104,21 +104,27 @@ export default class SearchScreen extends React.Component<any, any> {
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     handleMoviePress = (props: any) => {
-        const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'movie')) || props;
-        console.log('Load Movie Details', result.id, props.id);
-        this.props.navigation.navigate('MovieDetails', result);
+        requestAnimationFrame(() => {
+            const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'movie')) || props;
+            console.log('Load Movie Details', result.id, props.id);
+            this.props.navigation.navigate('MovieDetails', result);
+        });
     }
 
     handleTvPress = (props: any) => {
-        const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'tv')) || props;
-        console.log('Load TV Details', result.id, props.id);
-        this.props.navigation.navigate('TvDetails', result);
+        requestAnimationFrame(() => {
+            const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'tv')) || props;
+            console.log('Load TV Details', result.id, props.id);
+            this.props.navigation.navigate('TvDetails', result);
+        });
     }
 
     handlePersonPress = (props: any) => {
-        const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'person')) || props;
-        console.log('Load Person Details', result.id, props.id);
-        this.props.navigation.navigate('PersonDetails', result);
+        requestAnimationFrame(() => {
+            const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'person')) || props;
+            console.log('Load Person Details', result.id, props.id);
+            this.props.navigation.navigate('PersonDetails', result);
+        });
     }
 
     getSearchResultTemplate = (data: any): JSX.Element|null => {

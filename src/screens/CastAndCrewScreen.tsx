@@ -16,9 +16,11 @@ export default class CastAndCrewScreen extends React.Component<any, any> {
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     handlePersonPress = (person: any) => {
-        if (person === null || person === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => (item.id === person.id && item.media_type === 'person')) || person;
-        this.props.navigation.navigate('PersonDetails', result);
+        requestAnimationFrame(() => {
+            if (person === null || person === undefined) { return ; }
+            const result = this.props.tmdbItems.find((item: any) => (item.id === person.id && item.media_type === 'person')) || person;
+            this.props.navigation.navigate('PersonDetails', result);
+        });
     }
 
     render() {

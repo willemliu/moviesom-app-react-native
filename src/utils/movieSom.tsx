@@ -71,11 +71,11 @@ export const shareHandler = async (props: any) => {
 };
 
 export const imdbHandler = (props: any) => {
-    props.navigation.navigate('Web', {url: `https://www.imdb.com/title/${props.imdb_id}/`});
+    props.navigation.navigate('Web', {url: `https://www.imdb.com/title/${props.imdb_id}/`, canGoBack: true});
 };
 
 export const homepageHandler = (props: any) => {
-    props.navigation.navigate('Web', {url: props.homepage});
+    props.navigation.navigate('Web', {url: props.homepage, canGoBack: true});
 };
 
 export const formatDuration = (minutes: number) => {

@@ -63,7 +63,7 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}><MaterialIcons name="person" size={16}/> {this.props.name}</Text>
+                            <Text style={searchResultStyle.title}><MaterialIcons name="person" size={15}/> {this.props.name}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>
