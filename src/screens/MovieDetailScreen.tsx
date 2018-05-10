@@ -25,7 +25,45 @@ numeral.register('locale', 'nl_NL', {
 
 numeral.locale('nl_NL');
 
-export default class MovieDetailScreen extends React.Component<any, any> {
+export interface Props {
+    adult?: boolean;
+    backdrop_path?: string;
+    belongs_to_collection?: null|any;
+    budget?: number;
+    genres?: [{id?: number, name?: string}];
+    homepage?: string;
+    id?: number;
+    imdb_id?: string;
+    original_language?: string;
+    original_title?: string;
+    overview?: string;
+    popularity?: number;
+    poster_path?: string;
+    production_companies?: [{name?: string, id?: number, logo_path?: string, origin_country?: string}];
+    production_countries?: [{iso_3166_1?: string, name?: string}];
+    release_date?: string;
+    revenue?: number;
+    runtime?: number;
+    spoken_languages?: [{iso639_1?: string, name?: string}];
+    status?: string;
+    tagline?: string;
+    title?: string;
+    video?: boolean;
+    vote_average?: number;
+    vote_count?: number;
+    actions: any;
+    navigation: any;
+    watched?: any;
+    watchedHandler?: any;
+    unWatchedHandler?: any;
+    wantToWatchHandler?: any;
+    imdbHandler?: any;
+    homepageHandler?: any;
+    shareHandler?: any;
+    formatDuration: any;
+}
+
+export default class MovieDetailScreen extends React.Component<Props, any> {
     static navigationOptions = {
         title: 'Movie Details',
     };

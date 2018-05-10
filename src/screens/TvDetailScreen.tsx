@@ -6,7 +6,45 @@ import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 
-export default class TvDetailScreen extends React.Component<any, any> {
+export interface Props {
+    backdrop_path?: string;
+    created_by?: [{id?: number, name?: string, gender?: 0|1|2, profile_path?: string}];
+    episode_run_time?: number[];
+    first_air_date?: string;
+    genres?: [{id?: number, name?: string}];
+    homepage?: string;
+    id?: number;
+    in_production?: boolean;
+    languages?: string[];
+    last_air_date?: string;
+    name?: string;
+    networs?: [{id?: number, name: string}];
+    number_of_episodes?: number;
+    number_of_seasons?: number;
+    origin_country?: string[];
+    origial_language?: string;
+    original_name?: string;
+    overview?: string;
+    popularity?: string;
+    poster_path?: string;
+    production_companies?: [{name?: string, id?: number, logo_path?: string, origin_country?: string}];
+    seasons?: [{air_date?: string, episode_count?: number, id?: number, poster_path?: string, season_number?: number}];
+    status?: string;
+    type?: string;
+    vote_average?: number;
+    vote_count?: number;
+    actions: any;
+    navigation: any;
+    watched?: any;
+    watchedHandler?: any;
+    unWatchedHandler?: any;
+    wantToWatchHandler?: any;
+    imdbHandler?: any;
+    homepageHandler?: any;
+    shareHandler?: any;
+    formatDuration: any;
+}
+export default class TvDetailScreen extends React.Component<Props, any> {
     static navigationOptions = {
         title: 'TV Details',
     };
@@ -90,7 +128,7 @@ export default class TvDetailScreen extends React.Component<any, any> {
                                     onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
                                 >Homepage</TouchTextButton> : null}
                             {this.props.type ? <Text style={detailStyle.overview}>Type: {this.props.type}</Text> : null}
-                            {this.props.episode_runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_runtime}</Text> : null}
+                            {this.props.episode_run_time ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_run_time}</Text> : null}
                             {this.props.first_air_date ? <Text style={detailStyle.overview}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
                             {this.props.number_of_seasons ? <Text style={detailStyle.overview}>Seasons: {this.props.number_of_seasons}</Text> : null}
                             {this.props.number_of_episodes ? <Text style={detailStyle.overview}>Episodes: {this.props.number_of_episodes}</Text> : null}
