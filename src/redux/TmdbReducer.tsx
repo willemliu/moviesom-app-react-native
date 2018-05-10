@@ -11,7 +11,7 @@ import CastAndCrewScreen from '../screens/CastAndCrewScreen';
 import SearchPersonResult from '../components/SearchPersonResult';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import { navigationParamsToProps } from '../utils/navigation';
-import { withOnPressHandler } from '../utils/movieSom';
+import { withMovieSomFunctions } from '../utils/movieSom';
 import SearchTvResult from '../components/SearchTvResult';
 
 const defaultState = {
@@ -92,22 +92,22 @@ function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
     };
 }
 
-const searchMovieResult = withOnPressHandler(connect(mapMovieStateToProps, mapTmdbDispatchToProps)(SearchMovieResult));
+const searchMovieResult = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(SearchMovieResult));
 export {searchMovieResult as SearchMovieResult};
 
-const searchTvResult = withOnPressHandler(connect(mapTvStateToProps, mapTmdbDispatchToProps)(SearchTvResult));
+const searchTvResult = connect(mapTvStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(SearchTvResult));
 export {searchTvResult as SearchTvResult};
 
-const searchPersonResult = withOnPressHandler(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(SearchPersonResult));
+const searchPersonResult = connect(mapPersonStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
 
-const movieDetailScreen = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(MovieDetailScreen);
+const movieDetailScreen = navigationParamsToProps(connect(mapMovieStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(MovieDetailScreen)));
 export {movieDetailScreen as MovieDetailScreen};
 
-const tvDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapTmdbDispatchToProps)(TvDetailScreen));
+const tvDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(TvDetailScreen)));
 export {tvDetailScreen as TvDetailScreen};
 
-const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(PersonDetailScreen));
+const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(PersonDetailScreen)));
 export {personDetailScreen as PersonDetailScreen};
 
 const searchScreen = connect(withItems(mapMovieStateToProps), mapTmdbDispatchToProps)(SearchScreen);

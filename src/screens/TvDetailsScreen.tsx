@@ -1,16 +1,13 @@
-import { TvDetailScreen } from '../redux/TmdbReducer';
+import { TvDetailScreen, CastAndCrewScreen } from '../redux/TmdbReducer';
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';
 
 const TvDetailsTabNav = TabNavigator({
     DetailsScreen: {
-      screen: TvDetailScreen
+      screen: TvDetailScreen,
     },
-    Crew: {
-      screen: FilmographyScreen,
-      navigationOptions: {
-        title: 'Cast & Crew',
-      }
+    CastAndCrew: {
+      screen: CastAndCrewScreen,
     },
     Seasons: {
       screen: FilmographyScreen,

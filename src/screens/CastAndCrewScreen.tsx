@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, SectionList } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import {backgroundColor, searchResultStyle, searchScreenStyle} from "../styles/Styles";
+import {backgroundColor, searchResultStyle, searchScreenStyle, sectionListStyle} from "../styles/Styles";
 import { SearchPersonResult } from '../redux/TmdbReducer';
 
 export default class CastAndCrewScreen extends React.Component<any, any> {
@@ -22,22 +22,30 @@ export default class CastAndCrewScreen extends React.Component<any, any> {
     }
 
     render() {
+        const sections = [];
+        if (this.props.credits.cast.length) {
+            sections.push({title: 'Cast', data: this.props.credits.cast});
+        }
+        if (this.props.credits.crew.length) {
+            sections.push({title: 'Crew', data: this.props.credits.crew});
+        }
         return (
             <View style={{flex: 1, backgroundColor}}>
-                <Text style={searchResultStyle.title}>Cast</Text>
-                <FlatList
+                <SectionList
+                    sections={sections}
+                    ListEmptyComponent={<Text style={sectionListStyle.header}>No information</Text>}
+                    stickySectionHeadersEnabled={true}
                     style={[searchScreenStyle.flatList, {backgroundColor}]}
-                    data={this.props.credits.cast}
                     extraData={this.props.credits.cast}
                     keyExtractor={this.keyExtractor}
+                    ItemSeparatorComponent={(props: any, state: any) => <Text style={{backgroundColor: '#eee', height: 1}}/>}
                     initialNumToRender={4}
+                    renderSectionHeader={({section: {title}}) => (
+                        <Text style={sectionListStyle.header}>{title}</Text>
+                    )}
                     renderItem={(data: any) => {
                         return (
                             <SearchPersonResult
-                                style={{
-                                    borderBottomColor: '#323232',
-                                    borderBottomWidth: 1,
-                                }}
                                 {...data.item}
                                 media_type='person'
                                 navigation={this.props.navigation}

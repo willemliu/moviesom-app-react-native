@@ -4,8 +4,9 @@ import {textStyle, viewStyle, detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HE
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format } from 'date-fns';
+import MovieIcons from '../components/MovieIcons';
 
-export default class TvDetailScreen extends React.Component<any> {
+export default class TvDetailScreen extends React.Component<any, any> {
     static navigationOptions = {
         title: 'TV Details',
     };
@@ -94,15 +95,15 @@ export default class TvDetailScreen extends React.Component<any> {
                             {this.props.number_of_seasons ? <Text style={detailStyle.overview}>Seasons: {this.props.number_of_seasons}</Text> : null}
                             {this.props.number_of_episodes ? <Text style={detailStyle.overview}>Episodes: {this.props.number_of_episodes}</Text> : null}
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <TouchTextButton
-                                onPress={() => Share.share({
-                                    title: this.props.name,
-                                    message: `${this.props.overview} https://www.moviesom.com/moviesom.php?tmdbTvId=${this.props.id}`,
-                                    url: `https://www.moviesom.com/moviesom.php?tmdbTvId=${this.props.id}`
-                                }, {
-                                    dialogTitle: 'MovieSom share'
-                                })}
-                            >Share</TouchTextButton>
+                            <MovieIcons
+                                watchedHandler={this.props.watchedHandler}
+                                shareHandler={this.props.shareHandler}
+                                unWatchedHandler={this.props.unWatchedHandler}
+                                wantToWatchHandler={this.props.wantToWatchHandler}
+                                watched={this.props.watched}
+                                homepageHandler={this.props.homepageHandler}
+                                homepage={this.props.homepage}
+                            />
                         </View>
                     </TouchableNativeFeedback>
                 </ScrollView>

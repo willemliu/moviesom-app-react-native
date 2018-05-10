@@ -1,6 +1,7 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
 
 export const movieSomColor = '#008CBA';
+export const movieSomSecondaryColor = '#31C3E7';
 export const transparentColor = 'transparent';
 export const backgroundColor = '#fff';
 
@@ -135,8 +136,11 @@ export const detailStyle = StyleSheet.create({
     title: {
         fontSize: 20,
     },
+    meta: {
+        fontSize: 13,
+    },
     overview: {
-        fontSize: 16,
+        fontSize: 15,
     },
 });
 
@@ -215,4 +219,14 @@ export const movieIconsStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+});
+
+export const sectionListStyle = StyleSheet.create({
+    header: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        backgroundColor: movieSomSecondaryColor,
+        color: '#fff',
+        padding: 10,
+    }
 });

@@ -4,7 +4,6 @@ import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyl
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format, parse } from 'date-fns';
-import { watchedHandler, unWatchedHandler, shareHandler, wantToWatchHandler, homepageHandler } from '../utils/movieSom';
 import MovieIcons from '../components/MovieIcons';
 import numeral from 'numeral';
 
@@ -22,18 +21,9 @@ numeral.register('locale', 'nl_NL', {
     currency: {
         symbol: '$'
     }
-});
+} as any);
 
 numeral.locale('nl_NL');
-
-export interface Props {
-    id: number;
-    title: string;
-    overview: string;
-    revenue?: number;
-    budget?: number;
-    runtime?: number;
-}
 
 export default class MovieDetailScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -120,18 +110,27 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            {this.props.budget ? <Text style={detailStyle.overview}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
-                            {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
-                            {this.props.runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.runtime}</Text> : null}
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                justifyContent: 'space-between',
+                            }}>
+                                {this.props.budget ? <Text style={[detailStyle.meta]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
+                                {this.props.revenue ? <Text style={[detailStyle.meta]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
+                                {this.props.runtime ? <Text style={[detailStyle.meta]}>Runtime: {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
+                            </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <MovieIcons
                                 watched={this.props.watched}
+                                watchedHandler={this.props.watchedHandler}
+                                unWatchedHandler={this.props.unWatchedHandler}
+                                wantToWatchHandler={this.props.wantToWatchHandler}
+                                imdb={this.props.imdb_id}
+                                imdbHandler={this.props.imdbHandler}
                                 homepage={this.props.homepage}
-                                watchedHandler={() => watchedHandler(this.props)}
-                                unWatchedHandler={() => unWatchedHandler(this.props)}
-                                wantToWatchHandler={() => wantToWatchHandler(this.props)}
-                                homepageHandler={() => homepageHandler(this.props)}
-                                shareHandler={() => shareHandler(this.props)}
+                                homepageHandler={this.props.homepageHandler}
+                                shareHandler={this.props.shareHandler}
                             />
                         </View>
                     </TouchableNativeFeedback>

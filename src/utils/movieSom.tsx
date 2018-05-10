@@ -4,6 +4,11 @@ import { AsyncStorage, Share } from "react-native";
 export const watchedHandler = async (props: any) => {
     const loggedIn = await AsyncStorage.getItem('loggedIn');
     if (loggedIn) {
+        console.log({
+            id: props.id,
+            media_type: props.media_type,
+            watched: props.watched ? props.watched + 1 : 1
+        });
         props.actions.addItem({
             id: props.id,
             media_type: props.media_type,
@@ -51,9 +56,11 @@ export const shareHandler = async (props: any) => {
                 service = 'tmdbPersonId';
                 break;
         }
+        const title = props.title ? props.title : props.name;
+        const message = `${props.overview ? props.overview : props.biography ? props.biography : title} `;
         Share.share({
-            title: props.title ? props.title : props.name,
-            message: `${props.overview} https://www.moviesom.com/moviesom.php?${service}=${props.id}`,
+            title,
+            message: `${message}https://www.moviesom.com/moviesom.php?${service}=${props.id}`,
             url: `https://www.moviesom.com/moviesom.php?${service}=${props.id}`
         }, {
             dialogTitle: 'MovieSom share'
@@ -63,12 +70,38 @@ export const shareHandler = async (props: any) => {
     }
 };
 
+export const imdbHandler = (props: any) => {
+    props.navigation.navigate('Web', {url: `https://www.imdb.com/title/${props.imdb_id}/`});
+};
+
 export const homepageHandler = (props: any) => {
     props.navigation.navigate('Web', {url: props.homepage});
 };
 
-export const withOnPressHandler = (Component: any) => (props: any, state: any) => {
-    return (
-        <Component {...props} handleOnPress={() => props.handleOnPress(props)}/>
-    );
+export const formatDuration = (minutes: number) => {
+    const hours = minutes / 60;
+    const mins = minutes % 60;
+    return `${hours.toFixed(0)}h ${mins.toFixed(0)}m`;
 };
+
+export const withMovieSomFunctions = (Component: any) => (
+    class extends React.Component <any, any> {
+        static navigationOptions = Component.navigationOptions;
+
+        render() {
+            return (
+                <Component
+                    {...this.props}
+                    handleOnPress={() => this.props.handleOnPress(this.props)}
+                    watchedHandler={() => watchedHandler(this.props)}
+                    unWatchedHandler={() => unWatchedHandler(this.props)}
+                    wantToWatchHandler={() => wantToWatchHandler(this.props)}
+                    shareHandler={() => shareHandler(this.props)}
+                    imdbHandler={() => imdbHandler(this.props)}
+                    homepageHandler={() => homepageHandler(this.props)}
+                    formatDuration={formatDuration}
+                />
+            );
+        }
+    }
+);

@@ -1,6 +1,6 @@
 import React from 'react';
-import { webViewStyle } from '../styles/Styles';
-import { WebView, ActivityIndicator, View } from 'react-native';
+import { webViewStyle, transparentColor } from '../styles/Styles';
+import { WebView, ActivityIndicator, View, TextInput } from 'react-native';
 
 export default class InlineWebView extends React.Component<any, any> {
     state: any = {
@@ -10,6 +10,15 @@ export default class InlineWebView extends React.Component<any, any> {
     render() {
         return (
             <View style={{flex: 1}}>
+                {this.props.hideAddressBar ? null :
+                <TextInput
+                    selectTextOnFocus={true}
+                    underlineColorAndroid={transparentColor}
+                    multiline={true}
+                    style={{
+                        textAlign: 'center',
+                        padding: 5,
+                }}>{this.props.url}</TextInput>}
                 <WebView
                     source={{uri: this.props.url}}
                     startInLoadingState={false}

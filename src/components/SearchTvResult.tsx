@@ -6,27 +6,9 @@ import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import { Feather } from '@expo/vector-icons';
+import MovieIcons from './MovieIcons';
 
-export interface Props {
-    handleOnPress: (props: any) => void;
-    poster_path?: string|null;
-    popularity?: number;
-    id?: number;
-    overview?: string;
-    backdrop_path?: string|null;
-    vote_average?: number;
-    media_type?: string;
-    first_air_date?: string;
-    origin_country?: number[];
-    genre_ids?: number[];
-    original_language?: string;
-    vote_count?: number;
-    name?: string;
-    original_name?: string;
-    navigation: NavigationScreenProp<NavigationRoute>;
-}
-
-export default class SearchTvResult extends React.PureComponent<Props, any> {
+export default class SearchTvResult extends React.PureComponent<any, any> {
     state: any = {
         image: (
             <Image
@@ -105,26 +87,13 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <View style={{
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        alignItems: 'center'}}>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.wantToWatch}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="star-border" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.share}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="share" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                    </View>
+                    <MovieIcons
+                        watchedHandler={this.props.watchedHandler}
+                        shareHandler={this.props.shareHandler}
+                        unWatchedHandler={this.props.unWatchedHandler}
+                        wantToWatchHandler={this.props.wantToWatchHandler}
+                        watched={this.props.watched}
+                    />
                 </View>
             </TouchableNativeFeedback>
         );

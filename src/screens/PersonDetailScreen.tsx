@@ -3,6 +3,7 @@ import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image
 import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
+import MovieIcons from '../components/MovieIcons';
 
 export default class DetailsScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -40,10 +41,10 @@ export default class DetailsScreen extends React.Component<any, any> {
         const imageCount = images.length;
         let randomImage = null;
         let count = 0;
-        while (!randomImage && images.length > 0) {
+        while (!randomImage && imageCount) {
             count++;
-            const candidate = images[Math.round(Math.random() * imageCount)];
-            if (candidate.aspect_ratio > 1) {
+            const candidate = images[Math.floor(Math.random() * imageCount)];
+            if (candidate.aspect_ratio && candidate.aspect_ratio > 1) {
                 randomImage = candidate;
             }
             if (count > 10) {
@@ -68,14 +69,6 @@ export default class DetailsScreen extends React.Component<any, any> {
         } else {
             console.log('backdrop path not found', imageUrl);
         }
-    }
-
-    test = () => {
-        this.props.actions.addItem({
-            id: this.props.id,
-            media_type: this.props.media_type,
-            test: this.props.test ? this.props.test + 1 : 1
-        });
     }
 
     render() {
@@ -113,21 +106,20 @@ export default class DetailsScreen extends React.Component<any, any> {
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor}}>
-                            <Text style={detailStyle.title}>{this.props.test}{this.props.name}</Text>
+                            <Text style={detailStyle.title}>{this.props.name}</Text>
                             {this.props.homepage ? <TouchTextButton
                                     onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
                                 >Homepage</TouchTextButton> : null}
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
-                            <TouchTextButton onPress={this.test}>Show data</TouchTextButton>
-                            <TouchTextButton
-                                onPress={() => Share.share({
-                                    title: this.props.name,
-                                    message: `${this.props.overview} https://www.moviesom.com/moviesom.php?tmdbPersonId=${this.props.id}`,
-                                    url: `https://www.moviesom.com/moviesom.php?tmdbPersonId=${this.props.id}`
-                                }, {
-                                    dialogTitle: 'MovieSom share'
-                                })}
-                            >Share</TouchTextButton>
+                            <MovieIcons
+                                watchedHandler={this.props.watchedHandler}
+                                shareHandler={this.props.shareHandler}
+                                unWatchedHandler={this.props.unWatchedHandler}
+                                wantToWatchHandler={this.props.wantToWatchHandler}
+                                watched={this.props.watched}
+                                homepageHandler={this.props.homepageHandler}
+                                homepage={this.props.homepage}
+                            />
                         </View>
                     </TouchableNativeFeedback>
                 </ScrollView>
