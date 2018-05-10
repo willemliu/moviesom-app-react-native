@@ -5,9 +5,10 @@ import { getPosterUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
+import { Feather } from '@expo/vector-icons';
 
 export interface Props {
-    handleOnPress: (id: number|null|undefined) => void;
+    handleOnPress: (props: any) => void;
     poster_path?: string|null;
     popularity?: number;
     id?: number;
@@ -42,10 +43,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
 
     componentDidMount() {
         this.loadImage(this.props.poster_path);
-    }
-
-    handleOnPress = () => {
-        if (this.props.handleOnPress) { this.props.handleOnPress(this.props.id); }
     }
 
     /**
@@ -95,7 +92,7 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
     render() {
         return (
             <TouchableNativeFeedback
-                onPress={this.handleOnPress}
+                onPress={this.props.handleOnPress}
                 background={TouchableNativeFeedback.SelectableBackground()}
             >
                 <View style={searchResultStyle.view}>
@@ -104,7 +101,7 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.name ? this.props.name : this.props.original_name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name ? this.props.name : this.props.original_name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>

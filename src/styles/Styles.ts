@@ -207,3 +207,12 @@ export const animatedHeaderStyle = StyleSheet.create({
         resizeMode: 'contain',
     },
 });
+
+export const movieIconsStyle = StyleSheet.create({
+    movieIcons: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+});

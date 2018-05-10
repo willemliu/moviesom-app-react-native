@@ -11,6 +11,8 @@ import CastAndCrewScreen from '../screens/CastAndCrewScreen';
 import SearchPersonResult from '../components/SearchPersonResult';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import { navigationParamsToProps } from '../utils/navigation';
+import { withOnPressHandler } from '../utils/movieSom';
+import SearchTvResult from '../components/SearchTvResult';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -73,7 +75,6 @@ function mapTvStateToProps(state: any, ownProps: any) {
             || (ownProps.navigation
                 && value.id === ownProps.navigation.getParam('id')
                 && ownProps.navigation.getParam('media_type') === 'tv');
-            console.log(...value);
             return result;
         }))
     };
@@ -91,16 +92,19 @@ function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
     };
 }
 
-const searchMovieResult = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(SearchMovieResult);
+const searchMovieResult = withOnPressHandler(connect(mapMovieStateToProps, mapTmdbDispatchToProps)(SearchMovieResult));
 export {searchMovieResult as SearchMovieResult};
 
-const searchPersonResult = connect(mapPersonStateToProps, mapTmdbDispatchToProps)(SearchPersonResult);
+const searchTvResult = withOnPressHandler(connect(mapTvStateToProps, mapTmdbDispatchToProps)(SearchTvResult));
+export {searchTvResult as SearchTvResult};
+
+const searchPersonResult = withOnPressHandler(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
 
 const movieDetailScreen = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(MovieDetailScreen);
 export {movieDetailScreen as MovieDetailScreen};
 
-const tvDetailScreen = connect(mapTvStateToProps, mapTmdbDispatchToProps)(TvDetailScreen);
+const tvDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapTmdbDispatchToProps)(TvDetailScreen));
 export {tvDetailScreen as TvDetailScreen};
 
 const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(PersonDetailScreen));

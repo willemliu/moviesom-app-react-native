@@ -7,7 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 
 export interface Props {
-    handleOnPress: (person: any) => void;
+    handleOnPress: (props: any) => void;
     profile_path?: string|null;
     adult?: boolean;
     id?: number;
@@ -38,10 +38,6 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
 
     componentDidMount() {
         this.loadImage(this.props.profile_path);
-    }
-
-    handleOnPress = () => {
-        if (this.props.handleOnPress) { this.props.handleOnPress(this.props); }
     }
 
     /**
@@ -82,7 +78,7 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
     render() {
         return (
             <TouchableNativeFeedback
-                onPress={this.handleOnPress}
+                onPress={this.props.handleOnPress}
                 background={TouchableNativeFeedback.SelectableBackground()}
             >
                 <View style={[searchResultStyle.view, this.props.style]}>
@@ -91,7 +87,7 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.test}{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.name}</Text>
+                            <Text style={searchResultStyle.title}><MaterialIcons name="person" size={16}/> {this.props.name}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>

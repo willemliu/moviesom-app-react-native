@@ -1,13 +1,15 @@
 import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
 import React from 'react';
-import { searchResultStyle, movieSomColor } from '../styles/Styles';
+import { searchResultStyle, movieSomColor, textStyle, detailStyle, movieIconsStyle } from '../styles/Styles';
 import { getPosterUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
-import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
+import MovieIcons from './MovieIcons';
+import { watchedHandler, shareHandler, wantToWatchHandler, unWatchedHandler } from '../utils/movieSom';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export interface Props {
-    handleOnPress: (id: number|null|undefined) => void;
+    handleOnPress: (props: any) => void;
     poster_path?: string|null;
     adult?: boolean;
     overview?: string;
@@ -25,6 +27,8 @@ export interface Props {
     vote_average?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
     test?: number;
+    actions?: any;
+    watched?: number;
 }
 
 export default class SearchMovieResult extends React.PureComponent<Props, any> {
@@ -44,10 +48,6 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
 
     componentDidMount() {
         this.loadImage(this.props.poster_path);
-    }
-
-    handleOnPress = () => {
-        if (this.props.handleOnPress) { this.props.handleOnPress(this.props.id); }
     }
 
     /**
@@ -79,46 +79,10 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
         }
     }
 
-    watched = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`watched ${this.props.id}`);
-        } else {
-            this.props.navigation.navigate('Login');
-        }
-    }
-
-    unwatched = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`unwatched ${this.props.id}`);
-        } else {
-            this.props.navigation.navigate('Login');
-        }
-    }
-
-    wantToWatch = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`want to watch ${this.props.id}`);
-        } else {
-            this.props.navigation.navigate('Login');
-        }
-    }
-
-    share = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`share ${this.props.id}`);
-        } else {
-            this.props.navigation.navigate('Login');
-        }
-    }
-
     render() {
         return (
             <TouchableNativeFeedback
-                onPress={this.handleOnPress}
+                onPress={this.props.handleOnPress}
                 background={TouchableNativeFeedback.SelectableBackground()}
             >
                 <View style={searchResultStyle.view}>
@@ -127,44 +91,17 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}>{this.props.media_type ? `[${this.props.media_type}] ` : null}{this.props.test}{this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <View style={{
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center',
-                        alignItems: 'center'}}>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.watched}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="add-circle-outline" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.unwatched}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="remove-circle-outline" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.wantToWatch}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="star-border" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                        <TouchableNativeFeedback
-                            style={{flex: 0}}
-                            onPress={this.share}
-                            background={TouchableNativeFeedback.SelectableBackground()}
-                        >
-                            <View style={{paddingTop: 5, paddingLeft: 5, paddingRight: 5}}><MaterialIcons name="share" size={32} color={movieSomColor}/></View>
-                        </TouchableNativeFeedback>
-                    </View>
+                    <MovieIcons
+                        watched={this.props.watched}
+                        watchedHandler={() => watchedHandler(this.props)}
+                        unWatchedHandler={() => unWatchedHandler(this.props)}
+                        wantToWatchHandler={() => wantToWatchHandler(this.props)}
+                        shareHandler={() => shareHandler(this.props)}
+                    />
                 </View>
             </TouchableNativeFeedback>
         );

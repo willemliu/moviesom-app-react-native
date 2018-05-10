@@ -40,7 +40,7 @@ export default class DetailsScreen extends React.Component<any, any> {
         const imageCount = images.length;
         let randomImage = null;
         let count = 0;
-        while (!randomImage) {
+        while (!randomImage && images.length > 0) {
             count++;
             const candidate = images[Math.round(Math.random() * imageCount)];
             if (candidate.aspect_ratio > 1) {

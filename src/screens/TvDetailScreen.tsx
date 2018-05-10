@@ -27,7 +27,7 @@ export default class TvDetailScreen extends React.Component<any> {
 
     getDetails = async () => {
         console.log('Get tv details');
-        const item = await get(`/tv/${this.state.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+        const item = await get(`/tv/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
         item.media_type = 'tv';
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
@@ -119,10 +119,6 @@ export default class TvDetailScreen extends React.Component<any> {
                         resizeMode='cover'
                         source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
                     />
-
-                    <View style={animatedHeaderStyle.bar}>
-                        <Text style={animatedHeaderStyle.title}>{this.state.name}</Text>
-                    </View>
                 </Animated.View>
             </View>
         );

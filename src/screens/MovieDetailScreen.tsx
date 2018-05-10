@@ -1,9 +1,30 @@
 import React from 'react';
-import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet, Dimensions, ScaledSize } from 'react-native';
+import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet, Dimensions, ScaledSize, Button, AsyncStorage } from 'react-native';
 import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format, parse } from 'date-fns';
+import { watchedHandler, unWatchedHandler, shareHandler, wantToWatchHandler, homepageHandler } from '../utils/movieSom';
+import MovieIcons from '../components/MovieIcons';
+import numeral from 'numeral';
+
+numeral.register('locale', 'nl_NL', {
+    delimiters: {
+        thousands: '.',
+        decimal: ','
+    },
+    abbreviations: {
+        thousand: 'k',
+        million: 'm',
+        billion: 'b',
+        trillion: 't'
+    },
+    currency: {
+        symbol: '$'
+    }
+});
+
+numeral.locale('nl_NL');
 
 export interface Props {
     id: number;
@@ -63,14 +84,6 @@ export default class MovieDetailScreen extends React.Component<any, any> {
         }
     }
 
-    test = () => {
-        this.props.actions.addItem({
-            id: this.props.id,
-            media_type: this.props.media_type,
-            test: this.props.test ? this.props.test + 1 : 1
-        });
-    }
-
     render() {
         const headerHeight = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -106,24 +119,20 @@ export default class MovieDetailScreen extends React.Component<any, any> {
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor, margin: 10}}>
-                            <Text style={detailStyle.title}>{this.props.test}{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            {this.props.homepage ? <TouchTextButton
-                                    onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
-                                >Homepage</TouchTextButton> : null}
-                            {this.props.budget ? <Text style={detailStyle.overview}>Budget: $ {parseInt(this.props.budget, 10).toLocaleString()}</Text> : null}
-                            {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: $ {parseInt(this.props.revenue, 10).toLocaleString()}</Text> : null}
+                            <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            {this.props.budget ? <Text style={detailStyle.overview}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
+                            {this.props.revenue ? <Text style={detailStyle.overview}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
                             {this.props.runtime ? <Text style={detailStyle.overview}>Runtime: {this.props.runtime}</Text> : null}
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <TouchTextButton onPress={this.test}>Show data</TouchTextButton>
-                            <TouchTextButton
-                                onPress={() => Share.share({
-                                    title: this.props.title,
-                                    message: `${this.props.overview} https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.id}`,
-                                    url: `https://www.moviesom.com/moviesom.php?tmdbMovieId=${this.props.id}`
-                                }, {
-                                    dialogTitle: 'MovieSom share'
-                                })}
-                            >Share</TouchTextButton>
+                            <MovieIcons
+                                watched={this.props.watched}
+                                homepage={this.props.homepage}
+                                watchedHandler={() => watchedHandler(this.props)}
+                                unWatchedHandler={() => unWatchedHandler(this.props)}
+                                wantToWatchHandler={() => wantToWatchHandler(this.props)}
+                                homepageHandler={() => homepageHandler(this.props)}
+                                shareHandler={() => shareHandler(this.props)}
+                            />
                         </View>
                     </TouchableNativeFeedback>
                 </ScrollView>

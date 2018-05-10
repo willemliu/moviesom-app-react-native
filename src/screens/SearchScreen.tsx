@@ -3,8 +3,7 @@ import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatLi
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
-import { SearchMovieResult, SearchPersonResult } from '../redux/TmdbReducer';
-import SearchTvResult from '../components/SearchTvResult';
+import { SearchMovieResult, SearchTvResult, SearchPersonResult } from '../redux/TmdbReducer';
 
 export default class SearchScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -104,21 +103,21 @@ export default class SearchScreen extends React.Component<any, any> {
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
-    handleMoviePress = (id: number|null|undefined) => {
-        if (id === null || id === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => (item.id === id && item.media_type === 'movie'));
+    handleMoviePress = (props: any) => {
+        const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'movie')) || props;
+        console.log('Load Movie Details', result.id, props.id);
         this.props.navigation.navigate('MovieDetails', result);
     }
 
-    handleTvPress = (id: number|null|undefined) => {
-        if (id === null || id === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => (item.id === id && item.media_type === 'tv'));
+    handleTvPress = (props: any) => {
+        const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'tv')) || props;
+        console.log('Load TV Details', result.id, props.id);
         this.props.navigation.navigate('TvDetails', result);
     }
 
-    handlePersonPress = (id: number|null|undefined) => {
-        if (id === null || id === undefined) { return ; }
-        const result = this.props.tmdbItems.find((item: any) => (item.id === id && item.media_type === 'person'));
+    handlePersonPress = (props: any) => {
+        const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'person')) || props;
+        console.log('Load Person Details', result.id, props.id);
         this.props.navigation.navigate('PersonDetails', result);
     }
 

@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * Helper function to map react-navigation navigation.state.params to props
+ * of given React Component.
+ * @param SomeComponent
+ */
 export const navigationParamsToProps = (SomeComponent: any) => {
     // turns this.props.navigation.state.params into this.params.<x>
     return class extends React.Component <any, any> {
