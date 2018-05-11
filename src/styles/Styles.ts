@@ -97,7 +97,7 @@ export const searchScreenStyle = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         paddingBottom: 10,
-        marginTop: 5,
+        marginTop: 7,
         fontSize: 18,
         width: '100%',
     },
