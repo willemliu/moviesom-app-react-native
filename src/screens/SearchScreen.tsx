@@ -3,7 +3,7 @@ import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatLi
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { get } from '../tmdb/TMDb';
-import { SearchMovieResult, SearchTvResult, SearchPersonResult } from '../redux/TmdbReducer';
+import SearchResultTemplate from '../components/SearchResultTemplate';
 
 export default class SearchScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -121,43 +121,6 @@ export default class SearchScreen extends React.Component<any, any> {
         });
     }
 
-    getSearchResultTemplate = (data: any): JSX.Element|null => {
-        // Make sure item has media_type when that's not set.
-        const item  = Object.assign({}, {media_type: 'movie'}, data.item);
-        let result = null;
-        switch (item.media_type) {
-            case 'tv':
-                result = (
-                    <SearchTvResult
-                        {...item}
-                        handleOnPress={this.handleTvPress}
-                        navigation={this.props.navigation}
-                    />
-                );
-                break;
-            case 'person':
-                result = (
-                    <SearchPersonResult
-                        {...item}
-                        handleOnPress={this.handlePersonPress}
-                        navigation={this.props.navigation}
-                    />
-                );
-                break;
-            default:
-            case 'movie':
-                result = (
-                    <SearchMovieResult
-                        id={item.id}
-                        handleOnPress={this.handleMoviePress}
-                        navigation={this.props.navigation}
-                    />
-                );
-                break;
-        }
-        return result;
-    }
-
     render() {
         return (
             <View style={viewStyle.view}>
@@ -167,7 +130,15 @@ export default class SearchScreen extends React.Component<any, any> {
                     extraData={this.props.searchItems}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}
-                    renderItem={this.getSearchResultTemplate}
+                    renderItem={(data: any) => (
+                        <SearchResultTemplate
+                            {...data.item}
+                            handleOnTvPress={this.handleTvPress}
+                            handleOnMoviePress={this.handleMoviePress}
+                            handleOnPersonPress={this.handlePersonPress}
+                            navigation={this.props.navigation}
+                        />
+                    )}
                     refreshing={this.state.refreshing}
                     onRefresh={this.refresh}
                     onEndReached={this.loadNextPage}

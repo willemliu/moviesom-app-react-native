@@ -29,10 +29,6 @@ export interface MovieProps {
     video?: boolean;
     vote_average?: number;
     vote_count?: number;
-    actions: any;
-    navigation: any;
-    watched?: any;
-    formatDuration: any;
 }
 
 export interface TvProps {
@@ -44,6 +40,10 @@ export interface Props extends MovieProps, TvProps {
     size?: number;
     media_type?: string;
     style?: StyleProp<ViewStyle>;
+    actions?: any;
+    navigation?: any;
+    watched?: any;
+    formatDuration?: any;
 }
 
 export default class MovieIcons extends React.Component<Props, any> {

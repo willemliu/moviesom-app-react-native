@@ -87,7 +87,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <MovieIcons {...this.props}/>
+                    <MovieIcons {...this.props as any}/>
                 </View>
             </TouchableNativeFeedback>
         );

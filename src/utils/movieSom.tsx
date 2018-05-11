@@ -1,5 +1,6 @@
 import React from 'react';
 import { AsyncStorage, Share } from "react-native";
+import SearchTvResult from '../components/SearchTvResult';
 
 export const formatDuration = (minutes: number) => {
     const hours = minutes / 60;
@@ -12,6 +13,7 @@ export const withMovieSomFunctions = (Component: any) => (
         static navigationOptions = Component.navigationOptions;
 
         render() {
+            console.log(this.props.media_type, this.props.handleOnPress);
             return (
                 <Component
                     {...this.props}

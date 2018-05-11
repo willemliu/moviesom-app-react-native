@@ -1,5 +1,4 @@
-import { PersonDetailScreen } from '../redux/TmdbReducer';
-import FilmographyScreen from './FilmographyScreen';
+import { PersonDetailScreen, FilmographyScreen } from '../redux/TmdbReducer';
 import { TabNavigator } from 'react-navigation';
 
 const PersonDetailsTabNav = TabNavigator({

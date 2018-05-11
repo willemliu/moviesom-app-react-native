@@ -13,6 +13,7 @@ import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import { navigationParamsToProps } from '../utils/navigation';
 import { withMovieSomFunctions } from '../utils/movieSom';
 import SearchTvResult from '../components/SearchTvResult';
+import FilmographyScreen from '../screens/FilmographyScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -126,3 +127,6 @@ export {searchScreen as SearchScreen};
 
 const castAndCrewScreen = navigationParamsToProps(connect(mapStateToProps, mapTmdbDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
+
+const filmographyScreen = navigationParamsToProps(connect(mapStateToProps, mapTmdbDispatchToProps)(FilmographyScreen));
+export {filmographyScreen as FilmographyScreen};

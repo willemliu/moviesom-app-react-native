@@ -10,7 +10,7 @@ const TvDetailsTabNav = TabNavigator({
       screen: CastAndCrewScreen,
     },
     Seasons: {
-      screen: FilmographyScreen,
+      screen: CastAndCrewScreen,
       navigationOptions: {
         title: 'Seasons',
       }
