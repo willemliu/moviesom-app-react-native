@@ -25,7 +25,7 @@ export interface Props {
     origial_language?: string;
     original_name?: string;
     overview?: string;
-    popularity?: string;
+    popularity?: number;
     poster_path?: string;
     production_companies?: [{name?: string, id?: number, logo_path?: string, origin_country?: string}];
     seasons?: [{air_date?: string, episode_count?: number, id?: number, poster_path?: string, season_number?: number}];
@@ -117,16 +117,13 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                 >
                     <Text
                         style={{
-                            width: 390,
+                            width: 360,
                             height: HEADER_MAX_HEIGHT,
                         }}
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
-                            {this.props.homepage ? <TouchTextButton
-                                    onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
-                                >Homepage</TouchTextButton> : null}
                             {this.props.type ? <Text style={detailStyle.overview}>Type: {this.props.type}</Text> : null}
                             {this.props.episode_run_time ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_run_time}</Text> : null}
                             {this.props.first_air_date ? <Text style={detailStyle.overview}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
@@ -146,9 +143,9 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                                 transform: [{translateY: imageTranslate}]
                             },
                         ]}
-                        loadingIndicatorSource={require('../../assets/eyecon1080x657.png')}
+                        loadingIndicatorSource={require('../../assets/eyecon360x219.png')}
                         resizeMode='cover'
-                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
+                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
                     />
                 </Animated.View>
             </View>

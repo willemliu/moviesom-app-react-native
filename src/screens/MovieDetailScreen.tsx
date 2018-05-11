@@ -141,7 +141,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
                 >
                     <Text
                         style={{
-                            width: 390,
+                            width: 360,
                             height: HEADER_MAX_HEIGHT,
                         }}
                     />
@@ -167,9 +167,10 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
                                 transform: [{translateY: imageTranslate}]
                             },
                         ]}
-                        loadingIndicatorSource={require('../../assets/eyecon1080x657.png')}
+                        loadingIndicatorSource={require('../../assets/eyecon360x219.png')}
+                        defaultSource={require('../../assets/eyecon360x219.png')}
                         resizeMode='cover'
-                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
+                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
                     />
                 </Animated.View>
             </View>

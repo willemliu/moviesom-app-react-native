@@ -11,7 +11,6 @@ export interface Props {
 
 export default class SearchResultTemplate extends React.Component<Props, any> {
     render() {
-        console.log(this.props.handleOnMoviePress);
         let template;
         switch (this.props.media_type) {
             case 'tv':

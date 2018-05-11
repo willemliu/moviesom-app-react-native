@@ -35,10 +35,13 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
         image: (
             <Image
                 style={{
-                    width: 46,
-                    height: 68,
+                    width: 56,
+                    height: 83,
+                    flex: 1,
                 }}
                 resizeMode='cover'
+                loadingIndicatorSource={require('../../assets/eyecon256x256.png')}
+                defaultSource={require('../../assets/eyecon256x256.png')}
                 source={require('../../assets/eyecon256x256.png')}
             />
         ),
@@ -63,10 +66,11 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                     image: (
                         <Image
                             style={{
-                                width: Math.min(width / 2, 46),
-                                height: Math.min(height / 2, 68),
+                                width: 56,
+                                height: 83,
                             }}
-                            loadingIndicatorSource={require('../../assets/eyecon256x256.png')}
+                            loadingIndicatorSource={require('../../assets/eyecon56x56.png')}
+                            defaultSource={require('../../assets/eyecon56x56.png')}
                             resizeMode='cover'
                             source={{uri: url}}
                         />

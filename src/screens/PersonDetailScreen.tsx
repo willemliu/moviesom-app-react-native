@@ -5,6 +5,7 @@ import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import MovieIcons from '../components/MovieIcons';
 import { MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
+import { parse, format } from 'date-fns';
 
 export interface Props {
     adult?: boolean;
@@ -129,7 +130,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
                 >
                     <Text
                         style={{
-                            width: 390,
+                            width: 360,
                             height: HEADER_MAX_HEIGHT,
                         }}
                     />
@@ -137,8 +138,8 @@ export default class DetailsScreen extends React.Component<Props, any> {
                         <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.name} {gender ? <Foundation name={gender} size={20}/> : null}</Text>
                             <View style={detailStyle.metaView}>
-                                {this.props.birthday ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="baby-buggy" size={13}/> {this.props.birthday}{this.props.place_of_birth ? ` (${this.props.place_of_birth})` : null}</Text> : null}
-                                {this.props.deathday ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="emoticon-dead" size={13}/> {this.props.deathday}</Text> : null}
+                                {this.props.birthday ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="baby-buggy" size={13}/> {format(parse(this.props.birthday), 'DD-MM-YYYY')}{this.props.place_of_birth ? ` (${this.props.place_of_birth})` : null}</Text> : null}
+                                {this.props.deathday ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="emoticon-dead" size={13}/> {format(parse(this.props.deathday), 'DD-MM-YYYY')}</Text> : null}
                             </View>
 
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
@@ -155,9 +156,9 @@ export default class DetailsScreen extends React.Component<Props, any> {
                                 transform: [{translateY: imageTranslate}]
                             },
                         ]}
-                        loadingIndicatorSource={require('../../assets/eyecon1080x657.png')}
+                        loadingIndicatorSource={require('../../assets/eyecon360x219.png')}
                         resizeMode='cover'
-                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon1080x657.png')}
+                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
                     />
                 </Animated.View>
             </View>
