@@ -46,6 +46,17 @@ export function tmdbReducer(state: any = defaultState, action: any) {
     }
 }
 
+function mapStateToProps(state: any, ownProps: any) {
+    return {
+        ...(state.tmdb.tmdbItems.find((value: any) => {
+            const result = (value.id === ownProps.id && value.media_type === ownProps.media_type)
+            || (ownProps.navigation
+                && value.id === ownProps.navigation.getParam('id')
+                && value.media_type === ownProps.navigation.getParam('media_type'));
+            return result;
+        }))
+    };
+}
 function mapMovieStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
@@ -110,8 +121,8 @@ export {tvDetailScreen as TvDetailScreen};
 const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(PersonDetailScreen)));
 export {personDetailScreen as PersonDetailScreen};
 
-const searchScreen = connect(withItemsToProps(mapMovieStateToProps), mapTmdbDispatchToProps)(SearchScreen);
+const searchScreen = connect(mapStateToProps, mapTmdbDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};
 
-const castAndCrewScreen = navigationParamsToProps(connect(withItemsToProps(mapMovieStateToProps), mapTmdbDispatchToProps)(CastAndCrewScreen));
+const castAndCrewScreen = navigationParamsToProps(connect(mapStateToProps, mapTmdbDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};

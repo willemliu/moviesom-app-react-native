@@ -17,9 +17,9 @@ export default class CastAndCrewScreen extends React.Component<any, any> {
 
     handlePersonPress = (person: any) => {
         requestAnimationFrame(() => {
-            if (person === null || person === undefined) { return ; }
-            const result = this.props.tmdbItems.find((item: any) => (item.id === person.id && item.media_type === 'person')) || person;
-            this.props.navigation.navigate('PersonDetails', result);
+            if (person) {
+                this.props.navigation.navigate('PersonDetails', person);
+            }
         });
     }
 
@@ -51,7 +51,7 @@ export default class CastAndCrewScreen extends React.Component<any, any> {
                         return (
                             <SearchPersonResult
                                 {...data.item}
-                                media_type='person'
+                                media_type='person' // Setting this explicitly
                                 navigation={this.props.navigation}
                                 handleOnPress={this.handlePersonPress}
                             />

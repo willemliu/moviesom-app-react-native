@@ -5,7 +5,6 @@ import { getPosterUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';
-import { watchedHandler, shareHandler, wantToWatchHandler, unWatchedHandler } from '../utils/movieSom';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export interface Props {
@@ -95,13 +94,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <MovieIcons
-                        watched={this.props.watched}
-                        watchedHandler={() => watchedHandler(this.props)}
-                        unWatchedHandler={() => unWatchedHandler(this.props)}
-                        wantToWatchHandler={() => wantToWatchHandler(this.props)}
-                        shareHandler={() => shareHandler(this.props)}
-                    />
+                    <MovieIcons {...this.props}/>
                 </View>
             </TouchableNativeFeedback>
         );

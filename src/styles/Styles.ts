@@ -136,8 +136,17 @@ export const detailStyle = StyleSheet.create({
     title: {
         fontSize: 20,
     },
-    meta: {
+    metaView: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    metaText: {
         fontSize: 13,
+        marginRight: 10,
     },
     overview: {
         fontSize: 15,

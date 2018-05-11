@@ -103,27 +103,21 @@ export default class SearchScreen extends React.Component<any, any> {
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
-    handleMoviePress = (props: any) => {
+    handleMoviePress = (movie: any) => {
         requestAnimationFrame(() => {
-            const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'movie')) || props;
-            console.log('Load Movie Details', result.id, props.id);
-            this.props.navigation.navigate('MovieDetails', result);
+            this.props.navigation.navigate('MovieDetails', movie);
         });
     }
 
-    handleTvPress = (props: any) => {
+    handleTvPress = (tv: any) => {
         requestAnimationFrame(() => {
-            const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'tv')) || props;
-            console.log('Load TV Details', result.id, props.id);
-            this.props.navigation.navigate('TvDetails', result);
+            this.props.navigation.navigate('TvDetails', tv);
         });
     }
 
-    handlePersonPress = (props: any) => {
+    handlePersonPress = (person: any) => {
         requestAnimationFrame(() => {
-            const result = this.props.tmdbItems.find((item: any) => (item.id === props.id && item.media_type === 'person')) || props;
-            console.log('Load Person Details', result.id, props.id);
-            this.props.navigation.navigate('PersonDetails', result);
+            this.props.navigation.navigate('PersonDetails', person);
         });
     }
 
@@ -188,6 +182,7 @@ export default class SearchScreen extends React.Component<any, any> {
                         autoCorrect={false}
                         clearButtonMode='always'
                         keyboardType='web-search'
+                        selectTextOnFocus={true}
                         underlineColorAndroid={transparentColor}
                         onSubmitEditing={(e) => { this.page = 1; this.search(e.nativeEvent.text); }}
                         enablesReturnKeyAutomatically={true}

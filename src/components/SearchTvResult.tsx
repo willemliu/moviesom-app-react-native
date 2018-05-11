@@ -87,13 +87,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <MovieIcons
-                        watchedHandler={this.props.watchedHandler}
-                        shareHandler={this.props.shareHandler}
-                        unWatchedHandler={this.props.unWatchedHandler}
-                        wantToWatchHandler={this.props.wantToWatchHandler}
-                        watched={this.props.watched}
-                    />
+                    <MovieIcons {...this.props}/>
                 </View>
             </TouchableNativeFeedback>
         );

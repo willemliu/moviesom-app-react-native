@@ -1,10 +1,9 @@
 import { Image, Text, View, Modal, TouchableHighlight, Linking, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
-import LoginScreen from './src/screens/LoginScreen';
+import { LoginScreen, SignUpScreen } from './src/redux/login/LoginReducer';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
-import SignUpScreen from './src/screens/SignUpScreen';
 import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
@@ -16,6 +15,7 @@ import { createStore, Store } from 'redux';
 import {Provider} from "react-redux";
 import { rootReducer } from './src/redux/rootReducer';
 import WebScreen from './src/screens/WebScreen';
+import { LOGIN } from './src/redux/login/LoginActions';
 
 console.disableYellowBox = true;
 
@@ -34,6 +34,7 @@ export default class App extends React.Component<any> {
   }
 
   createStore = async () => {
+    const loggedIn = await AsyncStorage.getItem('loggedIn');
     const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
     let store: Store;
     if (preloadedState) {
@@ -46,6 +47,9 @@ export default class App extends React.Component<any> {
     store.subscribe(async () => {
       await AsyncStorage.setItem('store', JSON.stringify(this.state.store.getState()));
     });
+    if (loggedIn) {
+      store.dispatch({type: LOGIN});
+    }
     this.setState({store});
   }
 

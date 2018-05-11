@@ -4,6 +4,7 @@ import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DI
 import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import MovieIcons from '../components/MovieIcons';
+import { MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
 
 export interface Props {
     adult?: boolean;
@@ -25,7 +26,7 @@ export interface Props {
     watchedHandler?: any;
     unWatchedHandler?: any;
     wantToWatchHandler?: any;
-    imdbHandler?: any;
+    imdbPersonHandler?: any;
     homepageHandler?: any;
     shareHandler?: any;
     formatDuration: any;
@@ -115,6 +116,8 @@ export default class DetailsScreen extends React.Component<Props, any> {
             extrapolate: 'clamp',
         });
 
+        const gender = this.props.gender === 2 ? 'male-symbol' : this.props.gender === 1 ? 'female-symbol' : null;
+
         return (
             <View style={{backgroundColor}}>
                 <ScrollView
@@ -131,21 +134,15 @@ export default class DetailsScreen extends React.Component<Props, any> {
                         }}
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
-                        <View style={{backgroundColor}}>
-                            <Text style={detailStyle.title}>{this.props.name}</Text>
-                            {this.props.homepage ? <TouchTextButton
-                                    onPress={() => this.props.navigation.navigate('Web', {url: this.props.homepage})}
-                                >Homepage</TouchTextButton> : null}
+                        <View style={{backgroundColor, margin: 10}}>
+                            <Text style={detailStyle.title}>{this.props.name} {gender ? <Foundation name={gender} size={20}/> : null}</Text>
+                            <View style={detailStyle.metaView}>
+                                {this.props.birthday ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="baby-buggy" size={13}/> {this.props.birthday}{this.props.place_of_birth ? ` (${this.props.place_of_birth})` : null}</Text> : null}
+                                {this.props.deathday ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="emoticon-dead" size={13}/> {this.props.deathday}</Text> : null}
+                            </View>
+
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
-                            <MovieIcons
-                                watchedHandler={this.props.watchedHandler}
-                                shareHandler={this.props.shareHandler}
-                                unWatchedHandler={this.props.unWatchedHandler}
-                                wantToWatchHandler={this.props.wantToWatchHandler}
-                                watched={this.props.watched}
-                                homepageHandler={this.props.homepageHandler}
-                                homepage={this.props.homepage}
-                            />
+                            <MovieIcons {...this.props}/>
                         </View>
                     </TouchableNativeFeedback>
                 </ScrollView>

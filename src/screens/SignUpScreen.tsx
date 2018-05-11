@@ -15,13 +15,8 @@ export default class SignUpScreen extends React.Component<any, any> {
     };
 
     login = async () => {
-        await AsyncStorage.setItem('loggedIn', '1');
-
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
-        });
-        this.props.navigation.dispatch(resetAction);
+        this.props.actions.login();
+        this.props.navigation.goBack();
     }
 
     checkPasswords = (password: string) => {

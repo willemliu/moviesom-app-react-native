@@ -133,15 +133,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                             {this.props.number_of_seasons ? <Text style={detailStyle.overview}>Seasons: {this.props.number_of_seasons}</Text> : null}
                             {this.props.number_of_episodes ? <Text style={detailStyle.overview}>Episodes: {this.props.number_of_episodes}</Text> : null}
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <MovieIcons
-                                watchedHandler={this.props.watchedHandler}
-                                shareHandler={this.props.shareHandler}
-                                unWatchedHandler={this.props.unWatchedHandler}
-                                wantToWatchHandler={this.props.wantToWatchHandler}
-                                watched={this.props.watched}
-                                homepageHandler={this.props.homepageHandler}
-                                homepage={this.props.homepage}
-                            />
+                            <MovieIcons {...this.props}/>
                         </View>
                     </TouchableNativeFeedback>
                 </ScrollView>

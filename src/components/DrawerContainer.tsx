@@ -10,29 +10,11 @@ export default class DrawerContainer extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-        this.state = {
-            loggedIn: this.props.navigation.getParam('loggedIn', null)
-        };
-        this.checkLogin();
-    }
-
-    checkLogin = async () => {
-        this.setState({
-            loggedIn: await AsyncStorage.getItem('loggedIn')
-        });
     }
 
     logOut = async () => {
-        await AsyncStorage.removeItem('loggedIn');
-        this.setState({
-            loggedIn: null
-        });
-
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
-        });
-        this.props.navigation.dispatch(resetAction);
+        this.props.actions.logout();
+        this.props.navigation.goBack();
     }
 
     render() {
@@ -41,15 +23,15 @@ export default class DrawerContainer extends React.Component<any, any> {
             <View style={viewStyle.drawer}>
                 <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('Home'))}>Home</TouchTextButton>
 
-                {this.state.loggedIn ? null : (
+                {this.props.loggedIn ? null : (
                     <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('Login'))}>Login</TouchTextButton>
                 )}
 
-                {this.state.loggedIn ? null : (
+                {this.props.loggedIn ? null : (
                     <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('SignUp'))}>Sign up</TouchTextButton>
                 )}
 
-                {this.state.loggedIn ? (
+                {this.props.loggedIn ? (
                     <TouchTextButton style={{marginBottom: 10}} onPress={this.logOut}>Log out</TouchTextButton>
                 ) : null}
 

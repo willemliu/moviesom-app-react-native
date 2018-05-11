@@ -148,28 +148,13 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
                         <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                flexWrap: 'wrap',
-                                justifyContent: 'space-between',
-                            }}>
-                                {this.props.budget ? <Text style={[detailStyle.meta]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
-                                {this.props.revenue ? <Text style={[detailStyle.meta]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
-                                {this.props.runtime ? <Text style={[detailStyle.meta]}>Runtime: {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
+                            <View style={detailStyle.metaView}>
+                                {this.props.budget ? <Text style={[detailStyle.metaText]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
+                                {this.props.revenue ? <Text style={[detailStyle.metaText]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
+                                {this.props.runtime ? <Text style={[detailStyle.metaText]}>Runtime: {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <MovieIcons
-                                watched={this.props.watched}
-                                watchedHandler={this.props.watchedHandler}
-                                unWatchedHandler={this.props.unWatchedHandler}
-                                wantToWatchHandler={this.props.wantToWatchHandler}
-                                imdb={this.props.imdb_id}
-                                imdbHandler={this.props.imdbHandler}
-                                homepage={this.props.homepage}
-                                homepageHandler={this.props.homepageHandler}
-                                shareHandler={this.props.shareHandler}
-                            />
+                            <MovieIcons {...this.props}/>
                         </View>
                     </TouchableNativeFeedback>
                 </ScrollView>
