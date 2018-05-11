@@ -80,7 +80,7 @@ function mapTvStateToProps(state: any, ownProps: any) {
     };
 }
 
-function withItems(Function: any) {
+function withItemsToProps(Function: any) {
     return (state: any, ownProps: any) => {
         return Object.assign({}, Function(state, ownProps), {tmdbItems: state.tmdb.tmdbItems});
     };
@@ -110,8 +110,8 @@ export {tvDetailScreen as TvDetailScreen};
 const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(PersonDetailScreen)));
 export {personDetailScreen as PersonDetailScreen};
 
-const searchScreen = connect(withItems(mapMovieStateToProps), mapTmdbDispatchToProps)(SearchScreen);
+const searchScreen = connect(withItemsToProps(mapMovieStateToProps), mapTmdbDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};
 
-const castAndCrewScreen = navigationParamsToProps(connect(withItems(mapPersonStateToProps), mapTmdbDispatchToProps)(CastAndCrewScreen));
+const castAndCrewScreen = navigationParamsToProps(connect(withItemsToProps(mapMovieStateToProps), mapTmdbDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
