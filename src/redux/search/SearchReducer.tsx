@@ -1,27 +1,38 @@
 import * as SearchActions from './SearchActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ADD_SEARCH_ITEM, SET_SEARCH_ITEMS } from './SearchActions';
+import { ADD_SEARCH_ITEM, SET_SEARCH_ITEMS, ADD_SEARCH_ITEMS } from './SearchActions';
 import { SearchScreen } from '../TmdbReducer';
 
 const defaultState = {
     searchItems: new Array()
 };
 
+const addSearchItem = (newState: any, item: any) => {
+    const itemState = newState.searchItems.find((value: any, index: number, arr: any[]) => {
+        const sameItem = (value.id === item.id && value.media_type === item.media_type);
+        if (sameItem) {
+            console.log('MERGE search item', item.media_type, item.id);
+            arr[index] = Object.assign({}, value, item);
+        }
+        return sameItem;
+    });
+    if (!itemState) {
+        console.log('INSERT search item', item.media_type, item.id);
+        newState.searchItems.push(item);
+    }
+    return newState;
+};
+
 export function searchReducer(state: any = defaultState, action: any) {
-    const newState = Object.assign({}, state);
+    let newState = Object.assign({}, state);
     switch (action.type) {
         case ADD_SEARCH_ITEM:
-            const itemState = newState.searchItems.find((value: any, index: number, arr: any[]) => {
-                const sameItem = (value.id === action.item.id && value.media_type === action.item.media_type);
-                if (sameItem) {
-                    arr[index] = Object.assign({}, value, action.item);
-                }
-                return sameItem;
+            return addSearchItem(newState, action.item);
+        case ADD_SEARCH_ITEMS:
+            action.items.forEach((item: any) => {
+                newState = addSearchItem(newState, item);
             });
-            if (!itemState) {
-                newState.searchItems.push(action.item);
-            }
             return newState;
         case SET_SEARCH_ITEMS:
             newState.searchItems = action.items;

@@ -1,7 +1,7 @@
 import * as TmdbActions from './TmdbActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ADD_ITEM, SET_ITEMS } from './TmdbActions';
+import { ADD_ITEM, SET_ITEMS, ADD_ITEMS } from './TmdbActions';
 import SearchMovieResult from '../components/SearchMovieResult';
 import MovieDetailScreen from '../screens/MovieDetailScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -19,25 +19,34 @@ const defaultState = {
     tmdbItems: new Array()
 };
 
+const addItem = (newState: any, item: any) => {
+    const itemState = newState.tmdbItems.find((value: any, index: number, arr: any[]) => {
+        const sameItem = (value.id === item.id
+            && item.media_type
+            && value.media_type === item.media_type);
+        // Merge the new item with the old and return it.
+        if (sameItem) {
+            console.log('MERGE', item.media_type, item.id);
+            arr[index] = Object.assign({}, value, item);
+        }
+        return sameItem;
+    });
+    if (!itemState) {
+        console.log('INSERT', item.media_type, item.id);
+        newState.tmdbItems.push(item);
+    }
+    return newState;
+};
+
 export function tmdbReducer(state: any = defaultState, action: any) {
-    const newState = Object.assign({}, state);
+    let newState = Object.assign({}, state);
     switch (action.type) {
         case ADD_ITEM:
-            const itemState = newState.tmdbItems.find((value: any, index: number, arr: any[]) => {
-                const sameItem = (value.id === action.item.id
-                    && action.item.media_type
-                    && value.media_type === action.item.media_type);
-                // Merge the new item with the old and return it.
-                if (sameItem) {
-                    console.log('MERGE', action.item.media_type, action.item.id);
-                    arr[index] = Object.assign({}, value, action.item);
-                }
-                return sameItem;
+            return addItem(state, action.item);
+        case ADD_ITEMS:
+            action.items.forEach((item: any) => {
+                newState = addItem(newState, item);
             });
-            if (!itemState) {
-                console.log('INSERT', action.item.media_type, action.item.id);
-                newState.tmdbItems.push(action.item);
-            }
             return newState;
         case SET_ITEMS:
             newState.tmdbItems = action.items;

@@ -20,9 +20,6 @@ export default class SearchScreen extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-    }
-
-    componentDidMount() {
         if (!this.props.searchItems || !this.props.searchItems.length) {
             this.search();
         } else {
@@ -36,6 +33,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     getNowPlaying = async (page: number = 1) => {
+        const start = +new Date();
         this.loadingPage.push(page);
         const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
         data.results.forEach((value: any, idx: number, arr: any[]) => {
@@ -46,6 +44,7 @@ export default class SearchScreen extends React.Component<any, any> {
         this.updateStore(data.results, (page === 1));
         this.page = parseInt(data.page, 10);
         this.totalPages = parseInt(data.total_pages, 10);
+        console.log('BENCH getNowPlaying', (+new Date()) - start);
     }
 
     getSearchMulti = async (page: number = 1) => {
@@ -63,18 +62,12 @@ export default class SearchScreen extends React.Component<any, any> {
     updateStore = (results: any[], replace: boolean = false) => {
         if (replace) {
             this.props.searchActions.setSearchItems(results);
-            results.forEach((value: any) => {
-                this.props.actions.addItem(value);
-            });
+        } else {
+            // Add/merge to the `search` Redux store when not replacing the search results list.
+            this.props.searchActions.addSearchItems(results);
         }
-        (results as any[]).forEach((value: any) => {
-            // Always add items to the `tmdb` Redux store.
-            this.props.actions.addItem(value);
-            // Add to the `search` Redux store when not replacing the search results list.
-            if (!replace) {
-                this.props.searchActions.addSearchItem(value);
-            }
-        });
+        // Add/merge items to the `tmdb` Redux store.
+        this.props.actions.addItems(results);
     }
 
     loadNextPage = async () => {
@@ -99,7 +92,7 @@ export default class SearchScreen extends React.Component<any, any> {
         this.setState({refreshing: false});
     }
 
-    refresh = async () => {
+    refresh = () => {
         this.page = 1;
         this.search();
     }

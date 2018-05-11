@@ -45,7 +45,7 @@ export default class App extends React.Component<any> {
       store = createStore(rootReducer);
     }
     store.subscribe(async () => {
-      await AsyncStorage.setItem('store', JSON.stringify(this.state.store.getState()));
+      await AsyncStorage.setItem('store', JSON.stringify(store.getState()));
     });
     if (loggedIn) {
       store.dispatch({type: LOGIN});
