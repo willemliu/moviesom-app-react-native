@@ -48,7 +48,8 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
         media_type: 'person'
     };
 
-    componentDidMount() {
+    constructor(props: Props) {
+        super(props);
         this.loadImage(this.props.poster_path);
     }
 

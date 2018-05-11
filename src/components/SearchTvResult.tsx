@@ -26,7 +26,8 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
         media_type: 'person'
     };
 
-    componentDidMount() {
+    constructor(props: any) {
+        super(props);
         this.loadImage(this.props.poster_path);
     }
 

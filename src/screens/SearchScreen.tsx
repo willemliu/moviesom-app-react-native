@@ -77,27 +77,26 @@ export default class SearchScreen extends React.Component<any, any> {
         });
     }
 
-    loadNextPage = () => {
-        requestAnimationFrame(async () => {
-            console.log('load next page', this.loadingPage.indexOf(this.page) === -1);
-            if (this.page < this.totalPages && this.loadingPage.indexOf(this.page) === -1) {
-                await this.getNowPlaying(this.page + 1);
-            }
-        });
+    loadNextPage = async () => {
+        this.setState({refreshing: true});
+        console.log('load next page', this.loadingPage.indexOf(this.page) === -1);
+        if (this.page < this.totalPages && this.loadingPage.indexOf(this.page) === -1) {
+            await this.getNowPlaying(this.page + 1);
+        }
+        this.setState({refreshing: false});
     }
 
-    search = (searchText: string = this.state.searchText) => {
-        requestAnimationFrame(async () => {
-            if (searchText) {
-                // Store searchText in storage for next sessions.
-                AsyncStorage.setItem('searchText', searchText);
-                await this.getSearchMulti();
-            } else {
-                AsyncStorage.removeItem('searchText');
-                await this.getNowPlaying();
-            }
-            this.setState({refreshing: false});
-        });
+    search = async (searchText: string = this.state.searchText) => {
+        this.setState({refreshing: true});
+        if (searchText) {
+            // Store searchText in storage for next sessions.
+            AsyncStorage.setItem('searchText', searchText);
+            await this.getSearchMulti();
+        } else {
+            AsyncStorage.removeItem('searchText');
+            await this.getNowPlaying();
+        }
+        this.setState({refreshing: false});
     }
 
     refresh = async () => {

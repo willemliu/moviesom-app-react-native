@@ -53,6 +53,7 @@
   "dependencies": {
     "@types/expo__vector-icons": "^6.2.2",
     "@types/numeral": "0.0.22",
+    "babel-plugin-transform-remove-console": "^6.9.2",
     "date-fns": "^1.29.0",
     "expo": "^26.0.0",
     "jest": "^22.4.3",

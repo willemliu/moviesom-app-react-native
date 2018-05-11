@@ -13,7 +13,7 @@ export const navigationParamsToProps = (SomeComponent: any) => {
         render() {
             const {navigation, ...otherProps} = this.props;
             const {state: {params}} = navigation;
-            return (<SomeComponent {...this.props} {...params} />);
+            return (<SomeComponent {...this.props} {...params} navigation={navigation}/>);
         }
     };
 };

@@ -13,7 +13,6 @@ export const withMovieSomFunctions = (Component: any) => (
         static navigationOptions = Component.navigationOptions;
 
         render() {
-            console.log(this.props.media_type, this.props.handleOnPress);
             return (
                 <Component
                     {...this.props}

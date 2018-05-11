@@ -24,7 +24,8 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
         ),
     };
 
-    componentDidMount() {
+    constructor(props: any) {
+        super(props);
         this.loadImage(this.props.profile_path);
     }
 

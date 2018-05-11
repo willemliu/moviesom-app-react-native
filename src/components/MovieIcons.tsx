@@ -46,6 +46,9 @@ export interface Props extends MovieProps, TvProps {
     formatDuration?: any;
 }
 
+/**
+ * Render functional icons as part of a TMDb item.
+ */
 export default class MovieIcons extends React.Component<Props, any> {
     watchedHandler = () => {
         requestAnimationFrame(async () => {

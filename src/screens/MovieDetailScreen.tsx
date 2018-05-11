@@ -74,16 +74,14 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
 
     constructor(props: any) {
         super(props);
-    }
-
-    componentDidMount() {
-        this.getDetails();
         Dimensions.addEventListener('change', ({window, screen}) => { this.checkOrientation(window.width, window.height); });
         const {width, height} = Dimensions.get('window');
         this.checkOrientation(width, height);
+        this.getDetails();
     }
 
     checkOrientation = (width: number, height: number) => {
+        console.log('Landscape', (width > height));
         this.props.navigation.setParams({hideTabBar: (width > height)});
     }
 
