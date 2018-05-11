@@ -1,7 +1,7 @@
 import * as SearchActions from './SearchActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ADD_SEARCH_ITEM, SET_SEARCH_ITEMS, ADD_SEARCH_ITEMS } from './SearchActions';
+import { ADD_SEARCH_ITEM, SET_SEARCH_ITEMS, ADD_SEARCH_ITEMS, SET_SEARCH_TOTAL_PAGES, SET_SEARCH_PAGE } from './SearchActions';
 import { SearchScreen } from '../TmdbReducer';
 
 const defaultState = {
@@ -28,21 +28,31 @@ export function searchReducer(state: any = defaultState, action: any) {
     let newState = Object.assign({}, state);
     switch (action.type) {
         case ADD_SEARCH_ITEM:
+            console.log('ADD search item');
             return addSearchItem(newState, action.item);
         case ADD_SEARCH_ITEMS:
+            console.log('ADD search items');
             action.items.forEach((item: any) => {
                 newState = addSearchItem(newState, item);
             });
             return newState;
         case SET_SEARCH_ITEMS:
+            console.log('REPLACE search items');
             newState.searchItems = action.items;
             return newState;
-        default:
+        case SET_SEARCH_PAGE:
+            newState.page = action.page;
+            return newState;
+        case SET_SEARCH_TOTAL_PAGES:
+            newState.totalPages = action.totalPages;
+            return newState;
+       default:
             return newState;
     }
 }
 
 function mapSearchStateToProps(state: any, ownProps: any) {
+    console.log(state.search.page, state.search.totalPages);
     return {
         ...(state.search.searchItems.find((value: any) => {
             let result = false;
@@ -53,13 +63,17 @@ function mapSearchStateToProps(state: any, ownProps: any) {
                 result = (value.id === ownProps.id);
             }
             return result;
-        }))
+        })),
+        page: state.search.page,
+        totalPages: state.search.totalPages,
     };
 }
 
 function withItems(Function: any) {
     return (state: any, ownProps: any) => {
-        return Object.assign({}, Function(state, ownProps), {searchItems: state.search.searchItems});
+        return Object.assign({}, Function(state, ownProps), {
+            searchItems: state.search.searchItems,
+        });
     };
 }
 

@@ -3,9 +3,9 @@ import { AsyncStorage, Share } from "react-native";
 import SearchTvResult from '../components/SearchTvResult';
 
 export const formatDuration = (minutes: number) => {
-    const hours = minutes / 60;
-    const mins = minutes % 60;
-    return `${hours.toFixed(0)}h ${mins.toFixed(0)}m`;
+    const hours = (minutes / 60).toFixed(0);
+    const mins = (minutes % 60).toFixed(0);
+    return `${parseInt(hours, 10) ? `${hours}h ` : ''}${mins}m`;
 };
 
 export const withMovieSomFunctions = (Component: any) => (

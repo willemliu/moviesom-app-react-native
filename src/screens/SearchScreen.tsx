@@ -14,8 +14,8 @@ export default class SearchScreen extends React.Component<any, any> {
         refreshing: true,
         searchText: '',
     };
-    private page = 1;
-    private totalPages = 2;
+    // private page = 1;
+    // private totalPages = 2;
     private loadingPage: number[] = [];
 
     constructor(props: any) {
@@ -33,7 +33,6 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     getNowPlaying = async (page: number = 1) => {
-        const start = +new Date();
         this.loadingPage.push(page);
         const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
         data.results.forEach((value: any, idx: number, arr: any[]) => {
@@ -41,25 +40,20 @@ export default class SearchScreen extends React.Component<any, any> {
             arr[idx].media_type = 'movie';
         });
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
-        this.updateStore(data.results, (page === 1));
-        this.page = parseInt(data.page, 10);
-        this.totalPages = parseInt(data.total_pages, 10);
-        console.log('BENCH getNowPlaying', (+new Date()) - start);
+        this.updateStore(data.results, (page === 1), data.page, data.total_pages);
     }
 
     getSearchMulti = async (page: number = 1) => {
         this.loadingPage.push(page);
         const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.state.searchText)}`).then((payload) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
-        this.updateStore(data.results, (page === 1));
-        this.page = parseInt(data.page, 10);
-        this.totalPages = parseInt(data.total_pages, 10);
+        this.updateStore(data.results, (page === 1), data.page, data.total_pages);
     }
 
     /**
      * Make sure the TMDb items in the Store are up-to-date.
      */
-    updateStore = (results: any[], replace: boolean = false) => {
+    updateStore = (results: any[], replace: boolean = false, page: number, totalPages: number) => {
         if (replace) {
             this.props.searchActions.setSearchItems(results);
         } else {
@@ -68,13 +62,15 @@ export default class SearchScreen extends React.Component<any, any> {
         }
         // Add/merge items to the `tmdb` Redux store.
         this.props.actions.addItems(results);
+        this.props.searchActions.setSearchPage(page);
+        this.props.searchActions.setSearchTotalPages(totalPages);
     }
 
     loadNextPage = async () => {
         this.setState({refreshing: true});
-        console.log('load next page', this.loadingPage.indexOf(this.page) === -1);
-        if (this.page < this.totalPages && this.loadingPage.indexOf(this.page) === -1) {
-            await this.getNowPlaying(this.page + 1);
+        console.log('load next page', this.props.page < this.props.totalPages, this.loadingPage.indexOf(this.props.page) === -1);
+        if (this.props.page < this.props.totalPages && this.loadingPage.indexOf(this.props.page) === -1) {
+            await this.getNowPlaying(this.props.page + 1);
         }
         this.setState({refreshing: false});
     }
@@ -93,7 +89,7 @@ export default class SearchScreen extends React.Component<any, any> {
     }
 
     refresh = () => {
-        this.page = 1;
+        this.props.searchActions.setSearchPage(1);
         this.search();
     }
 
@@ -151,7 +147,10 @@ export default class SearchScreen extends React.Component<any, any> {
                         keyboardType='web-search'
                         selectTextOnFocus={true}
                         underlineColorAndroid={transparentColor}
-                        onSubmitEditing={(e) => { this.page = 1; this.search(e.nativeEvent.text); }}
+                        onSubmitEditing={(e) => {
+                            this.props.searchActions.setSearchPage(1);
+                            this.search(e.nativeEvent.text);
+                        }}
                         enablesReturnKeyAutomatically={true}
                         value={this.state.searchText}
                     />

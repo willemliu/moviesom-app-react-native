@@ -5,6 +5,7 @@ import TouchTextButton from '../components/TouchTextButton';
 import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export interface Props {
     backdrop_path?: string;
@@ -89,6 +90,14 @@ export default class TvDetailScreen extends React.Component<Props, any> {
         }
     }
 
+    getFormattedEpisodeRunTime = (episodeRunTime: number[]) => {
+        const result: number[] = [];
+        episodeRunTime.forEach((duration: number) => {
+            result.push(this.props.formatDuration(duration));
+        });
+        return result.join(', ');
+    }
+
     render() {
         const headerHeight = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -122,13 +131,15 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                         }}
                     />
                     <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
-                        <View style={{backgroundColor}}>
+                        <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
-                            {this.props.type ? <Text style={detailStyle.overview}>Type: {this.props.type}</Text> : null}
-                            {this.props.episode_run_time ? <Text style={detailStyle.overview}>Runtime: {this.props.episode_run_time}</Text> : null}
-                            {this.props.first_air_date ? <Text style={detailStyle.overview}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
-                            {this.props.number_of_seasons ? <Text style={detailStyle.overview}>Seasons: {this.props.number_of_seasons}</Text> : null}
-                            {this.props.number_of_episodes ? <Text style={detailStyle.overview}>Episodes: {this.props.number_of_episodes}</Text> : null}
+                            <View style={detailStyle.metaView}>
+                                {this.props.type ? <Text style={detailStyle.metaText}>Type: {this.props.type}</Text> : null}
+                                {this.props.episode_run_time ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.getFormattedEpisodeRunTime(this.props.episode_run_time)}</Text> : null}
+                                {this.props.first_air_date ? <Text style={detailStyle.metaText}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
+                                {this.props.number_of_seasons ? <Text style={detailStyle.metaText}>Seasons: {this.props.number_of_seasons}</Text> : null}
+                                {this.props.number_of_episodes ? <Text style={detailStyle.metaText}>Episodes: {this.props.number_of_episodes}</Text> : null}
+                            </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <MovieIcons {...this.props}/>
                         </View>

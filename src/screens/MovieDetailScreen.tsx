@@ -6,6 +6,7 @@ import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format, parse } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 import numeral from 'numeral';
+import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 numeral.register('locale', 'nl_NL', {
     delimiters: {
@@ -149,7 +150,12 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
                             <View style={detailStyle.metaView}>
                                 {this.props.budget ? <Text style={[detailStyle.metaText]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
                                 {this.props.revenue ? <Text style={[detailStyle.metaText]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
-                                {this.props.runtime ? <Text style={[detailStyle.metaText]}>Runtime: {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
+                                {this.props.runtime ? <Text style={[detailStyle.metaText]}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
+                                {this.props.vote_average ?
+                                    <Text style={[detailStyle.metaText]}>
+                                        <MaterialIcons name="thumbs-up-down" size={13}/> {this.props.vote_average}
+                                        {this.props.vote_count ? <Text> <Ionicons name="ios-people" size={13}/> {this.props.vote_count}</Text> : null}
+                                    </Text> : null}
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <MovieIcons {...this.props}/>
