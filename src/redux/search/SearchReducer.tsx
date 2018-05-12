@@ -51,7 +51,7 @@ export function searchReducer(state: any = defaultState, action: any) {
     }
 }
 
-function mapSearchStateToProps(state: any, ownProps: any) {
+export function mapSearchStateToProps(state: any, ownProps: any) {
     console.log(state.search.page, state.search.totalPages);
     return {
         ...(state.search.searchItems.find((value: any) => {
@@ -66,22 +66,15 @@ function mapSearchStateToProps(state: any, ownProps: any) {
         })),
         page: state.search.page,
         totalPages: state.search.totalPages,
+        searchItems: state.search.searchItems,
     };
 }
 
-function withItems(Function: any) {
-    return (state: any, ownProps: any) => {
-        return Object.assign({}, Function(state, ownProps), {
-            searchItems: state.search.searchItems,
-        });
-    };
-}
-
-function mapSearchDispatchToProps(dispatch: any, ownProps: any) {
+export function mapSearchDispatchToProps(dispatch: any, ownProps: any) {
     return {
         searchActions: bindActionCreators(SearchActions as any, dispatch)
     };
 }
 
-const searchScreen = connect(withItems(mapSearchStateToProps), mapSearchDispatchToProps)(SearchScreen);
+const searchScreen = connect(mapSearchStateToProps, mapSearchDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};

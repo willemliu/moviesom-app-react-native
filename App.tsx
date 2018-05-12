@@ -16,6 +16,7 @@ import {Provider} from "react-redux";
 import { rootReducer } from './src/redux/rootReducer';
 import WebScreen from './src/screens/WebScreen';
 import { LOGIN } from './src/redux/login/LoginActions';
+import { DEVICE_ONLINE } from './src/redux/device/DeviceActions';
 
 console.disableYellowBox = true;
 
@@ -36,7 +37,6 @@ export default class App extends React.Component<any> {
   }
 
   netInfo = () => {
-    NetInfo.getConnectionInfo().then(this.checkOnline);
     NetInfo.addEventListener('connectionChange', this.checkOnline as any);
   }
 
@@ -51,18 +51,20 @@ export default class App extends React.Component<any> {
           online: false,
           networkMessage: 'Offline'
         });
-        break;
+        return false;
       default:
         this.setState({
           online: true,
           networkMessage: 'Online'
         });
+        return true;
     }
   }
 
   createStore = async () => {
     const loggedIn = await AsyncStorage.getItem('loggedIn');
     const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
+    const connectionInfo = await NetInfo.getConnectionInfo();
     let store: Store;
     if (preloadedState) {
       store = createStore(rootReducer, preloadedState);
@@ -79,6 +81,9 @@ export default class App extends React.Component<any> {
     });
     if (loggedIn) {
       store.dispatch({type: LOGIN});
+    }
+    if (this.checkOnline(connectionInfo)) {
+      store.dispatch({type: DEVICE_ONLINE});
     }
     this.setState({store});
   }

@@ -22,13 +22,13 @@ export function deviceReducer(state: any = defaultState, action: any) {
     }
 }
 
-function mapStateToProps(state: any, ownProps: any) {
+export function mapDeviceStateToProps(state: any, ownProps: any) {
     return {
         online: state.device.online
     };
 }
 
-function mapDispatchToProps(dispatch: any, ownProps: any) {
+export function mapDeviceDispatchToProps(dispatch: any, ownProps: any) {
     return {
         deviceActions: bindActionCreators(DeviceActions as any, dispatch)
     };

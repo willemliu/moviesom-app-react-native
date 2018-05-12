@@ -27,13 +27,13 @@ export function loginReducer(state: any = defaultState, action: any) {
     }
 }
 
-function mapLoginStateToProps(state: any, ownProps: any) {
+export function mapLoginStateToProps(state: any, ownProps: any) {
     return {
         loggedIn: state.login.loggedIn
     };
 }
 
-function mapLoginDispatchToProps(dispatch: any, ownProps: any) {
+export function mapLoginDispatchToProps(dispatch: any, ownProps: any) {
     return {
         loginActions: bindActionCreators(LoginActions as any, dispatch)
     };

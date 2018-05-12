@@ -11,9 +11,11 @@ import CastAndCrewScreen from '../screens/CastAndCrewScreen';
 import SearchPersonResult from '../components/SearchPersonResult';
 import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import { navigationParamsToProps } from '../utils/navigation';
-import { withMovieSomFunctions } from '../utils/movieSom';
+import { enhanceWithMovieSomFunctions } from '../utils/movieSom';
 import SearchTvResult from '../components/SearchTvResult';
 import FilmographyScreen from '../screens/FilmographyScreen';
+import { mapDeviceStateToProps, mapDeviceDispatchToProps } from './device/DeviceReducer';
+import { mapLoginStateToProps, mapLoginDispatchToProps } from './login/LoginReducer';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -56,7 +58,7 @@ export function tmdbReducer(state: any = defaultState, action: any) {
     }
 }
 
-function mapStateToProps(state: any, ownProps: any) {
+export function mapTmdbStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
             const result = (value.id === ownProps.id && value.media_type === ownProps.media_type)
@@ -67,7 +69,7 @@ function mapStateToProps(state: any, ownProps: any) {
         }))
     };
 }
-function mapMovieStateToProps(state: any, ownProps: any) {
+export function mapTmdbMovieStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
             const result = (value.id === ownProps.id && value.media_type === 'movie')
@@ -75,10 +77,10 @@ function mapMovieStateToProps(state: any, ownProps: any) {
                 && value.id === ownProps.navigation.getParam('id')
                 && ownProps.navigation.getParam('media_type') === 'movie');
             return result;
-        }))
+        })),
     };
 }
-function mapPersonStateToProps(state: any, ownProps: any) {
+export function mapTmdbPersonStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
             const result = (value.id === ownProps.id && value.media_type === 'person')
@@ -86,10 +88,10 @@ function mapPersonStateToProps(state: any, ownProps: any) {
                 && value.id === ownProps.navigation.getParam('id')
                 && ownProps.navigation.getParam('media_type') === 'person');
             return result;
-        }))
+        })),
     };
 }
-function mapTvStateToProps(state: any, ownProps: any) {
+export function mapTmdbTvStateToProps(state: any, ownProps: any) {
     return {
         ...(state.tmdb.tmdbItems.find((value: any) => {
             const result = (value.id === ownProps.id && value.media_type === 'tv')
@@ -97,7 +99,7 @@ function mapTvStateToProps(state: any, ownProps: any) {
                 && value.id === ownProps.navigation.getParam('id')
                 && ownProps.navigation.getParam('media_type') === 'tv');
             return result;
-        }))
+        })),
     };
 }
 
@@ -107,35 +109,53 @@ function withItemsToProps(Function: any) {
     };
 }
 
-function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
+export function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
     return {
         actions: bindActionCreators(TmdbActions as any, dispatch)
     };
 }
 
-const searchMovieResult = connect(mapMovieStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(SearchMovieResult));
+const searchMovieResult = connect(mapTmdbMovieStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(SearchMovieResult));
 export {searchMovieResult as SearchMovieResult};
 
-const searchTvResult = connect(mapTvStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(SearchTvResult));
+const searchTvResult = connect(mapTmdbTvStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(SearchTvResult));
 export {searchTvResult as SearchTvResult};
 
-const searchPersonResult = connect(mapPersonStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(SearchPersonResult));
+const searchPersonResult = connect(mapTmdbPersonStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
 
-const movieDetailScreen = navigationParamsToProps(connect(mapMovieStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(MovieDetailScreen)));
+const movieDetailScreen = navigationParamsToProps(connect(mapTmdbMovieStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(MovieDetailScreen)));
 export {movieDetailScreen as MovieDetailScreen};
 
-const tvDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(TvDetailScreen)));
+const tvDetailScreen = navigationParamsToProps(connect(mapTmdbTvStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(TvDetailScreen)));
 export {tvDetailScreen as TvDetailScreen};
 
-const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapTmdbDispatchToProps)(withMovieSomFunctions(PersonDetailScreen)));
+const personDetailScreen = navigationParamsToProps(connect(mapTmdbPersonStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(PersonDetailScreen)));
 export {personDetailScreen as PersonDetailScreen};
 
-const searchScreen = connect(mapStateToProps, mapTmdbDispatchToProps)(SearchScreen);
+const searchScreen = connect(mapTmdbStateToProps, mapTmdbDispatchToProps)(SearchScreen);
 export {searchScreen as SearchScreen};
 
-const castAndCrewScreen = navigationParamsToProps(connect(mapStateToProps, mapTmdbDispatchToProps)(CastAndCrewScreen));
+const castAndCrewScreen = navigationParamsToProps(connect(mapTmdbStateToProps, mapTmdbDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
 
-const filmographyScreen = navigationParamsToProps(connect(mapStateToProps, mapTmdbDispatchToProps)(FilmographyScreen));
+const filmographyScreen = navigationParamsToProps(connect(mapTmdbStateToProps, mapTmdbDispatchToProps)(FilmographyScreen));
 export {filmographyScreen as FilmographyScreen};
+
+function mapMovieStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapTmdbMovieStateToProps(state, ownProps)),
+        ...(mapDeviceStateToProps(state, ownProps)),
+        ...(mapLoginStateToProps(state, ownProps)),
+    };
+}
+function mapDispatchToProps(dispatch: any, ownProps: any) {
+    return {
+        ...(mapTmdbDispatchToProps(dispatch, ownProps)),
+        ...(mapDeviceDispatchToProps(dispatch, ownProps)),
+        ...(mapLoginDispatchToProps(dispatch, ownProps)),
+    };
+}
+
+const searchMovieResult2 = connect(mapMovieStateToProps, mapDispatchToProps)(enhanceWithMovieSomFunctions(SearchMovieResult));
+export {searchMovieResult2 as SearchMovieResult2};

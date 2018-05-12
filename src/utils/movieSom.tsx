@@ -8,7 +8,7 @@ export const formatDuration = (minutes: number) => {
     return `${parseInt(hours, 10) ? `${hours}h ` : ''}${mins}m`;
 };
 
-export const withMovieSomFunctions = (Component: any) => (
+export const enhanceWithMovieSomFunctions = (Component: any) => (
     class extends React.Component <any, any> {
         static navigationOptions = Component.navigationOptions;
 
