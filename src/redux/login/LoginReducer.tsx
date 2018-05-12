@@ -38,12 +38,3 @@ export function mapLoginDispatchToProps(dispatch: any, ownProps: any) {
         loginActions: bindActionCreators(LoginActions as any, dispatch)
     };
 }
-
-const loginScreen = connect(mapLoginStateToProps, mapLoginDispatchToProps)(LoginScreen);
-export {loginScreen as LoginScreen};
-
-const signUpScreen = connect(mapLoginStateToProps, mapLoginDispatchToProps)(SignUpScreen);
-export {signUpScreen as SignUpScreen};
-
-const drawerContainer = connect(mapLoginStateToProps, mapLoginDispatchToProps)(DrawerContainer);
-export {drawerContainer as DrawerContainer};

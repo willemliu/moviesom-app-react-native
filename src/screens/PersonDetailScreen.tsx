@@ -2,7 +2,6 @@ import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image, Dimensions } from 'react-native';
 import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
-import { get, getBackdropUrl } from '../tmdb/TMDb';
 import MovieIcons from '../components/MovieIcons';
 import { MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
 import { parse, format } from 'date-fns';
@@ -31,6 +30,8 @@ export interface Props {
     homepageHandler?: any;
     shareHandler?: any;
     formatDuration: any;
+    get: (route: string, uriParam: string) => Promise<any>;
+    getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
 }
 
 export default class DetailsScreen extends React.Component<Props, any> {
@@ -55,7 +56,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
 
     getDetails = async () => {
         console.log('Get person details');
-        const item = await get(`/person/${this.props.id}`, `append_to_response=${encodeURI('images,tagged_images,combined_credits')}`).then((data) => data.json());
+        const item = await this.props.get(`/person/${this.props.id}`, `append_to_response=${encodeURI('images,tagged_images,combined_credits')}`).then((data) => data.json());
         item.media_type = 'person';
         const randomImage = this.pickRandomImage(item.tagged_images.results);
         if (randomImage) {
@@ -89,7 +90,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
      * a re-render.
      */
     loadImage = async (imagePath: string|null|undefined) => {
-        const imageUrl = await getBackdropUrl(imagePath);
+        const imageUrl = await this.props.getBackdropUrl(imagePath);
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});

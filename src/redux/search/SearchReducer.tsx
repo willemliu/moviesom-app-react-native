@@ -75,6 +75,3 @@ export function mapSearchDispatchToProps(dispatch: any, ownProps: any) {
         searchActions: bindActionCreators(SearchActions as any, dispatch)
     };
 }
-
-const searchScreen = connect(mapSearchStateToProps, mapSearchDispatchToProps)(SearchScreen);
-export {searchScreen as SearchScreen};

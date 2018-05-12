@@ -6,7 +6,7 @@ const fetchGetConfig: RequestInit = {
     method: 'get',
 };
 
-export async function get(route: string, uriParam?: string) {
+export async function get(route: string, uriParam: string = '') {
     // Make sure route starts with /
     if (route.indexOf('/') !== 0) {
         route = `/${route}`;

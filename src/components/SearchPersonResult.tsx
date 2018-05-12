@@ -1,7 +1,6 @@
 import {View, Text, Image, AsyncStorage, TouchableNativeFeedback, TextStyle, StyleProp} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor } from '../styles/Styles';
-import { getProfileUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
@@ -41,7 +40,7 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
      * a re-render.
      */
     loadImage = async (profilePath: string|null|undefined) => {
-        const url = await getProfileUrl(profilePath);
+        const url = await this.props.getProfileUrl(profilePath);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({

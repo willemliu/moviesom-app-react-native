@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Image, Text, View, AsyncStorage, TextInput, TouchableNativeFeedback, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import TouchTextButton from '../components/TouchTextButton';
 
 export default class LoginScreen extends React.Component<any> {
@@ -47,7 +46,6 @@ export default class LoginScreen extends React.Component<any> {
                         <Text onPress={() => this.props.navigation.navigate('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
                     </View>
                 </View>
-                <KeyboardSpacer/>
             </View>
         );
     }

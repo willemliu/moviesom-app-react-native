@@ -1,6 +1,7 @@
 import React from 'react';
 import { AsyncStorage, Share } from "react-native";
 import SearchTvResult from '../components/SearchTvResult';
+import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
 
 export const formatDuration = (minutes: number) => {
     const hours = (minutes / 60).toFixed(0);
@@ -18,6 +19,10 @@ export const enhanceWithMovieSomFunctions = (Component: any) => (
                     {...this.props}
                     handleOnPress={() => this.props.handleOnPress(this.props)}
                     formatDuration={formatDuration}
+                    get={get}
+                    getBackdropUrl={getBackdropUrl}
+                    getProfileUrl={getProfileUrl}
+                    getPosterUrl={getPosterUrl}
                 />
             );
         }

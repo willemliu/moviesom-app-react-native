@@ -1,7 +1,7 @@
 import { Image, Text, View, Modal, TouchableHighlight, Linking, AsyncStorage, NetInfo, ConnectionInfo, ConnectionType } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
-import { LoginScreen, SignUpScreen } from './src/redux/login/LoginReducer';
+import { LoginScreen, SignUpScreen } from './src/redux/TmdbReducer';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
@@ -17,6 +17,7 @@ import { rootReducer } from './src/redux/rootReducer';
 import WebScreen from './src/screens/WebScreen';
 import { LOGIN } from './src/redux/login/LoginActions';
 import { DEVICE_ONLINE } from './src/redux/device/DeviceActions';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 console.disableYellowBox = true;
 
@@ -48,16 +49,16 @@ export default class App extends React.Component<any> {
       case 'UNKNOWN':
       case 'DUMMY':
         this.setState({
-          online: false,
+          online: true,
           networkMessage: 'Offline'
         });
-        return false;
+        return true;
       default:
         this.setState({
-          online: true,
+          online: false,
           networkMessage: 'Online'
         });
-        return true;
+        return false;
     }
   }
 
@@ -132,6 +133,7 @@ export default class App extends React.Component<any> {
           <StackNav/>
         </Provider> : null}
         {!this.state.online ? <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'red', color: 'white'}}>{this.state.networkMessage}</Text> : null}
+        <KeyboardSpacer/>
       </View>
     );
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, Text, TextInput, View } from 'react-native';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import TouchTextButton from '../components/TouchTextButton';
 
 export default class PasswordResetScreen extends React.Component<any> {
@@ -25,7 +24,6 @@ export default class PasswordResetScreen extends React.Component<any> {
                     />
                     <TouchTextButton style={{margin: 5}} onPress={() => this.props.navigation.goBack()}>Reset password</TouchTextButton>
                 </View>
-                <KeyboardSpacer/>
             </View>
         );
     }

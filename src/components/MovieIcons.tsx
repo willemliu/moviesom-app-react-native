@@ -37,7 +37,15 @@ export interface TvProps {
     biography?: string;
 }
 
-export interface Props extends MovieProps, TvProps {
+export interface LoginProps {
+    loggedIn?: boolean;
+}
+
+export interface DeviceProps {
+    online?: boolean;
+}
+
+export interface Props extends MovieProps, TvProps, LoginProps, DeviceProps {
     size?: number;
     media_type?: string;
     style?: StyleProp<ViewStyle>;
@@ -53,8 +61,7 @@ export interface Props extends MovieProps, TvProps {
 export default class MovieIcons extends React.Component<Props, any> {
     watchedHandler = () => {
         requestAnimationFrame(async () => {
-            const loggedIn = await AsyncStorage.getItem('loggedIn');
-            if (loggedIn) {
+            if (this.props.loggedIn) {
                 console.log({
                     id: this.props.id,
                     media_type: this.props.media_type,
@@ -73,8 +80,7 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     unWatchedHandler = () => {
         requestAnimationFrame(async () => {
-            const loggedIn = await AsyncStorage.getItem('loggedIn');
-            if (loggedIn) {
+            if (this.props.loggedIn) {
                 this.props.actions.addItem({
                     id: this.props.id,
                     media_type: this.props.media_type,
@@ -88,8 +94,7 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     wantToWatchHandler = () => {
         requestAnimationFrame(async () => {
-            const loggedIn = await AsyncStorage.getItem('loggedIn');
-            if (loggedIn) {
+            if (this.props.loggedIn) {
                 alert(`want to watch ${this.props.id}`);
             } else {
                 this.props.navigation.navigate('Login');

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import { DrawerNavigator } from 'react-navigation';
 import HomeScreen from './HomeScreen';
-import { DrawerContainer } from '../redux/login/LoginReducer';
+import { DrawerContainer } from '../redux/TmdbReducer';
 import { AsyncStorage } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 

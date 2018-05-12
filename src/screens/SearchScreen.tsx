@@ -1,8 +1,6 @@
 import React from 'react';
 import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList, RefreshControl, TouchableNativeFeedback, AsyncStorage} from 'react-native';
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { get } from '../tmdb/TMDb';
 import SearchResultTemplate from '../components/SearchResultTemplate';
 
 export default class SearchScreen extends React.Component<any, any> {
@@ -34,7 +32,7 @@ export default class SearchScreen extends React.Component<any, any> {
 
     getNowPlaying = async (page: number = 1) => {
         this.loadingPage.push(page);
-        const data = await get('/movie/now_playing', `page=${page}`).then((payload) => payload.json());
+        const data = await this.props.get('/movie/now_playing', `page=${page}`).then((payload: any) => payload.json());
         data.results.forEach((value: any, idx: number, arr: any[]) => {
             // Set media_type to movie for every item as they come without media_type.
             arr[idx].media_type = 'movie';
@@ -45,7 +43,7 @@ export default class SearchScreen extends React.Component<any, any> {
 
     getSearchMulti = async (page: number = 1) => {
         this.loadingPage.push(page);
-        const data = await get('/search/multi', `page=${page}&query=${encodeURI(this.state.searchText)}`).then((payload) => payload.json());
+        const data = await this.props.get('/search/multi', `page=${page}&query=${encodeURI(this.state.searchText)}`).then((payload: any) => payload.json());
         this.loadingPage.splice(this.loadingPage.indexOf(page), 1);
         this.updateStore(data.results, (page === 1), data.page, data.total_pages);
     }
@@ -155,7 +153,6 @@ export default class SearchScreen extends React.Component<any, any> {
                         value={this.state.searchText}
                     />
                 </View>
-                <KeyboardSpacer/>
             </View>
         );
     }

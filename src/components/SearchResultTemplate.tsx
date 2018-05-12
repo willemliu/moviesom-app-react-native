@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchTvResult, SearchPersonResult, SearchMovieResult2 as SearchMovieResult } from '../redux/TmdbReducer';
+import { SearchTvResult, SearchPersonResult, SearchMovieResult } from '../redux/TmdbReducer';
 
 export interface Props {
     media_type: string;

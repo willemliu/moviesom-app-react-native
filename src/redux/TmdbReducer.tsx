@@ -16,6 +16,10 @@ import SearchTvResult from '../components/SearchTvResult';
 import FilmographyScreen from '../screens/FilmographyScreen';
 import { mapDeviceStateToProps, mapDeviceDispatchToProps } from './device/DeviceReducer';
 import { mapLoginStateToProps, mapLoginDispatchToProps } from './login/LoginReducer';
+import { mapSearchStateToProps, mapSearchDispatchToProps } from './search/SearchReducer';
+import LoginScreen from '../screens/LoginScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import DrawerContainer from '../components/DrawerContainer';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -115,33 +119,59 @@ export function mapTmdbDispatchToProps(dispatch: any, ownProps: any) {
     };
 }
 
-const searchMovieResult = connect(mapTmdbMovieStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(SearchMovieResult));
+const searchMovieResult = connect(mapMovieStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchMovieResult));
 export {searchMovieResult as SearchMovieResult};
 
-const searchTvResult = connect(mapTmdbTvStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(SearchTvResult));
+const searchTvResult = connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchTvResult));
 export {searchTvResult as SearchTvResult};
 
-const searchPersonResult = connect(mapTmdbPersonStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
+const searchPersonResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
 
-const movieDetailScreen = navigationParamsToProps(connect(mapTmdbMovieStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(MovieDetailScreen)));
+const movieDetailScreen = navigationParamsToProps(connect(mapMovieStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(MovieDetailScreen)));
 export {movieDetailScreen as MovieDetailScreen};
 
-const tvDetailScreen = navigationParamsToProps(connect(mapTmdbTvStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(TvDetailScreen)));
+const tvDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(TvDetailScreen)));
 export {tvDetailScreen as TvDetailScreen};
 
-const personDetailScreen = navigationParamsToProps(connect(mapTmdbPersonStateToProps, mapTmdbDispatchToProps)(enhanceWithMovieSomFunctions(PersonDetailScreen)));
+const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(PersonDetailScreen)));
 export {personDetailScreen as PersonDetailScreen};
 
-const searchScreen = connect(mapTmdbStateToProps, mapTmdbDispatchToProps)(SearchScreen);
-export {searchScreen as SearchScreen};
-
-const castAndCrewScreen = navigationParamsToProps(connect(mapTmdbStateToProps, mapTmdbDispatchToProps)(CastAndCrewScreen));
+const castAndCrewScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
 
-const filmographyScreen = navigationParamsToProps(connect(mapTmdbStateToProps, mapTmdbDispatchToProps)(FilmographyScreen));
+const filmographyScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(FilmographyScreen));
 export {filmographyScreen as FilmographyScreen};
 
+/**
+ * SEARCH
+ */
+
+const searchScreen = connect(mapAllSearchStateToProps, mapAllDispatchToProps)(SearchScreen);
+export {searchScreen as SearchScreen};
+
+/**
+ * LOGIN
+ */
+
+const loginScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(LoginScreen);
+export {loginScreen as LoginScreen};
+
+const signUpScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(SignUpScreen);
+export {signUpScreen as SignUpScreen};
+
+const drawerContainer = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(DrawerContainer);
+export {drawerContainer as DrawerContainer};
+
+/**
+ * STATE 2 PROPS MAPPERS
+ */
+
+/**
+ * Map multiple Redux store movie states to props.
+ * @param state
+ * @param ownProps
+ */
 function mapMovieStateToProps(state: any, ownProps: any) {
     return {
         ...(mapTmdbMovieStateToProps(state, ownProps)),
@@ -149,13 +179,100 @@ function mapMovieStateToProps(state: any, ownProps: any) {
         ...(mapLoginStateToProps(state, ownProps)),
     };
 }
-function mapDispatchToProps(dispatch: any, ownProps: any) {
+/**
+ * Map multiple Redux store tv states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapTvStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapTmdbTvStateToProps(state, ownProps)),
+        ...(mapDeviceStateToProps(state, ownProps)),
+        ...(mapLoginStateToProps(state, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux store person states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapPersonStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapTmdbPersonStateToProps(state, ownProps)),
+        ...(mapDeviceStateToProps(state, ownProps)),
+        ...(mapLoginStateToProps(state, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux store states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapAllStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapTmdbStateToProps(state, ownProps)),
+        ...(mapDeviceStateToProps(state, ownProps)),
+        ...(mapLoginStateToProps(state, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux store search states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapAllSearchStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapAllStateToProps(state, ownProps)),
+        ...(mapSearchStateToProps(state, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux store login states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapAllLoginStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapAllStateToProps(state, ownProps)),
+        ...(mapLoginStateToProps(state, ownProps)),
+    };
+}
+
+/**
+ * DISPATCHERS
+ */
+
+/**
+ * Map multiple Redux dispatchers to props.
+ * @param dispatch
+ * @param ownProps
+ */
+function mapAllDispatchToProps(dispatch: any, ownProps: any) {
     return {
         ...(mapTmdbDispatchToProps(dispatch, ownProps)),
         ...(mapDeviceDispatchToProps(dispatch, ownProps)),
         ...(mapLoginDispatchToProps(dispatch, ownProps)),
     };
 }
-
-const searchMovieResult2 = connect(mapMovieStateToProps, mapDispatchToProps)(enhanceWithMovieSomFunctions(SearchMovieResult));
-export {searchMovieResult2 as SearchMovieResult2};
+/**
+ * Map multiple Redux dispatchers to props.
+ * @param dispatch
+ * @param ownProps
+ */
+function mapAllSearchDispatchToProps(dispatch: any, ownProps: any) {
+    return {
+        ...(mapAllDispatchToProps(dispatch, ownProps)),
+        ...(mapSearchDispatchToProps(dispatch, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux dispatchers to props.
+ * @param dispatch
+ * @param ownProps
+ */
+function mapAllLoginDispatchToProps(dispatch: any, ownProps: any) {
+    return {
+        ...(mapAllDispatchToProps(dispatch, ownProps)),
+        ...(mapLoginDispatchToProps(dispatch, ownProps)),
+    };
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image, Dimensions } from 'react-native';
 import {textStyle, viewStyle, detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
-import { get, getBackdropUrl } from '../tmdb/TMDb';
 import { format } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -44,6 +43,8 @@ export interface Props {
     homepageHandler?: any;
     shareHandler?: any;
     formatDuration: any;
+    get: (route: string, uriParam: string) => Promise<any>;
+    getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
 }
 export default class TvDetailScreen extends React.Component<Props, any> {
     static navigationOptions = {
@@ -67,7 +68,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
 
     getDetails = async () => {
         console.log('Get tv details');
-        const item = await get(`/tv/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+        const item = await this.props.get(`/tv/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
         item.media_type = 'tv';
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
@@ -80,7 +81,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
      * a re-render.
      */
     loadImage = async (imagePath: string|null|undefined) => {
-        const imageUrl = await getBackdropUrl(imagePath);
+        const imageUrl = await this.props.getBackdropUrl(imagePath);
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});

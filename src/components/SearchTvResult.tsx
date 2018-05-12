@@ -1,7 +1,6 @@
 import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor } from '../styles/Styles';
-import { getPosterUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
@@ -43,7 +42,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
      * a re-render.
      */
     loadImage = async (posterPath: string|null|undefined) => {
-        const url = await getPosterUrl(posterPath);
+        const url = await this.props.getPosterUrl(posterPath);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({

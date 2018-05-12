@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Image, Text, View, AsyncStorage, TextInput } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import TouchTextButton from '../components/TouchTextButton';
 
 export default class SignUpScreen extends React.Component<any, any> {
@@ -67,7 +66,6 @@ export default class SignUpScreen extends React.Component<any, any> {
                     />
                     <TouchTextButton style={{margin: 5}} onPress={this.login}>Sign up</TouchTextButton>
                 </View>
-                <KeyboardSpacer/>
             </View>
         );
     }

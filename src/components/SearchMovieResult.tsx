@@ -1,7 +1,6 @@
 import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor, textStyle, detailStyle, movieIconsStyle } from '../styles/Styles';
-import { getPosterUrl } from '../tmdb/TMDb';
 import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';
@@ -28,6 +27,7 @@ export interface Props {
     test?: number;
     actions?: any;
     watched?: number;
+    getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
 }
 
 export default class SearchMovieResult extends React.PureComponent<Props, any> {
@@ -65,7 +65,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
      * a re-render.
      */
     loadImage = async (posterPath: string|null|undefined) => {
-        const url = await getPosterUrl(posterPath);
+        const url = await this.props.getPosterUrl(posterPath);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({
