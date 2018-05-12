@@ -13,7 +13,7 @@ export default class DrawerContainer extends React.Component<any, any> {
     }
 
     logOut = async () => {
-        this.props.actions.logout();
+        this.props.loginActions.logout();
         this.props.navigation.goBack();
     }
 

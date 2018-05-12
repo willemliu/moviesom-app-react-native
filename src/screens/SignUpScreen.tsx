@@ -15,7 +15,7 @@ export default class SignUpScreen extends React.Component<any, any> {
     };
 
     login = async () => {
-        this.props.actions.login();
+        this.props.loginActions.login();
         this.props.navigation.goBack();
     }
 

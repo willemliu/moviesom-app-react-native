@@ -11,7 +11,7 @@ export default class LoginScreen extends React.Component<any> {
     };
 
     login = async () => {
-        this.props.actions.login();
+        this.props.loginActions.login();
         this.props.navigation.goBack();
     }
 

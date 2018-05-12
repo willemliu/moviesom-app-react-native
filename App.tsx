@@ -1,4 +1,4 @@
-import { Image, Text, View, Modal, TouchableHighlight, Linking, AsyncStorage } from 'react-native';
+import { Image, Text, View, Modal, TouchableHighlight, Linking, AsyncStorage, NetInfo, ConnectionInfo, ConnectionType } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import { LoginScreen, SignUpScreen } from './src/redux/login/LoginReducer';
@@ -23,14 +23,41 @@ export default class App extends React.Component<any> {
 
   state: any = {
     modalVisible: false,
+    online: false,
   };
 
   constructor(props: any) {
-      super(props);
-      Linking.addEventListener('url', this.handleUrl);
-      this.checkInitialUrl();
-      getConfig();
-      this.createStore();
+    super(props);
+    this.netInfo();
+    Linking.addEventListener('url', this.handleUrl);
+    this.checkInitialUrl();
+    getConfig();
+    this.createStore();
+  }
+
+  netInfo = () => {
+    NetInfo.getConnectionInfo().then(this.checkOnline);
+    NetInfo.addEventListener('connectionChange', this.checkOnline as any);
+  }
+
+  checkOnline = (connectionInfo: ConnectionInfo) => {
+    switch (connectionInfo.type) {
+      case 'none':
+      case 'NONE':
+      case 'unknown':
+      case 'UNKNOWN':
+      case 'DUMMY':
+        this.setState({
+          online: false,
+          networkMessage: 'Offline'
+        });
+        break;
+      default:
+        this.setState({
+          online: true,
+          networkMessage: 'Online'
+        });
+    }
   }
 
   createStore = async () => {
@@ -44,6 +71,9 @@ export default class App extends React.Component<any> {
       console.log('Create Redux store');
       store = createStore(rootReducer);
     }
+
+    // Subscribe to store changes and save them locally on the device for
+    // future sessions.
     store.subscribe(async () => {
       await AsyncStorage.setItem('store', JSON.stringify(store.getState()));
     });
@@ -92,9 +122,11 @@ export default class App extends React.Component<any> {
                 </View>
             </View>
         </Modal>
-        {this.state.store ? <Provider store={this.state.store}>
+        {this.state.store ?
+        <Provider store={this.state.store}>
           <StackNav/>
         </Provider> : null}
+        {!this.state.online ? <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'red', color: 'white'}}>{this.state.networkMessage}</Text> : null}
       </View>
     );
   }

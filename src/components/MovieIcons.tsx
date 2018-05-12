@@ -157,7 +157,6 @@ export default class MovieIcons extends React.Component<Props, any> {
     render() {
         return (
             <View style={[movieIconsStyle.movieIcons, this.props.style]}>
-                <Text>{this.props.media_type}</Text>
                 <TouchableNativeFeedback
                     style={{flex: 0}}
                     onPress={this.watchedHandler}

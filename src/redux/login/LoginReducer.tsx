@@ -35,7 +35,7 @@ function mapLoginStateToProps(state: any, ownProps: any) {
 
 function mapLoginDispatchToProps(dispatch: any, ownProps: any) {
     return {
-        actions: bindActionCreators(LoginActions as any, dispatch)
+        loginActions: bindActionCreators(LoginActions as any, dispatch)
     };
 }
 
