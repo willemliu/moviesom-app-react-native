@@ -29,6 +29,7 @@ export interface MovieProps {
     video?: boolean;
     vote_average?: number;
     vote_count?: number;
+    media_type?: string;
 }
 
 export interface TvProps {
@@ -98,36 +99,44 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     shareHandler = () => {
         requestAnimationFrame(async () => {
-            const loggedIn = await AsyncStorage.getItem('loggedIn');
-            if (loggedIn) {
-                let service = 'tmdbMovieId';
-                switch (this.props.media_type) {
-                    case 'tv':
-                        service = 'tmdbTvId';
-                        break;
-                    case 'episode':
-                        service = 'tmdbTvEpisodeId';
-                        break;
-                    case 'person':
-                        service = 'tmdbPersonId';
-                        break;
-                }
-                const title = this.props.title ? this.props.title : this.props.name;
-                const message = `${this.props.overview ? this.props.overview : this.props.biography ? this.props.biography : title} `;
-                Share.share({
-                    title,
-                    message: `${message}https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,
-                    url: `https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`
-                }, {
-                    dialogTitle: 'MovieSom share'
-                });
-            } else {
-                this.props.navigation.navigate('Login');
+            let service = 'tmdbMovieId';
+            switch (this.props.media_type) {
+                case 'tv':
+                    service = 'tmdbTvId';
+                    break;
+                case 'episode':
+                    service = 'tmdbTvEpisodeId';
+                    break;
+                case 'person':
+                    service = 'tmdbPersonId';
+                    break;
             }
+            const title = this.props.title ? this.props.title : this.props.name;
+            const message = `${this.props.overview ? this.props.overview : this.props.biography ? this.props.biography : title} `;
+            Share.share({
+                title,
+                message: `${message}https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,
+                url: `https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`
+            }, {
+                dialogTitle: 'MovieSom share'
+            });
         });
     }
 
     imdbHandler = () => {
+        switch (this.props.media_type) {
+            case 'movie':
+            case 'tv':
+            case 'episode':
+                this.imdbMovieHandler();
+                break;
+            case 'person':
+                this.imdbPersonHandler();
+                break;
+        }
+    }
+
+    imdbMovieHandler = () => {
         requestAnimationFrame(() => {
             this.props.navigation.navigate('Web', {url: `https://www.imdb.com/title/${this.props.imdb_id}/`, canGoBack: true});
         });
@@ -148,6 +157,7 @@ export default class MovieIcons extends React.Component<Props, any> {
     render() {
         return (
             <View style={[movieIconsStyle.movieIcons, this.props.style]}>
+                <Text>{this.props.media_type}</Text>
                 <TouchableNativeFeedback
                     style={{flex: 0}}
                     onPress={this.watchedHandler}
