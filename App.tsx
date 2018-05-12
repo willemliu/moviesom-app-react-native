@@ -49,16 +49,16 @@ export default class App extends React.Component<any> {
       case 'UNKNOWN':
       case 'DUMMY':
         this.setState({
-          online: true,
+          online: false,
           networkMessage: 'Offline'
         });
-        return true;
+        return false;
       default:
         this.setState({
-          online: false,
+          online: true,
           networkMessage: 'Online'
         });
-        return false;
+        return true;
     }
   }
 
@@ -132,7 +132,7 @@ export default class App extends React.Component<any> {
         <Provider store={this.state.store}>
           <StackNav/>
         </Provider> : null}
-        {!this.state.online ? <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'red', color: 'white'}}>{this.state.networkMessage}</Text> : null}
+        {!this.state.online ? <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'red', color: 'white'}}>{this.state.networkMessage}</Text> : <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'green', color: 'white'}}>{this.state.networkMessage}</Text>}
         <KeyboardSpacer/>
       </View>
     );

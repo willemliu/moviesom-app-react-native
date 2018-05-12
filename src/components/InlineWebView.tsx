@@ -8,28 +8,37 @@ export default class InlineWebView extends React.Component<any, any> {
     };
 
     private webRef: any;
-    private lastUrl: string|undefined;
+    private lastUrl: any;
 
     constructor(props: any) {
         super(props);
-        BackHandler.addEventListener('hardwareBackPress', () => {
-            if (this.webRef && this.state.url !== this.lastUrl && this.props.canGoBack && this.state.canGoBack) {
-                this.lastUrl = this.state.url;
-                return this.onBack();
-            }
-            return false;
-        });
+    }
+
+    componentDidMount() {
+        if (this.props.canGoBack) {
+            console.log('WebView canGoBacjkjhlk');
+            BackHandler.addEventListener('hardwareBackPress', this.backHandler);
+        }
+    }
+
+    backHandler = (): boolean => {
+        if (this.webRef && this.state.url !== this.lastUrl && this.props.canGoBack && this.state.canGoBack) {
+            console.log('GOBACK!', this.state.url, this.lastUrl);
+            this.lastUrl = this.state.url;
+            this.webRef.goBack();
+            return true;
+        }
+        return false;
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backHandler);
     }
 
     onNavigationStateChange = (navState: any) => {
         this.setState({
             ...navState,
         });
-    }
-
-    onBack = () => {
-        this.webRef.goBack();
-        return true;
     }
 
     render() {

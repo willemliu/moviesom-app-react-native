@@ -37,15 +37,6 @@ export default class DrawerContainer extends React.Component<any, any> {
 
                 <TouchTextButton
                     style={{marginBottom: 10}}
-                    onPress={() => requestAnimationFrame(() => Linking.openURL('exp://exp.host/@willem_liu/react-native-ts?tmdbMovieId=500'))}
-                >Link external</TouchTextButton>
-                <TouchTextButton
-                    style={{marginBottom: 10}}
-                    onPress={() => requestAnimationFrame(() => this.props.navigation.navigate('Donate', {url: 'https://app.moviesom.com'}))}
-                >MovieSom</TouchTextButton>
-
-                <TouchTextButton
-                    style={{marginBottom: 10}}
                     onPress={() => requestAnimationFrame(() => navigation.navigate('About', {name: 'Willem Liu'}))}
                 >About</TouchTextButton>
 

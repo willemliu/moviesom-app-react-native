@@ -1,4 +1,4 @@
-import { PersonDetailScreen, FilmographyScreen } from '../redux/TmdbReducer';
+import { PersonDetailScreen, FilmographyScreen, PicturesScreen } from '../redux/TmdbReducer';
 import { TabNavigator } from 'react-navigation';
 
 const PersonDetailsTabNav = TabNavigator({
@@ -7,15 +7,9 @@ const PersonDetailsTabNav = TabNavigator({
     },
     FilmographyScreen: {
       screen: FilmographyScreen,
-      navigationOptions: {
-        title: 'Filmography',
-      }
     },
     Pictures: {
-      screen: FilmographyScreen,
-      navigationOptions: {
-        title: 'Pictures',
-      }
+      screen: PicturesScreen,
     },
 }, {
     tabBarPosition: 'bottom',

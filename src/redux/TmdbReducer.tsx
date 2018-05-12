@@ -20,6 +20,7 @@ import { mapSearchStateToProps, mapSearchDispatchToProps } from './search/Search
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import DrawerContainer from '../components/DrawerContainer';
+import PicturesScreen from '../screens/PicturesScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -143,11 +144,14 @@ export {castAndCrewScreen as CastAndCrewScreen};
 const filmographyScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(FilmographyScreen));
 export {filmographyScreen as FilmographyScreen};
 
+const picturesScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(PicturesScreen));
+export {picturesScreen as PicturesScreen};
+
 /**
  * SEARCH
  */
 
-const searchScreen = connect(mapAllSearchStateToProps, mapAllDispatchToProps)(SearchScreen);
+const searchScreen = connect(mapAllSearchStateToProps, mapAllSearchDispatchToProps)(enhanceWithMovieSomFunctions(SearchScreen));
 export {searchScreen as SearchScreen};
 
 /**

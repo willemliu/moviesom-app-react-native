@@ -133,7 +133,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
         return (
             <View style={{backgroundColor}}>
                 <ScrollView
-                    scrollEventThrottle={16}
+                    scrollEventThrottle={1}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
