@@ -50,7 +50,12 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
 
     constructor(props: Props) {
         super(props);
-        this.loadImage(this.props.poster_path);
+    }
+
+    componentDidMount() {
+        requestAnimationFrame(() => {
+            this.loadImage(this.props.poster_path);
+        });
     }
 
     /**

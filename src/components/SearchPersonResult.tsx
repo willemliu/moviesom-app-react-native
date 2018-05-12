@@ -26,7 +26,12 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
 
     constructor(props: any) {
         super(props);
-        this.loadImage(this.props.profile_path);
+    }
+
+    componentDidMount() {
+        requestAnimationFrame(() => {
+            this.loadImage(this.props.profile_path);
+        });
     }
 
     /**

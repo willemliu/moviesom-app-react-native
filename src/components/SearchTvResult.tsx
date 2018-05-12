@@ -28,7 +28,12 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
 
     constructor(props: any) {
         super(props);
-        this.loadImage(this.props.poster_path);
+    }
+
+    componentDidMount() {
+        requestAnimationFrame(() => {
+            this.loadImage(this.props.poster_path);
+        });
     }
 
     /**
