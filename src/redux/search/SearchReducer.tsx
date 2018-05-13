@@ -12,13 +12,13 @@ const addSearchItem = (newState: any, item: any) => {
     const itemState = newState.searchItems.find((value: any, index: number, arr: any[]) => {
         const sameItem = (value.id === item.id && value.media_type === item.media_type);
         if (sameItem) {
-            console.log('MERGE search item', item.media_type, item.id);
+            // console.log('MERGE search item', item.media_type, item.id);
             arr[index] = Object.assign({}, value, item);
         }
         return sameItem;
     });
     if (!itemState) {
-        console.log('INSERT search item', item.media_type, item.id);
+        // console.log('INSERT search item', item.media_type, item.id);
         newState.searchItems.push(item);
     }
     return newState;
@@ -28,16 +28,16 @@ export function searchReducer(state: any = defaultState, action: any) {
     let newState = Object.assign({}, state);
     switch (action.type) {
         case ADD_SEARCH_ITEM:
-            console.log('ADD search item');
+            // console.log('ADD search item');
             return addSearchItem(newState, action.item);
         case ADD_SEARCH_ITEMS:
-            console.log('ADD search items');
+            // console.log('ADD search items');
             action.items.forEach((item: any) => {
                 newState = addSearchItem(newState, item);
             });
             return newState;
         case SET_SEARCH_ITEMS:
-            console.log('REPLACE search items');
+            // console.log('REPLACE search items');
             newState.searchItems = action.items;
             return newState;
         case SET_SEARCH_PAGE:
@@ -52,7 +52,6 @@ export function searchReducer(state: any = defaultState, action: any) {
 }
 
 export function mapSearchStateToProps(state: any, ownProps: any) {
-    console.log(state.search.page, state.search.totalPages);
     return {
         ...(state.search.searchItems.find((value: any) => {
             let result = false;

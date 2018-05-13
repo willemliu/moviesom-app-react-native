@@ -21,6 +21,7 @@ import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import DrawerContainer from '../components/DrawerContainer';
 import PicturesScreen from '../screens/PicturesScreen';
+import SearchPictureResult from '../components/SearchPictureResult';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -33,13 +34,13 @@ const addItem = (newState: any, item: any) => {
             && value.media_type === item.media_type);
         // Merge the new item with the old and return it.
         if (sameItem) {
-            console.log('MERGE', item.media_type, item.id);
+            // console.log('MERGE', item.media_type, item.id);
             arr[index] = Object.assign({}, value, item);
         }
         return sameItem;
     });
     if (!itemState) {
-        console.log('INSERT', item.media_type, item.id);
+        // console.log('INSERT', item.media_type, item.id);
         newState.tmdbItems.push(item);
     }
     return newState;
@@ -128,6 +129,9 @@ export {searchTvResult as SearchTvResult};
 
 const searchPersonResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
+
+const searchPictureResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPictureResult));
+export {searchPictureResult as SearchPictureResult};
 
 const movieDetailScreen = navigationParamsToProps(connect(mapMovieStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(MovieDetailScreen)));
 export {movieDetailScreen as MovieDetailScreen};

@@ -21,7 +21,6 @@ contentComponent: DrawerContainer,
                 navigation.navigate('DrawerToggle', {
                     loggedIn: await AsyncStorage.getItem('loggedIn')
                 });
-                console.log('drawer loggedIn', await AsyncStorage.getItem('loggedIn') === '1');
             }}><MaterialIcons name="menu" size={32} color='#fff'/></TouchableOpacity>
         ),
         headerRight: (
@@ -29,7 +28,6 @@ contentComponent: DrawerContainer,
                 navigation.navigate('DrawerToggle', {
                     loggedIn: await AsyncStorage.getItem('loggedIn')
                 });
-                console.log('drawer loggedIn', await AsyncStorage.getItem('loggedIn') === '1');
             }} style={{
                 display: 'none',
             }}>Menu</Text>

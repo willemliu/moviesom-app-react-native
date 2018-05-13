@@ -45,11 +45,11 @@ export async function getPosterUrl(posterPath: string|null|undefined) {
     return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[0]}${posterPath}`;
 }
 
-export async function getProfileUrl(profilePath: string|null|undefined) {
+export async function getProfileUrl(profilePath: string|null|undefined, quality: number = 0) {
     // console.log('Get poster url', posterPath);
     if (!profilePath) { return null; }
     const configuration = await getConfig();
-    return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[0]}${profilePath}`;
+    return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[quality]}${profilePath}`;
 }
 
 export async function getBackdropUrl(backdropPath: string|null|undefined) {

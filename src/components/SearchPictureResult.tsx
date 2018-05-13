@@ -1,6 +1,6 @@
-import {View, Text, Image, AsyncStorage, TouchableNativeFeedback, TextStyle, StyleProp} from 'react-native';
+import {View, Text, Image, AsyncStorage, TouchableNativeFeedback, TextStyle, StyleProp, Dimensions} from 'react-native';
 import React from 'react';
-import { searchResultStyle, movieSomColor } from '../styles/Styles';
+import { searchResultStyle, movieSomColor, HEADER_MAX_HEIGHT, detailStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
@@ -28,15 +28,11 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
 
     componentDidMount() {
         requestAnimationFrame(() => {
-            this.loadImage(this.props.media.backdrop_path);
-            // switch (this.props.image_type) {
-            //     case 'poster':
-            //         this.loadPoster(this.props.media.poster_path);
-            //         break;
-            //     case 'backdrop':
-            //         this.loadImage(this.props.media.backdrop_path);
-            //         break;
-            // }
+            if (this.props.backdrop_path) {
+                this.loadImage(this.props.backdrop_path);
+            } else {
+                this.loadProfile(this.props.file_path);
+            }
         });
     }
 
@@ -48,6 +44,7 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
      */
     loadPoster = async (posterPath: string|null|undefined) => {
         const url = await this.props.getPosterUrl(posterPath);
+        console.log(url);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({
@@ -70,6 +67,31 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
         }
     }
 
+    loadProfile = async (profilePath: string|null|undefined) => {
+        const url = await this.props.getProfileUrl(profilePath, 4);
+        console.log(url);
+        if (url) {
+            const {width, height} = Dimensions.get('window');
+            Image.getSize(url, (imageWidth: number, imageHeight: number) => {
+                const ratio = (height < imageHeight ? height / imageHeight : imageHeight / height) * 0.5;
+                this.setState({
+                    image: (
+                        <Image
+                            style={{
+                                width: imageWidth * ratio,
+                                height: height * 0.5,
+                            }}
+                            loadingIndicatorSource={require('../../assets/eyecon256x256.png')}
+                            resizeMode='contain'
+                            defaultSource={require('../../assets/eyecon56x56.png')}
+                            source={{uri: url}}
+                        />
+                    )
+                });
+            }, (e) => { console.error(e); });
+        }
+    }
+
     /**
      * Tries to load the image from the given URL. It determines the width and height which
      * is required in order to show the image. Otherwise it will be 0x0.
@@ -84,8 +106,9 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
                     image: (
                         <Image
                             style={{
-                                width: 56,
-                                height: 83,
+                                width: '100%',
+                                height: HEADER_MAX_HEIGHT,
+                                flex: 1,
                             }}
                             loadingIndicatorSource={require('../../assets/eyecon56x56.png')}
                             defaultSource={require('../../assets/eyecon56x56.png')}
@@ -106,13 +129,9 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
                 onPress={this.props.handleOnPress}
                 background={TouchableNativeFeedback.SelectableBackground()}
             >
-                <View style={[searchResultStyle.view, this.props.style]}>
-                    <View style={{flex: 1}}>
+                <View style={this.props.style}>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                         {this.state.image}
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Text style={searchResultStyle.overview}>{this.props.media.backdrop_path}</Text>
-                        <Text style={searchResultStyle.overview}>{this.props.media.overview}</Text>
                     </View>
                 </View>
             </TouchableNativeFeedback>

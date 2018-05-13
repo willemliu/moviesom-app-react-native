@@ -16,14 +16,12 @@ export default class InlineWebView extends React.Component<any, any> {
 
     componentDidMount() {
         if (this.props.canGoBack) {
-            console.log('WebView canGoBacjkjhlk');
             BackHandler.addEventListener('hardwareBackPress', this.backHandler);
         }
     }
 
     backHandler = (): boolean => {
         if (this.webRef && this.state.url !== this.lastUrl && this.props.canGoBack && this.state.canGoBack) {
-            console.log('GOBACK!', this.state.url, this.lastUrl);
             this.lastUrl = this.state.url;
             this.webRef.goBack();
             return true;

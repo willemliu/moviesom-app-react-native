@@ -120,9 +120,11 @@ export const searchResultStyle = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
         marginLeft: 5,
+        marginRight: 5,
     },
     overview: {
         marginLeft: 5,
+        marginRight: 5,
     },
     image: {
         flex: 0,
