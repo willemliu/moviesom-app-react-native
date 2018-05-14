@@ -1,4 +1,4 @@
-import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
+import {View, Text, Image, AsyncStorage} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor } from '../styles/Styles';
 import {parse, format} from 'date-fns';
@@ -6,6 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import { Feather } from '@expo/vector-icons';
 import MovieIcons from './MovieIcons';
+import Touchable from './Touchable';
 
 export default class SearchTvResult extends React.PureComponent<any, any> {
     state: any = {
@@ -83,10 +84,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
 
     render() {
         return (
-            <TouchableNativeFeedback
-                onPress={this.props.handleOnPress}
-                background={TouchableNativeFeedback.SelectableBackground()}
-            >
+            <Touchable onPress={this.props.handleOnPress}>
                 <View style={searchResultStyle.view}>
                     <View style={{flex: 0, flexDirection: 'row'}}>
                         <View style={{flex: 2}}>
@@ -99,7 +97,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
                     </View>
                     <MovieIcons {...this.props as any}/>
                 </View>
-            </TouchableNativeFeedback>
+            </Touchable>
         );
     }
 }

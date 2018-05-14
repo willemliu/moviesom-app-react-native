@@ -1,10 +1,11 @@
-import {View, Text, Image, AsyncStorage, TouchableNativeFeedback, TextStyle, StyleProp, Dimensions} from 'react-native';
+import {View, Text, Image, AsyncStorage, TextStyle, StyleProp, Dimensions} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor, HEADER_MAX_HEIGHT, detailStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';
+import Touchable from './Touchable';
 
 export default class SearchPictureResult extends React.PureComponent<any, any> {
     state: any = {
@@ -125,16 +126,13 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
 
     render() {
         return (
-            <TouchableNativeFeedback
-                onPress={this.props.handleOnPress}
-                background={TouchableNativeFeedback.SelectableBackground()}
-            >
+            <Touchable onPress={this.props.handleOnPress}>
                 <View style={this.props.style}>
                     <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                         {this.state.image}
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </Touchable>
         );
     }
 }

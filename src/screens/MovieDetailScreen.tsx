@@ -1,11 +1,12 @@
 import React from 'react';
-import { Share, Text, ScrollView, TouchableNativeFeedback, View, Image, Animated, StyleSheet, Dimensions, ScaledSize, Button, AsyncStorage } from 'react-native';
+import { Share, Text, ScrollView, View, Image, Animated, StyleSheet, Dimensions, ScaledSize, Button, AsyncStorage } from 'react-native';
 import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { format, parse } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 import numeral from 'numeral';
 import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
+import Touchable from '../components/Touchable';
 
 numeral.register('locale', 'nl_NL', {
     delimiters: {
@@ -145,7 +146,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
                             height: HEADER_MAX_HEIGHT,
                         }}
                     />
-                    <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
+                    <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
                         <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                             <View style={detailStyle.metaView}>
@@ -161,7 +162,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <MovieIcons {...this.props}/>
                         </View>
-                    </TouchableNativeFeedback>
+                    </Touchable>
                 </ScrollView>
                 <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
                     <Animated.Image

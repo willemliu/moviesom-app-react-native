@@ -1,10 +1,11 @@
-import {View, Text, Image, AsyncStorage, TouchableNativeFeedback} from 'react-native';
+import {View, Text, Image, AsyncStorage, Platform} from 'react-native';
 import React from 'react';
 import { searchResultStyle, movieSomColor, textStyle, detailStyle, movieIconsStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Touchable from './Touchable';
 
 export interface Props {
     handleOnPress: (props: any) => void;
@@ -89,24 +90,40 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     }
 
     render() {
-        return (
-            <TouchableNativeFeedback
-                onPress={this.props.handleOnPress}
-                background={TouchableNativeFeedback.SelectableBackground()}
-            >
-                <View style={searchResultStyle.view}>
-                    <View style={{flex: 0, flexDirection: 'row'}}>
-                        <View style={{flex: 2}}>
-                            {this.state.image}
+        if (Platform.OS === 'android') {
+            return (
+                <Touchable onPress={this.props.handleOnPress}>
+                    <View style={searchResultStyle.view}>
+                        <View style={{flex: 0, flexDirection: 'row'}}>
+                            <View style={{flex: 2}}>
+                                {this.state.image}
+                            </View>
+                            <View style={{flex: 10}}>
+                                <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                                <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
+                            </View>
                         </View>
-                        <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
-                        </View>
+                        <MovieIcons {...this.props as any}/>
                     </View>
-                    <MovieIcons {...this.props as any}/>
-                </View>
-            </TouchableNativeFeedback>
-        );
+                </Touchable>
+            );
+        } else {
+            return (
+                <Touchable onPress={this.props.handleOnPress}>
+                    <View style={searchResultStyle.view}>
+                        <View style={{flex: 0, flexDirection: 'row'}}>
+                            <View style={{flex: 2}}>
+                                {this.state.image}
+                            </View>
+                            <View style={{flex: 10}}>
+                                <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                                <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
+                            </View>
+                        </View>
+                        <MovieIcons {...this.props as any}/>
+                    </View>
+                </Touchable>
+            );
+        }
     }
 }

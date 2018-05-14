@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, TouchableNativeFeedback, StyleProp, ViewStyle, AsyncStorage, Share } from 'react-native';
+import { Text, View, StyleProp, ViewStyle, AsyncStorage, Share } from 'react-native';
 import { movieSomColor, movieIconsStyle } from '../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import Touchable from './Touchable';
 
 export interface MovieProps {
     adult?: boolean;
@@ -162,49 +163,43 @@ export default class MovieIcons extends React.Component<Props, any> {
     render() {
         return (
             <View style={[movieIconsStyle.movieIcons, this.props.style]}>
-                <TouchableNativeFeedback
+                <Touchable
                     style={{flex: 0}}
                     onPress={this.watchedHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="add-circle-outline" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </TouchableNativeFeedback>
+                </Touchable>
                 <Text style={{lineHeight: 32}}>{this.props.watched ? this.props.watched : 0}</Text>
-                <TouchableNativeFeedback
+                <Touchable
                     style={{flex: 0}}
                     onPress={this.unWatchedHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="remove-circle-outline" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback
+                </Touchable>
+                <Touchable
                     style={{flex: 0}}
                     onPress={this.wantToWatchHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="star-border" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback
+                </Touchable>
+                <Touchable
                     style={{flex: 0}}
                     onPress={this.shareHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="share" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </TouchableNativeFeedback>
-                {this.props.imdb_id ? <TouchableNativeFeedback
+                </Touchable>
+                {this.props.imdb_id ? <Touchable
                     style={{flex: 0}}
                     onPress={this.imdbHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}
                 >
                     <View style={{padding: 5}}><FontAwesome name="imdb" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </TouchableNativeFeedback> : null}
-                {this.props.homepage ? <TouchableNativeFeedback
+                </Touchable> : null}
+                {this.props.homepage ? <Touchable
                     style={{flex: 0}}
                     onPress={this.homepageHandler}
-                    background={TouchableNativeFeedback.SelectableBackground()}
                 >
                     <View style={{padding: 5}}><MaterialCommunityIcons name="web" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </TouchableNativeFeedback> : null}
+                </Touchable> : null}
             </View>
         );
     }

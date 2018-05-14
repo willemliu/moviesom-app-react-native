@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, AsyncStorage, TextInput, TouchableNativeFeedback, Platform } from 'react-native';
+import { StyleSheet, Image, Text, View, AsyncStorage, TextInput, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';

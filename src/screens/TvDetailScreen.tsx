@@ -1,10 +1,11 @@
 import React from 'react';
-import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image, Dimensions } from 'react-native';
+import { Share, Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
 import {textStyle, viewStyle, detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import { format } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Touchable from '../components/Touchable';
 
 export interface Props {
     backdrop_path?: string;
@@ -131,7 +132,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                             height: HEADER_MAX_HEIGHT,
                         }}
                     />
-                    <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
+                    <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
                         <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
                             <View style={detailStyle.metaView}>
@@ -145,7 +146,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <MovieIcons {...this.props}/>
                         </View>
-                    </TouchableNativeFeedback>
+                    </Touchable>
                 </ScrollView>
                 <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
                     <Animated.Image

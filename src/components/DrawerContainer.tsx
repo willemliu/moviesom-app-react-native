@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, AsyncStorage, Linking, TouchableNativeFeedback, Platform } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import {textStyle, viewStyle} from "../styles/Styles";
+import { View, AsyncStorage } from 'react-native';
+import {viewStyle} from "../styles/Styles";
 import TouchTextButton from './TouchTextButton';
 
 export default class DrawerContainer extends React.Component<any, any> {

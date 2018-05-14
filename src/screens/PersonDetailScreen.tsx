@@ -1,10 +1,11 @@
 import React from 'react';
-import { Share, Text, ScrollView, TouchableNativeFeedback, View, Animated, Image, Dimensions } from 'react-native';
+import { Share, Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
 import {textStyle, viewStyle, detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import MovieIcons from '../components/MovieIcons';
 import { MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
 import { parse, format } from 'date-fns';
+import Touchable from '../components/Touchable';
 
 export interface Props {
     adult?: boolean;
@@ -135,7 +136,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
                             height: HEADER_MAX_HEIGHT,
                         }}
                     />
-                    <TouchableNativeFeedback style={{marginTop: HEADER_MAX_HEIGHT}} background={TouchableNativeFeedback.SelectableBackground()}>
+                    <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
                         <View style={{backgroundColor, margin: 10}}>
                             <Text style={detailStyle.title}>{this.props.name} {gender ? <Foundation name={gender} size={20}/> : null}</Text>
                             <View style={detailStyle.metaView}>
@@ -146,7 +147,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
                             <MovieIcons {...this.props}/>
                         </View>
-                    </TouchableNativeFeedback>
+                    </Touchable>
                 </ScrollView>
                 <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
                     <Animated.Image
