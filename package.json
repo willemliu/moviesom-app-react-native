@@ -48,6 +48,17 @@
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
+    },
+    "haste": {
+      "defaultPlatform": "android",
+      "platforms": [
+        "android",
+        "ios",
+        "native"
+      ],
+      "providesModuleNodeModules": [
+        "react-native"
+      ]
     }
   },
   "dependencies": {

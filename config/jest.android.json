@@ -1,0 +1,34 @@
+{
+    "globals": {
+      "ts-jest": {
+        "useBabelrc": true
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "preset": "jest-expo",
+    "testMatch": [
+      "**/__tests__/**/*.[tj]s?(x)",
+      "**/?(*.)(spec|test).[tj]s?(x)"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "haste": {
+        "defaultPlatform": "android",
+        "platforms": [
+            "android",
+            "ios",
+            "native"
+        ],
+        "providesModuleNodeModules": [
+            "react-native"
+        ]
+    }
+  }
