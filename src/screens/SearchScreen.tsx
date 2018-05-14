@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Linking, Text, TextInput, View, Modal, TouchableHighlight, FlatList, RefreshControl, TouchableNativeFeedback, AsyncStorage} from 'react-native';
+import {Image, Linking, Text, TextInput, View, Modal, FlatList, RefreshControl, AsyncStorage} from 'react-native';
 import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 

@@ -27,13 +27,37 @@ export default class FilmographyScreen extends React.Component<any, any> {
         });
     }
 
+    getReleaseDate = (item: any): string => {
+        let result = '';
+        switch (item.media_type) {
+            case 'movie':
+                result = item.release_date;
+                break;
+            case 'tv':
+                result = item.first_air_date;
+                break;
+        }
+        return result;
+    }
+
+    /**
+     * Sorts the given array by release date/first air date in descending order.
+     */
+    sortFilmography = (a: any, b: any) => {
+        return +new Date(this.getReleaseDate(a)) > +new Date(this.getReleaseDate(b)) ? -1 : 1;
+    }
+
     render() {
         const sections = [];
         if (this.props.combined_credits) {
-            if (this.props.combined_credits.cast.length) {
-                sections.push({title: 'Cast', data: this.props.combined_credits.cast});
+            const cast = [...this.props.combined_credits.cast];
+            const crew = [...this.props.combined_credits.crew];
+            if (cast.length) {
+                cast.sort(this.sortFilmography);
+                sections.push({title: 'Cast', data: cast});
             }
             if (this.props.combined_credits.crew.length) {
+                crew.sort(this.sortFilmography);
                 sections.push({title: 'Crew', data: this.props.combined_credits.crew});
             }
         }

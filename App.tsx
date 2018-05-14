@@ -1,4 +1,4 @@
-import { Image, Text, View, Modal, TouchableHighlight, Linking, AsyncStorage, NetInfo, ConnectionInfo, ConnectionType } from 'react-native';
+import { Image, Text, View, Modal, Linking, AsyncStorage, NetInfo, ConnectionInfo, ConnectionType } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import { LoginScreen, SignUpScreen } from './src/redux/TmdbReducer';
