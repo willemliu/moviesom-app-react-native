@@ -54,11 +54,11 @@ export default class FilmographyScreen extends React.Component<any, any> {
             const crew = [...this.props.combined_credits.crew];
             if (cast.length) {
                 cast.sort(this.sortFilmography);
-                sections.push({title: 'Cast', data: cast});
+                sections.push({title: 'As cast', data: cast});
             }
             if (this.props.combined_credits.crew.length) {
                 crew.sort(this.sortFilmography);
-                sections.push({title: 'Crew', data: this.props.combined_credits.crew});
+                sections.push({title: 'As crew', data: this.props.combined_credits.crew});
             }
         }
         return (

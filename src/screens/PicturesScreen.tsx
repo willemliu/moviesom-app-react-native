@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList, SectionList, ScrollView } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {backgroundColor, searchResultStyle, searchScreenStyle, sectionListStyle, detailStyle} from "../styles/Styles";
 import { SearchPersonResult, SearchPictureResult } from '../redux/TmdbReducer';
@@ -10,34 +10,29 @@ export default class PicturesScreen extends React.Component<any, any> {
     };
 
     state: any = {
-        sections: []
+        refreshing: false,
+        items: [],
+        loadingPage: [],
     };
+
+    private loadingPage: number[] = [];
 
     componentDidMount() {
         console.log('Pictures', this.props.id, this.props.title || this.props.name);
-        const newSections: any[] = [];
-        const images: string[] = [];
-        // if (this.props.tagged_images) {
-        //     if (this.props.tagged_images.results.length) {
-        //         this.props.tagged_images.results.sort((a: any, b: any) => {
-        //             const aDate = a.media.release_date ? a.media.release_date : a.media.first_air_date;
-        //             const bDate = b.media.release_date ? b.media.release_date : b.media.first_air_date;
-        //             return new Date(aDate) > new Date(bDate);
-        //         });
-        //         this.props.tagged_images.results.forEach((taggedImage: any) => {
-        //              newSections.push({title: [taggedImage], data: [taggedImage]});
-        //         });
-        //     }
-        // }
+        this.refresh();
+    }
+
+    refresh = () => {
+        this.setState({refreshing: true});
         if (this.props.images) {
             if (this.props.images.profiles.length) {
-                this.props.images.profiles.forEach((image: any) => {
-                    newSections.push({title: [image], data: [image]});
+                this.setState({
+                    page: 1,
+                    items: [...this.props.images.profiles]
                 });
-                this.setState({sections: newSections});
             }
         }
-        this.setState({sections: newSections});
+        this.setState({refreshing: false});
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
@@ -59,38 +54,20 @@ export default class PicturesScreen extends React.Component<any, any> {
     render() {
         return (
             <View style={{flex: 1, backgroundColor}}>
-                <SectionList
-                    sections={this.state.sections}
+                <FlatList
+                    data={this.state.items}
                     ListEmptyComponent={<Text style={sectionListStyle.header}>No pictures</Text>}
-                    stickySectionHeadersEnabled={true}
-                    style={[searchScreenStyle.flatList, {backgroundColor}]}
-                    extraData={this.props.sections}
+                    style={[searchScreenStyle.flatList, {backgroundColor: 'black'}]}
+                    extraData={this.state.items}
                     keyExtractor={this.keyExtractor}
-                    ItemSeparatorComponent={(props: any, state: any) => <Text style={{backgroundColor: '#eee', height: 1}}/>}
                     initialNumToRender={4}
-                    renderSectionHeader={({section: {title}}) => {
-                        return (
-                            <ScrollView minimumZoomScale={1} maximumZoomScale={5}>
-                                <View style={{height: 50}}/>
-                                <SearchPictureResult {...title[0]} {...title[0].media} handleOnPress={this.handlePress}/>
-                            </ScrollView>
-                        );
-                    }}
                     renderItem={(data: any) => {
-                        if (!data.item.media) {
-                            return (
-                                <View style={{height: 100}}/>
-                            );
-                        }
                         return (
-                            <View style={{margin: 10}}>
-                                <Text style={{fontSize: 13}} numberOfLines={2}>
-                                    <Text style={{fontWeight: 'bold'}}>{data.item.media.title ? data.item.media.title : data.item.media.name}</Text>
-                                    {` - `}{data.item.media.overview}
-                                </Text>
-                            </View>
+                            <SearchPictureResult style={{marginTop: 50, marginBottom: 50}} {...data.item}/>
                         );
                     }}
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.refresh}
                 />
             </View>
         );

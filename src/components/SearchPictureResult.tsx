@@ -5,7 +5,6 @@ import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';
-import Touchable from './Touchable';
 
 export default class SearchPictureResult extends React.PureComponent<any, any> {
     state: any = {
@@ -74,13 +73,13 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
         if (url) {
             const {width, height} = Dimensions.get('window');
             Image.getSize(url, (imageWidth: number, imageHeight: number) => {
-                const ratio = (height < imageHeight ? height / imageHeight : imageHeight / height) * 0.5;
+                const ratio = (height < imageHeight ? height / imageHeight : imageHeight / height) * 0.65;
                 this.setState({
                     image: (
                         <Image
                             style={{
                                 width: imageWidth * ratio,
-                                height: height * 0.5,
+                                height: height * 0.65,
                             }}
                             loadingIndicatorSource={require('../../assets/eyecon256x256.png')}
                             resizeMode='contain'
@@ -126,13 +125,11 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
 
     render() {
         return (
-            <Touchable onPress={this.props.handleOnPress}>
-                <View style={this.props.style}>
-                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                        {this.state.image}
-                    </View>
+            <View style={[{backgroundColor: 'black'}, this.props.style]}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                    {this.state.image}
                 </View>
-            </Touchable>
+            </View>
         );
     }
 }

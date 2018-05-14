@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Linking, Text, TextInput, View, Modal, FlatList, RefreshControl, AsyncStorage} from 'react-native';
-import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor} from "../styles/Styles";
+import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor, sectionListStyle} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 
 export default class SearchScreen extends React.Component<any, any> {
@@ -12,8 +12,7 @@ export default class SearchScreen extends React.Component<any, any> {
         refreshing: true,
         searchText: '',
     };
-    // private page = 1;
-    // private totalPages = 2;
+
     private loadingPage: number[] = [];
 
     constructor(props: any) {
@@ -119,6 +118,7 @@ export default class SearchScreen extends React.Component<any, any> {
                     data={this.props.searchItems}
                     extraData={this.props.searchItems}
                     keyExtractor={this.keyExtractor}
+                    ListEmptyComponent={<Text style={sectionListStyle.header}>Nothing found</Text>}
                     initialNumToRender={4}
                     renderItem={(data: any) => (
                         <SearchResultTemplate
