@@ -1,13 +1,13 @@
 console.log('Mock drawer layout android');
-jest.mock('DrawerLayoutAndroid', () => {
-    const RealComponent = require.requireActual('DrawerLayoutAndroid');
-    const React = require('react');
-    class DrawerLayoutAndroid extends React.Component {
-        render() {
-        return React.createElement('DrawerLayoutAndroid', this.props, this.props.children);
+jest.mock('react-native', () => {
+    const reactNative = require.requireActual('react-native');
+    reactNative.UIManager.AndroidDrawerLayout = {
+      Constants: {
+        DrawerPosition: {
+          Left: 3,
+          Right: 5
         }
-    }
-    (DrawerLayoutAndroid as any).propTypes = RealComponent.propTypes;
-    (DrawerLayoutAndroid as any).positions = { Left: 3, Right: 5 };
-    return DrawerLayoutAndroid;
+      }
+    };
+    return reactNative;
 });
