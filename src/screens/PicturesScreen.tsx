@@ -18,7 +18,6 @@ export default class PicturesScreen extends React.Component<any, any> {
     private loadingPage: number[] = [];
 
     componentDidMount() {
-        console.log('Pictures', this.props.id, this.props.title || this.props.name);
         this.refresh();
     }
 
@@ -36,20 +35,6 @@ export default class PicturesScreen extends React.Component<any, any> {
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
-
-    handlePress = (props: any) => {
-        switch (props.media_type) {
-            case 'movie':
-                console.log('Open movie details', JSON.stringify(props));
-                requestAnimationFrame(() => {
-                    this.props.navigation.navigate('MovieDetails', props);
-                });
-                break;
-            case 'tv':
-                this.props.navigation.navigate('TvDetails', props);
-                break;
-        }
-    }
 
     render() {
         return (

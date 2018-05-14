@@ -44,15 +44,16 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
      */
     loadPoster = async (posterPath: string|null|undefined) => {
         const url = await this.props.getPosterUrl(posterPath);
-        console.log(url);
         if (url) {
-            Image.getSize(url, (width: number, height: number) => {
+            const {width, height} = Dimensions.get('window');
+            Image.getSize(url, (imageWidth: number, imageHeight: number) => {
+                const ratio = (height < imageHeight ? height / imageHeight : imageHeight / height) * 0.65;
                 this.setState({
                     image: (
                         <Image
                             style={{
-                                width: 56,
-                                height: 83,
+                                width: imageWidth * ratio,
+                                height: height * 0.65,
                             }}
                             loadingIndicatorSource={require('../../assets/eyecon56x56.png')}
                             defaultSource={require('../../assets/eyecon56x56.png')}
@@ -69,7 +70,6 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
 
     loadProfile = async (profilePath: string|null|undefined) => {
         const url = await this.props.getProfileUrl(profilePath, 4);
-        console.log(url);
         if (url) {
             const {width, height} = Dimensions.get('window');
             Image.getSize(url, (imageWidth: number, imageHeight: number) => {
