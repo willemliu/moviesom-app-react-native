@@ -1,4 +1,4 @@
-jest.mock('react-native', () => {
+jest.doMock('react-native', () => {
     const reactNative = require.requireActual('react-native');
     reactNative.UIManager.AndroidDrawerLayout = {
       Constants: {
