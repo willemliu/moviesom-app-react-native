@@ -6,7 +6,7 @@ import { SearchPersonResult, SearchPictureResult } from '../redux/TmdbReducer';
 
 export default class PicturesScreen extends React.Component<any, any> {
     static navigationOptions = {
-        title: 'Pictures',
+        title: 'Images',
     };
 
     state: any = {

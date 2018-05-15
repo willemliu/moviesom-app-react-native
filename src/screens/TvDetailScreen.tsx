@@ -49,7 +49,7 @@ export interface Props {
 }
 export default class TvDetailScreen extends React.Component<Props, any> {
     static navigationOptions = {
-        title: 'TV Details',
+        title: 'TV details',
     };
 
     state: any = {
