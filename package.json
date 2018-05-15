@@ -79,6 +79,9 @@
       "providesModuleNodeModules": [
         "react-native"
       ]
+    },
+    "moduleNameMapper": {
+      "tmdb/credentials.ts$": "<rootDir>/__mocks__/tmdb/credentials.ts"
     }
   },
   "dependencies": {
