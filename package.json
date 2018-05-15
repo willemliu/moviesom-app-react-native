@@ -33,6 +33,10 @@
         "useBabelrc": true
       }
     },
+    "coverageReporters": [
+      "text",
+      "text-summary"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
