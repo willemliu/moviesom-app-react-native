@@ -1,11 +1,7 @@
 import * as LoginActions from './LoginActions';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LOGIN, LOGOUT } from './LoginActions';
-import LoginScreen from '../../screens/LoginScreen';
-import DrawerContainer from '../../components/DrawerContainer';
 import { AsyncStorage } from 'react-native';
-import SignUpScreen from '../../screens/SignUpScreen';
 
 const defaultState = {
     searchItems: new Array()

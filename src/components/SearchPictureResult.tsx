@@ -1,10 +1,6 @@
-import {View, Text, Image, AsyncStorage, TextStyle, StyleProp, Dimensions} from 'react-native';
+import {View, Image, Dimensions} from 'react-native';
 import React from 'react';
-import { searchResultStyle, movieSomColor, HEADER_MAX_HEIGHT, detailStyle } from '../styles/Styles';
-import {parse, format} from 'date-fns';
-import { MaterialIcons } from '@expo/vector-icons';
-import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
-import MovieIcons from './MovieIcons';
+import { HEADER_MAX_HEIGHT } from '../styles/Styles';
 
 export default class SearchPictureResult extends React.PureComponent<any, any> {
     state: any = {

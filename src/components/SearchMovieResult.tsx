@@ -1,6 +1,6 @@
-import {View, Text, Image, AsyncStorage, Platform} from 'react-native';
+import {View, Text, Image, Platform} from 'react-native';
 import React from 'react';
-import { searchResultStyle, movieSomColor, textStyle, detailStyle, movieIconsStyle } from '../styles/Styles';
+import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';

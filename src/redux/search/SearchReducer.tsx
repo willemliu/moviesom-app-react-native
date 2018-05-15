@@ -1,8 +1,6 @@
 import * as SearchActions from './SearchActions';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ADD_SEARCH_ITEM, SET_SEARCH_ITEMS, ADD_SEARCH_ITEMS, SET_SEARCH_TOTAL_PAGES, SET_SEARCH_PAGE } from './SearchActions';
-import { SearchScreen } from '../TmdbReducer';
 
 const defaultState = {
     searchItems: new Array()

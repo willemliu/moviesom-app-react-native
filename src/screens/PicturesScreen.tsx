@@ -1,8 +1,7 @@
 import React from 'react';
 import { Text, View, FlatList } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import {backgroundColor, searchResultStyle, searchScreenStyle, sectionListStyle, detailStyle} from "../styles/Styles";
-import { SearchPersonResult, SearchPictureResult } from '../redux/TmdbReducer';
+import {backgroundColor, searchScreenStyle, sectionListStyle} from "../styles/Styles";
+import { SearchPictureResult } from '../redux/TmdbReducer';
 
 export default class PicturesScreen extends React.Component<any, any> {
     static navigationOptions = {

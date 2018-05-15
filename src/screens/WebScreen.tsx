@@ -1,5 +1,4 @@
 import React from 'react';
-import {textStyle, viewStyle, webViewStyle} from "../styles/Styles";
 import InlineWebView from "../components/InlineWebView";
 import { navigationParamsToProps } from '../utils/navigation';
 

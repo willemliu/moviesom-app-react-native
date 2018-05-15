@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import {apiKey, baseUri, imagesUri} from './credentials';
+import {apiKey, baseUri} from './credentials';
 
 const fetchGetConfig: RequestInit = {
     credentials: 'include',

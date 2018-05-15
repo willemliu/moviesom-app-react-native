@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleProp, ViewStyle, AsyncStorage, Share } from 'react-native';
+import { Text, View, StyleProp, ViewStyle, Share } from 'react-native';
 import { movieSomColor, movieIconsStyle } from '../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import Touchable from './Touchable';

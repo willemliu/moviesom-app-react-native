@@ -1,6 +1,4 @@
 import React from 'react';
-import { AsyncStorage, Share } from "react-native";
-import SearchTvResult from '../components/SearchTvResult';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
 
 export const formatDuration = (minutes: number) => {

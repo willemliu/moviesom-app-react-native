@@ -1,7 +1,6 @@
 import React from 'react';
-import { Share, Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
-import {textStyle, viewStyle, detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
-import TouchTextButton from '../components/TouchTextButton';
+import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
+import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import { format } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

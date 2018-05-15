@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, FlatList, SectionList } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import {backgroundColor, searchResultStyle, searchScreenStyle, sectionListStyle} from "../styles/Styles";
+import { Text, View, SectionList } from 'react-native';
+import {backgroundColor, searchScreenStyle, sectionListStyle} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 
 export default class FilmographyScreen extends React.Component<any, any> {

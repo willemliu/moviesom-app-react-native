@@ -1,7 +1,6 @@
 import React from 'react';
-import { Share, Text, ScrollView, View, Image, Animated, StyleSheet, Dimensions, ScaledSize, Button, AsyncStorage } from 'react-native';
-import {textStyle, viewStyle, detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
-import TouchTextButton from '../components/TouchTextButton';
+import { Text, ScrollView, View, Image, Animated, Dimensions } from 'react-native';
+import { detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import { format, parse } from 'date-fns';
 import MovieIcons from '../components/MovieIcons';
 import numeral from 'numeral';

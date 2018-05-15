@@ -1,9 +1,7 @@
 import {View, Text, Image, AsyncStorage} from 'react-native';
 import React from 'react';
-import { searchResultStyle, movieSomColor } from '../styles/Styles';
+import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
-import { MaterialIcons } from '@expo/vector-icons';
-import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import { Feather } from '@expo/vector-icons';
 import MovieIcons from './MovieIcons';
 import Touchable from './Touchable';

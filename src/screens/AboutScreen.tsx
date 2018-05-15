@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
-import {textStyle, viewStyle} from "../styles/Styles";
+import { Text, View } from 'react-native';
+import { viewStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
 export default class AboutScreen extends React.Component<any> {

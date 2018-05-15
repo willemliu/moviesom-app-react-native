@@ -9,7 +9,6 @@ import TvDetailScreen from '../screens/TvDetailScreen';
 import PersonDetailScreen from '../screens/PersonDetailScreen';
 import CastAndCrewScreen from '../screens/CastAndCrewScreen';
 import SearchPersonResult from '../components/SearchPersonResult';
-import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import { navigationParamsToProps } from '../utils/navigation';
 import { enhanceWithMovieSomFunctions } from '../utils/movieSom';
 import SearchTvResult from '../components/SearchTvResult';

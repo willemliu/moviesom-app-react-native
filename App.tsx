@@ -1,10 +1,10 @@
-import { Image, Text, View, Modal, Linking, AsyncStorage, NetInfo, ConnectionInfo, ConnectionType } from 'react-native';
+import { Image, Text, View, Modal, Linking, AsyncStorage, NetInfo, ConnectionInfo } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import { LoginScreen, SignUpScreen } from './src/redux/TmdbReducer';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
-import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
+import {headerStyle, viewStyle} from "./src/styles/Styles";
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
 import {getConfig} from './src/tmdb/TMDb';
