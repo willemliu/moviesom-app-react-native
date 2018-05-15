@@ -81,7 +81,7 @@
       ]
     },
     "moduleNameMapper": {
-      "tmdb/credentials.ts$": "<rootDir>/__mocks__/tmdb/credentials.ts"
+      "src/tmdb/credentials.ts$": "<rootDir>/__mocks__/tmdb/credentials.ts"
     }
   },
   "dependencies": {
