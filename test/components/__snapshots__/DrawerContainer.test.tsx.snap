@@ -1,0 +1,300 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrawerContainer should render correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "paddingHorizontal": 15,
+      "paddingTop": 15,
+    }
+  }
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeBackgroundAndroid={
+      Object {
+        "attribute": "selectableItemBackground",
+        "type": "ThemeAttrAndroid",
+      }
+    }
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#008CBA",
+          "borderColor": "#008CBA",
+          "borderRadius": 3,
+          "borderWidth": 1,
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        },
+        Object {
+          "marginBottom": 10,
+        },
+      ]
+    }
+    testID={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontSize": 18,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Home
+    </Text>
+  </View>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeBackgroundAndroid={
+      Object {
+        "attribute": "selectableItemBackground",
+        "type": "ThemeAttrAndroid",
+      }
+    }
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#008CBA",
+          "borderColor": "#008CBA",
+          "borderRadius": 3,
+          "borderWidth": 1,
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        },
+        Object {
+          "marginBottom": 10,
+        },
+      ]
+    }
+    testID={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontSize": 18,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Login
+    </Text>
+  </View>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeBackgroundAndroid={
+      Object {
+        "attribute": "selectableItemBackground",
+        "type": "ThemeAttrAndroid",
+      }
+    }
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#008CBA",
+          "borderColor": "#008CBA",
+          "borderRadius": 3,
+          "borderWidth": 1,
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        },
+        Object {
+          "marginBottom": 10,
+        },
+      ]
+    }
+    testID={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontSize": 18,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Sign up
+    </Text>
+  </View>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeBackgroundAndroid={
+      Object {
+        "attribute": "selectableItemBackground",
+        "type": "ThemeAttrAndroid",
+      }
+    }
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#008CBA",
+          "borderColor": "#008CBA",
+          "borderRadius": 3,
+          "borderWidth": 1,
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        },
+        Object {
+          "marginBottom": 10,
+        },
+      ]
+    }
+    testID={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontSize": 18,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      About
+    </Text>
+  </View>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeBackgroundAndroid={
+      Object {
+        "attribute": "selectableItemBackground",
+        "type": "ThemeAttrAndroid",
+      }
+    }
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#008CBA",
+          "borderColor": "#008CBA",
+          "borderRadius": 3,
+          "borderWidth": 1,
+          "paddingBottom": 10,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 10,
+        },
+        Object {
+          "marginBottom": 10,
+        },
+      ]
+    }
+    testID={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontSize": 18,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      Clear DB
+    </Text>
+  </View>
+</View>
+`;

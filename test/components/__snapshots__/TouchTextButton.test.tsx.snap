@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render the correct TouchTextButton component 1`] = `
+exports[`TouchTextButton should render the correct TouchTextButton component 1`] = `
 <View
   accessibilityComponentType={undefined}
   accessibilityLabel={undefined}

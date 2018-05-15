@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render the Android Touchable component 1`] = `
+exports[`Touchable should render the Android Touchable component 1`] = `
 <Text
   accessibilityComponentType={undefined}
   accessibilityLabel={undefined}
@@ -28,7 +28,7 @@ exports[`should render the Android Touchable component 1`] = `
 </Text>
 `;
 
-exports[`should render the iOS Touchable component 1`] = `
+exports[`Touchable should render the iOS Touchable component 1`] = `
 <View
   accessibilityComponentType={undefined}
   accessibilityLabel={undefined}
