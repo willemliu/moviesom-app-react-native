@@ -33,6 +33,7 @@
         "useBabelrc": true
       }
     },
+    "collectCoverage": true,
     "coverageReporters": [
       "text",
       "text-summary"
