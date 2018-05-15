@@ -1,3 +1,4 @@
+import React from 'react';
 import { TvDetailScreen, CastAndCrewScreen } from '../redux/TmdbReducer';
 import FilmographyScreen from './FilmographyScreen';
 import { TabNavigator } from 'react-navigation';

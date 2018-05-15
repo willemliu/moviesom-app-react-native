@@ -1,3 +1,4 @@
+import React from 'react';
 import { PersonDetailScreen, FilmographyScreen, PicturesScreen } from '../redux/TmdbReducer';
 import { TabNavigator } from 'react-navigation';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { TabNavigator } from 'react-navigation';
 import { CastAndCrewScreen, MovieDetailScreen } from '../redux/TmdbReducer';
 import { MaterialIcons } from '@expo/vector-icons';
