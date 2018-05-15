@@ -67,7 +67,7 @@
       "**/?(*.)(spec|test).[tj]s?(x)"
     ],
     "transform": {
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+(\\.tsx?|__mocks)$": "ts-jest"
     },
     "haste": {
       "defaultPlatform": "android",
