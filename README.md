@@ -1,4 +1,6 @@
 # React Native test app
+[![Build Status](https://travis-ci.com/willemliu/react-native-ts-test.svg?branch=master)](https://travis-ci.com/willemliu/react-native-ts-test)
+
 Test app created with React Native and React Navigator.
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
