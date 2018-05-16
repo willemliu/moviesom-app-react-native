@@ -8,7 +8,9 @@ exports[`Touchable should render the Android component 1`] = `
   accessible={true}
   allowFontScaling={true}
   ellipsizeMode="tail"
+  hasTVPreferredFocus={undefined}
   hitSlop={undefined}
+  isTVSelectable={true}
   nativeBackgroundAndroid={
     Object {
       "attribute": "selectableItemBackground",
