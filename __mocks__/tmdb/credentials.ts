@@ -1,3 +1,3 @@
-export const apiKey: string = 'test';
-export const baseUri: string = 'https://api.themoviedb.org/3';
-export const imagesUri: string = 'https://image.tmdb.org/t/p';
+import fs from 'fs';
+
+module.exports = JSON.parse(fs.readFileSync('src/tmdb/credentials.example.json').toString());

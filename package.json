@@ -67,7 +67,7 @@
       "**/?(*.)(spec|test).[tj]s?(x)"
     ],
     "transform": {
-      "^.+(\\.tsx?|__mocks)$": "ts-jest"
+      "^.+(\\.tsx?)$": "ts-jest"
     },
     "haste": {
       "defaultPlatform": "android",
@@ -81,7 +81,7 @@
       ]
     },
     "moduleNameMapper": {
-      "src/tmdb/credentials.ts$": "<rootDir>/__mocks__/tmdb/credentials.ts"
+      "credentials.json$": "<rootDir>/__mocks__/tmdb/credentials.ts"
     }
   },
   "dependencies": {
