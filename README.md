@@ -1,6 +1,5 @@
 # React Native test app
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/willemliu/react-native-ts-test.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.com/willemliu/react-native-ts-test.svg?branch=master)](https://travis-ci.com/willemliu/react-native-ts-test)
 [![Greenkeeper badge](https://badges.greenkeeper.io/willemliu/react-native-ts-test.svg)](https://greenkeeper.io/)
 
@@ -12,6 +11,10 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 Generated with: `create-react-native-app my-app --scripts-version=react-native-scripts-ts`
 
 Override Expo IP: `set REACT_NATIVE_PACKAGER_HOSTNAME=10.20.1.65`
+
+[View on Expo](https://expo.io/@willem_liu/react-native-ts)
+
+[Open in Expo app](exp://exp.host/@willem_liu/react-native-ts)
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
