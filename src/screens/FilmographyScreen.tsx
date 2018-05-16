@@ -16,13 +16,13 @@ export default class FilmographyScreen extends React.Component<any, any> {
 
     handleTvPress = (tmdbItem: any) => {
         requestAnimationFrame(() => {
-                this.props.navigation.navigate('TvDetails', tmdbItem);
+                this.props.navigation.push('TvDetails', tmdbItem);
         });
     }
 
     handleMoviePress = (tmdbItem: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('MovieDetails', tmdbItem);
+            this.props.navigation.push('MovieDetails', tmdbItem);
         });
     }
 

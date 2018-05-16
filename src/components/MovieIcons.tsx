@@ -74,7 +74,7 @@ export default class MovieIcons extends React.Component<Props, any> {
                     watched: this.props.watched ? this.props.watched + 1 : 1
                 });
             } else {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.push('Login');
             }
         });
     }
@@ -88,7 +88,7 @@ export default class MovieIcons extends React.Component<Props, any> {
                     watched: this.props.watched ? this.props.watched - 1 : null
                 });
             } else {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.push('Login');
             }
         });
     }
@@ -98,7 +98,7 @@ export default class MovieIcons extends React.Component<Props, any> {
             if (this.props.loggedIn) {
                 alert(`want to watch ${this.props.id}`);
             } else {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.push('Login');
             }
         });
     }
@@ -144,19 +144,19 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     imdbMovieHandler = () => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('Web', {url: `https://www.imdb.com/title/${this.props.imdb_id}/`, canGoBack: true});
+            this.props.navigation.push('Web', {url: `https://www.imdb.com/title/${this.props.imdb_id}/`, canGoBack: true});
         });
     }
 
     imdbPersonHandler = () => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('Web', {url: `https://www.imdb.com/name/${this.props.imdb_id}/`, canGoBack: true});
+            this.props.navigation.push('Web', {url: `https://www.imdb.com/name/${this.props.imdb_id}/`, canGoBack: true});
         });
     }
 
     homepageHandler = () => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('Web', {url: this.props.homepage, canGoBack: true});
+            this.props.navigation.push('Web', {url: this.props.homepage, canGoBack: true});
         });
     }
 

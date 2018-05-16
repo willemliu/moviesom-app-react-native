@@ -94,19 +94,19 @@ export default class SearchScreen extends React.Component<any, any> {
 
     handleMoviePress = (movie: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('MovieDetails', movie);
+            this.props.navigation.push('MovieDetails', movie);
         });
     }
 
     handleTvPress = (tv: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('TvDetails', tv);
+            this.props.navigation.push('TvDetails', tv);
         });
     }
 
     handlePersonPress = (person: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('PersonDetails', person);
+            this.props.navigation.push('PersonDetails', person);
         });
     }
 

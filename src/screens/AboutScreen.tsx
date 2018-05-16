@@ -13,7 +13,7 @@ export default class AboutScreen extends React.Component<any> {
             <View style={viewStyle.view}>
                 <Text>MovieSom app developed by {this.props.navigation.getParam('name')}.</Text>
                 <TouchTextButton
-                    onPress={() => requestAnimationFrame(() => this.props.navigation.navigate('Web', {
+                    onPress={() => requestAnimationFrame(() => this.props.navigation.push('Web', {
                         url: 'https://www.moviesom.com/donate.html',
                         hideAddressBar: true
                     }))}

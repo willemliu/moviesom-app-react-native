@@ -174,7 +174,7 @@ const StackNav = StackNavigator({
       screen: WebScreen,
     },
 }, {
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: () => ({
       title: 'MovieSom',
       headerTitle: <View style={headerStyle.view}><Image style={headerStyle.image} resizeMode="center" source={require('./img/title.png')}/></View>,
       headerStyle: {

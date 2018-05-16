@@ -67,7 +67,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
         if (loggedIn) {
             alert(`want to watch ${this.props.id}`);
         } else {
-            this.props.navigation.navigate('Login');
+            this.props.navigation.push('Login');
         }
     }
 
@@ -76,7 +76,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
         if (loggedIn) {
             alert(`share ${this.props.id}`);
         } else {
-            this.props.navigation.navigate('Login');
+            this.props.navigation.push('Login');
         }
     }
 

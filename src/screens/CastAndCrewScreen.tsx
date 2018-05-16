@@ -17,7 +17,7 @@ export default class CastAndCrewScreen extends React.Component<any, any> {
     handlePersonPress = (person: any) => {
         requestAnimationFrame(() => {
             if (person) {
-                this.props.navigation.navigate('PersonDetails', person);
+                this.props.navigation.push('PersonDetails', person);
             }
         });
     }
