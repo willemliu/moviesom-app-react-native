@@ -1,4 +1,6 @@
 # React Native test app
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/willemliu/react-native-ts-test.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.com/willemliu/react-native-ts-test.svg?branch=master)](https://travis-ci.com/willemliu/react-native-ts-test)
 
 Test app created with React Native and React Navigator.
