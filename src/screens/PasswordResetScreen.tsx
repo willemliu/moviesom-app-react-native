@@ -3,7 +3,7 @@ import { TextInput, View } from 'react-native';
 import {viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
-export default class PasswordResetScreen extends React.Component<any> {
+export default class PasswordResetScreen extends React.Component<any, any> {
     static navigationOptions = {
         title: 'Reset password',
     };

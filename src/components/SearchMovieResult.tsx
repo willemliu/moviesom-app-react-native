@@ -6,30 +6,13 @@ import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Touchable from './Touchable';
 import { MovieIcons } from '../redux/TmdbReducer';
+import { MovieProps } from '../interfaces/Movie';
 
-export interface Props {
+export interface Props extends MovieProps {
     handleOnPress: (props: any) => void;
-    poster_path?: string|null;
-    adult?: boolean;
-    overview?: string;
-    release_date?: string;
-    genre_ids?: number[];
-    id?: number;
-    media_type?: string;
-    original_title?: string;
-    original_language?: string;
-    title?: string;
-    backdrop_path?: string|null;
-    popularity?: number;
-    vote_count?: number;
-    video?: boolean;
-    vote_average?: number;
     navigation: NavigationScreenProp<NavigationRoute>;
-    test?: number;
     actions?: any;
     watched?: number;
-    character?: string;
-    job?: string;
     getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
 }
 
@@ -85,7 +68,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                         />
                     )
                 });
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         } else {
             console.log('poster path not found', url);
         }

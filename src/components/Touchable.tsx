@@ -14,15 +14,11 @@ export default class Touchable extends React.PureComponent<any, any> {
                 <TouchableNativeFeedback
                     onPress={this.props.onPress}
                     background={TouchableNativeFeedback.SelectableBackground()}
-                >
-                    {this.props.children}
-                </TouchableNativeFeedback>
+                >{this.props.children}</TouchableNativeFeedback>
             );
         } else {
             return (
-                <TouchableHighlight onPress={this.props.onPress}>
-                    {this.props.children}
-                </TouchableHighlight>
+                <TouchableHighlight onPress={this.props.onPress}>{this.props.children}</TouchableHighlight>
             );
         }
     }

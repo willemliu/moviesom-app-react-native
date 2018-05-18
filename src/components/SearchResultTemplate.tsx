@@ -33,8 +33,8 @@ export default class SearchResultTemplate extends React.Component<Props, any> {
                     />
                 );
                 break;
-            default:
             case 'movie':
+            default:
                 template = (
                     <SearchMovieResult
                         {...this.props}

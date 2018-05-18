@@ -58,7 +58,7 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
                         />
                     )
                 });
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         } else {
             console.log('poster path not found', url);
         }
@@ -84,7 +84,7 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
                         />
                     )
                 });
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         }
     }
 
@@ -113,7 +113,7 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
                         />
                     )
                 });
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         } else {
             console.log('backdrop path not found', url);
         }

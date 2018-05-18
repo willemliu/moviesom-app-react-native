@@ -3,10 +3,19 @@ import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { Feather } from '@expo/vector-icons';
-import MovieIcons from './MovieIcons';
+import { TvIcons} from '../redux/TmdbReducer';
 import Touchable from './Touchable';
+import { TvProps } from '../interfaces/Tv';
+import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 
-export default class SearchTvResult extends React.PureComponent<any, any> {
+export interface Props extends TvProps {
+    handleOnPress: (props: any) => void;
+    navigation: NavigationScreenProp<NavigationRoute>;
+    actions?: any;
+    getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
+}
+
+export default class SearchTvResult extends React.PureComponent<Props, any> {
     state: any = {
         image: (
             <Image
@@ -58,7 +67,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
                         />
                     )
                 });
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         }
     }
 
@@ -95,7 +104,7 @@ export default class SearchTvResult extends React.PureComponent<any, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <MovieIcons {...this.props} hideWatch={true}/>
+                    <TvIcons {...this.props}/>
                 </View>
             </Touchable>
         );

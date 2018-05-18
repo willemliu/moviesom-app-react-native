@@ -1,43 +1,10 @@
 import React from 'react';
 import { Text, View, StyleProp, ViewStyle, Share } from 'react-native';
-import { movieSomColor, movieIconsStyle } from '../styles/Styles';
+import { movieSomColor, movieIconsStyle } from '../../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
-import Touchable from './Touchable';
-import { get } from '../tmdb/TMDb';
-
-export interface MovieProps {
-    adult?: boolean;
-    backdrop_path?: string;
-    belongs_to_collection?: null|any;
-    budget?: number;
-    genres?: [{id?: number, name?: string}];
-    homepage?: string;
-    id?: number;
-    imdb_id?: string;
-    original_language?: string;
-    original_title?: string;
-    overview?: string;
-    popularity?: number;
-    poster_path?: string;
-    production_companies?: [{name?: string, id?: number, logo_path?: string, origin_country?: string}];
-    production_countries?: [{iso_3166_1?: string, name?: string}];
-    release_date?: string;
-    revenue?: number;
-    runtime?: number;
-    spoken_languages?: [{iso639_1?: string, name?: string}];
-    status?: string;
-    tagline?: string;
-    title?: string;
-    video?: boolean;
-    vote_average?: number;
-    vote_count?: number;
-    media_type?: string;
-}
-
-export interface TvProps {
-    name?: string;
-    biography?: string;
-}
+import Touchable from '../Touchable';
+import { get } from '../../tmdb/TMDb';
+import { MovieProps } from '../../interfaces/Movie';
 
 export interface LoginProps {
     loggedIn?: boolean;
@@ -47,7 +14,7 @@ export interface DeviceProps {
     online?: boolean;
 }
 
-export interface Props extends MovieProps, TvProps, LoginProps, DeviceProps {
+export interface Props extends MovieProps, LoginProps, DeviceProps {
     size?: number;
     media_type?: string;
     style?: StyleProp<ViewStyle>;
@@ -55,8 +22,6 @@ export interface Props extends MovieProps, TvProps, LoginProps, DeviceProps {
     navigation?: any;
     watched?: number;
     formatDuration?: any;
-    hideWatch?: boolean;
-    hideWantToWatch?: boolean;
 }
 
 /**
@@ -111,23 +76,12 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     shareHandler = () => {
         requestAnimationFrame(async () => {
-            let service = 'tmdbMovieId';
-            switch (this.props.media_type) {
-                case 'tv':
-                    service = 'tmdbTvId';
-                    break;
-                case 'episode':
-                    service = 'tmdbTvEpisodeId';
-                    break;
-                case 'person':
-                    service = 'tmdbPersonId';
-                    break;
-            }
-            const title = this.props.title ? this.props.title : this.props.name;
-            const message = `${this.props.overview ? this.props.overview : this.props.biography ? this.props.biography : title} `;
+            const service = 'tmdbMovieId';
+            const title = this.props.title;
+            const message = `${this.props.overview ? this.props.overview : title}`;
             Share.share({
                 title,
-                message: `${message}https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,
+                message: `${message} https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,
                 url: `https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`
             }, {
                 dialogTitle: 'MovieSom share'
@@ -136,27 +90,8 @@ export default class MovieIcons extends React.Component<Props, any> {
     }
 
     imdbHandler = () => {
-        switch (this.props.media_type) {
-            case 'movie':
-            case 'tv':
-            case 'episode':
-                this.imdbMovieHandler();
-                break;
-            case 'person':
-                this.imdbPersonHandler();
-                break;
-        }
-    }
-
-    imdbMovieHandler = () => {
         requestAnimationFrame(() => {
             this.props.navigation.push('Web', {url: `https://www.imdb.com/title/${this.props.imdb_id}/`, canGoBack: true});
-        });
-    }
-
-    imdbPersonHandler = () => {
-        requestAnimationFrame(() => {
-            this.props.navigation.push('Web', {url: `https://www.imdb.com/name/${this.props.imdb_id}/`, canGoBack: true});
         });
     }
 
@@ -169,26 +104,26 @@ export default class MovieIcons extends React.Component<Props, any> {
     render() {
         return (
             <View style={[movieIconsStyle.movieIcons, this.props.style]}>
-                {this.props.hideWatch ? null : [(<Touchable key="watch"
+                <Touchable key="watch"
                     style={{flex: 0}}
                     onPress={this.watchedHandler}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="add-circle-outline" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </Touchable>),
-                (<Text style={{lineHeight: 32}} key="watch-count">{this.props.watched ? this.props.watched : 0}</Text>),
-                (<Touchable
+                </Touchable>
+                <Text style={{lineHeight: 32}} key="watch-count">{this.props.watched ? this.props.watched : 0}</Text>
+                <Touchable
                     key="unwatch"
                     style={{flex: 0}}
                     onPress={this.unWatchedHandler}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="remove-circle-outline" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </Touchable>)]}
-                {this.props.hideWantToWatch ? null : (<Touchable
+                </Touchable>
+                <Touchable
                     style={{flex: 0}}
                     onPress={this.wantToWatchHandler}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="star-border" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </Touchable>)}
+                </Touchable>
                 <Touchable
                     style={{flex: 0}}
                     onPress={this.shareHandler}

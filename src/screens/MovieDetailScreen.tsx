@@ -2,10 +2,11 @@ import React from 'react';
 import { Text, ScrollView, View, Image, Animated, Dimensions } from 'react-native';
 import { detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import { format, parse } from 'date-fns';
-import MovieIcons from '../components/MovieIcons';
+import { MovieIcons} from '../redux/TmdbReducer';
 import numeral from 'numeral';
 import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';
+import { MovieProps } from '../interfaces/Movie';
 
 numeral.register('locale', 'nl_NL', {
     delimiters: {
@@ -25,41 +26,10 @@ numeral.register('locale', 'nl_NL', {
 
 numeral.locale('nl_NL');
 
-export interface Props {
-    adult?: boolean;
-    backdrop_path?: string;
-    belongs_to_collection?: null|any;
-    budget?: number;
-    genres?: [{id?: number, name?: string}];
-    homepage?: string;
-    id?: number;
-    imdb_id?: string;
-    original_language?: string;
-    original_title?: string;
-    overview?: string;
-    popularity?: number;
-    poster_path?: string;
-    production_companies?: [{name?: string, id?: number, logo_path?: string, origin_country?: string}];
-    production_countries?: [{iso_3166_1?: string, name?: string}];
-    release_date?: string;
-    revenue?: number;
-    runtime?: number;
-    spoken_languages?: [{iso639_1?: string, name?: string}];
-    status?: string;
-    tagline?: string;
-    title?: string;
-    video?: boolean;
-    vote_average?: number;
-    vote_count?: number;
+export interface Props extends MovieProps {
     actions: any;
     navigation: any;
     watched?: any;
-    watchedHandler?: any;
-    unWatchedHandler?: any;
-    wantToWatchHandler?: any;
-    imdbHandler?: any;
-    homepageHandler?: any;
-    shareHandler?: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
@@ -106,7 +76,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         } else {
             console.log('backdrop path not found', imageUrl);
         }

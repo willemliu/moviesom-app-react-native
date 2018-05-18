@@ -38,9 +38,9 @@ export default class App extends React.Component<any> {
     this.createStore();
   }
 
-  getConfig = () => {
-    getTmdbConfig();
-    getMovieSomConfig();
+  getConfig = async () => {
+    await getTmdbConfig();
+    await getMovieSomConfig();
   }
 
   netInfo = () => {
@@ -129,9 +129,7 @@ export default class App extends React.Component<any> {
             <View style={viewStyle.view}>
                 <View>
                     <Text>URL: {this.state.url}</Text>
-                    <TouchTextButton
-                        onPress={this.hideModal}>Close
-                    </TouchTextButton>
+                    <TouchTextButton onPress={this.hideModal}>Close</TouchTextButton>
                 </View>
             </View>
         </Modal>

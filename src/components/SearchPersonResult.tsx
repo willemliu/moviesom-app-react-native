@@ -2,10 +2,19 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import { MaterialIcons } from '@expo/vector-icons';
-import MovieIcons from './MovieIcons';
+import { PersonIcons} from '../redux/TmdbReducer';
 import Touchable from './Touchable';
+import { PersonProps } from '../interfaces/Person';
+import { StyleProp } from 'react-native';
+import { ViewStyle } from 'react-native';
 
-export default class SearchPersonResult extends React.PureComponent<any, any> {
+export interface Props extends PersonProps {
+    getProfileUrl: (posterPath: string|null|undefined) => Promise<any>;
+    handleOnPress: (props: any) => void;
+    style?: StyleProp<ViewStyle>;
+}
+
+export default class SearchPersonResult extends React.PureComponent<Props, any> {
     state: any = {
         image: (
             <Image
@@ -56,7 +65,7 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
                         />
                     )
                 });
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         }
     }
 
@@ -73,7 +82,7 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>
-                    <MovieIcons {...this.props} hideWatch={true} hideWantToWatch={true}/>
+                    <PersonIcons {...this.props}/>
                 </View>
             </Touchable>
         );

@@ -1,34 +1,16 @@
 import React from 'react';
 import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
 import {detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
-import MovieIcons from '../components/MovieIcons';
+import { PersonIcons} from '../redux/TmdbReducer';
 import { MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
 import { parse, format } from 'date-fns';
 import Touchable from '../components/Touchable';
+import { PersonProps } from '../interfaces/Person';
 
-export interface Props {
-    adult?: boolean;
-    also_known_as?: [any];
-    biography?: string;
-    birthday?: string;
-    deathday?: string;
-    gender?: 0|1|2;
-    homepage?: string;
-    id?: number;
-    imdb_id?: string;
-    name?: string;
-    place_of_birth?: string;
-    popularity?: number;
-    profile_path?: string;
+export interface Props extends PersonProps {
     actions: any;
     navigation: any;
     watched?: any;
-    watchedHandler?: any;
-    unWatchedHandler?: any;
-    wantToWatchHandler?: any;
-    imdbPersonHandler?: any;
-    homepageHandler?: any;
-    shareHandler?: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
@@ -94,7 +76,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         } else {
             console.log('backdrop path not found', imageUrl);
         }
@@ -144,7 +126,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
                             </View>
 
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
-                            <MovieIcons {...this.props} hideWatch={true} hideWantToWatch={true}/>
+                            <PersonIcons {...this.props}/>
                         </View>
                     </Touchable>
                 </ScrollView>

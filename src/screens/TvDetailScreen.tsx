@@ -2,46 +2,14 @@ import React from 'react';
 import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
 import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import { format } from 'date-fns';
-import MovieIcons from '../components/MovieIcons';
+import { TvIcons} from '../redux/TmdbReducer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';
+import { TvProps } from '../interfaces/Tv';
 
-export interface Props {
-    backdrop_path?: string;
-    created_by?: [{id?: number, name?: string, gender?: 0|1|2, profile_path?: string}];
-    episode_run_time?: number[];
-    first_air_date?: string;
-    genres?: [{id?: number, name?: string}];
-    homepage?: string;
-    id?: number;
-    in_production?: boolean;
-    languages?: string[];
-    last_air_date?: string;
-    name?: string;
-    networs?: [{id?: number, name: string}];
-    number_of_episodes?: number;
-    number_of_seasons?: number;
-    origin_country?: string[];
-    origial_language?: string;
-    original_name?: string;
-    overview?: string;
-    popularity?: number;
-    poster_path?: string;
-    production_companies?: [{name?: string, id?: number, logo_path?: string, origin_country?: string}];
-    seasons?: [{air_date?: string, episode_count?: number, id?: number, poster_path?: string, season_number?: number}];
-    status?: string;
-    type?: string;
-    vote_average?: number;
-    vote_count?: number;
+export interface Props extends TvProps {
     actions: any;
     navigation: any;
-    watched?: any;
-    watchedHandler?: any;
-    unWatchedHandler?: any;
-    wantToWatchHandler?: any;
-    imdbHandler?: any;
-    homepageHandler?: any;
-    shareHandler?: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
@@ -85,7 +53,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});
-            }, (e) => { console.error(e); });
+            }, (e: any) => { console.error(e); });
         } else {
             console.log('backdrop path not found', imageUrl);
         }
@@ -143,7 +111,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                                 {this.props.number_of_episodes ? <Text style={detailStyle.metaText}>Episodes: {this.props.number_of_episodes}</Text> : null}
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <MovieIcons {...this.props} hideWatch={true}/>
+                            <TvIcons {...this.props}/>
                         </View>
                     </Touchable>
                 </ScrollView>
