@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders without crashing 1`] = `
+exports[`App should render correctly 1`] = `
 <View
   style={
     Object {
@@ -38,7 +38,9 @@ exports[`renders without crashing 1`] = `
           accessibilityLabel={undefined}
           accessibilityTraits={undefined}
           accessible={true}
+          hasTVPreferredFocus={undefined}
           hitSlop={undefined}
+          isTVSelectable={true}
           nativeBackgroundAndroid={
             Object {
               "attribute": "selectableItemBackground",

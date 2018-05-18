@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image, Linking, Text, TextInput, View, Modal, FlatList, RefreshControl, AsyncStorage} from 'react-native';
-import {textStyle, viewStyle, searchScreenStyle, movieSomColor, textInputStyle, transparentColor, sectionListStyle} from "../styles/Styles";
+import {Text, TextInput, View, FlatList, AsyncStorage} from 'react-native';
+import {viewStyle, searchScreenStyle, transparentColor, sectionListStyle} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 
 export default class SearchScreen extends React.Component<any, any> {
@@ -94,19 +94,19 @@ export default class SearchScreen extends React.Component<any, any> {
 
     handleMoviePress = (movie: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('MovieDetails', movie);
+            this.props.navigation.push('MovieDetails', movie);
         });
     }
 
     handleTvPress = (tv: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('TvDetails', tv);
+            this.props.navigation.push('TvDetails', tv);
         });
     }
 
     handlePersonPress = (person: any) => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('PersonDetails', person);
+            this.props.navigation.push('PersonDetails', person);
         });
     }
 

@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InlineWebView should render correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <TextInput
+    allowFontScaling={true}
+    multiline={true}
+    selectTextOnFocus={true}
+    style={
+      Object {
+        "padding": 5,
+        "textAlign": "center",
+      }
+    }
+    underlineColorAndroid="transparent"
+  >
+    https://www.google.com
+  </TextInput>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <RCTWebView
+      allowUniversalAccessFromFileURLs={undefined}
+      automaticallyAdjustContentInsets={undefined}
+      contentInset={undefined}
+      domStorageEnabled={undefined}
+      injectedJavaScript={undefined}
+      javaScriptEnabled={true}
+      mediaPlaybackRequiresUserAction={undefined}
+      messagingEnabled={false}
+      mixedContentMode={undefined}
+      onContentSizeChange={undefined}
+      onLoadingError={[Function]}
+      onLoadingFinish={[Function]}
+      onLoadingStart={[Function]}
+      onMessage={[Function]}
+      saveFormDataDisabled={false}
+      scalesPageToFit={true}
+      source={
+        Object {
+          "uri": "https://www.google.com",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "flex": 1,
+          },
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "marginTop": 0,
+          },
+        ]
+      }
+      testID={undefined}
+      thirdPartyCookiesEnabled={true}
+      urlPrefixesForDefaultIntent={undefined}
+      userAgent={undefined}
+    />
+  </View>
+</View>
+`;

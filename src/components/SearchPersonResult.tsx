@@ -1,9 +1,7 @@
-import {View, Text, Image, AsyncStorage, TextStyle, StyleProp} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
-import { searchResultStyle, movieSomColor } from '../styles/Styles';
-import {parse, format} from 'date-fns';
+import { searchResultStyle } from '../styles/Styles';
 import { MaterialIcons } from '@expo/vector-icons';
-import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import MovieIcons from './MovieIcons';
 import Touchable from './Touchable';
 

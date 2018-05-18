@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleProp, ViewStyle, AsyncStorage, Share } from 'react-native';
+import { Text, View, StyleProp, ViewStyle, Share } from 'react-native';
 import { movieSomColor, movieIconsStyle } from '../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import Touchable from './Touchable';
@@ -80,7 +80,7 @@ export default class MovieIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 alert(JSON.stringify(detailedItem, null, 2));
             } else {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.push('Login');
             }
         });
     }
@@ -94,7 +94,7 @@ export default class MovieIcons extends React.Component<Props, any> {
                     watched: this.props.watched ? this.props.watched - 1 : null
                 });
             } else {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.push('Login');
             }
         });
     }
@@ -104,7 +104,7 @@ export default class MovieIcons extends React.Component<Props, any> {
             if (this.props.loggedIn) {
                 alert(`want to watch ${this.props.id}`);
             } else {
-                this.props.navigation.navigate('Login');
+                this.props.navigation.push('Login');
             }
         });
     }
@@ -150,19 +150,19 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     imdbMovieHandler = () => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('Web', {url: `https://www.imdb.com/title/${this.props.imdb_id}/`, canGoBack: true});
+            this.props.navigation.push('Web', {url: `https://www.imdb.com/title/${this.props.imdb_id}/`, canGoBack: true});
         });
     }
 
     imdbPersonHandler = () => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('Web', {url: `https://www.imdb.com/name/${this.props.imdb_id}/`, canGoBack: true});
+            this.props.navigation.push('Web', {url: `https://www.imdb.com/name/${this.props.imdb_id}/`, canGoBack: true});
         });
     }
 
     homepageHandler = () => {
         requestAnimationFrame(() => {
-            this.props.navigation.navigate('Web', {url: this.props.homepage, canGoBack: true});
+            this.props.navigation.push('Web', {url: this.props.homepage, canGoBack: true});
         });
     }
 

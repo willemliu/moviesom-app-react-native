@@ -1,7 +1,6 @@
 import React from 'react';
-import { Platform, Text, GestureResponderEvent, TextStyle, StyleProp, View } from 'react-native';
-import { textStyle, touchTextButtonStyle } from '../styles/Styles';
-import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
+import { Text, GestureResponderEvent, TextStyle, StyleProp, View } from 'react-native';
+import { touchTextButtonStyle } from '../styles/Styles';
 import Touchable from './Touchable';
 
 export interface Props {

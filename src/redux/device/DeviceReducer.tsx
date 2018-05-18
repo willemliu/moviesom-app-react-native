@@ -1,8 +1,6 @@
 import * as DeviceActions from './DeviceActions';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DEVICE_ONLINE, DEVICE_OFFLINE } from './DeviceActions';
-import { AsyncStorage } from 'react-native';
 
 const defaultState = {
     searchItems: new Array()

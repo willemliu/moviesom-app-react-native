@@ -3,20 +3,32 @@
   "version": "3.0.0",
   "private": true,
   "devDependencies": {
-    "@types/expo": "^26.0.1",
+    "@types/enzyme": "^3.1.10",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
+    "@types/enzyme-to-json": "^1.5.1",
+    "@types/expo": "^26.0.3",
+    "@types/expo__vector-icons": "^6.2.2",
     "@types/jest": "^22.2.2",
-    "@types/react": "^16.1.0",
-    "@types/react-native": "^0.52.21",
+    "@types/numeral": "0.0.22",
+    "@types/react": "^16.3.14",
+    "@types/react-native": "^0.55.13",
     "@types/react-native-keyboard-spacer": "^0.4.0",
-    "@types/react-navigation": "^1.5.9",
-    "@types/react-redux": "^5.0.19",
+    "@types/react-navigation": "^1.5.11",
+    "@types/react-redux": "^6.0.0",
     "@types/react-test-renderer": "^16.0.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.3",
+    "jest": "^22.4.3",
     "jest-expo": "^27.0.1",
+    "react-native-mock-render": "0.0.25",
     "react-native-scripts-ts": "1.13.0",
     "react-native-typescript-transformer": "^1.2.3",
-    "react-test-renderer": "16.3.0-alpha.1",
-    "ts-jest": "^22.4.2",
-    "tslib": "^1.9.0",
+    "react-test-renderer": "16.3.2",
+    "ts-jest": "^22.4.6",
+    "tslib": "^1.9.1",
+    "tslint": "^5.10.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.8.1"
   },
   "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
@@ -25,7 +37,8 @@
     "eject": "react-native-scripts-ts eject",
     "android": "react-native-scripts-ts android",
     "ios": "react-native-scripts-ts ios",
-    "test": "jest"
+    "test": "jest",
+    "test-updateSnapshot": "jest --updateSnapshot"
   },
   "jest": {
     "globals": {
@@ -33,6 +46,14 @@
         "useBabelrc": true
       }
     },
+    "collectCoverage": true,
+    "snapshotSerializers": [
+      "./node_modules/enzyme-to-json/serializer"
+    ],
+    "coverageReporters": [
+      "text",
+      "text-summary"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -47,7 +68,7 @@
       "**/?(*.)(spec|test).[tj]s?(x)"
     ],
     "transform": {
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+(\\.tsx?)$": "ts-jest"
     },
     "haste": {
       "defaultPlatform": "android",
@@ -59,23 +80,21 @@
       "providesModuleNodeModules": [
         "react-native"
       ]
+    },
+    "moduleNameMapper": {
+      "credentials.json$": "<rootDir>/__mocks__/tmdb/credentials.ts"
     }
   },
   "dependencies": {
-    "@types/expo__vector-icons": "^6.2.2",
-    "@types/numeral": "0.0.22",
-    "babel-plugin-transform-remove-console": "^6.9.2",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "date-fns": "^1.29.0",
-    "expo": "^26.0.0",
-    "jest": "^22.4.3",
+    "expo": "^27.0.1",
     "numeral": "^2.0.6",
-    "react": "16.3.0-alpha.1",
-    "react-native": "0.54.0",
+    "react": "16.3.2",
+    "react-native": "0.55.4",
     "react-native-keyboard-spacer": "^0.4.1",
-    "react-navigation": "^1.5.11",
+    "react-navigation": "^2.0.1",
     "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "tslint": "^5.9.1",
-    "tslint-react": "^3.5.1"
+    "redux": "^4.0.0"
   }
 }

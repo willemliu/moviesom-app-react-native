@@ -41,9 +41,9 @@ export default class LoginScreen extends React.Component<any> {
                     <TouchTextButton style={{margin: 5}} onPress={this.login}>Login</TouchTextButton>
 
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
-                        <Text onPress={() => this.props.navigation.navigate('SignUp')} style={textStyle.smallLink}>Sign up</Text>
+                        <Text onPress={() => this.props.navigation.push('SignUp')} style={textStyle.smallLink}>Sign up</Text>
                         <Text style={textStyle.smallLink}> | </Text>
-                        <Text onPress={() => this.props.navigation.navigate('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
+                        <Text onPress={() => this.props.navigation.push('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
                     </View>
                 </View>
             </View>

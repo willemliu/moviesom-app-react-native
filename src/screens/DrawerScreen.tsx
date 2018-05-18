@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import { DrawerNavigator } from 'react-navigation';
+import {DrawerNavigator, NavigationScreenOptions} from 'react-navigation';
 import HomeScreen from './HomeScreen';
 import { DrawerContainer } from '../redux/TmdbReducer';
 import { AsyncStorage } from 'react-native';
@@ -12,20 +12,20 @@ const DrawerNav = DrawerNavigator({
     },
 }, {
 contentComponent: DrawerContainer,
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({navigation}: NavigationScreenOptions) => ({
             headerStyle: {
             backgroundColor: '#008CBA',
         },
         headerLeft: (
             <TouchableOpacity style={{paddingLeft: 5}} onPress={async () => {
-                navigation.navigate('DrawerToggle', {
+                navigation.push('DrawerToggle', {
                     loggedIn: await AsyncStorage.getItem('loggedIn')
                 });
             }}><MaterialIcons name="menu" size={32} color='#fff'/></TouchableOpacity>
         ),
         headerRight: (
             <Text onPress={async () => {
-                navigation.navigate('DrawerToggle', {
+                navigation.push('DrawerToggle', {
                     loggedIn: await AsyncStorage.getItem('loggedIn')
                 });
             }} style={{

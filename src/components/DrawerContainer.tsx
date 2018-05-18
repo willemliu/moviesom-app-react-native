@@ -20,14 +20,14 @@ export default class DrawerContainer extends React.Component<any, any> {
         const { navigation } = this.props;
         return (
             <View style={viewStyle.drawer}>
-                <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('Home'))}>Home</TouchTextButton>
+                <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Home'))}>Home</TouchTextButton>
 
                 {this.props.loggedIn ? null : (
-                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('Login'))}>Login</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Login'))}>Login</TouchTextButton>
                 )}
 
                 {this.props.loggedIn ? null : (
-                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.navigate('SignUp'))}>Sign up</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('SignUp'))}>Sign up</TouchTextButton>
                 )}
 
                 {this.props.loggedIn ? (
@@ -36,7 +36,7 @@ export default class DrawerContainer extends React.Component<any, any> {
 
                 <TouchTextButton
                     style={{marginBottom: 10}}
-                    onPress={() => requestAnimationFrame(() => navigation.navigate('About', {name: 'Willem Liu'}))}
+                    onPress={() => requestAnimationFrame(() => navigation.push('About', {name: 'Willem Liu'}))}
                 >About</TouchTextButton>
 
                 <TouchTextButton

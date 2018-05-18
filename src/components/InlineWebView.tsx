@@ -1,8 +1,15 @@
 import React from 'react';
 import { webViewStyle, transparentColor } from '../styles/Styles';
-import { WebView, ActivityIndicator, View, TextInput, BackHandler } from 'react-native';
+import {WebView, ActivityIndicator, View, TextInput, BackHandler, TextStyle, StyleProp} from 'react-native';
 
-export default class InlineWebView extends React.Component<any, any> {
+export interface Props {
+    url: string;
+    style?: StyleProp<TextStyle>;
+    hideAddressBar?: boolean;
+    canGoBack?: boolean;
+}
+
+export default class InlineWebView extends React.Component<Props, any> {
     state: any = {
         loading: false
     };

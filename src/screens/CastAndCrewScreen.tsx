@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, FlatList, SectionList } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import {backgroundColor, searchResultStyle, searchScreenStyle, sectionListStyle} from "../styles/Styles";
+import { Text, View, SectionList } from 'react-native';
+import {backgroundColor, searchScreenStyle, sectionListStyle} from "../styles/Styles";
 import { SearchPersonResult } from '../redux/TmdbReducer';
 
 export default class CastAndCrewScreen extends React.Component<any, any> {
@@ -18,7 +17,7 @@ export default class CastAndCrewScreen extends React.Component<any, any> {
     handlePersonPress = (person: any) => {
         requestAnimationFrame(() => {
             if (person) {
-                this.props.navigation.navigate('PersonDetails', person);
+                this.props.navigation.push('PersonDetails', person);
             }
         });
     }
