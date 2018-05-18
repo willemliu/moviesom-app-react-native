@@ -30,52 +30,6 @@ export interface Props extends PersonProps, LoginProps, DeviceProps {
  * Render functional icons as part of a TMDb item.
  */
 export default class MovieIcons extends React.Component<Props, any> {
-    watchedHandler = () => {
-        requestAnimationFrame(async () => {
-            if (this.props.loggedIn) {
-                console.log({
-                    id: this.props.id,
-                    media_type: this.props.media_type,
-                    watched: this.props.watched ? this.props.watched + 1 : 1
-                });
-                this.props.actions.addItem({
-                    id: this.props.id,
-                    media_type: this.props.media_type,
-                    watched: this.props.watched ? this.props.watched + 1 : 1
-                });
-                const detailedItem = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
-                this.props.actions.addItem(detailedItem);
-                alert(JSON.stringify(detailedItem, null, 2));
-            } else {
-                this.props.navigation.push('Login');
-            }
-        });
-    }
-
-    unWatchedHandler = () => {
-        requestAnimationFrame(async () => {
-            if (this.props.loggedIn) {
-                this.props.actions.addItem({
-                    id: this.props.id,
-                    media_type: this.props.media_type,
-                    watched: this.props.watched ? this.props.watched - 1 : null
-                });
-            } else {
-                this.props.navigation.push('Login');
-            }
-        });
-    }
-
-    wantToWatchHandler = () => {
-        requestAnimationFrame(async () => {
-            if (this.props.loggedIn) {
-                alert(`want to watch ${this.props.id}`);
-            } else {
-                this.props.navigation.push('Login');
-            }
-        });
-    }
-
     shareHandler = () => {
         requestAnimationFrame(async () => {
             const service = 'tmdbPersonId';
