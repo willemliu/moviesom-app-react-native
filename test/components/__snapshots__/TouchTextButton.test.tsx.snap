@@ -6,9 +6,7 @@ exports[`TouchTextButton should render the correct TouchTextButton component 1`]
   accessibilityLabel={undefined}
   accessibilityTraits={undefined}
   accessible={true}
-  hasTVPreferredFocus={undefined}
   hitSlop={undefined}
-  isTVSelectable={true}
   nativeBackgroundAndroid={
     Object {
       "attribute": "selectableItemBackground",

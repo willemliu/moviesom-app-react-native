@@ -43,7 +43,7 @@ export default class MovieIcons extends React.Component<Props, any> {
                 });
                 const detailedItem = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
                 this.props.actions.addItem(detailedItem);
-                alert(JSON.stringify(detailedItem, null, 2));
+                // alert(JSON.stringify(detailedItem, null, 2));
             } else {
                 this.props.navigation.push('Login');
             }

@@ -36,7 +36,7 @@ const addItem = (newState: any, item: any) => {
             && value.media_type === item.media_type);
         // Merge the new item with the old and return it.
         if (sameItem) {
-            // console.log('MERGE', item.media_type, item.id);
+            console.log('MERGE', item.media_type, item.id);
             arr[index] = Object.assign({}, value, item);
         }
         return sameItem;
