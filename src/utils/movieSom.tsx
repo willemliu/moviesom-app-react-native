@@ -2,7 +2,7 @@ import React from 'react';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
 
 export const formatDuration = (minutes: number) => {
-    const hours = (minutes / 60).toFixed(0);
+    const hours = Math.floor((minutes / 60)).toFixed(0);
     const mins = (minutes % 60).toFixed(0);
     return `${parseInt(hours, 10) ? `${hours}h ` : ''}${mins}m`;
 };
