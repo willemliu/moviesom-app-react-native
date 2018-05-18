@@ -126,6 +126,11 @@ export const searchResultStyle = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
     },
+    credit: {
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 5,
+    },
     image: {
         flex: 0,
         width: 92,

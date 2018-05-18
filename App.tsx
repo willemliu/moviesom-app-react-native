@@ -7,7 +7,8 @@ import React from 'react';
 import {headerStyle, viewStyle, textStyle} from "./src/styles/Styles";
 import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
 import DrawerScreen from './src/screens/DrawerScreen';
-import {getConfig} from './src/tmdb/TMDb';
+import {getConfig as getTmdbConfig} from './src/tmdb/TMDb';
+import {getConfig as getMovieSomConfig} from './src/moviesom/MovieSom';
 import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
 import TvDetailsScreen from './src/screens/TvDetailsScreen';
 import TouchTextButton from './src/components/TouchTextButton';
@@ -33,8 +34,13 @@ export default class App extends React.Component<any> {
     this.netInfo();
     Linking.addEventListener('url', this.handleUrl);
     this.checkInitialUrl();
-    getConfig();
+    this.getConfig();
     this.createStore();
+  }
+
+  getConfig = () => {
+    getTmdbConfig();
+    getMovieSomConfig();
   }
 
   netInfo = () => {
@@ -63,6 +69,7 @@ export default class App extends React.Component<any> {
   }
 
   createStore = async () => {
+    // await AsyncStorage.removeItem('store');
     const loggedIn = await AsyncStorage.getItem('loggedIn');
     const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
     const connectionInfo = await NetInfo.getConnectionInfo();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, Share } from "react-native";
+import { AsyncStorage, Share, Image } from "react-native";
 import SearchTvResult from '../components/SearchTvResult';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
 

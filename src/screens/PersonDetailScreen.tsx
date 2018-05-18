@@ -145,7 +145,7 @@ export default class DetailsScreen extends React.Component<Props, any> {
                             </View>
 
                             <Text style={detailStyle.overview}>{this.props.biography}</Text>
-                            <MovieIcons {...this.props}/>
+                            <MovieIcons {...this.props} hideWatch={true} hideWantToWatch={true}/>
                         </View>
                     </Touchable>
                 </ScrollView>

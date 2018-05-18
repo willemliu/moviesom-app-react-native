@@ -75,7 +75,7 @@ export default class SearchPersonResult extends React.PureComponent<any, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>
-                    <MovieIcons {...this.props as any}/>
+                    <MovieIcons {...this.props} hideWatch={true} hideWantToWatch={true}/>
                 </View>
             </Touchable>
         );

@@ -3,9 +3,9 @@ import React from 'react';
 import { searchResultStyle, movieSomColor, textStyle, detailStyle, movieIconsStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
-import MovieIcons from './MovieIcons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Touchable from './Touchable';
+import { MovieIcons } from '../redux/TmdbReducer';
 
 export interface Props {
     handleOnPress: (props: any) => void;
@@ -28,6 +28,8 @@ export interface Props {
     test?: number;
     actions?: any;
     watched?: number;
+    character?: string;
+    job?: string;
     getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
 }
 
@@ -90,40 +92,23 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
     }
 
     render() {
-        if (Platform.OS === 'android') {
-            return (
-                <Touchable onPress={this.props.handleOnPress}>
-                    <View style={searchResultStyle.view}>
-                        <View style={{flex: 0, flexDirection: 'row'}}>
-                            <View style={{flex: 2}}>
-                                {this.state.image}
-                            </View>
-                            <View style={{flex: 10}}>
-                                <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                                <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
-                            </View>
+        return (
+            <Touchable onPress={this.props.handleOnPress}>
+                <View style={searchResultStyle.view}>
+                    <View style={{flex: 0, flexDirection: 'row'}}>
+                        <View style={{flex: 2}}>
+                            {this.state.image}
                         </View>
-                        <MovieIcons {...this.props as any}/>
-                    </View>
-                </Touchable>
-            );
-        } else {
-            return (
-                <Touchable onPress={this.props.handleOnPress}>
-                    <View style={searchResultStyle.view}>
-                        <View style={{flex: 0, flexDirection: 'row'}}>
-                            <View style={{flex: 2}}>
-                                {this.state.image}
-                            </View>
-                            <View style={{flex: 10}}>
-                                <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                                <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
-                            </View>
+                        <View style={{flex: 10}}>
+                            <Text style={searchResultStyle.title}><MaterialCommunityIcons name="filmstrip" size={16}/> {this.props.title ? this.props.title : this.props.original_title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                            {this.props.character ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
+                            {this.props.job ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
+                            <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
-                        <MovieIcons {...this.props as any}/>
                     </View>
-                </Touchable>
-            );
-        }
+                    <MovieIcons {...this.props as any}/>
+                </View>
+            </Touchable>
+        );
     }
 }

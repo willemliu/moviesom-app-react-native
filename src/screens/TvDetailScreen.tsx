@@ -144,7 +144,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
                                 {this.props.number_of_episodes ? <Text style={detailStyle.metaText}>Episodes: {this.props.number_of_episodes}</Text> : null}
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <MovieIcons {...this.props}/>
+                            <MovieIcons {...this.props} hideWatch={true}/>
                         </View>
                     </Touchable>
                 </ScrollView>

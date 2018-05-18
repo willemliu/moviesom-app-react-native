@@ -22,6 +22,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 import DrawerContainer from '../components/DrawerContainer';
 import PicturesScreen from '../screens/PicturesScreen';
 import SearchPictureResult from '../components/SearchPictureResult';
+import MovieIcons from '../components/MovieIcons';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -150,6 +151,9 @@ export {filmographyScreen as FilmographyScreen};
 
 const picturesScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(PicturesScreen));
 export {picturesScreen as PicturesScreen};
+
+const movieIcons = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(MovieIcons));
+export {movieIcons as MovieIcons};
 
 /**
  * SEARCH

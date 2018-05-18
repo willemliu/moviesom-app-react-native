@@ -3,6 +3,7 @@ import { Text, View, StyleProp, ViewStyle, AsyncStorage, Share } from 'react-nat
 import { movieSomColor, movieIconsStyle } from '../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import Touchable from './Touchable';
+import { get } from '../tmdb/TMDb';
 
 export interface MovieProps {
     adult?: boolean;
@@ -52,8 +53,10 @@ export interface Props extends MovieProps, TvProps, LoginProps, DeviceProps {
     style?: StyleProp<ViewStyle>;
     actions?: any;
     navigation?: any;
-    watched?: any;
+    watched?: number;
     formatDuration?: any;
+    hideWatch?: boolean;
+    hideWantToWatch?: boolean;
 }
 
 /**
@@ -73,6 +76,9 @@ export default class MovieIcons extends React.Component<Props, any> {
                     media_type: this.props.media_type,
                     watched: this.props.watched ? this.props.watched + 1 : 1
                 });
+                const detailedItem = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+                this.props.actions.addItem(detailedItem);
+                alert(JSON.stringify(detailedItem, null, 2));
             } else {
                 this.props.navigation.navigate('Login');
             }
@@ -163,25 +169,26 @@ export default class MovieIcons extends React.Component<Props, any> {
     render() {
         return (
             <View style={[movieIconsStyle.movieIcons, this.props.style]}>
-                <Touchable
+                {this.props.hideWatch ? null : [(<Touchable key="watch"
                     style={{flex: 0}}
                     onPress={this.watchedHandler}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="add-circle-outline" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </Touchable>
-                <Text style={{lineHeight: 32}}>{this.props.watched ? this.props.watched : 0}</Text>
-                <Touchable
+                </Touchable>),
+                (<Text style={{lineHeight: 32}} key="watch-count">{this.props.watched ? this.props.watched : 0}</Text>),
+                (<Touchable
+                    key="unwatch"
                     style={{flex: 0}}
                     onPress={this.unWatchedHandler}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="remove-circle-outline" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </Touchable>
-                <Touchable
+                </Touchable>)]}
+                {this.props.hideWantToWatch ? null : (<Touchable
                     style={{flex: 0}}
                     onPress={this.wantToWatchHandler}
                 >
                     <View style={{padding: 5}}><MaterialIcons name="star-border" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
-                </Touchable>
+                </Touchable>)}
                 <Touchable
                     style={{flex: 0}}
                     onPress={this.shareHandler}

@@ -4,7 +4,6 @@ import { searchResultStyle, movieSomColor, HEADER_MAX_HEIGHT, detailStyle } from
 import {parse, format} from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
-import MovieIcons from './MovieIcons';
 
 export default class SearchPictureResult extends React.PureComponent<any, any> {
     state: any = {
