@@ -7,6 +7,7 @@ export interface PersonProps {
     gender?: 0|1|2;
     homepage?: string;
     id?: number;
+    media_type?: string;
     imdb_id?: string;
     name?: string;
     place_of_birth?: string;

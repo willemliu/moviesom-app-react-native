@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, ScrollView, View, Image, Animated, Dimensions } from 'react-native';
 import { detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
 import { format, parse } from 'date-fns';
-import { MovieIcons} from '../redux/TmdbReducer';
+import MovieIcons from '../components/icons/MovieIcons';
 import numeral from 'numeral';
 import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';

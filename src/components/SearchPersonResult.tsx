@@ -2,7 +2,7 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import { MaterialIcons } from '@expo/vector-icons';
-import { PersonIcons} from '../redux/TmdbReducer';
+import PersonIcons from './icons/PersonIcons';
 import Touchable from './Touchable';
 import { PersonProps } from '../interfaces/Person';
 import { StyleProp } from 'react-native';

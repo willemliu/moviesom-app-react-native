@@ -5,7 +5,7 @@ import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Touchable from './Touchable';
-import { MovieIcons } from '../redux/TmdbReducer';
+import MovieIcons from './icons/MovieIcons';
 import { MovieProps } from '../interfaces/Movie';
 
 export interface Props extends MovieProps {

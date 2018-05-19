@@ -3,7 +3,7 @@ import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { Feather } from '@expo/vector-icons';
-import { TvIcons} from '../redux/TmdbReducer';
+import TvIcons from './icons/TvIcons';
 import Touchable from './Touchable';
 import { TvProps } from '../interfaces/Tv';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';

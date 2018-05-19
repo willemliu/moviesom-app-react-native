@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleProp, ViewStyle, Share } from 'react-native';
-import { movieSomColor, movieIconsStyle } from '../../styles/Styles';
+import { movieSomColor, iconsStyle } from '../../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import Touchable from '../Touchable';
 import { get } from '../../tmdb/TMDb';
@@ -29,7 +29,7 @@ export interface Props extends PersonProps, LoginProps, DeviceProps {
 /**
  * Render functional icons as part of a TMDb item.
  */
-export default class MovieIcons extends React.Component<Props, any> {
+export default class PersonIcons extends React.Component<Props, any> {
     shareHandler = () => {
         requestAnimationFrame(async () => {
             const service = 'tmdbPersonId';
@@ -59,7 +59,7 @@ export default class MovieIcons extends React.Component<Props, any> {
 
     render() {
         return (
-            <View style={[movieIconsStyle.movieIcons, this.props.style]}>
+            <View style={[iconsStyle.icons, this.props.style]}>
                 <Touchable
                     style={{flex: 0}}
                     onPress={this.shareHandler}

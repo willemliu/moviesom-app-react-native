@@ -228,8 +228,8 @@ export const animatedHeaderStyle = StyleSheet.create({
     },
 });
 
-export const movieIconsStyle = StyleSheet.create({
-    movieIcons: {
+export const iconsStyle = StyleSheet.create({
+    icons: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
