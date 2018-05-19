@@ -1,9 +1,11 @@
 import React from 'react';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
 import { SearchScreen } from '../redux/TmdbReducer';
 import { MaterialIcons } from '@expo/vector-icons';
+import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
+import { Platform } from 'react-native';
 
-const HomeTabNav = TabNavigator({
+const navigationRouteConfigMap: NavigationRouteConfigMap = {
     Search: {
         screen: SearchScreen,
         navigationOptions: {
@@ -25,19 +27,29 @@ const HomeTabNav = TabNavigator({
             tabBarIcon: <MaterialIcons name="playlist-add" size={32} color='#fff'/>,
         }
     },
-}, {
+};
+
+const tabNavigatorConfig: TabNavigatorConfig = {
     tabBarPosition: 'bottom',
     tabBarOptions: {
         style: {
-            backgroundColor: '#008CBA',
+            backgroundColor: movieSomColor,
         },
         activeTintColor: '#fff',
-        activeBackgroundColor: '#008CBA',
-        inactiveBackgroundColor: '#008CBA',
+        inactiveTintColor: movieSomSecondaryColor,
+        activeBackgroundColor: movieSomColor,
+        inactiveBackgroundColor: movieSomColor,
         indicatorStyle: {
             backgroundColor: '#fff'
         },
     },
-});
+};
+
+let HomeTabNav;
+if (Platform.OS === 'android') {
+    HomeTabNav = createMaterialTopTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+} else {
+    HomeTabNav = createBottomTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+}
 
 export default HomeTabNav;

@@ -1,39 +1,44 @@
 import React from 'react';
 import { TvDetailScreen, CastAndCrewScreen } from '../redux/TmdbReducer';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
+import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
+import { Platform } from 'react-native';
 
-const TvDetailsTabNav = TabNavigator({
-    DetailsScreen: {
-      screen: TvDetailScreen,
-      navigationOptions: {
-        title: 'TV details',
-        tabBarIcon: <MaterialIcons name="info-outline" size={32} color='#fff'/>,
-      }
-    },
-    CastAndCrew: {
-      screen: CastAndCrewScreen,
-      navigationOptions: {
-        title: 'Cast & Crew',
-        tabBarIcon: <MaterialIcons name="people-outline" size={32} color='#fff'/>,
-      }
-    },
-    Seasons: {
-      screen: CastAndCrewScreen,
-      navigationOptions: {
-        title: 'Seasons',
-        tabBarIcon: <MaterialIcons name="format-list-numbered" size={32} color='#fff'/>,
-      }
-    },
-}, {
-    tabBarPosition: 'bottom',
-    tabBarOptions: {
+const navigationRouteConfigMap: NavigationRouteConfigMap = {
+  DetailsScreen: {
+    screen: TvDetailScreen,
+    navigationOptions: {
+      title: 'TV details',
+      tabBarIcon: <MaterialIcons name="info-outline" size={32} color='#fff'/>,
+    }
+  },
+  CastAndCrew: {
+    screen: CastAndCrewScreen,
+    navigationOptions: {
+      title: 'Cast & Crew',
+      tabBarIcon: <MaterialIcons name="people-outline" size={32} color='#fff'/>,
+    }
+  },
+  Seasons: {
+    screen: CastAndCrewScreen,
+    navigationOptions: {
+      title: 'Seasons',
+      tabBarIcon: <MaterialIcons name="format-list-numbered" size={32} color='#fff'/>,
+    }
+  },
+};
+
+const tabNavigatorConfig: TabNavigatorConfig = {
+  tabBarPosition: 'bottom',
+  tabBarOptions: {
     style: {
-        backgroundColor: '#008CBA',
+        backgroundColor: movieSomColor,
     },
     activeTintColor: '#fff',
-    activeBackgroundColor: '#008CBA',
-    inactiveBackgroundColor: '#008CBA',
+    inactiveTintColor: movieSomSecondaryColor,
+    activeBackgroundColor: movieSomColor,
+    inactiveBackgroundColor: movieSomColor,
     indicatorStyle: {
       backgroundColor: '#fff'
     },
@@ -43,6 +48,13 @@ const TvDetailsTabNav = TabNavigator({
     tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) !== true,
     animationEnabled: true
   }),
-});
+};
+
+let TvDetailsTabNav;
+if (Platform.OS === 'android') {
+    TvDetailsTabNav = createMaterialTopTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+} else {
+    TvDetailsTabNav = createBottomTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+}
 
 export default TvDetailsTabNav;

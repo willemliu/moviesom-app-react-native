@@ -1,5 +1,5 @@
 import { Image, Text, View, Modal, Linking, AsyncStorage, NetInfo, ConnectionInfo } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
 import { LoginScreen, SignUpScreen } from './src/redux/TmdbReducer';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
@@ -144,7 +144,7 @@ export default class App extends React.Component<any> {
   }
 }
 
-const StackNav = StackNavigator({
+const StackNav = createStackNavigator({
     Drawer: {
       screen: DrawerScreen,
     },

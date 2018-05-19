@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-import {DrawerNavigator, NavigationScreenOptions} from 'react-navigation';
+import {createDrawerNavigator, NavigationScreenOptions} from 'react-navigation';
 import HomeScreen from './HomeScreen';
 import { DrawerContainer } from '../redux/TmdbReducer';
 import { AsyncStorage } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const DrawerNav = DrawerNavigator({
+const DrawerNav = createDrawerNavigator({
     Home: {
       screen: HomeScreen,
     },

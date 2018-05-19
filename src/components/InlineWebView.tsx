@@ -1,6 +1,7 @@
 import React from 'react';
 import { webViewStyle, transparentColor } from '../styles/Styles';
 import {WebView, ActivityIndicator, View, TextInput, BackHandler, TextStyle, StyleProp} from 'react-native';
+import { NavState } from 'react-native';
 
 export interface Props {
     url: string;
@@ -14,36 +15,12 @@ export default class InlineWebView extends React.Component<Props, any> {
         loading: false
     };
 
-    private webRef: any;
-    private lastUrl: any;
-
     constructor(props: any) {
         super(props);
     }
 
-    componentDidMount() {
-        if (this.props.canGoBack) {
-            BackHandler.addEventListener('hardwareBackPress', this.backHandler);
-        }
-    }
-
-    backHandler = (): boolean => {
-        if (this.webRef && this.state.url !== this.lastUrl && this.props.canGoBack && this.state.canGoBack) {
-            this.lastUrl = this.state.url;
-            this.webRef.goBack();
-            return true;
-        }
-        return false;
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.backHandler);
-    }
-
-    onNavigationStateChange = (navState: any) => {
-        this.setState({
-            ...navState,
-        });
+    onNavigationStateChange = (navState: NavState) => {
+        this.setState({...navState});
     }
 
     render() {
@@ -59,7 +36,6 @@ export default class InlineWebView extends React.Component<Props, any> {
                         padding: 5,
                 }}>{this.props.url}</TextInput>}
                 <WebView
-                    ref={(ref: any) => this.webRef = ref}
                     source={{uri: this.props.url}}
                     startInLoadingState={false}
                     onNavigationStateChange={this.onNavigationStateChange}
