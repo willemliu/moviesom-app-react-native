@@ -19,6 +19,7 @@ import WebScreen from './src/screens/WebScreen';
 import { LOGIN } from './src/redux/login/LoginActions';
 import { DEVICE_ONLINE } from './src/redux/device/DeviceActions';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import HomeScreen from './src/screens/HomeScreen';
 
 console.disableYellowBox = true;
 
@@ -145,8 +146,8 @@ export default class App extends React.Component<any> {
 }
 
 const StackNav = createStackNavigator({
-    Drawer: {
-      screen: DrawerScreen,
+    Home: {
+      screen: HomeScreen,
     },
     About: {
       screen: AboutScreen,

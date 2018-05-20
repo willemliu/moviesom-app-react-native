@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, AsyncStorage } from 'react-native';
 import {viewStyle} from "../styles/Styles";
-import TouchTextButton from './TouchTextButton';
+import TouchTextButton from '../components/TouchTextButton';
 
-export default class DrawerContainer extends React.Component<any, any> {
+export default class SettingsScreen extends React.Component<any, any> {
+    static navigationOptions = {
+        title: 'Settings',
+    };
+
     props: any;
     state: any;
 

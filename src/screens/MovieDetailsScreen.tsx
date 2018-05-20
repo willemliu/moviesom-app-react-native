@@ -43,11 +43,11 @@ const tabNavigatorConfig: TabNavigatorConfig = {
   })
 };
 
-let DetailsTabNav;
+let MovieDetailsTabNav;
 if (Platform.OS === 'android') {
-    DetailsTabNav = createMaterialTopTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+    MovieDetailsTabNav = createMaterialTopTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
 } else {
-    DetailsTabNav = createBottomTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+    MovieDetailsTabNav = createBottomTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
 }
 
-export default DetailsTabNav;
+export default MovieDetailsTabNav;

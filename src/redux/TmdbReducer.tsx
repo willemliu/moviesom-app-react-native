@@ -18,9 +18,9 @@ import { mapLoginStateToProps, mapLoginDispatchToProps } from './login/LoginRedu
 import { mapSearchStateToProps, mapSearchDispatchToProps } from './search/SearchReducer';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
-import DrawerContainer from '../components/DrawerContainer';
 import PicturesScreen from '../screens/PicturesScreen';
 import SearchPictureResult from '../components/SearchPictureResult';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -158,6 +158,13 @@ const searchScreen = connect(mapAllSearchStateToProps, mapAllSearchDispatchToPro
 export {searchScreen as SearchScreen};
 
 /**
+ * SETTINGS
+ */
+
+const settingsScreen = connect(mapAllStateToProps, mapAllDispatchToProps)(SettingsScreen);
+export {settingsScreen as SettingsScreen};
+
+/**
  * LOGIN
  */
 
@@ -166,9 +173,6 @@ export {loginScreen as LoginScreen};
 
 const signUpScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(SignUpScreen);
 export {signUpScreen as SignUpScreen};
-
-const drawerContainer = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(DrawerContainer);
-export {drawerContainer as DrawerContainer};
 
 /**
  * STATE 2 PROPS MAPPERS

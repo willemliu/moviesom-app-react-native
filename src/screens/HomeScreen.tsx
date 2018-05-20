@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import { SearchScreen } from '../redux/TmdbReducer';
-import { MaterialIcons } from '@expo/vector-icons';
+import { SettingsScreen, SearchScreen } from '../redux/TmdbReducer';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
 
@@ -25,6 +25,13 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
         navigationOptions: {
             title: 'Watchlist',
             tabBarIcon: <MaterialIcons name="playlist-add" size={32} color='#fff'/>,
+        }
+    },
+    Settings: {
+        screen: SettingsScreen,
+        navigationOptions: {
+            title: 'Settings',
+            tabBarIcon: <Ionicons name="ios-settings-outline" size={32} color='#fff'/>,
         }
     },
 };
