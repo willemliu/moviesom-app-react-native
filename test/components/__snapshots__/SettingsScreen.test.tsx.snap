@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DrawerContainer should render correctly 1`] = `
+exports[`SettingsScreen should render correctly 1`] = `
 <View
   style={
     Object {
