@@ -14,9 +14,27 @@ export default class InlineWebView extends React.Component<Props, any> {
     state: any = {
         loading: false
     };
+    private webRef: any;
+    private lastUrl: any;
 
     constructor(props: any) {
         super(props);
+        if (this.props.canGoBack) {
+            BackHandler.addEventListener('hardwareBackPress', this.backHandler);
+        }
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backHandler);
+    }
+
+    backHandler = (): boolean => {
+        if (this.webRef && this.state.url !== this.lastUrl && this.props.canGoBack && this.state.canGoBack) {
+            this.lastUrl = this.state.url;
+            this.webRef.goBack();
+            return true;
+        }
+        return false;
     }
 
     onNavigationStateChange = (navState: NavState) => {
@@ -36,6 +54,7 @@ export default class InlineWebView extends React.Component<Props, any> {
                         padding: 5,
                 }}>{this.props.url}</TextInput>}
                 <WebView
+                    ref={(ref: any) => this.webRef = ref}
                     source={{uri: this.props.url}}
                     startInLoadingState={false}
                     onNavigationStateChange={this.onNavigationStateChange}
