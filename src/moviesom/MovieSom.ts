@@ -56,7 +56,7 @@ export async function login(username: string, password: string): Promise<LoginRe
         username,
         password,
         user_agent: appType,
-        app: 'React Native'
+        app: 1
     }));
     const jsonResult: LoginResponseType = await response.then((data) => data.json());
     response.catch((e) => {
