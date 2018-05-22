@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput } from 'react-native';
+import {View, TextInput, ActivityIndicator} from 'react-native';
 import {viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import {login} from "../moviesom/MovieSom";
@@ -13,8 +13,16 @@ export default class SignUpScreen extends React.Component<any, any> {
         passwordsMatch: true
     };
 
+    signup = () => {
+        if (this.checkPasswords(this.state.password2)) {
+            this.login();
+        }
+    }
+
     login = async () => {
+        this.setState({loading: true});
         const loginResult = await login(this.state.email, this.state.password);
+        this.setState({loading: false});
         if (loginResult.login.status === 200) {
             this.props.loginActions.login(loginResult.login.loginToken);
             this.props.navigation.goBack();
@@ -25,14 +33,16 @@ export default class SignUpScreen extends React.Component<any, any> {
     }
 
     checkPasswords = (password: string) => {
-        if (password.length && this.state.password !== password) {
+        if (!password || (password.length && this.state.password !== password)) {
             this.setState({
                 passwordsMatch: false
             });
+            return false;
         } else {
             this.setState({
                 passwordsMatch: true
             });
+            return true;
         }
     }
 
@@ -63,15 +73,16 @@ export default class SignUpScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='Repeat password'
                         style={textInputStyle.textInput}
-                        onChangeText={this.checkPasswords}
+                        onChangeText={(password2: string) => { this.setState({password2}); this.checkPasswords(password2); }}
                         placeholder='Repeat password'
                         autoCorrect={false}
                         clearButtonMode='always'
                         secureTextEntry={true}
                         underlineColorAndroid={this.state.passwordsMatch ? movieSomColor : '#f00'}
                     />
-                    <TouchTextButton style={{margin: 5}} onPress={this.login}>Sign up</TouchTextButton>
+                    <TouchTextButton style={{margin: 5}} onPress={this.signup}>Sign up</TouchTextButton>
                 </View>
+                {this.state.loading ? <ActivityIndicator size='large' color='#009688' style={viewStyle.activityIndicator}/> : null}
             </View>
         );
     }

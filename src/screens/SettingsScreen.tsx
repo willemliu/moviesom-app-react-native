@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, AsyncStorage } from 'react-native';
+import {View, AsyncStorage, ActivityIndicator} from 'react-native';
 import {viewStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
@@ -9,15 +9,16 @@ export default class SettingsScreen extends React.Component<any, any> {
     };
 
     props: any;
-    state: any;
+    state: any = {
+        loading: false
+    };
 
     constructor(props: any) {
         super(props);
     }
 
-    logOut = async () => {
+    logOut = () => {
         this.props.loginActions.logout();
-        this.props.navigation.goBack();
     }
 
     render() {
@@ -47,7 +48,6 @@ export default class SettingsScreen extends React.Component<any, any> {
                     style={{marginBottom: 10}}
                     onPress={async () => await AsyncStorage.removeItem('store')}
                 >Clear DB</TouchTextButton>
-
             </View>
         );
     }

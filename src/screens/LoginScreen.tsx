@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput } from 'react-native';
+import {Text, View, TextInput, ActivityIndicator} from 'react-native';
 import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import {login} from "../moviesom/MovieSom";
@@ -7,6 +7,7 @@ import {login} from "../moviesom/MovieSom";
 interface State {
     email: string;
     password: string;
+    loading?: boolean;
 }
 
 export default class LoginScreen extends React.Component<any, State> {
@@ -14,8 +15,16 @@ export default class LoginScreen extends React.Component<any, State> {
         title: 'Login',
     };
 
+    state: State = {
+        email: '',
+        password: '',
+        loading: false
+    };
+
     login = async () => {
+        this.setState({loading: true});
         const loginResult = await login(this.state.email, this.state.password);
+        this.setState({loading: false});
         if (loginResult.login.status === 200) {
             this.props.loginActions.login(loginResult.login.loginToken);
             this.props.navigation.goBack();
@@ -49,7 +58,7 @@ export default class LoginScreen extends React.Component<any, State> {
                         secureTextEntry={true}
                         underlineColorAndroid={movieSomColor}
                     />
-                    <TouchTextButton style={{margin: 5}} onPress={this.login}>Login</TouchTextButton>
+                    {this.state.loading ? null : <TouchTextButton style={{margin: 5}} onPress={this.login}>Login</TouchTextButton>}
 
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10}}>
                         <Text onPress={() => this.props.navigation.push('SignUp')} style={textStyle.smallLink}>Sign up</Text>
@@ -57,6 +66,7 @@ export default class LoginScreen extends React.Component<any, State> {
                         <Text onPress={() => this.props.navigation.push('PasswordReset')} style={textStyle.smallLink}>Forgot password</Text>
                     </View>
                 </View>
+                {this.state.loading ? <ActivityIndicator size='large' color='#009688' style={viewStyle.activityIndicator}/> : null}
             </View>
         );
     }

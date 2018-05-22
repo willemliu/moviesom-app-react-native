@@ -68,10 +68,21 @@ export default class App extends React.Component<any> {
         }
     }
 
-    createStore = async () => {
-        // await AsyncStorage.removeItem('store');
+    checkLoggedIn = async (store: Store) => {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         const loginToken = await AsyncStorage.getItem('loginToken');
+        if (loggedIn) {
+            const loginResult = await loginWithToken(loginToken);
+            if (loginResult.login.status === 200) {
+                store.dispatch({type: LOGIN, loginToken: loginResult.login.loginToken});
+            } else {
+                this.props.loginActions.logout();
+            }
+        }
+    }
+
+    createStore = async () => {
+        // await AsyncStorage.removeItem('store');
         const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
         const connectionInfo = await NetInfo.getConnectionInfo();
         let store: Store;
@@ -88,14 +99,7 @@ export default class App extends React.Component<any> {
         store.subscribe(async () => {
             await AsyncStorage.setItem('store', JSON.stringify(store.getState()));
         });
-        if (loggedIn) {
-            const loginResult = await loginWithToken(loginToken);
-            if (loginResult.login.status === 200) {
-                store.dispatch({type: LOGIN, loginToken: loginResult.login.loginToken});
-            } else {
-                this.props.loginActions.logout();
-            }
-        }
+        this.checkLoggedIn(store).catch((e: any) => console.log(e));
         if (this.checkOnline(connectionInfo)) {
             store.dispatch({type: DEVICE_ONLINE});
         }
@@ -143,7 +147,10 @@ export default class App extends React.Component<any> {
                 <Provider store={this.state.store}>
                     <StackNav/>
                 </Provider> : null}
-                {!this.state.online ? <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'red', color: 'white'}}>{this.state.networkMessage}</Text> : <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'green', color: 'white'}}>{this.state.networkMessage}</Text>}
+                {!this.state.online ?
+                    <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'red', color: 'white'}}>{this.state.networkMessage}</Text> :
+                    <Text style={{flex: 0, textAlign: 'center', backgroundColor: 'green', color: 'white'}}>{this.state.networkMessage}</Text>
+                }
                 <KeyboardSpacer/>
             </View>
         );

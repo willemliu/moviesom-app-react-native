@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import {Text, View} from 'react-native';
 import { viewStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
-export default class AboutScreen extends React.Component<any> {
+export default class AboutScreen extends React.Component<any, any> {
     static navigationOptions = {
         title: 'About',
     };

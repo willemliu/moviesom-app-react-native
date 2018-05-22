@@ -52,14 +52,14 @@ export async function getConfig() {
 export async function login(username: string, password: string): Promise<LoginResponseType> {
     console.info('Login with credentials');
     const appType = `${Platform.OS} ${Platform.Version}`;
-    const jsonResult: Promise<LoginResponseType> = await post('login', '', JSON.stringify({
+    const response = post('login', '', JSON.stringify({
         username,
         password,
         user_agent: appType,
         app: 'React Native'
-    })).then((data) => data.json());
-
-    jsonResult.catch((e) => {
+    }));
+    const jsonResult: LoginResponseType = await response.then((data) => data.json());
+    response.catch((e) => {
         console.error('Could not login. Please try again. Note that the password is case-sensitive.', e);
     });
     return jsonResult;
@@ -68,13 +68,14 @@ export async function login(username: string, password: string): Promise<LoginRe
 export async function loginWithToken(token: string): Promise<LoginResponseType> {
     console.info('Login with credentials');
     const appType = `${Platform.OS} ${Platform.Version}`;
-    const jsonResult: Promise<LoginResponseType> = await post('login', '', JSON.stringify({
+    const response = post('login', '', JSON.stringify({
         token,
         user_agent: appType,
         app: 'React Native'
-    })).then((data) => data.json());
+    }));
+    const jsonResult: LoginResponseType = await response.then((data) => data.json());
 
-    jsonResult.catch((e) => {
+    response.catch((e) => {
         console.error('Could not login. Login with token failed. Either the token is invalid or has expired.', e);
     });
     return jsonResult;
