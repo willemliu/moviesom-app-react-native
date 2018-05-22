@@ -20,7 +20,7 @@ export default class SearchScreen extends React.Component<any, any> {
         if (!this.props.searchItems || !this.props.searchItems.length) {
             this.search();
         } else {
-            AsyncStorage.getItem('searchText').then((searchText) => {
+            AsyncStorage.getItem('searchText').then((searchText: string) => {
                 this.setState({
                     refreshing: false,
                     searchText
@@ -138,14 +138,14 @@ export default class SearchScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='Search movie or tv series or person'
                         style={searchScreenStyle.searchInput}
-                        onChangeText={(searchText) => { this.setState({searchText}); }}
+                        onChangeText={(searchText: string) => { this.setState({searchText}); }}
                         placeholder='Search movie/tv series/person'
                         autoCorrect={false}
                         clearButtonMode='always'
                         keyboardType='web-search'
                         selectTextOnFocus={true}
                         underlineColorAndroid={transparentColor}
-                        onSubmitEditing={(e) => {
+                        onSubmitEditing={(e: any) => {
                             this.props.searchActions.setSearchPage(1);
                             this.search(e.nativeEvent.text);
                         }}

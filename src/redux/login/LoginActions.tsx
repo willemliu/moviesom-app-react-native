@@ -1,8 +1,8 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
-export function login() {
-    return { type: LOGIN };
+export function login(loginToken: string) {
+    return { type: LOGIN, loginToken };
 }
 
 export function logout() {

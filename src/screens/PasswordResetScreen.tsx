@@ -8,6 +8,10 @@ export default class PasswordResetScreen extends React.Component<any, any> {
         title: 'Reset password',
     };
 
+    resetPassword = () => {
+        this.props.navigation.goBack();
+    }
+
     render() {
         return (
             <View style={viewStyle.view}>
@@ -15,14 +19,14 @@ export default class PasswordResetScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='E-mail address'
                         style={textInputStyle.textInput}
-                        onChangeText={(email) => { this.setState({email}); }}
+                        onChangeText={(email: string) => { this.setState({email}); }}
                         placeholder='E-mail'
                         autoCorrect={false}
                         clearButtonMode='always'
                         keyboardType='email-address'
                         underlineColorAndroid={movieSomColor}
                     />
-                    <TouchTextButton style={{margin: 5}} onPress={() => this.props.navigation.goBack()}>Reset password</TouchTextButton>
+                    <TouchTextButton style={{margin: 5}} onPress={this.resetPassword}>Reset password</TouchTextButton>
                 </View>
             </View>
         );

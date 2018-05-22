@@ -13,10 +13,12 @@ export function loginReducer(state: any = defaultState, action: any) {
         case LOGIN:
             newState.loggedIn = true;
             AsyncStorage.setItem('loggedIn', '1');
+            AsyncStorage.setItem('loginToken', action.loginToken);
             return newState;
         case LOGOUT:
             newState.loggedIn = false;
             AsyncStorage.removeItem('loggedIn');
+            AsyncStorage.removeItem('loginToken');
             return newState;
         default:
             return newState;

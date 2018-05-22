@@ -1,4 +1,14 @@
-import { AsyncStorage } from 'react-native';
+import {AsyncStorage, Platform} from 'react-native';
+
+interface LoginResponseType {
+    login: {
+        status: number,
+        message?: string,
+        loginToken?: string,
+        execTime: number
+    };
+    execTime: number;
+}
 
 const BASE_URL = 'https://www.moviesom.com/wsmoviesom.php';
 const HTML_2_XPATH_BASE_URL = 'https://html2xpath.moviesom.com';
@@ -11,11 +21,11 @@ const API_VERSION = 'v1';
  * @param baseUrl
  * @param apiVersion
  */
-export async function post(service: string, uriParam: string = '', baseUrl: string = BASE_URL, apiVersion: string = API_VERSION) {
+export async function post(service: string, uriParam: string = '', body: string = '{}', baseUrl: string = BASE_URL, apiVersion: string = API_VERSION) {
     console.log('Get MovieSom', `${baseUrl}?v=${apiVersion}&service=${service}&${uriParam}`);
     return await fetch(`${baseUrl}?v=${apiVersion}&service=${service}&${uriParam}`, {
-        credentials: 'include',
         method: 'post',
+        body
     });
 }
 
@@ -37,4 +47,35 @@ export async function getConfig() {
         // console.log('MovieSom Configuration loaded from cache', configuration);
         return configuration;
     }
+}
+
+export async function login(username: string, password: string): Promise<LoginResponseType> {
+    console.info('Login with credentials');
+    const appType = `${Platform.OS} ${Platform.Version}`;
+    const jsonResult: Promise<LoginResponseType> = await post('login', '', JSON.stringify({
+        username,
+        password,
+        user_agent: appType,
+        app: 'React Native'
+    })).then((data) => data.json());
+
+    jsonResult.catch((e) => {
+        console.error('Could not login. Please try again. Note that the password is case-sensitive.', e);
+    });
+    return jsonResult;
+}
+
+export async function loginWithToken(token: string): Promise<LoginResponseType> {
+    console.info('Login with credentials');
+    const appType = `${Platform.OS} ${Platform.Version}`;
+    const jsonResult: Promise<LoginResponseType> = await post('login', '', JSON.stringify({
+        token,
+        user_agent: appType,
+        app: 'React Native'
+    })).then((data) => data.json());
+
+    jsonResult.catch((e) => {
+        console.error('Could not login. Login with token failed. Either the token is invalid or has expired.', e);
+    });
+    return jsonResult;
 }

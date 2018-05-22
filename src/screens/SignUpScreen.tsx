@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, AsyncStorage, TextInput } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import {textStyle, viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
+import { View, TextInput } from 'react-native';
+import {viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
+import {login} from "../moviesom/MovieSom";
 
 export default class SignUpScreen extends React.Component<any, any> {
     static navigationOptions = {
@@ -14,8 +14,14 @@ export default class SignUpScreen extends React.Component<any, any> {
     };
 
     login = async () => {
-        this.props.loginActions.login();
-        this.props.navigation.goBack();
+        const loginResult = await login(this.state.email, this.state.password);
+        if (loginResult.login.status === 200) {
+            this.props.loginActions.login(loginResult.login.loginToken);
+            this.props.navigation.goBack();
+        } else {
+            this.props.loginActions.logout();
+            alert('Could not login. Please try again. Note that the password is case-sensitive.');
+        }
     }
 
     checkPasswords = (password: string) => {
@@ -37,7 +43,7 @@ export default class SignUpScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='E-mail address'
                         style={textInputStyle.textInput}
-                        onChangeText={(email) => { this.setState({email}); }}
+                        onChangeText={(email: string) => { this.setState({email}); }}
                         placeholder='E-mail'
                         autoCorrect={false}
                         clearButtonMode='always'
@@ -47,7 +53,7 @@ export default class SignUpScreen extends React.Component<any, any> {
                     <TextInput
                         accessibilityLabel='Password'
                         style={textInputStyle.textInput}
-                        onChangeText={(password) => { this.setState({password}); }}
+                        onChangeText={(password: string) => { this.setState({password}); }}
                         placeholder='Password'
                         autoCorrect={false}
                         clearButtonMode='always'
