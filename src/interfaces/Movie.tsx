@@ -27,6 +27,7 @@ export interface MovieProps {
     media_type?: string;
     character?: string;
     job?: string;
+    getUserMoviesSettings: (items: any[]) => Promise<any[]>;
 }
 
 export interface GetUsersMoviesSettings {

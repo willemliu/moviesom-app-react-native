@@ -7,7 +7,7 @@ const defaultState = {
 };
 
 export function deviceReducer(state: any = defaultState, action: any) {
-    const newState = Object.assign({}, state);
+    const newState = {...state};
     switch (action.type) {
         case DEVICE_ONLINE:
             newState.online = true;

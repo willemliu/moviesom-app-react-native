@@ -99,7 +99,7 @@ export default class App extends React.Component<any> {
         store.subscribe(async () => {
             await AsyncStorage.setItem('store', JSON.stringify(store.getState()));
         });
-        this.checkLoggedIn(store).catch((e: any) => console.log(e));
+        await this.checkLoggedIn(store).catch((e: any) => console.log(e));
         if (this.checkOnline(connectionInfo)) {
             store.dispatch({type: DEVICE_ONLINE});
         }

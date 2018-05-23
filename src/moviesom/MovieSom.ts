@@ -59,6 +59,10 @@ export async function login(username: string, password: string): Promise<LoginRe
         app: 1
     }));
     const jsonResult: LoginResponseType = await response.then((data) => data.json());
+    if (jsonResult.login.status === 200 && jsonResult.login.loginToken) {
+        AsyncStorage.setItem('loggedIn', '1');
+        AsyncStorage.setItem('loginToken', jsonResult.login.loginToken);
+    }
     response.catch((e) => {
         console.error('Could not login. Please try again. Note that the password is case-sensitive.', e);
     });
@@ -74,6 +78,10 @@ export async function loginWithToken(token: string): Promise<LoginResponseType> 
         app: 'React Native'
     }));
     const jsonResult: LoginResponseType = await response.then((data) => data.json());
+    if (jsonResult.login.status === 200 && jsonResult.login.loginToken) {
+        AsyncStorage.setItem('loggedIn', '1');
+        AsyncStorage.setItem('loginToken', jsonResult.login.loginToken);
+    }
 
     response.catch((e) => {
         console.error('Could not login. Login with token failed. Either the token is invalid or has expired.', e);

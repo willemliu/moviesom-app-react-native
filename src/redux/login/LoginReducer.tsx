@@ -8,12 +8,10 @@ const defaultState = {
 };
 
 export function loginReducer(state: any = defaultState, action: any) {
-    const newState = Object.assign({}, state);
+    const newState = {...state};
     switch (action.type) {
         case LOGIN:
             newState.loggedIn = true;
-            AsyncStorage.setItem('loggedIn', '1');
-            AsyncStorage.setItem('loginToken', action.loginToken);
             return newState;
         case LOGOUT:
             newState.loggedIn = false;

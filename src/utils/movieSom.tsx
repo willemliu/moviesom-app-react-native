@@ -19,6 +19,9 @@ export const formatDuration = (minutes: number) => {
     return `${parseInt(hours, 10) ? `${hours}h ` : ''}${mins}m`;
 };
 
+/**
+ * Retrieve User <-> movies settings.
+ */
 export const getUserMoviesSettings = async (items: any[]) => {
     const payload: GetUsersMoviesSettings = {
         token: await AsyncStorage.getItem('loginToken'),
@@ -28,10 +31,15 @@ export const getUserMoviesSettings = async (items: any[]) => {
         return item.media_type === 'movie';
     });
     const response = await post(`getUserMoviesSettings`, '', JSON.stringify(payload)).then((data) => data.json());
-    console.log('getUserMoviesSettings', response.getUserMoviesSettings.status, response.getUserMoviesSettings.status === 200 ? response.getUserMoviesSettings.message.length : response.getUserMoviesSettings);
+    console.log(`getUserMoviesSettings status=${response.getUserMoviesSettings.status}`, response.getUserMoviesSettings.status === 200 ? response.getUserMoviesSettings.message.length : response.getUserMoviesSettings);
     if (response.getUserMoviesSettings.status === 200 && response.getUserMoviesSettings && response.getUserMoviesSettings.message) {
         response.getUserMoviesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
-            arr[idx].media_type = 'movie';
+            // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
+            arr[idx].moviesom_id = parseInt(value.id, 10); // Parse to integer.
+            arr[idx].id = parseInt(value.tmdb_id, 10); // Parse to integer.
+            arr[idx].media_type = 'movie'; // Add a media_type because it doesn't have one.
+            arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
+            arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
         });
     }
     return response.getUserMoviesSettings.message;

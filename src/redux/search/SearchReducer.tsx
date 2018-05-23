@@ -11,7 +11,7 @@ const addSearchItem = (newState: any, item: any) => {
         const sameItem = (value.id === item.id && value.media_type === item.media_type);
         if (sameItem) {
             // console.log('MERGE search item', item.media_type, item.id);
-            arr[index] = Object.assign({}, value, item);
+            arr[index] = {...value, ...item};
         }
         return sameItem;
     });
@@ -23,7 +23,7 @@ const addSearchItem = (newState: any, item: any) => {
 };
 
 export function searchReducer(state: any = defaultState, action: any) {
-    let newState = Object.assign({}, state);
+    let newState = {...state};
     switch (action.type) {
         case ADD_SEARCH_ITEM:
             // console.log('ADD search item');

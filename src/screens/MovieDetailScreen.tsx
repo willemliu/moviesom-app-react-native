@@ -63,6 +63,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
         item.media_type = 'movie';
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
+        this.props.actions.addItems(await this.props.getUserMoviesSettings([{...this.props}]));
     }
 
     /**

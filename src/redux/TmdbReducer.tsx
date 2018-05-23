@@ -26,7 +26,7 @@ const defaultState = {
     tmdbItems: new Array()
 };
 
-const addItem = (newState: any, item: any) => {
+const insertOrMergeItem = (newState: any, item: any) => {
     const itemState = newState.tmdbItems.find((value: any, index: number, arr: any[]) => {
         const sameItem = (value.id === item.id
             && item.media_type
@@ -34,25 +34,25 @@ const addItem = (newState: any, item: any) => {
         // Merge the new item with the old and return it.
         if (sameItem) {
             console.log('MERGE', item.media_type, item.id);
-            arr[index] = Object.assign({}, value, item);
+            arr[index] = {...value, ...item};
         }
         return sameItem;
     });
     if (!itemState) {
-        // console.log('INSERT', item.media_type, item.id);
+        console.log('INSERT', item.media_type, item.id);
         newState.tmdbItems.push(item);
     }
     return newState;
 };
 
 export function tmdbReducer(state: any = defaultState, action: any) {
-    let newState = Object.assign({}, state);
+    let newState = {...state};
     switch (action.type) {
         case ADD_ITEM:
-            return addItem(state, action.item);
+            return insertOrMergeItem(state, action.item);
         case ADD_ITEMS:
             action.items.forEach((item: any) => {
-                newState = addItem(newState, item);
+                newState = insertOrMergeItem(newState, item);
             });
             return newState;
         case SET_ITEMS:
@@ -110,7 +110,7 @@ export function mapTmdbTvStateToProps(state: any, ownProps: any) {
 
 function withItemsToProps(Function: any) {
     return (state: any, ownProps: any) => {
-        return Object.assign({}, Function(state, ownProps), {tmdbItems: state.tmdb.tmdbItems});
+        return {...(Function(state, ownProps)), tmdbItems: state.tmdb.tmdbItems};
     };
 }
 
