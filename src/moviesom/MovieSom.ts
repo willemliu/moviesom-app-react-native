@@ -66,7 +66,7 @@ export async function login(username: string, password: string): Promise<LoginRe
 }
 
 export async function loginWithToken(token: string): Promise<LoginResponseType> {
-    console.info('Login with credentials');
+    console.info('Login with token');
     const appType = `${Platform.OS} ${Platform.Version}`;
     const response = post('login', '', JSON.stringify({
         token,

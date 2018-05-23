@@ -1,5 +1,8 @@
 import React from 'react';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
+import { post } from '../moviesom/MovieSom';
+import { GetUsersMoviesSettings } from '../interfaces/Movie';
+import { AsyncStorage } from 'react-native';
 
 /**
  * Formats given minutes into `(n)h (n)m` format.
@@ -14,6 +17,24 @@ export const formatDuration = (minutes: number) => {
     const hours = Math.floor((minutes / 60)).toFixed(0);
     const mins = (minutes % 60).toFixed(0);
     return `${parseInt(hours, 10) ? `${hours}h ` : ''}${mins}m`;
+};
+
+export const getUserMoviesSettings = async (items: any[]) => {
+    const payload: GetUsersMoviesSettings = {
+        token: await AsyncStorage.getItem('loginToken'),
+        movie_tmdb_ids: []
+    };
+    payload.movie_tmdb_ids = items.filter((item) => {
+        return item.media_type === 'movie';
+    });
+    const response = await post(`getUserMoviesSettings`, '', JSON.stringify(payload)).then((data) => data.json());
+    console.log('getUserMoviesSettings', response.getUserMoviesSettings.status, response.getUserMoviesSettings.status === 200 ? response.getUserMoviesSettings.message.length : response.getUserMoviesSettings);
+    if (response.getUserMoviesSettings.status === 200 && response.getUserMoviesSettings && response.getUserMoviesSettings.message) {
+        response.getUserMoviesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
+            arr[idx].media_type = 'movie';
+        });
+    }
+    return response.getUserMoviesSettings.message;
 };
 
 /**
@@ -36,6 +57,7 @@ export const enhanceWithMovieSomFunctions = (Component: any) => (
                     getBackdropUrl={getBackdropUrl}
                     getProfileUrl={getProfileUrl}
                     getPosterUrl={getPosterUrl}
+                    getUserMoviesSettings={getUserMoviesSettings}
                 />
             );
         }

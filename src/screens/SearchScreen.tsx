@@ -26,6 +26,7 @@ export default class SearchScreen extends React.Component<any, any> {
                     searchText
                 });
             });
+            this.props.getUserMoviesSettings(this.props.searchItems).then((data: any) => { this.props.actions.addItems(data); });
         }
     }
 
@@ -61,6 +62,7 @@ export default class SearchScreen extends React.Component<any, any> {
         this.props.actions.addItems(results);
         this.props.searchActions.setSearchPage(page);
         this.props.searchActions.setSearchTotalPages(totalPages);
+        this.props.getUserMoviesSettings(results).then((data: any) => { this.props.actions.addItems(data); });
     }
 
     loadNextPage = async () => {

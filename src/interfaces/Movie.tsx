@@ -28,3 +28,10 @@ export interface MovieProps {
     character?: string;
     job?: string;
 }
+
+export interface GetUsersMoviesSettings {
+    token: string;
+    movie_ids?: [{id: string}]|any;
+    movie_tmdb_ids?: [{id: string}]|any;
+    movie_imdb_ids?: [{id: string}]|any;
+}

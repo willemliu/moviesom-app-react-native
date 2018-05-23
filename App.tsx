@@ -15,7 +15,7 @@ import { createStore, Store } from 'redux';
 import {Provider} from "react-redux";
 import { rootReducer } from './src/redux/rootReducer';
 import WebScreen from './src/screens/WebScreen';
-import { LOGIN } from './src/redux/login/LoginActions';
+import { LOGIN, LOGOUT } from './src/redux/login/LoginActions';
 import { DEVICE_ONLINE } from './src/redux/device/DeviceActions';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import HomeScreen from './src/screens/HomeScreen';
@@ -76,7 +76,7 @@ export default class App extends React.Component<any> {
             if (loginResult.login.status === 200) {
                 store.dispatch({type: LOGIN, loginToken: loginResult.login.loginToken});
             } else {
-                this.props.loginActions.logout();
+                store.dispatch({type: LOGOUT});
             }
         }
     }

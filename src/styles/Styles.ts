@@ -2,6 +2,7 @@ import { StyleSheet, Platform } from 'react-native';
 
 export const movieSomColor = '#008CBA';
 export const movieSomSecondaryColor = '#31C3E7';
+export const watchlistColor = '#f08a24';
 export const transparentColor = 'transparent';
 export const backgroundColor = '#fff';
 
