@@ -72,8 +72,10 @@ export default class App extends React.Component<any> {
         const loggedIn = await AsyncStorage.getItem('loggedIn');
         const loginToken = await AsyncStorage.getItem('loginToken');
         if (loggedIn) {
+            console.log('Initial token', loginToken);
             const loginResult = await loginWithToken(loginToken);
             if (loginResult.login.status === 200) {
+                console.log('New token', loginResult.login.loginToken);
                 store.dispatch({type: LOGIN, loginToken: loginResult.login.loginToken});
             } else {
                 store.dispatch({type: LOGOUT});

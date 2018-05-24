@@ -11,7 +11,8 @@ import { MovieProps } from '../interfaces/Movie';
 export interface Props extends MovieProps {
     handleOnPress: (props: any) => void;
     navigation: NavigationScreenProp<NavigationRoute>;
-    actions?: any;
+    actions: any;
+    loginToken: string;
     watched?: number;
     getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
 }
@@ -57,7 +58,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
             clearTimeout(SearchMovieResult.timeout);
         }
         SearchMovieResult.timeout = setTimeout(() => {
-            this.props.getUserMoviesSettings([...SearchMovieResult.queue]).then((data: any) => {
+            this.props.getUserMoviesSettings([...SearchMovieResult.queue], this.props.loginToken).then((data: any) => {
                 this.props.actions.addItems(data);
             });
             SearchMovieResult.queue = new Array();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
 import { post } from '../moviesom/MovieSom';
-import { GetUsersMoviesSettings } from '../interfaces/Movie';
+import { GetUserMoviesSettings, GetUserTvSettings } from '../interfaces/Movie';
 import { AsyncStorage } from 'react-native';
 
 /**
@@ -22,9 +22,9 @@ export const formatDuration = (minutes: number) => {
 /**
  * Retrieve User <-> movies settings.
  */
-export const getUserMoviesSettings = async (items: any[]) => {
-    const payload: GetUsersMoviesSettings = {
-        token: await AsyncStorage.getItem('loginToken'),
+export const getUserMoviesSettings = async (items: any[], loginToken: string) => {
+    const payload: GetUserMoviesSettings = {
+        token: loginToken,
         movie_tmdb_ids: []
     };
     payload.movie_tmdb_ids = items.filter((item) => {
@@ -32,6 +32,7 @@ export const getUserMoviesSettings = async (items: any[]) => {
     });
     const response = await post(`getUserMoviesSettings`, '', JSON.stringify(payload)).then((data) => data.json());
     console.log(`getUserMoviesSettings status=${response.getUserMoviesSettings.status}`, response.getUserMoviesSettings.status === 200 ? response.getUserMoviesSettings.message.length : response.getUserMoviesSettings);
+    console.log(payload.token);
     if (response.getUserMoviesSettings.status === 200 && response.getUserMoviesSettings && response.getUserMoviesSettings.message) {
         response.getUserMoviesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
             // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
@@ -43,6 +44,33 @@ export const getUserMoviesSettings = async (items: any[]) => {
         });
     }
     return response.getUserMoviesSettings.message;
+};
+
+/**
+ * Retrieve User <-> tv settings.
+ */
+export const getUserTvSettings = async (items: any[], loginToken: string) => {
+    const payload: GetUserTvSettings = {
+        token: loginToken,
+        tv_tmdb_ids: []
+    };
+    payload.tv_tmdb_ids = items.filter((item) => {
+        return item.media_type === 'tv';
+    });
+    const response = await post(`getUserTvSettings`, '', JSON.stringify(payload)).then((data) => data.json());
+    console.log(`getUserTvSettings status=${response.getUserTvSettings.status}`, response.getUserTvSettings.status === 200 ? response.getUserTvSettings.message.length : response.getUserTvSettings);
+    console.log(payload.token);
+    if (response.getUserTvSettings.status === 200 && response.getUserTvSettings && response.getUserTvSettings.message) {
+        response.getUserTvSettings.message.forEach((value: any, idx: number, arr: any[]) => {
+            // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
+            arr[idx].moviesom_id = parseInt(value.id, 10); // Parse to integer.
+            arr[idx].id = parseInt(value.tmdb_id, 10); // Parse to integer.
+            arr[idx].media_type = 'tv'; // Add a media_type because it doesn't have one.
+            arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
+            arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
+        });
+    }
+    return response.getUserTvSettings.message;
 };
 
 /**
@@ -66,6 +94,7 @@ export const enhanceWithMovieSomFunctions = (Component: any) => (
                     getProfileUrl={getProfileUrl}
                     getPosterUrl={getPosterUrl}
                     getUserMoviesSettings={getUserMoviesSettings}
+                    getUserTvSettings={getUserTvSettings}
                 />
             );
         }

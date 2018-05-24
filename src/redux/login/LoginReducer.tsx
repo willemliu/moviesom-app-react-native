@@ -12,9 +12,11 @@ export function loginReducer(state: any = defaultState, action: any) {
     switch (action.type) {
         case LOGIN:
             newState.loggedIn = true;
+            newState.loginToken = action.loginToken;
             return newState;
         case LOGOUT:
             newState.loggedIn = false;
+            newState.loginToken = null;
             AsyncStorage.removeItem('loggedIn');
             AsyncStorage.removeItem('loginToken');
             return newState;
@@ -25,7 +27,8 @@ export function loginReducer(state: any = defaultState, action: any) {
 
 export function mapLoginStateToProps(state: any, ownProps: any) {
     return {
-        loggedIn: state.login.loggedIn
+        loggedIn: state.login.loggedIn,
+        loginToken: state.login.loginToken
     };
 }
 

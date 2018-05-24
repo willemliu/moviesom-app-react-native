@@ -11,11 +11,15 @@ import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 export interface Props extends TvProps {
     handleOnPress: (props: any) => void;
     navigation: NavigationScreenProp<NavigationRoute>;
-    actions?: any;
+    actions: any;
+    loginToken: string;
     getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
 }
 
 export default class SearchTvResult extends React.PureComponent<Props, any> {
+    static queue: any[];
+    static timeout: NodeJS.Timer;
+
     state: any = {
         image: (
             <Image
@@ -35,12 +39,29 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
 
     constructor(props: any) {
         super(props);
+        this.queueGetUserTvSettings();
     }
 
     componentDidMount() {
         requestAnimationFrame(() => {
             this.loadImage(this.props.poster_path);
         });
+    }
+
+    queueGetUserTvSettings = () => {
+        if (!SearchTvResult.queue) {
+            SearchTvResult.queue = new Array();
+        }
+        SearchTvResult.queue.push(this.props);
+        if (SearchTvResult.timeout) {
+            clearTimeout(SearchTvResult.timeout);
+        }
+        SearchTvResult.timeout = setTimeout(() => {
+            this.props.getUserTvSettings([...SearchTvResult.queue], this.props.loginToken).then((data: any) => {
+                this.props.actions.addItems(data);
+            });
+            SearchTvResult.queue = new Array();
+        }, 300);
     }
 
     /**

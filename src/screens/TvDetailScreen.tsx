@@ -9,6 +9,7 @@ import { TvProps } from '../interfaces/Tv';
 
 export interface Props extends TvProps {
     actions: any;
+    loginToken: string;
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
@@ -23,11 +24,12 @@ export default class TvDetailScreen extends React.Component<Props, any> {
         scrollY: new Animated.Value(0),
     };
 
-    componentDidMount() {
-        this.getDetails();
+    constructor(props: Props) {
+        super(props);
         Dimensions.addEventListener('change', ({window, screen}) => { this.checkOrientation(window.width, window.height); });
         const {width, height} = Dimensions.get('window');
         this.checkOrientation(width, height);
+        this.getDetails();
     }
 
     checkOrientation = (width: number, height: number) => {
@@ -40,6 +42,7 @@ export default class TvDetailScreen extends React.Component<Props, any> {
         item.media_type = 'tv';
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
+        this.props.actions.addItems(await this.props.getUserTvSettings([{...this.props}], this.props.loginToken));
     }
 
     /**

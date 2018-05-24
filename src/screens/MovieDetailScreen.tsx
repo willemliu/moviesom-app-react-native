@@ -28,6 +28,7 @@ numeral.locale('nl_NL');
 
 export interface Props extends MovieProps {
     actions: any;
+    loginToken: string;
     navigation: any;
     watched?: any;
     formatDuration: any;
@@ -44,7 +45,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
         scrollY: new Animated.Value(0),
     };
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
         Dimensions.addEventListener('change', ({window, screen}) => { this.checkOrientation(window.width, window.height); });
         const {width, height} = Dimensions.get('window');
@@ -63,7 +64,7 @@ export default class MovieDetailScreen extends React.Component<Props, any> {
         item.media_type = 'movie';
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
-        this.props.actions.addItems(await this.props.getUserMoviesSettings([{...this.props}]));
+        this.props.actions.addItems(await this.props.getUserMoviesSettings([{...this.props}], this.props.loginToken));
     }
 
     /**

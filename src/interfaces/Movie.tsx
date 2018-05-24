@@ -27,12 +27,19 @@ export interface MovieProps {
     media_type?: string;
     character?: string;
     job?: string;
-    getUserMoviesSettings: (items: any[]) => Promise<any[]>;
+    getUserMoviesSettings: (items: any[], token: string) => Promise<any[]>;
 }
 
-export interface GetUsersMoviesSettings {
+export interface GetUserMoviesSettings {
     token: string;
     movie_ids?: [{id: string}]|any;
     movie_tmdb_ids?: [{id: string}]|any;
     movie_imdb_ids?: [{id: string}]|any;
+}
+
+export interface GetUserTvSettings {
+    token: string;
+    tv_ids?: [{id: string}]|any;
+    tv_tmdb_ids?: [{id: string}]|any;
+    tv_imdb_ids?: [{id: string}]|any;
 }

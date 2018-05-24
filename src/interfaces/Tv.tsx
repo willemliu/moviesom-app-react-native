@@ -28,4 +28,5 @@ export interface TvProps {
     vote_count?: number;
     character?: string;
     job?: string;
+    getUserTvSettings: (items: any[], loginToken: string) => Promise<any[]>;
 }

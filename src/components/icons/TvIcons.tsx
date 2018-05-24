@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, View, StyleProp, ViewStyle, Share } from 'react-native';
-import { movieSomColor, iconsStyle } from '../../styles/Styles';
+import { movieSomColor, iconsStyle, watchlistColor } from '../../styles/Styles';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import Touchable from '../Touchable';
 import { get } from '../../tmdb/TMDb';
 import { TvProps } from '../../interfaces/Tv';
+import { post } from '../../moviesom/MovieSom';
+import { AsyncStorage } from 'react-native';
 
 export interface LoginProps {
     loggedIn?: boolean;
@@ -20,7 +22,7 @@ export interface Props extends TvProps, LoginProps, DeviceProps {
     style?: StyleProp<ViewStyle>;
     actions?: any;
     navigation?: any;
-    watched?: number;
+    want_to_watch?: number;
     formatDuration?: any;
 }
 
@@ -32,6 +34,15 @@ export default class TvIcons extends React.Component<Props, any> {
         requestAnimationFrame(async () => {
             if (this.props.loggedIn) {
                 alert(`want to watch ${this.props.id}`);
+                const detailedItem = await get(`/tv/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+                detailedItem.media_type = this.props.media_type;
+                detailedItem.want_to_watch = this.props.want_to_watch ? 0 : 1;
+                detailedItem.tmdb_id = detailedItem.id; // Required value for backend
+                detailedItem.tmdb_rating = detailedItem.vote_average; // Required value for backend
+                detailedItem.tmdb_votes = detailedItem.vote_count; // Required value for backend
+                detailedItem.token = await AsyncStorage.getItem('loginToken');
+                this.props.actions.addItem(detailedItem);
+                await post(`setTvRatings,setUserTvWantToWatch`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
                 this.props.navigation.push('Login');
             }
@@ -72,7 +83,12 @@ export default class TvIcons extends React.Component<Props, any> {
                     style={{flex: 0}}
                     onPress={this.wantToWatchHandler}
                 >
-                    <View style={{padding: 5}}><MaterialIcons name="star-border" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
+                    <View style={{padding: 5}}>
+                        {this.props.want_to_watch ?
+                            <MaterialIcons name="star" size={this.props.size ? this.props.size : 32} color={watchlistColor}/> :
+                            <MaterialIcons name="star-border" size={this.props.size ? this.props.size : 32} color={movieSomColor}/>
+                        }
+                    </View>
                 </Touchable>
                 <Touchable
                     style={{flex: 0}}
