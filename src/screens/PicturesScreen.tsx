@@ -14,8 +14,6 @@ export default class PicturesScreen extends React.Component<any, any> {
         loadingPage: [],
     };
 
-    private loadingPage: number[] = [];
-
     componentDidMount() {
         this.refresh();
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PersonDetailScreen, FilmographyScreen, PicturesScreen } from '../redux/TmdbReducer';
-import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
+import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';

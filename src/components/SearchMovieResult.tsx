@@ -1,4 +1,4 @@
-import {View, Text, Image, Platform} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
@@ -17,6 +17,9 @@ export interface Props extends MovieProps {
 }
 
 export default class SearchMovieResult extends React.PureComponent<Props, any> {
+    static queue: any[];
+    static timeout: NodeJS.Timer;
+
     state: any = {
         image: (
             <Image
@@ -36,12 +39,29 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
 
     constructor(props: Props) {
         super(props);
+        this.queueGetUserMoviesSettings();
     }
 
     componentDidMount() {
         requestAnimationFrame(() => {
             this.loadImage(this.props.poster_path);
         });
+    }
+
+    queueGetUserMoviesSettings = () => {
+        if (!SearchMovieResult.queue) {
+            SearchMovieResult.queue = new Array();
+        }
+        SearchMovieResult.queue.push(this.props);
+        if (SearchMovieResult.timeout) {
+            clearTimeout(SearchMovieResult.timeout);
+        }
+        SearchMovieResult.timeout = setTimeout(() => {
+            this.props.getUserMoviesSettings([...SearchMovieResult.queue]).then((data: any) => {
+                this.props.actions.addItems(data);
+            });
+            SearchMovieResult.queue = new Array();
+        }, 300);
     }
 
     /**

@@ -25,8 +25,6 @@ export default class SettingsScreen extends React.Component<any, any> {
         const { navigation } = this.props;
         return (
             <View style={viewStyle.drawer}>
-                <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Home'))}>Home</TouchTextButton>
-
                 {this.props.loggedIn ? null : (
                     <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Login'))}>Login</TouchTextButton>
                 )}
@@ -46,8 +44,11 @@ export default class SettingsScreen extends React.Component<any, any> {
 
                 <TouchTextButton
                     style={{marginBottom: 10}}
-                    onPress={async () => await AsyncStorage.removeItem('store')}
-                >Clear DB</TouchTextButton>
+                    onPress={async () => {
+                        await AsyncStorage.removeItem('store');
+                        alert('Redux store cleared');
+                    }}
+                >Clear data store</TouchTextButton>
             </View>
         );
     }
