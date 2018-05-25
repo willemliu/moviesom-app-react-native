@@ -5,7 +5,7 @@ import { navigationParamsToProps } from '../utils/navigation';
 export interface Props {
     url: string;
 }
-class WebScreen extends React.Component<Props, any> {
+class WebScreen extends React.PureComponent<Props, any> {
     render() {
         return (
             <InlineWebView {...this.props}/>

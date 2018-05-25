@@ -4,7 +4,7 @@ import {viewStyle, textInputStyle, movieSomColor} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 import {login} from "../moviesom/MovieSom";
 
-export default class SignUpScreen extends React.Component<any, any> {
+export default class SignUpScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'Sign up',
     };

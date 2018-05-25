@@ -36,7 +36,7 @@ export interface Props extends MovieProps {
     getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
 }
 
-export default class MovieDetailScreen extends React.Component<Props, any> {
+export default class MovieDetailScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
         title: 'Movie Details',
     };

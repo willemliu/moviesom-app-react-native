@@ -10,7 +10,7 @@ interface State {
     loading?: boolean;
 }
 
-export default class LoginScreen extends React.Component<any, State> {
+export default class LoginScreen extends React.PureComponent<any, State> {
     static navigationOptions = {
         title: 'Login',
     };

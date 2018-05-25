@@ -10,7 +10,7 @@ export interface Props {
     canGoBack?: boolean;
 }
 
-export default class InlineWebView extends React.Component<Props, any> {
+export default class InlineWebView extends React.PureComponent<Props, any> {
     state: any = {
         loading: false
     };

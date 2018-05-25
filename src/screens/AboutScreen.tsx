@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import { viewStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
-export default class AboutScreen extends React.Component<any, any> {
+export default class AboutScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'About',
     };

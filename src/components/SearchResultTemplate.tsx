@@ -9,7 +9,7 @@ export interface Props {
     navigation: any;
 }
 
-export default class SearchResultTemplate extends React.Component<Props, any> {
+export default class SearchResultTemplate extends React.PureComponent<Props, any> {
     render() {
         let template;
         switch (this.props.media_type) {

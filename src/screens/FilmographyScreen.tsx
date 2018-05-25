@@ -3,7 +3,7 @@ import { Text, View, SectionList } from 'react-native';
 import {backgroundColor, searchScreenStyle, sectionListStyle} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 
-export default class FilmographyScreen extends React.Component<any, any> {
+export default class FilmographyScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'Filmography',
     };

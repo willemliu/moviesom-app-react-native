@@ -3,7 +3,7 @@ import { Text, View, SectionList } from 'react-native';
 import {backgroundColor, searchScreenStyle, sectionListStyle} from "../styles/Styles";
 import { SearchPersonResult } from '../redux/TmdbReducer';
 
-export default class CastAndCrewScreen extends React.Component<any, any> {
+export default class CastAndCrewScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'Cast & Crew',
     };

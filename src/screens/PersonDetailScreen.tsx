@@ -16,7 +16,7 @@ export interface Props extends PersonProps {
     getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
 }
 
-export default class DetailsScreen extends React.Component<Props, any> {
+export default class DetailsScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
         title: 'Person Details',
     };

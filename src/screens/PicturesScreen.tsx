@@ -3,7 +3,7 @@ import { Text, View, FlatList } from 'react-native';
 import {backgroundColor, searchScreenStyle, sectionListStyle} from "../styles/Styles";
 import { SearchPictureResult } from '../redux/TmdbReducer';
 
-export default class PicturesScreen extends React.Component<any, any> {
+export default class PicturesScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'Images',
     };

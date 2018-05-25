@@ -15,7 +15,7 @@ export interface Props extends TvProps {
     get: (route: string, uriParam: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
 }
-export default class TvDetailScreen extends React.Component<Props, any> {
+export default class TvDetailScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
         title: 'TV details',
     };

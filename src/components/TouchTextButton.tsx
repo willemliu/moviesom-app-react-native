@@ -10,7 +10,7 @@ export interface Props {
     textStyle?: StyleProp<TextStyle>;
 }
 
-export default class TouchTextButton extends React.Component<Props, any> {
+export default class TouchTextButton extends React.PureComponent<Props, any> {
     render() {
         return (
             <Touchable onPress={this.props.onPress}>

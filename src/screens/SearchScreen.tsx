@@ -3,7 +3,7 @@ import {Text, TextInput, View, FlatList, AsyncStorage} from 'react-native';
 import {viewStyle, searchScreenStyle, transparentColor, sectionListStyle} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 
-export default class SearchScreen extends React.Component<any, any> {
+export default class SearchScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'Search'
     };
