@@ -8,10 +8,6 @@ export default class FilmographyScreen extends React.PureComponent<any, any> {
         title: 'Filmography',
     };
 
-    componentDidMount() {
-        console.log('Filmography', this.props.id, this.props.title || this.props.name);
-    }
-
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     handleTvPress = (tmdbItem: any) => {

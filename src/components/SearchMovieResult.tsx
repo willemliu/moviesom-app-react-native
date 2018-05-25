@@ -91,7 +91,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                 });
             }, (e: any) => { console.error(e); });
         } else {
-            console.log('poster path not found', url);
+            console.log('movie poster path not found', url);
         }
     }
 

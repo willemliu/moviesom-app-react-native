@@ -8,39 +8,22 @@ export default class PicturesScreen extends React.PureComponent<any, any> {
         title: 'Images',
     };
 
-    state: any = {
-        refreshing: false,
-        items: [],
-        loadingPage: [],
-    };
-
-    componentDidMount() {
-        this.refresh();
-    }
-
-    refresh = () => {
-        this.setState({refreshing: true});
-        if (this.props.images) {
-            if (this.props.images.profiles.length) {
-                this.setState({
-                    page: 1,
-                    items: [...this.props.images.profiles]
-                });
-            }
-        }
-        this.setState({refreshing: false});
-    }
-
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     render() {
+        let items: any[] = [];
+        if (this.props.images) {
+            if (this.props.images.profiles.length) {
+                items = [...this.props.images.profiles];
+            }
+        }
         return (
             <View style={{flex: 1, backgroundColor}}>
                 <FlatList
-                    data={this.state.items}
+                    data={items}
                     ListEmptyComponent={<Text style={sectionListStyle.header}>No pictures</Text>}
                     style={[searchScreenStyle.flatList, {backgroundColor: 'black'}]}
-                    extraData={this.state.items}
+                    extraData={this.props.images}
                     keyExtractor={this.keyExtractor}
                     initialNumToRender={4}
                     renderItem={(data: any) => {
@@ -48,8 +31,6 @@ export default class PicturesScreen extends React.PureComponent<any, any> {
                             <SearchPictureResult style={{marginTop: 50, marginBottom: 50}} {...data.item}/>
                         );
                     }}
-                    refreshing={this.state.refreshing}
-                    onRefresh={this.refresh}
                 />
             </View>
         );

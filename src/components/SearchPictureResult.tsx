@@ -85,6 +85,8 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
                     )
                 });
             }, (e: any) => { console.error(e); });
+        } else {
+            console.log('profile path not found', url);
         }
     }
 
