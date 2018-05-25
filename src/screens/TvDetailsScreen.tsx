@@ -1,6 +1,6 @@
 import React from 'react';
-import { TvDetailScreen, CastAndCrewScreen } from '../redux/TmdbReducer';
-import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
+import { TvDetailScreen, CastAndCrewScreen, SeasonsScreen } from '../redux/TmdbReducer';
+import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
@@ -21,7 +21,7 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     }
   },
   Seasons: {
-    screen: CastAndCrewScreen,
+    screen: SeasonsScreen,
     navigationOptions: {
       title: 'Seasons',
       tabBarIcon: <MaterialIcons name="format-list-numbered" size={32} color='#fff'/>,
@@ -43,7 +43,6 @@ const tabNavigatorConfig: TabNavigatorConfig = {
       backgroundColor: '#fff'
     },
   },
-  backBehavior: 'none',
   navigationOptions: ({navigation}) => ({
     tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) !== true,
     animationEnabled: true

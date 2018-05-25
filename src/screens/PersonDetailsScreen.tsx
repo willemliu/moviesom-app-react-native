@@ -43,7 +43,6 @@ const tabNavigatorConfig: TabNavigatorConfig = {
       backgroundColor: '#fff'
     },
   },
-  backBehavior: 'none',
   navigationOptions: ({navigation}) => ({
     tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) !== true,
     animationEnabled: true

@@ -21,6 +21,8 @@ import SignUpScreen from '../screens/SignUpScreen';
 import PicturesScreen from '../screens/PicturesScreen';
 import SearchPictureResult from '../components/SearchPictureResult';
 import SettingsScreen from '../screens/SettingsScreen';
+import SeasonsScreen from '../screens/SeasonsScreen';
+import SearchSeasonResult from '../components/SearchSeasonResult';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -126,6 +128,9 @@ export {searchMovieResult as SearchMovieResult};
 const searchTvResult = connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchTvResult));
 export {searchTvResult as SearchTvResult};
 
+const searchSeasonResult = enhanceWithMovieSomFunctions(SearchSeasonResult);
+export {searchSeasonResult as SearchSeasonResult};
+
 const searchPersonResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
 
@@ -143,6 +148,9 @@ export {personDetailScreen as PersonDetailScreen};
 
 const castAndCrewScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
+
+const seasonsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonsScreen)));
+export {seasonsScreen as SeasonsScreen};
 
 const filmographyScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(FilmographyScreen));
 export {filmographyScreen as FilmographyScreen};
