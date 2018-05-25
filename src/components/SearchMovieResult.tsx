@@ -34,8 +34,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                 defaultSource={require('../../assets/eyecon256x256.png')}
                 source={require('../../assets/eyecon256x256.png')}
             />
-        ),
-        media_type: 'person'
+        )
     };
 
     constructor(props: Props) {

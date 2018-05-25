@@ -16,7 +16,7 @@ export interface Props extends TvProps {
     getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
 }
 
-export default class SearchTvResult extends React.PureComponent<Props, any> {
+export default class SearchEpisodeResult extends React.PureComponent<Props, any> {
     static queue: any[];
     static timeout: NodeJS.Timer;
 
@@ -38,7 +38,7 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
 
     constructor(props: any) {
         super(props);
-        this.queueGetUserTvSettings();
+        this.queueGetUserEpisodeSettings();
     }
 
     componentDidMount() {
@@ -47,19 +47,19 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
         });
     }
 
-    queueGetUserTvSettings = () => {
-        if (!SearchTvResult.queue) {
-            SearchTvResult.queue = new Array();
+    queueGetUserEpisodeSettings = () => {
+        if (!SearchEpisodeResult.queue) {
+            SearchEpisodeResult.queue = new Array();
         }
-        SearchTvResult.queue.push(this.props);
-        if (SearchTvResult.timeout) {
-            clearTimeout(SearchTvResult.timeout);
+        SearchEpisodeResult.queue.push(this.props);
+        if (SearchEpisodeResult.timeout) {
+            clearTimeout(SearchEpisodeResult.timeout);
         }
-        SearchTvResult.timeout = setTimeout(() => {
-            this.props.getUserTvSettings([...SearchTvResult.queue], this.props.loginToken).then((data: any) => {
+        SearchEpisodeResult.timeout = setTimeout(() => {
+            this.props.getUserTvSettings([...SearchEpisodeResult.queue], this.props.loginToken).then((data: any) => {
                 this.props.actions.addItems(data);
             });
-            SearchTvResult.queue = new Array();
+            SearchEpisodeResult.queue = new Array();
         }, 300);
     }
 
@@ -119,8 +119,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name ? this.props.name : this.props.original_name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
-                            {this.props.character ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
-                            {this.props.job ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>

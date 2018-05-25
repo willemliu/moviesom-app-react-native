@@ -28,6 +28,9 @@ export default class CastAndCrewScreen extends React.PureComponent<any, any> {
             if (this.props.credits.cast.length) {
                 sections.push({title: 'Cast', data: this.props.credits.cast});
             }
+            if (this.props.credits.guest_stars && this.props.credits.guest_stars.length) {
+                sections.push({title: 'Guest stars', data: this.props.credits.guest_stars});
+            }
             if (this.props.credits.crew.length) {
                 sections.push({title: 'Crew', data: this.props.credits.crew});
             }

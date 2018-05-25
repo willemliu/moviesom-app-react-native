@@ -19,6 +19,8 @@ import { LOGIN, LOGOUT } from './src/redux/login/LoginActions';
 import { DEVICE_ONLINE } from './src/redux/device/DeviceActions';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import HomeScreen from './src/screens/HomeScreen';
+import SeasonDetailsScreen from './src/screens/SeasonDetailsScreen';
+import EpisodeDetailsScreen from './src/screens/EpisodeDetailsScreen';
 
 console.disableYellowBox = true;
 
@@ -172,6 +174,12 @@ const StackNav = createStackNavigator({
     TvDetails: {
         screen: TvDetailsScreen,
     },
+    SeasonDetails: {
+        screen: SeasonDetailsScreen,
+    },
+    EpisodeDetails: {
+        screen: EpisodeDetailsScreen,
+    },
     PersonDetails: {
         screen: PersonDetailsScreen,
     },
@@ -209,6 +217,6 @@ const StackNav = createStackNavigator({
             tintColor: '#fff',
             textDecorationColor: '#fff',
         },
-headerTintColor: '#fff',
+        headerTintColor: '#fff',
   })
 });

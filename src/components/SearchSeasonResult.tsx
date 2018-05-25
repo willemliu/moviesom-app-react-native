@@ -1,6 +1,6 @@
 import {View, Text, Image} from 'react-native';
 import React from 'react';
-import { searchResultStyle } from '../styles/Styles';
+import {detailStyle, searchResultStyle} from '../styles/Styles';
 import Touchable from './Touchable';
 import { StyleProp } from 'react-native';
 import { ViewStyle } from 'react-native';
@@ -78,8 +78,11 @@ export default class SearchSeasonResult extends React.PureComponent<Props, any> 
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}>Season {this.props.season_number}</Text>
-                            <Text style={searchResultStyle.overview}>{format(this.props.air_date as string, 'DD-MM-YYYY')}</Text>
-                            <Text style={searchResultStyle.overview}>Episodes: {this.props.episode_count}</Text>
+                            <View style={detailStyle.metaView}>
+                                <Text style={detailStyle.metaText}>{format(this.props.air_date as string, 'DD-MM-YYYY')}</Text>
+                                <Text style={detailStyle.metaText}>Episodes: {this.props.episode_count}</Text>
+                            </View>
+                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
                         </View>
                     </View>
                 </View>

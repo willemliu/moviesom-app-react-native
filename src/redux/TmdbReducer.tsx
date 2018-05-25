@@ -23,6 +23,10 @@ import SearchPictureResult from '../components/SearchPictureResult';
 import SettingsScreen from '../screens/SettingsScreen';
 import SeasonsScreen from '../screens/SeasonsScreen';
 import SearchSeasonResult from '../components/SearchSeasonResult';
+import SearchEpisodeResult from '../components/SearchEpisodeResult';
+import EpisodesScreen from '../screens/EpisodesScreen';
+import SeasonDetailScreen from '../screens/SeasonDetailScreen';
+import EpisodeDetailScreen from '../screens/EpisodeDetailScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -131,6 +135,9 @@ export {searchTvResult as SearchTvResult};
 const searchSeasonResult = enhanceWithMovieSomFunctions(SearchSeasonResult);
 export {searchSeasonResult as SearchSeasonResult};
 
+const searchEpisodeResult = enhanceWithMovieSomFunctions(SearchEpisodeResult);
+export {searchEpisodeResult as SearchEpisodeResult};
+
 const searchPersonResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
 export {searchPersonResult as SearchPersonResult};
 
@@ -143,6 +150,12 @@ export {movieDetailScreen as MovieDetailScreen};
 const tvDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(TvDetailScreen)));
 export {tvDetailScreen as TvDetailScreen};
 
+const seasonDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonDetailScreen)));
+export {seasonDetailScreen as SeasonDetailScreen};
+
+const episodeDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(EpisodeDetailScreen)));
+export {episodeDetailScreen as EpisodeDetailScreen};
+
 const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(PersonDetailScreen)));
 export {personDetailScreen as PersonDetailScreen};
 
@@ -151,6 +164,9 @@ export {castAndCrewScreen as CastAndCrewScreen};
 
 const seasonsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonsScreen)));
 export {seasonsScreen as SeasonsScreen};
+
+const episodesScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(EpisodesScreen)));
+export {episodesScreen as EpisodesScreen};
 
 const filmographyScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(FilmographyScreen));
 export {filmographyScreen as FilmographyScreen};
