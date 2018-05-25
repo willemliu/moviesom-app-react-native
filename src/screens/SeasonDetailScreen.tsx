@@ -35,9 +35,9 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
     }
 
     getDetails = async () => {
-        console.log('Get tv details');
-        const item = await this.props.get(`/tv/${this.props.tv_id}/season${this.props.season_number}`, `append_to_response=${encodeURI('credits')}`).then((data) => data.json());
-        item.media_type = 'tv';
+        console.log('Get season details');
+        const item = await this.props.get(`/tv/${this.props.tv_id}/season/${this.props.season_number}`, `append_to_response=${encodeURI('credits')}`).then((data) => data.json());
+        item.media_type = 'season';
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
     }

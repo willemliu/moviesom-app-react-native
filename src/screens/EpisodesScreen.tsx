@@ -14,11 +14,11 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
-    handleEpisodePress = (season: any) => {
+    handleEpisodePress = (episode: any) => {
         requestAnimationFrame(() => {
-            if (season) {
-                console.log(season);
-                this.props.navigation.push('EpisodeDetails', season);
+            if (episode) {
+                console.log(episode);
+                this.props.navigation.push('EpisodeDetails', episode);
             }
         });
     }
@@ -38,6 +38,7 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
                         return (
                             <SearchEpisodeResult
                                 {...data.item}
+                                tv_id={this.props.tv_id}
                                 media_type='episode' // Setting this explicitly
                                 handleOnPress={this.handleEpisodePress}
                             />

@@ -113,6 +113,17 @@ export function mapTmdbTvStateToProps(state: any, ownProps: any) {
         })),
     };
 }
+export function mapTmdbEpisodeStateToProps(state: any, ownProps: any) {
+    return {
+        ...(state.tmdb.tmdbItems.find((value: any) => {
+            const result = (value.id === ownProps.id && value.media_type === 'episode')
+            || (ownProps.navigation
+                && value.id === ownProps.navigation.getParam('id')
+                && ownProps.navigation.getParam('media_type') === 'episode');
+            return result;
+        })),
+    };
+}
 
 function withItemsToProps(Function: any) {
     return (state: any, ownProps: any) => {
@@ -135,7 +146,7 @@ export {searchTvResult as SearchTvResult};
 const searchSeasonResult = enhanceWithMovieSomFunctions(SearchSeasonResult);
 export {searchSeasonResult as SearchSeasonResult};
 
-const searchEpisodeResult = enhanceWithMovieSomFunctions(SearchEpisodeResult);
+const searchEpisodeResult = connect(mapEpisodeStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchEpisodeResult));
 export {searchEpisodeResult as SearchEpisodeResult};
 
 const searchPersonResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPersonResult));
@@ -153,7 +164,7 @@ export {tvDetailScreen as TvDetailScreen};
 const seasonDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonDetailScreen)));
 export {seasonDetailScreen as SeasonDetailScreen};
 
-const episodeDetailScreen = navigationParamsToProps(connect(mapTvStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(EpisodeDetailScreen)));
+const episodeDetailScreen = navigationParamsToProps(connect(mapEpisodeStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(EpisodeDetailScreen)));
 export {episodeDetailScreen as EpisodeDetailScreen};
 
 const personDetailScreen = navigationParamsToProps(connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(PersonDetailScreen)));
@@ -222,6 +233,18 @@ function mapMovieStateToProps(state: any, ownProps: any) {
 function mapTvStateToProps(state: any, ownProps: any) {
     return {
         ...(mapTmdbTvStateToProps(state, ownProps)),
+        ...(mapDeviceStateToProps(state, ownProps)),
+        ...(mapLoginStateToProps(state, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux store episode states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapEpisodeStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapTmdbEpisodeStateToProps(state, ownProps)),
         ...(mapDeviceStateToProps(state, ownProps)),
         ...(mapLoginStateToProps(state, ownProps)),
     };

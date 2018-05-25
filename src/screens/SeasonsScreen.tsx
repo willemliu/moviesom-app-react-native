@@ -38,6 +38,7 @@ export default class SeasonsScreen extends React.PureComponent<any, any> {
                         return (
                             <SearchSeasonResult
                                 {...data.item}
+                                tv_id={this.props.id}
                                 media_type='season' // Setting this explicitly
                                 handleOnPress={this.handleSeasonPress}
                             />

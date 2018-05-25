@@ -3,12 +3,12 @@ import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { Feather } from '@expo/vector-icons';
-import TvIcons from './icons/TvIcons';
 import Touchable from './Touchable';
-import { TvProps } from '../interfaces/Tv';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import { EpisodeProps } from '../interfaces/Episode';
+import EpisodeIcons from './icons/EpisodeIcons';
 
-export interface Props extends TvProps {
+export interface Props extends EpisodeProps {
     handleOnPress: (props: any) => void;
     navigation: NavigationScreenProp<NavigationRoute>;
     actions: any;
@@ -43,7 +43,7 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
 
     componentDidMount() {
         requestAnimationFrame(() => {
-            this.loadImage(this.props.poster_path);
+            this.loadImage(this.props.still_path);
         });
     }
 
@@ -56,7 +56,7 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
             clearTimeout(SearchEpisodeResult.timeout);
         }
         SearchEpisodeResult.timeout = setTimeout(() => {
-            this.props.getUserTvSettings([...SearchEpisodeResult.queue], this.props.loginToken).then((data: any) => {
+            this.props.getUserEpisodeSettings([...SearchEpisodeResult.queue], this.props.loginToken).then((data: any) => {
                 this.props.actions.addItems(data);
             });
             SearchEpisodeResult.queue = new Array();
@@ -69,8 +69,8 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
      * When all conditions are met the `image` state is set with a JSX Element triggering
      * a re-render.
      */
-    loadImage = async (posterPath: string|null|undefined) => {
-        const url = await this.props.getPosterUrl(posterPath);
+    loadImage = async (stillPath: string|null|undefined) => {
+        const url = await this.props.getPosterUrl(stillPath);
         if (url) {
             Image.getSize(url, (width: number, height: number) => {
                 this.setState({
@@ -122,7 +122,7 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <TvIcons {...this.props}/>
+                    <EpisodeIcons {...this.props}/>
                 </View>
             </Touchable>
         );

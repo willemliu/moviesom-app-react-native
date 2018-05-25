@@ -43,3 +43,10 @@ export interface GetUserTvSettings {
     tv_tmdb_ids?: [{id: string}]|any;
     tv_imdb_ids?: [{id: string}]|any;
 }
+
+export interface GetUserEpisodeSettings {
+    token: string;
+    tv_episode_ids?: [{id: string}]|any;
+    tv_episode_tmdb_ids?: [{id: string}]|any;
+    tv_episode_imdb_ids?: [{id: string}]|any;
+}

@@ -66,11 +66,37 @@ export const getUserTvSettings = async (items: any[], loginToken: string) => {
             arr[idx].moviesom_id = parseInt(value.id, 10); // Parse to integer.
             arr[idx].id = parseInt(value.tmdb_id, 10); // Parse to integer.
             arr[idx].media_type = 'tv'; // Add a media_type because it doesn't have one.
-            arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
             arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
         });
     }
     return response.getUserTvSettings.message;
+};
+
+/**
+ * Retrieve User <-> episode settings.
+ */
+export const getUserEpisodeSettings = async (items: any[], loginToken: string) => {
+    const payload: GetUserEpisodeSettings = {
+        token: loginToken,
+        tv_episode_tmdb_ids: []
+    };
+    payload.tv_episode_tmdb_ids = items.filter((item) => {
+        return item.media_type === 'episode';
+    });
+    const response = await post(`getUserTvEpisodesSettings`, '', JSON.stringify(payload)).then((data) => data.json());
+    console.log(`getUserTvEpisodesSettings status=${response.getUserTvEpisodesSettings.status}`, response.getUserTvEpisodesSettings.status === 200 ? response.getUserTvEpisodesSettings.message.length : response.getUserTvEpisodesSettings);
+    console.log(payload.token);
+    if (response.getUserTvEpisodesSettings.status === 200 && response.getUserTvEpisodesSettings && response.getUserTvEpisodesSettings.message) {
+        response.getUserTvEpisodesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
+            // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
+            arr[idx].moviesom_id = parseInt(value.id, 10); // Parse to integer.
+            arr[idx].id = parseInt(value.episode_tmdb_id, 10); // Parse to integer.
+            arr[idx].media_type = 'episode'; // Add a media_type because it doesn't have one.
+            arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
+            arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
+        });
+    }
+    return response.getUserTvEpisodesSettings.message;
 };
 
 /**
@@ -95,6 +121,7 @@ export const enhanceWithMovieSomFunctions = (Component: any) => (
                     getPosterUrl={getPosterUrl}
                     getUserMoviesSettings={getUserMoviesSettings}
                     getUserTvSettings={getUserTvSettings}
+                    getUserEpisodeSettings={getUserEpisodeSettings}
                 />
             );
         }
