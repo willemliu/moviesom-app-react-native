@@ -1,7 +1,7 @@
 import React from 'react';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
 import { post } from '../moviesom/MovieSom';
-import { GetUserMoviesSettings, GetUserTvSettings } from '../interfaces/Movie';
+import {GetUserEpisodeSettings, GetUserMoviesSettings, GetUserTvSettings} from '../interfaces/Movie';
 import { AsyncStorage } from 'react-native';
 
 /**
@@ -90,7 +90,9 @@ export const getUserEpisodeSettings = async (items: any[], loginToken: string) =
         response.getUserTvEpisodesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
             // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
             arr[idx].moviesom_id = parseInt(value.id, 10); // Parse to integer.
+            arr[idx].moviesom_tv_id = parseInt(value.tv_id, 10); // Parse to integer.
             arr[idx].id = parseInt(value.episode_tmdb_id, 10); // Parse to integer.
+            arr[idx].tv_id = parseInt(value.tmdb_tv_id, 10); // Parse to integer.
             arr[idx].media_type = 'episode'; // Add a media_type because it doesn't have one.
             arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
             arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.

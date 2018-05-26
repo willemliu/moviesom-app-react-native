@@ -104,6 +104,9 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
                             <Text style={detailStyle.title}>{this.props.name}</Text>
                             <View style={detailStyle.metaView}>
                                 <Text>META</Text>
+                                <Text>id: {this.props.id}</Text>
+                                <Text>tv id: {this.props.tv_id}</Text>
+                                <Text>Season: {this.props.season_number}</Text>
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                         </View>

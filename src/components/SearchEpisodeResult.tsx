@@ -38,6 +38,7 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
 
     constructor(props: any) {
         super(props);
+        this.props.actions.addItem(this.props);
         this.queueGetUserEpisodeSettings();
     }
 
@@ -91,24 +92,6 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
         }
     }
 
-    wantToWatch = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`want to watch ${this.props.id}`);
-        } else {
-            this.props.navigation.push('Login');
-        }
-    }
-
-    share = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`share ${this.props.id}`);
-        } else {
-            this.props.navigation.push('Login');
-        }
-    }
-
     render() {
         return (
             <Touchable onPress={this.props.handleOnPress}>
@@ -118,6 +101,11 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
+                            <Text>id: {this.props.id}</Text>
+                            <Text>tv id: {this.props.tv_id}</Text>
+                            <Text>season: {this.props.season_number}</Text>
+                            <Text>episode: {this.props.episode_number}</Text>
+
                             <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name ? this.props.name : this.props.original_name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>

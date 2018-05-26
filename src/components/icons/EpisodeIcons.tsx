@@ -36,15 +36,19 @@ export default class EpisodeIcons extends React.Component<Props, any> {
     watchedHandler = () => {
         requestAnimationFrame(async () => {
             if (this.props.loggedIn) {
-                const detailedItem = await get(`/tv/${this.props.tv_id}/season/${this.props.season_number}/episode/${this.props.episode_number}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+                const detailedItem = await get(`/tv/${this.props.tv_id}/season/${this.props.season_number}/episode/${this.props.episode_number}`, `append_to_response=${encodeURI('credits,external_ids')}`).then((data) => data.json());
                 detailedItem.media_type = this.props.media_type;
                 detailedItem.watched = this.props.watched ? this.props.watched + 1 : 1;
+                detailedItem.imdb_id = detailedItem.external_ids.imdb_id; // Required value for backend
                 detailedItem.tmdb_id = detailedItem.id; // Required value for backend
+                detailedItem.tv_id = this.props.tv_id; // Required value for backend
+                detailedItem.tmdb_tv_id = this.props.tv_id; // Required value for backend
+                detailedItem.title = detailedItem.name; // Required value for backend
                 detailedItem.tmdb_rating = detailedItem.vote_average; // Required value for backend
                 detailedItem.tmdb_votes = detailedItem.vote_count; // Required value for backend
                 detailedItem.token = await AsyncStorage.getItem('loginToken');
                 this.props.actions.addItem(detailedItem);
-                await post(`setMovieRatings,setUserMovieWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
+                await post(`setTvEpisodeRatings,setUserTvEpisodeWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
                 this.props.navigation.push('Login');
             }
@@ -54,15 +58,19 @@ export default class EpisodeIcons extends React.Component<Props, any> {
     unWatchedHandler = () => {
         requestAnimationFrame(async () => {
             if (this.props.loggedIn) {
-                const detailedItem = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+                const detailedItem = await get(`/tv/${this.props.tv_id}/season/${this.props.season_number}/episode/${this.props.episode_number}`, `append_to_response=${encodeURI('credits,external_ids')}`).then((data) => data.json());
                 detailedItem.media_type = this.props.media_type;
                 detailedItem.watched = this.props.watched ? this.props.watched - 1 : 0;
+                detailedItem.imdb_id = detailedItem.external_ids.imdb_id; // Required value for backend
                 detailedItem.tmdb_id = detailedItem.id; // Required value for backend
+                detailedItem.tv_id = this.props.tv_id; // Required value for backend
+                detailedItem.tmdb_tv_id = this.props.tv_id; // Required value for backend
+                detailedItem.title = detailedItem.name; // Required value for backend
                 detailedItem.tmdb_rating = detailedItem.vote_average; // Required value for backend
                 detailedItem.tmdb_votes = detailedItem.vote_count; // Required value for backend
                 detailedItem.token = await AsyncStorage.getItem('loginToken');
                 this.props.actions.addItem(detailedItem);
-                await post(`setMovieRatings,setUserMovieWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
+                await post(`setTvEpisodeRatings,setUserTvEpisodeWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
                 this.props.navigation.push('Login');
             }
@@ -72,15 +80,19 @@ export default class EpisodeIcons extends React.Component<Props, any> {
     wantToWatchHandler = () => {
         requestAnimationFrame(async () => {
             if (this.props.loggedIn) {
-                const detailedItem = await get(`/movie/${this.props.id}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
+                const detailedItem = await get(`/tv/${this.props.tv_id}/season/${this.props.season_number}/episode/${this.props.episode_number}`, `append_to_response=${encodeURI('credits,external_ids')}`).then((data) => data.json());
                 detailedItem.media_type = this.props.media_type;
                 detailedItem.want_to_watch = this.props.want_to_watch ? 0 : 1;
+                detailedItem.imdb_id = detailedItem.external_ids.imdb_id; // Required value for backend
                 detailedItem.tmdb_id = detailedItem.id; // Required value for backend
+                detailedItem.tv_id = this.props.tv_id; // Required value for backend
+                detailedItem.tmdb_tv_id = this.props.tv_id; // Required value for backend
+                detailedItem.title = detailedItem.name; // Required value for backend
                 detailedItem.tmdb_rating = detailedItem.vote_average; // Required value for backend
                 detailedItem.tmdb_votes = detailedItem.vote_count; // Required value for backend
                 detailedItem.token = await AsyncStorage.getItem('loginToken');
                 this.props.actions.addItem(detailedItem);
-                await post(`setMovieRatings,setUserMovieWantToWatch`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
+                await post(`setTvEpisodeRatings,setUserTvEpisodeWantToWatch`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
                 this.props.navigation.push('Login');
             }

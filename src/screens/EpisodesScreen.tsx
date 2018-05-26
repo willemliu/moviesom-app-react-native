@@ -9,7 +9,7 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
     };
 
     componentDidMount() {
-        console.log('Episodes', this.props.id, this.props.title || this.props.name);
+        console.log('Episodes', this.props.id, this.props.title || this.props.name, this.props.tv_id);
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
@@ -17,7 +17,6 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
     handleEpisodePress = (episode: any) => {
         requestAnimationFrame(() => {
             if (episode) {
-                console.log(episode);
                 this.props.navigation.push('EpisodeDetails', episode);
             }
         });
@@ -38,6 +37,7 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
                         return (
                             <SearchEpisodeResult
                                 {...data.item}
+                                navigation={this.props.navigation}
                                 tv_id={this.props.tv_id}
                                 media_type='episode' // Setting this explicitly
                                 handleOnPress={this.handleEpisodePress}
