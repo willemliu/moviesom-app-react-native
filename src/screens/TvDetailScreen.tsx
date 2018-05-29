@@ -13,7 +13,7 @@ export interface Props extends TvProps {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
-    getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
+    getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 export default class TvDetailScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
@@ -94,7 +94,7 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor}}
+                    style={{backgroundColor, height: '100%'}}
                 >
                     <Text
                         style={{

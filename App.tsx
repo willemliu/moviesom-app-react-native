@@ -5,11 +5,11 @@ import { LoginScreen, SignUpScreen } from './src/redux/TmdbReducer';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import {headerStyle, viewStyle} from "./src/styles/Styles";
-import PersonDetailsScreen from './src/screens/PersonDetailsScreen';
+import PersonDetailsNav from './src/screens/PersonDetailsNav';
 import {getConfig as getTmdbConfig} from './src/tmdb/TMDb';
 import {getConfig as getMovieSomConfig, loginWithToken} from './src/moviesom/MovieSom';
-import MovieDetailsScreen from './src/screens/MovieDetailsScreen';
-import TvDetailsScreen from './src/screens/TvDetailsScreen';
+import MovieDetailsNav from './src/screens/MovieDetailsNav';
+import TvDetailsNav from './src/screens/TvDetailsNav';
 import TouchTextButton from './src/components/TouchTextButton';
 import { createStore, Store } from 'redux';
 import {Provider} from "react-redux";
@@ -18,9 +18,9 @@ import WebScreen from './src/screens/WebScreen';
 import { LOGIN, LOGOUT } from './src/redux/login/LoginActions';
 import { DEVICE_ONLINE } from './src/redux/device/DeviceActions';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import HomeScreen from './src/screens/HomeScreen';
-import SeasonDetailsScreen from './src/screens/SeasonDetailsScreen';
-import EpisodeDetailsScreen from './src/screens/EpisodeDetailsScreen';
+import HomeNav from './src/screens/HomeNav';
+import SeasonDetailsNav from './src/screens/SeasonDetailsNav';
+import EpisodeDetailsNav from './src/screens/EpisodeDetailsNav';
 
 console.disableYellowBox = true;
 
@@ -163,25 +163,25 @@ export default class App extends React.Component<any> {
 
 const StackNav = createStackNavigator({
     Home: {
-        screen: HomeScreen,
+        screen: HomeNav,
     },
     About: {
         screen: AboutScreen,
     },
     MovieDetails: {
-        screen: MovieDetailsScreen,
+        screen: MovieDetailsNav,
     },
     TvDetails: {
-        screen: TvDetailsScreen,
+        screen: TvDetailsNav,
     },
     SeasonDetails: {
-        screen: SeasonDetailsScreen,
+        screen: SeasonDetailsNav,
     },
     EpisodeDetails: {
-        screen: EpisodeDetailsScreen,
+        screen: EpisodeDetailsNav,
     },
     PersonDetails: {
-        screen: PersonDetailsScreen,
+        screen: PersonDetailsNav,
     },
     Donate: {
         screen: WebScreen,

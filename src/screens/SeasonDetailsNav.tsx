@@ -1,5 +1,5 @@
 import React from 'react';
-import { TvDetailScreen, CastAndCrewScreen, SeasonsScreen } from '../redux/TmdbReducer';
+import {CastAndCrewScreen, EpisodesScreen, SeasonDetailScreen} from '../redux/TmdbReducer';
 import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
@@ -7,10 +7,17 @@ import { Platform } from 'react-native';
 
 const navigationRouteConfigMap: NavigationRouteConfigMap = {
   DetailsScreen: {
-    screen: TvDetailScreen,
+    screen: SeasonDetailScreen,
     navigationOptions: {
-      title: 'TV details',
+      title: 'Season details',
       tabBarIcon: <MaterialIcons name="info-outline" size={32} color='#fff'/>,
+    }
+  },
+  Episodes: {
+    screen: EpisodesScreen,
+    navigationOptions: {
+      title: 'Episodes',
+      tabBarIcon: <MaterialIcons name="format-list-numbered" size={32} color='#fff'/>,
     }
   },
   CastAndCrew: {
@@ -18,13 +25,6 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     navigationOptions: {
       title: 'Cast & Crew',
       tabBarIcon: <MaterialIcons name="people-outline" size={32} color='#fff'/>,
-    }
-  },
-  Seasons: {
-    screen: SeasonsScreen,
-    navigationOptions: {
-      title: 'Seasons',
-      tabBarIcon: <MaterialIcons name="format-list-numbered" size={32} color='#fff'/>,
     }
   },
 };
@@ -49,11 +49,11 @@ const tabNavigatorConfig: TabNavigatorConfig = {
   }),
 };
 
-let TvDetailsTabNav;
+let SeasonDetailsTabNav;
 if (Platform.OS === 'android') {
-    TvDetailsTabNav = createMaterialTopTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+    SeasonDetailsTabNav = createMaterialTopTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
 } else {
-    TvDetailsTabNav = createBottomTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
+    SeasonDetailsTabNav = createBottomTabNavigator(navigationRouteConfigMap, tabNavigatorConfig);
 }
 
-export default TvDetailsTabNav;
+export default SeasonDetailsTabNav;

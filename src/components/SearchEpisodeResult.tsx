@@ -7,13 +7,15 @@ import Touchable from './Touchable';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { EpisodeProps } from '../interfaces/Episode';
 import EpisodeIcons from './icons/EpisodeIcons';
+import { ActivityIndicator } from 'react-native';
 
 export interface Props extends EpisodeProps {
-    handleOnPress: (props: any) => void;
-    navigation: NavigationScreenProp<NavigationRoute>;
-    actions: any;
+    handleOnPress?: (props: any) => void;
+    navigation?: NavigationScreenProp<NavigationRoute>;
+    actions?: any;
+    loggedIn?: boolean;
     loginToken: string;
-    getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
+    getPosterUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 
 export default class SearchEpisodeResult extends React.PureComponent<Props, any> {
@@ -45,6 +47,18 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
         requestAnimationFrame(() => {
             this.loadImage(this.props.still_path);
         });
+    }
+
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
+        if (!prevProps.loggedIn && this.props.loggedIn) {
+            this.setState({loadingUserSettings: true});
+            requestAnimationFrame(() => {
+                this.queueGetUserEpisodeSettings();
+            });
+        }
+        if (SearchEpisodeResult.queue.length === 0) {
+            this.setState({loadingUserSettings: false});
+        }
     }
 
     queueGetUserEpisodeSettings = () => {
@@ -100,16 +114,11 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text>id: {this.props.id}</Text>
-                            <Text>tv id: {this.props.tv_id}</Text>
-                            <Text>season: {this.props.season_number}</Text>
-                            <Text>episode: {this.props.episode_number}</Text>
-
                             <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <EpisodeIcons {...this.props}/>
+                    {this.state.loadingUserSettings ? <ActivityIndicator size='small' color='#009688' style={{flex: 1}}/> : <EpisodeIcons {...this.props}/>}
                 </View>
             </Touchable>
         );

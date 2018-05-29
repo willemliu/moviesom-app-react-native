@@ -17,7 +17,6 @@ export default class SeasonsScreen extends React.PureComponent<any, any> {
     handleSeasonPress = (season: any) => {
         requestAnimationFrame(() => {
             if (season) {
-                console.log(season);
                 this.props.navigation.push('SeasonDetails', season);
             }
         });
@@ -40,6 +39,7 @@ export default class SeasonsScreen extends React.PureComponent<any, any> {
                                 {...data.item}
                                 tv_id={this.props.id}
                                 media_type='season' // Setting this explicitly
+                                navigation={this.props.navigation}
                                 handleOnPress={this.handleSeasonPress}
                             />
                         );

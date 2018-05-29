@@ -7,13 +7,15 @@ import TvIcons from './icons/TvIcons';
 import Touchable from './Touchable';
 import { TvProps } from '../interfaces/Tv';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
+import { ActivityIndicator } from 'react-native';
 
 export interface Props extends TvProps {
-    handleOnPress: (props: any) => void;
+    handleOnPress?: (props: any) => void;
     navigation: NavigationScreenProp<NavigationRoute>;
-    actions: any;
+    actions?: any;
     loginToken: string;
-    getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
+    loggedIn?: boolean;
+    getPosterUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 
 export default class SearchTvResult extends React.PureComponent<Props, any> {
@@ -45,6 +47,18 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
         requestAnimationFrame(() => {
             this.loadImage(this.props.poster_path);
         });
+    }
+
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
+        if (!prevProps.loggedIn && this.props.loggedIn) {
+            this.setState({loadingUserSettings: true});
+            requestAnimationFrame(() => {
+                this.queueGetUserTvSettings();
+            });
+        }
+        if (SearchTvResult.queue.length === 0) {
+            this.setState({loadingUserSettings: false});
+        }
     }
 
     queueGetUserTvSettings = () => {
@@ -124,7 +138,7 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <TvIcons {...this.props}/>
+                    {this.state.loadingUserSettings ? <ActivityIndicator size='small' color='#009688' style={{flex: 1}}/> : <TvIcons {...this.props}/>}
                 </View>
             </Touchable>
         );

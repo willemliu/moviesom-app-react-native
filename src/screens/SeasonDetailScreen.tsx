@@ -11,7 +11,7 @@ export interface Props extends SeasonProps {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
-    getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
+    getPosterUrl: (imagePath: string|null|undefined, quality?: number) => Promise<any>;
 }
 export default class SeasonDetailScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
@@ -38,7 +38,7 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
         console.log('Get season details');
         const item = await this.props.get(`/tv/${this.props.tv_id}/season/${this.props.season_number}`, `append_to_response=${encodeURI('credits')}`).then((data) => data.json());
         item.media_type = 'season';
-        await this.loadImage(item.backdrop_path);
+        await this.loadImage(item.poster_path);
         this.props.actions.addItem(item);
     }
 
@@ -49,7 +49,7 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
      * a re-render.
      */
     loadImage = async (imagePath: string|null|undefined) => {
-        const imageUrl = await this.props.getBackdropUrl(imagePath);
+        const imageUrl = await this.props.getPosterUrl(imagePath, 3);
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {
                 this.setState({imageUrl});
@@ -91,7 +91,7 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor}}
+                    style={{backgroundColor, height: '100%'}}
                 >
                     <Text
                         style={{
@@ -104,9 +104,6 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
                             <Text style={detailStyle.title}>{this.props.name}</Text>
                             <View style={detailStyle.metaView}>
                                 <Text>META</Text>
-                                <Text>id: {this.props.id}</Text>
-                                <Text>tv id: {this.props.tv_id}</Text>
-                                <Text>Season: {this.props.season_number}</Text>
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                         </View>

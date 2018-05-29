@@ -11,7 +11,7 @@ export interface Props extends EpisodeProps {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
-    getBackdropUrl: (backdropPath: string|null|undefined) => Promise<any>;
+    getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 export default class EpisodeDetailScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
@@ -38,7 +38,7 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
         console.log('Get episode details');
         const item = await this.props.get(`/tv/${this.props.tv_id}/season/${this.props.season_number}/episode/${this.props.episode_number}`, `append_to_response=${encodeURI('videos,credits,alternative_titles')}`).then((data) => data.json());
         item.media_type = 'episode';
-        await this.loadImage(item.backdrop_path);
+        await this.loadImage(item.still_path);
         this.props.actions.addItem(item);
         this.props.actions.addItems(await this.props.getUserEpisodeSettings([{...this.props}], this.props.loginToken));
     }
@@ -92,7 +92,7 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor}}
+                    style={{backgroundColor, height: '100%'}}
                 >
                     <Text
                         style={{

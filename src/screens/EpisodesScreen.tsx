@@ -15,7 +15,6 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     handleEpisodePress = (episode: any) => {
-        console.log('Handle Episode press');
         requestAnimationFrame(() => {
             if (episode) {
                 this.props.navigation.push('EpisodeDetails', episode);
@@ -40,6 +39,7 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
                                 {...data.item}
                                 tv_id={this.props.tv_id}
                                 media_type='episode' // Setting this explicitly
+                                navigation={this.props.navigation}
                                 handleOnPress={this.handleEpisodePress}
                             />
                         );

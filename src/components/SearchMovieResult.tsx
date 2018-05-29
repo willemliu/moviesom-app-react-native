@@ -7,14 +7,16 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Touchable from './Touchable';
 import MovieIcons from './icons/MovieIcons';
 import { MovieProps } from '../interfaces/Movie';
+import { ActivityIndicator } from 'react-native';
 
 export interface Props extends MovieProps {
-    handleOnPress: (props: any) => void;
-    navigation: NavigationScreenProp<NavigationRoute>;
-    actions: any;
+    handleOnPress?: (props: any) => void;
+    navigation?: NavigationScreenProp<NavigationRoute>;
+    actions?: any;
     loginToken: string;
+    loggedIn?: boolean;
     watched?: number;
-    getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
+    getPosterUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 
 export default class SearchMovieResult extends React.PureComponent<Props, any> {
@@ -46,6 +48,18 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
         requestAnimationFrame(() => {
             this.loadImage(this.props.poster_path);
         });
+    }
+
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
+        if (!prevProps.loggedIn && this.props.loggedIn) {
+            this.setState({loadingUserSettings: true});
+            requestAnimationFrame(() => {
+                this.queueGetUserMoviesSettings();
+            });
+        }
+        if (SearchMovieResult.queue.length === 0) {
+            this.setState({loadingUserSettings: false});
+        }
     }
 
     queueGetUserMoviesSettings = () => {
@@ -109,7 +123,7 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
-                    <MovieIcons {...this.props as any}/>
+                    {this.state.loadingUserSettings ? <ActivityIndicator size='small' color='#009688' style={{flex: 1}}/> : <MovieIcons {...this.props as any}/>}
                 </View>
             </Touchable>
         );

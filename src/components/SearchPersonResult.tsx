@@ -9,7 +9,7 @@ import { StyleProp } from 'react-native';
 import { ViewStyle } from 'react-native';
 
 export interface Props extends PersonProps {
-    getProfileUrl: (posterPath: string|null|undefined) => Promise<any>;
+    getProfileUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
     handleOnPress: (props: any) => void;
     style?: StyleProp<ViewStyle>;
 }

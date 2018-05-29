@@ -38,11 +38,11 @@ async function clearLocalConfiguration() {
     await AsyncStorage.removeItem('tmdbConfig');
 }
 
-export async function getPosterUrl(posterPath: string|null|undefined) {
+export async function getPosterUrl(posterPath: string|null|undefined, quality: number = 0) {
     // console.log('Get poster url', posterPath);
     if (!posterPath) { return null; }
     const configuration = await getConfig();
-    return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[0]}${posterPath}`;
+    return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[quality]}${posterPath}`;
 }
 
 export async function getProfileUrl(profilePath: string|null|undefined, quality: number = 0) {
@@ -52,9 +52,9 @@ export async function getProfileUrl(profilePath: string|null|undefined, quality:
     return `${configuration.images.secure_base_url}${configuration.images.poster_sizes[quality]}${profilePath}`;
 }
 
-export async function getBackdropUrl(backdropPath: string|null|undefined) {
+export async function getBackdropUrl(backdropPath: string|null|undefined, quality: number = 1) {
     console.log('Get backdrop url', backdropPath);
     if (!backdropPath) { return null; }
     const configuration = await getConfig();
-    return `${configuration.images.secure_base_url}${configuration.images.backdrop_sizes[1]}${backdropPath}`;
+    return `${configuration.images.secure_base_url}${configuration.images.backdrop_sizes[quality]}${backdropPath}`;
 }

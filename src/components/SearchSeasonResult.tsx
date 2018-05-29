@@ -8,7 +8,7 @@ import {SeasonProps} from "../interfaces/Season";
 import {format} from "date-fns";
 
 export interface Props extends SeasonProps {
-    getPosterUrl: (posterPath: string|null|undefined) => Promise<any>;
+    getPosterUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
     handleOnPress: (props: any) => void;
     style?: StyleProp<ViewStyle>;
 }
@@ -24,8 +24,8 @@ export default class SearchSeasonResult extends React.PureComponent<Props, any> 
                 }}
                 resizeMode='cover'
                 loadingIndicatorSource={require('../../assets/eyecon256x256.png')}
-                defaultSource={require('../../assets/eyecon56x56.png')}
-                source={require('../../assets/eyecon56x56.png')}
+                defaultSource={require('../../assets/eyecon256x256.png')}
+                source={require('../../assets/eyecon256x256.png')}
             />
         ),
     };
@@ -57,7 +57,7 @@ export default class SearchSeasonResult extends React.PureComponent<Props, any> 
                                 width: 56,
                                 height: 83,
                             }}
-                            loadingIndicatorSource={require('../../assets/eyecon256x256.png')}
+                            loadingIndicatorSource={require('../../assets/eyecon56x56.png')}
                             resizeMode='cover'
                             defaultSource={require('../../assets/eyecon56x56.png')}
                             source={{uri: url}}
@@ -78,11 +78,10 @@ export default class SearchSeasonResult extends React.PureComponent<Props, any> 
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}>Season {this.props.season_number}</Text>
-                            <View style={detailStyle.metaView}>
+                            <View style={[detailStyle.metaView, {margin: 5}]}>
                                 <Text style={detailStyle.metaText}>{format(this.props.air_date as string, 'DD-MM-YYYY')}</Text>
                                 <Text style={detailStyle.metaText}>Episodes: {this.props.episode_count}</Text>
                             </View>
-                            <Text style={searchResultStyle.overview}>{this.props.overview}</Text>
                         </View>
                     </View>
                 </View>
