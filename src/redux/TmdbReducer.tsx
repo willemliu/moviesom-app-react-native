@@ -176,7 +176,7 @@ export {castAndCrewScreen as CastAndCrewScreen};
 const seasonsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonsScreen)));
 export {seasonsScreen as SeasonsScreen};
 
-const episodesScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(EpisodesScreen)));
+const episodesScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(EpisodesScreen));
 export {episodesScreen as EpisodesScreen};
 
 const filmographyScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(FilmographyScreen));

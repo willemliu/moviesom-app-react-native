@@ -15,6 +15,7 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
 
     handleEpisodePress = (episode: any) => {
+        console.log('Handle Episode press');
         requestAnimationFrame(() => {
             if (episode) {
                 this.props.navigation.push('EpisodeDetails', episode);
@@ -29,7 +30,7 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
                     data={this.props.episodes}
                     ListEmptyComponent={<Text style={sectionListStyle.header}>No episodes</Text>}
                     style={[searchScreenStyle.flatList, {backgroundColor}]}
-                    extraData={this.props.seasons}
+                    extraData={this.props.episodes}
                     keyExtractor={this.keyExtractor}
                     ItemSeparatorComponent={(props: any, state: any) => <Text style={{backgroundColor: '#eee', height: 1}}/>}
                     initialNumToRender={4}
@@ -37,7 +38,6 @@ export default class EpisodesScreen extends React.PureComponent<any, any> {
                         return (
                             <SearchEpisodeResult
                                 {...data.item}
-                                navigation={this.props.navigation}
                                 tv_id={this.props.tv_id}
                                 media_type='episode' // Setting this explicitly
                                 handleOnPress={this.handleEpisodePress}

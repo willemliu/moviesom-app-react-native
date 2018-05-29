@@ -1,4 +1,4 @@
-import {View, Text, Image, AsyncStorage} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
@@ -38,7 +38,6 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
 
     constructor(props: any) {
         super(props);
-        this.props.actions.addItem(this.props);
         this.queueGetUserEpisodeSettings();
     }
 
@@ -106,7 +105,7 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
                             <Text>season: {this.props.season_number}</Text>
                             <Text>episode: {this.props.episode_number}</Text>
 
-                            <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name ? this.props.name : this.props.original_name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>
