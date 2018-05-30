@@ -66,9 +66,10 @@ export default class MovieNewsScreen extends React.PureComponent<Props, any> {
             this.setState({newsItems: items});
             // this.props.newsActions.setNewsItems(items);
         } else {
+            const tempState: any[] = [...this.state.newsItems];
             const tempArr: any[] = [];
             // Merge found items.
-            this.state.newsItems.forEach((stateValue: any, idx: number, arr: any[]) => {
+            tempState.forEach((stateValue: any, idx: number, arr: any[]) => {
                 const foundItem = items.find((newValue: any) => stateValue.id === newValue.id);
                 if (foundItem) {
                     arr[idx] = {...stateValue, ...foundItem};
@@ -76,14 +77,14 @@ export default class MovieNewsScreen extends React.PureComponent<Props, any> {
             });
             // Append not found items.
             items.forEach((newValue: any, newIdx: number) => {
-                const foundItem = this.state.newsItems.find((stateValue: any) => stateValue.id === newValue.id);
+                const foundItem = tempState.find((stateValue: any) => stateValue.id === newValue.id);
                 if (!foundItem) {
                     tempArr.push(newValue);
                 }
             });
 
-            if (items.length > 0) {
-                this.setState({newsItems: [...items, ...tempArr]});
+            if (tempArr.length > 0) {
+                this.setState({newsItems: [...tempState, ...tempArr]});
             }
             // this.props.newsActions.addNewsItems(items);
         }
