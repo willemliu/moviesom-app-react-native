@@ -40,10 +40,10 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
 
     constructor(props: any) {
         super(props);
-        this.queueGetUserEpisodeSettings();
     }
 
     componentDidMount() {
+        this.queueGetUserEpisodeSettings();
         requestAnimationFrame(() => {
             this.loadImage(this.props.still_path);
         });

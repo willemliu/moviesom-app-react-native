@@ -1,7 +1,7 @@
 import * as TmdbActions from './TmdbActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ADD_ITEM, SET_ITEMS, ADD_ITEMS } from './TmdbActions';
+import { ADD_ITEM, SET_ITEMS, ADD_ITEMS, ADD_ITEM_NEWS, SET_ITEM_NEWS } from './TmdbActions';
 import SearchMovieResult from '../components/SearchMovieResult';
 import MovieDetailScreen from '../screens/MovieDetailScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -55,20 +55,59 @@ const insertOrMergeItem = (newState: any, item: any) => {
     return newState;
 };
 
+const insertOrMergeItemNews = (newState: any, action: any) => {
+    const {item, newsItems} = action;
+    const existingItem = newState.tmdbItems.find((value: any, index: number, arr: any[]) => (
+        value.id === item.id && item.media_type && value.media_type === item.media_type)
+    );
+    const tempArr: any[] = [];
+    if (existingItem) {
+        if (!existingItem.newsItems) {
+            existingItem.newsItems = [];
+        }
+        // Merge
+        existingItem.newsItems.forEach((val: any, idx: number, arr: any[]) => {
+            const existingNewsItem = newsItems.find((newsItem: any) => val.id === newsItem.id);
+            if (existingNewsItem) {
+                arr[idx] = {...val, ...existingNewsItem};
+            }
+        });
+        // Insert
+        newsItems.forEach((val: any, idx: number, arr: any[]) => {
+            const existingNewsItem = existingItem.newsItems.find((newsItem: any) => val.id === newsItem.id);
+            if (!existingNewsItem) {
+                tempArr.push(val);
+            }
+        });
+        if (tempArr.length > 0) {
+            existingItem.newsItems = existingItem.newsItems.concat(tempArr);
+        }
+    }
+    return newState;
+};
+
 export function tmdbReducer(state: any = defaultState, action: any) {
     let newState = {...state};
     switch (action.type) {
         case ADD_ITEM:
-            return insertOrMergeItem(state, action.item);
+            return insertOrMergeItem(newState, action.item);
         case ADD_ITEMS:
-            if (action.items) {
-                action.items.forEach((item: any) => {
-                    newState = insertOrMergeItem(newState, item);
-                });
-            }
+            action.items.forEach((item: any) => {
+                newState = insertOrMergeItem(newState, item);
+            });
             return newState;
         case SET_ITEMS:
             newState.tmdbItems = action.items;
+            return newState;
+        case ADD_ITEM_NEWS:
+            return insertOrMergeItemNews(newState, action);
+        case SET_ITEM_NEWS:
+            const existingItem = newState.tmdbItems.find((val: any) => (
+                action.item.id === val.id && action.item.media_type === val.media_type
+            ));
+            if (existingItem) {
+                existingItem.newsItems = action.newsItems;
+            }
             return newState;
         default:
             return newState;

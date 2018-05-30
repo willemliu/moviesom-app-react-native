@@ -6,8 +6,9 @@ import { getMovieNews } from '../moviesom/MovieSom';
 import { MovieProps } from '../interfaces/Movie';
 
 export interface Props extends MovieProps {
+    actions: any;
+    newsItems: any[];
     offset: number;
-    totalNews: number;
     navigation: any;
 }
 
@@ -17,8 +18,7 @@ export default class MovieNewsScreen extends React.PureComponent<Props, any> {
     };
 
     state: any = {
-        refreshing: true,
-        newsItems: []
+        refreshing: true
     };
 
     private loadingOffset: number[] = [];
@@ -63,33 +63,10 @@ export default class MovieNewsScreen extends React.PureComponent<Props, any> {
 
     updateStore = (items: any[any], offset: number, replace: boolean = false) => {
         if (replace) {
-            this.setState({newsItems: items});
-            // this.props.newsActions.setNewsItems(items);
+            this.props.actions.setItemNews(this.props, items);
         } else {
-            const tempState: any[] = [...this.state.newsItems];
-            const tempArr: any[] = [];
-            // Merge found items.
-            tempState.forEach((stateValue: any, idx: number, arr: any[]) => {
-                const foundItem = items.find((newValue: any) => stateValue.id === newValue.id);
-                if (foundItem) {
-                    arr[idx] = {...stateValue, ...foundItem};
-                }
-            });
-            // Append not found items.
-            items.forEach((newValue: any, newIdx: number) => {
-                const foundItem = tempState.find((stateValue: any) => stateValue.id === newValue.id);
-                if (!foundItem) {
-                    tempArr.push(newValue);
-                }
-            });
-
-            if (tempArr.length > 0) {
-                this.setState({newsItems: [...tempState, ...tempArr]});
-            }
-            // this.props.newsActions.addNewsItems(items);
+            this.props.actions.addItemNews(this.props, items);
         }
-        /*this.props.newsActions.setNewsOffset(offset);
-        this.props.newsActions.setNewsTotalNews(totalNews);*/
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
@@ -108,8 +85,8 @@ export default class MovieNewsScreen extends React.PureComponent<Props, any> {
             <View style={viewStyle.view}>
                 <FlatList
                     style={searchScreenStyle.flatList}
-                    data={this.state.newsItems}
-                    extraData={this.state.newsItems}
+                    data={this.props.newsItems}
+                    extraData={this.props.newsItems}
                     keyExtractor={this.keyExtractor}
                     ListEmptyComponent={<Text style={sectionListStyle.header}>No news</Text>}
                     initialNumToRender={4}

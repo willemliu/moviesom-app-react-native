@@ -17,6 +17,9 @@ export default class NewsScreen extends React.PureComponent<any, any> {
 
     constructor(props: any) {
         super(props);
+    }
+
+    componentDidMount() {
         this.refresh();
     }
 

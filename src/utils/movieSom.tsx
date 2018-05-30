@@ -22,7 +22,7 @@ export const formatDuration = (minutes: number) => {
 /**
  * Retrieve User <-> movies settings.
  */
-export const getUserMoviesSettings = async (items: any[], loginToken: string) => {
+export const getUserMoviesSettings = async (items: any[], loginToken: string): Promise<any[]> => {
     const payload: GetUserMoviesSettings = {
         token: loginToken,
         movie_tmdb_ids: []
@@ -42,14 +42,15 @@ export const getUserMoviesSettings = async (items: any[], loginToken: string) =>
             arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
             arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
         });
+        return response.getUserMoviesSettings.message;
     }
-    return response.getUserMoviesSettings.message;
+    return [];
 };
 
 /**
  * Retrieve User <-> tv settings.
  */
-export const getUserTvSettings = async (items: any[], loginToken: string) => {
+export const getUserTvSettings = async (items: any[], loginToken: string): Promise<any[]> => {
     const payload: GetUserTvSettings = {
         token: loginToken,
         tv_tmdb_ids: []
@@ -68,14 +69,15 @@ export const getUserTvSettings = async (items: any[], loginToken: string) => {
             arr[idx].media_type = 'tv'; // Add a media_type because it doesn't have one.
             arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
         });
+        return response.getUserTvSettings.message;
     }
-    return response.getUserTvSettings.message;
+    return [];
 };
 
 /**
  * Retrieve User <-> episode settings.
  */
-export const getUserEpisodeSettings = async (items: any[], loginToken: string) => {
+export const getUserEpisodeSettings = async (items: any[], loginToken: string): Promise<any[]> => {
     const payload: GetUserEpisodeSettings = {
         token: loginToken,
         tv_episode_tmdb_ids: []
@@ -97,8 +99,9 @@ export const getUserEpisodeSettings = async (items: any[], loginToken: string) =
             arr[idx].watched = parseInt(value.watched, 10); // Parse to integer.
             arr[idx].want_to_watch = parseInt(value.want_to_watch, 10); // Parse to integer.
         });
+        return response.getUserTvEpisodesSettings.message;
     }
-    return response.getUserTvEpisodesSettings.message;
+    return [];
 };
 
 /**
