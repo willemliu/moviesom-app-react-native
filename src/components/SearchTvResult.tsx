@@ -133,8 +133,8 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name ? this.props.name : this.props.original_name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
-                            {this.props.character ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
-                            {this.props.job ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
+                            {this.props.character ? <Text style={[searchResultStyle.credit, {marginLeft: 5, marginRight: 5}]}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
+                            {this.props.job ? <Text style={[searchResultStyle.credit, {marginLeft: 5, marginRight: 5}]}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                         </View>
                     </View>

@@ -9,6 +9,8 @@ import { StyleProp } from 'react-native';
 import { ViewStyle } from 'react-native';
 
 export interface Props extends PersonProps {
+    character?: string;
+    job?: string;
     getProfileUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
     handleOnPress: (props: any) => void;
     style?: StyleProp<ViewStyle>;
@@ -79,6 +81,8 @@ export default class SearchPersonResult extends React.PureComponent<Props, any> 
                         </View>
                         <View style={{flex: 10}}>
                             <Text style={searchResultStyle.title}><MaterialIcons name="person" size={15}/> {this.props.name}</Text>
+                            {this.props.character ? <Text style={[searchResultStyle.credit, {marginLeft: 5, marginRight: 5}]}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
+                            {this.props.job ? <Text style={[searchResultStyle.credit, {marginLeft: 5, marginRight: 5}]}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.biography}</Text>
                         </View>
                     </View>
