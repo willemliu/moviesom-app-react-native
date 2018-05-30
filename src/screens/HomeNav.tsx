@@ -1,7 +1,7 @@
 import React from 'react';
-import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import { SettingsScreen, SearchScreen } from '../redux/TmdbReducer';
-import { MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
+import {SettingsScreen, SearchScreen, NewsScreen} from '../redux/TmdbReducer';
+import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
 
@@ -27,6 +27,13 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     //         tabBarIcon: <MaterialIcons name="playlist-add" size={32} color='#fff'/>,
     //     }
     // },
+    News: {
+        screen: NewsScreen,
+        navigationOptions: {
+            title: 'News',
+            tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
+        }
+    },
     Settings: {
         screen: SettingsScreen,
         navigationOptions: {

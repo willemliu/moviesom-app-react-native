@@ -9,6 +9,26 @@ interface LoginResponseType {
     };
     execTime: number;
 }
+interface NewsResponseType {
+    getNews: {
+        status: number,
+        message?: [{
+            id: number,
+            title: string,
+            type: string,
+            image: string,
+            url: string,
+            description: string,
+            url_hash: string,
+            visible: number
+        }],
+        execTime: number,
+        offset: number,
+        totalNews: number,
+        pages: number
+    };
+    execTime: number;
+}
 
 const BASE_URL = 'https://www.moviesom.com/wsmoviesom.php';
 const HTML_2_XPATH_BASE_URL = 'https://html2xpath.moviesom.com';
@@ -86,5 +106,11 @@ export async function loginWithToken(token: string): Promise<LoginResponseType> 
     response.catch((e) => {
         console.error('Could not login. Login with token failed. Either the token is invalid or has expired.', e);
     });
+    return jsonResult;
+}
+
+export async function getNews(offset: number = 0): Promise<NewsResponseType> {
+    const response = post('getNews', '', JSON.stringify({ offset }));
+    const jsonResult: NewsResponseType = await response.then((data) => data.json());
     return jsonResult;
 }

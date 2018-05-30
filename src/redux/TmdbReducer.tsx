@@ -27,6 +27,9 @@ import SearchEpisodeResult from '../components/SearchEpisodeResult';
 import EpisodesScreen from '../screens/EpisodesScreen';
 import SeasonDetailScreen from '../screens/SeasonDetailScreen';
 import EpisodeDetailScreen from '../screens/EpisodeDetailScreen';
+import {mapNewsDispatchToProps, mapNewsStateToProps} from "./news/NewsReducer";
+import NewsScreen from '../screens/NewsScreen';
+import SearchNewsResult from '../components/SearchNewsResult';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -155,6 +158,9 @@ export {searchPersonResult as SearchPersonResult};
 const searchPictureResult = connect(mapPersonStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchPictureResult));
 export {searchPictureResult as SearchPictureResult};
 
+const searchNewsResult = connect(mapNewsStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SearchNewsResult));
+export {searchNewsResult as SearchNewsResult};
+
 const movieDetailScreen = navigationParamsToProps(connect(mapMovieStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(MovieDetailScreen)));
 export {movieDetailScreen as MovieDetailScreen};
 
@@ -191,6 +197,13 @@ export {picturesScreen as PicturesScreen};
 
 const searchScreen = connect(mapAllSearchStateToProps, mapAllSearchDispatchToProps)(enhanceWithMovieSomFunctions(SearchScreen));
 export {searchScreen as SearchScreen};
+
+/**
+ * NEWS
+ */
+
+const newsScreen = connect(mapAllNewsStateToProps, mapAllNewsDispatchToProps)(enhanceWithMovieSomFunctions(NewsScreen));
+export {newsScreen as NewsScreen};
 
 /**
  * SETTINGS
@@ -285,6 +298,17 @@ function mapAllSearchStateToProps(state: any, ownProps: any) {
     };
 }
 /**
+ * Map multiple Redux store news states to props.
+ * @param state
+ * @param ownProps
+ */
+function mapAllNewsStateToProps(state: any, ownProps: any) {
+    return {
+        ...(mapAllStateToProps(state, ownProps)),
+        ...(mapNewsStateToProps(state, ownProps)),
+    };
+}
+/**
  * Map multiple Redux store login states to props.
  * @param state
  * @param ownProps
@@ -321,6 +345,17 @@ function mapAllSearchDispatchToProps(dispatch: any, ownProps: any) {
     return {
         ...(mapAllDispatchToProps(dispatch, ownProps)),
         ...(mapSearchDispatchToProps(dispatch, ownProps)),
+    };
+}
+/**
+ * Map multiple Redux dispatchers to props.
+ * @param dispatch
+ * @param ownProps
+ */
+function mapAllNewsDispatchToProps(dispatch: any, ownProps: any) {
+    return {
+        ...(mapAllDispatchToProps(dispatch, ownProps)),
+        ...(mapNewsDispatchToProps(dispatch, ownProps)),
     };
 }
 /**

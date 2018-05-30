@@ -26,10 +26,6 @@ export default class SearchScreen extends React.PureComponent<any, any> {
                     searchText
                 });
             });
-            // this.props.getUserMoviesSettings(this.props.searchItems).then((data: any) => {
-            //     this.props.actions.addItems(data);
-            //     this.props.searchActions.addSearchItems(data);
-            // });
         }
     }
 
@@ -65,10 +61,6 @@ export default class SearchScreen extends React.PureComponent<any, any> {
         this.props.actions.addItems(results);
         this.props.searchActions.setSearchPage(page);
         this.props.searchActions.setSearchTotalPages(totalPages);
-        // this.props.getUserMoviesSettings(results).then((data: any) => {
-        //     this.props.actions.addItems(data);
-        //     this.props.searchActions.addSearchItems(data);
-        // });
     }
 
     loadNextPage = async () => {
