@@ -1,4 +1,5 @@
 import {AsyncStorage, Platform} from 'react-native';
+import { MovieProps, MovieNewsResponseType } from '../interfaces/Movie';
 
 interface LoginResponseType {
     login: {
@@ -112,5 +113,11 @@ export async function loginWithToken(token: string): Promise<LoginResponseType> 
 export async function getNews(offset: number = 0): Promise<NewsResponseType> {
     const response = post('getNews', '', JSON.stringify({ offset }));
     const jsonResult: NewsResponseType = await response.then((data) => data.json());
+    return jsonResult;
+}
+
+export async function getMovieNews(item: MovieProps, offset: number = 0): Promise<MovieNewsResponseType> {
+    const response = post('getMovieNews', '', JSON.stringify({ offset, movie_tmdb_ids: [{id: item.id}]}));
+    const jsonResult: MovieNewsResponseType = await response.then((data) => data.json());
     return jsonResult;
 }

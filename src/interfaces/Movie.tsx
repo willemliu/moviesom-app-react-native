@@ -50,3 +50,22 @@ export interface GetUserEpisodeSettings {
     tv_episode_tmdb_ids?: [{id: string}]|any;
     tv_episode_imdb_ids?: [{id: string}]|any;
 }
+
+export interface MovieNewsResponseType {
+    getMovieNews: {
+        status: number,
+        message?: [{
+            id: number,
+            title: string,
+            type: string,
+            image: string,
+            url: string,
+            description: string,
+            url_hash: string,
+            visible: number
+        }],
+        offset: number,
+        execTime: number
+    };
+    execTime: number;
+}

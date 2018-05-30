@@ -32,7 +32,7 @@ export const getUserMoviesSettings = async (items: any[], loginToken: string) =>
     });
     const response = await post(`getUserMoviesSettings`, '', JSON.stringify(payload)).then((data) => data.json());
     console.log(`getUserMoviesSettings status=${response.getUserMoviesSettings.status}`, response.getUserMoviesSettings.status === 200 ? response.getUserMoviesSettings.message.length : response.getUserMoviesSettings);
-    console.log(payload.token);
+    console.log('token', payload.token);
     if (response.getUserMoviesSettings.status === 200 && response.getUserMoviesSettings && response.getUserMoviesSettings.message) {
         response.getUserMoviesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
             // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
@@ -59,7 +59,7 @@ export const getUserTvSettings = async (items: any[], loginToken: string) => {
     });
     const response = await post(`getUserTvSettings`, '', JSON.stringify(payload)).then((data) => data.json());
     console.log(`getUserTvSettings status=${response.getUserTvSettings.status}`, response.getUserTvSettings.status === 200 ? response.getUserTvSettings.message.length : response.getUserTvSettings);
-    console.log(payload.token);
+    console.log('token', payload.token);
     if (response.getUserTvSettings.status === 200 && response.getUserTvSettings && response.getUserTvSettings.message) {
         response.getUserTvSettings.message.forEach((value: any, idx: number, arr: any[]) => {
             // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.
@@ -85,7 +85,7 @@ export const getUserEpisodeSettings = async (items: any[], loginToken: string) =
     });
     const response = await post(`getUserTvEpisodesSettings`, '', JSON.stringify(payload)).then((data) => data.json());
     console.log(`getUserTvEpisodesSettings status=${response.getUserTvEpisodesSettings.status}`, response.getUserTvEpisodesSettings.status === 200 ? response.getUserTvEpisodesSettings.message.length : response.getUserTvEpisodesSettings);
-    console.log(payload.token);
+    console.log('token', payload.token);
     if (response.getUserTvEpisodesSettings.status === 200 && response.getUserTvEpisodesSettings && response.getUserTvEpisodesSettings.message) {
         response.getUserTvEpisodesSettings.message.forEach((value: any, idx: number, arr: any[]) => {
             // Swap ids because returned `id` is the MovieSom id and we want to use the `tmdb_id` as `id`.

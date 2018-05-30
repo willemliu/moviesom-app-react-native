@@ -30,6 +30,7 @@ import EpisodeDetailScreen from '../screens/EpisodeDetailScreen';
 import {mapNewsDispatchToProps, mapNewsStateToProps} from "./news/NewsReducer";
 import NewsScreen from '../screens/NewsScreen';
 import SearchNewsResult from '../components/SearchNewsResult';
+import MovieNewsScreen from '../screens/MovieNewsScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -60,9 +61,11 @@ export function tmdbReducer(state: any = defaultState, action: any) {
         case ADD_ITEM:
             return insertOrMergeItem(state, action.item);
         case ADD_ITEMS:
-            action.items.forEach((item: any) => {
-                newState = insertOrMergeItem(newState, item);
-            });
+            if (action.items) {
+                action.items.forEach((item: any) => {
+                    newState = insertOrMergeItem(newState, item);
+                });
+            }
             return newState;
         case SET_ITEMS:
             newState.tmdbItems = action.items;
@@ -178,6 +181,9 @@ export {personDetailScreen as PersonDetailScreen};
 
 const castAndCrewScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
+
+const movieNewsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(MovieNewsScreen));
+export {movieNewsScreen as MovieNewsScreen};
 
 const seasonsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonsScreen)));
 export {seasonsScreen as SeasonsScreen};

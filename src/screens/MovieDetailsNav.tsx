@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabNavigator, TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import { CastAndCrewScreen, MovieDetailScreen } from '../redux/TmdbReducer';
-import { MaterialIcons } from '@expo/vector-icons';
+import { CastAndCrewScreen, MovieDetailScreen, MovieNewsScreen } from '../redux/TmdbReducer';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
 
@@ -11,6 +11,13 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     navigationOptions: {
       title: 'Movie details',
       tabBarIcon: <MaterialIcons name="info-outline" size={32} color='#fff'/>,
+    }
+  },
+  MovieNews: {
+    screen: MovieNewsScreen,
+    navigationOptions: {
+      title: 'News',
+      tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
     }
   },
   CastAndCrew: {
