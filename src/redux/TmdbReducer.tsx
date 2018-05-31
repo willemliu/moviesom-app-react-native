@@ -28,9 +28,9 @@ import EpisodesScreen from '../screens/EpisodesScreen';
 import SeasonDetailScreen from '../screens/SeasonDetailScreen';
 import EpisodeDetailScreen from '../screens/EpisodeDetailScreen';
 import {mapNewsDispatchToProps, mapNewsStateToProps} from "./news/NewsReducer";
-import NewsScreen from '../screens/NewsScreen';
+import AllNewsScreen from '../screens/AllNewsScreen';
 import SearchNewsResult from '../components/SearchNewsResult';
-import MovieNewsScreen from '../screens/MovieNewsScreen';
+import NewsScreen from '../screens/NewsScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -221,8 +221,8 @@ export {personDetailScreen as PersonDetailScreen};
 const castAndCrewScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(CastAndCrewScreen));
 export {castAndCrewScreen as CastAndCrewScreen};
 
-const movieNewsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(MovieNewsScreen));
-export {movieNewsScreen as MovieNewsScreen};
+const newsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(NewsScreen)));
+export {newsScreen as NewsScreen};
 
 const seasonsScreen = navigationParamsToProps(connect(mapAllStateToProps, mapAllDispatchToProps)(enhanceWithMovieSomFunctions(SeasonsScreen)));
 export {seasonsScreen as SeasonsScreen};
@@ -247,8 +247,8 @@ export {searchScreen as SearchScreen};
  * NEWS
  */
 
-const newsScreen = connect(mapAllNewsStateToProps, mapAllNewsDispatchToProps)(enhanceWithMovieSomFunctions(NewsScreen));
-export {newsScreen as NewsScreen};
+const allNewsScreen = connect(mapAllNewsStateToProps, mapAllNewsDispatchToProps)(enhanceWithMovieSomFunctions(AllNewsScreen));
+export {allNewsScreen as AllNewsScreen};
 
 /**
  * SETTINGS

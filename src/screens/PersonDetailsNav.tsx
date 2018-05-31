@@ -1,7 +1,7 @@
 import React from 'react';
-import { PersonDetailScreen, FilmographyScreen, PicturesScreen } from '../redux/TmdbReducer';
+import { PersonDetailScreen, FilmographyScreen, PicturesScreen, NewsScreen } from '../redux/TmdbReducer';
 import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons, Entypo, FontAwesome } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
 
@@ -11,6 +11,13 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     navigationOptions: {
       title: 'Person Details',
       tabBarIcon: <MaterialIcons name="info-outline" size={32} color='#fff'/>,
+    }
+  },
+  PersonNews: {
+    screen: NewsScreen,
+    navigationOptions: {
+      title: 'News',
+      tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
     }
   },
   FilmographyScreen: {

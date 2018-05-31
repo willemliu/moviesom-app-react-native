@@ -52,7 +52,7 @@ export interface GetUserEpisodeSettings {
 }
 
 export interface MovieNewsResponseType {
-    getMovieNews: {
+    getMovieNews?: {
         status: number,
         message?: [{
             id: number,

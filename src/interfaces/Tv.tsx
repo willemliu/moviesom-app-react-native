@@ -30,3 +30,22 @@ export interface TvProps {
     job?: string;
     getUserTvSettings: (items: any[], loginToken: string) => Promise<any[]>;
 }
+
+export interface TvNewsResponseType {
+    getTvNews?: {
+        status: number,
+        message?: [{
+            id: number,
+            title: string,
+            type: string,
+            image: string,
+            url: string,
+            description: string,
+            url_hash: string,
+            visible: number
+        }],
+        offset: number,
+        execTime: number
+    };
+    execTime: number;
+}

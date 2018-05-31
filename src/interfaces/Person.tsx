@@ -14,3 +14,22 @@ export interface PersonProps {
     popularity?: number;
     profile_path?: string;
 }
+
+export interface PersonNewsResponseType {
+    getPersonNews?: {
+        status: number,
+        message?: [{
+            id: number,
+            title: string,
+            type: string,
+            image: string,
+            url: string,
+            description: string,
+            url_hash: string,
+            visible: number
+        }],
+        offset: number,
+        execTime: number
+    };
+    execTime: number;
+}

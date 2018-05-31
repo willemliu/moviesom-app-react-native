@@ -1,19 +1,30 @@
 import React from 'react';
 import {Text, View, FlatList} from 'react-native';
 import {viewStyle, searchScreenStyle, sectionListStyle} from "../styles/Styles";
-import {getNews} from "../moviesom/MovieSom";
 import {SearchNewsResult} from "../redux/TmdbReducer";
+import { MovieProps, MovieNewsResponseType } from '../interfaces/Movie';
+import { TvProps, TvNewsResponseType } from '../interfaces/Tv';
+import { PersonProps, PersonNewsResponseType } from '../interfaces/Person';
 
-export default class NewsScreen extends React.PureComponent<any, any> {
+export interface Props extends PersonProps, TvProps, MovieProps {
+    actions: any;
+    newsItems: any[];
+    offset: number;
+    navigation: any;
+    getNews: (item: any, offset: number) => Promise<MovieNewsResponseType&TvNewsResponseType&PersonNewsResponseType>;
+}
+
+export default class NewsScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
         title: 'News'
     };
 
     state: any = {
-        refreshing: true,
+        refreshing: true
     };
 
     private loadingOffset: number[] = [];
+    private offset = 0;
 
     constructor(props: any) {
         super(props);
@@ -24,36 +35,49 @@ export default class NewsScreen extends React.PureComponent<any, any> {
     }
 
     loadNextPage = async () => {
-        console.log('load next news by offset', this.props.offset, this.props.totalNews, this.props.offset < this.props.totalNews, this.loadingOffset.indexOf(this.props.offset) === -1);
-        if (this.props.offset < this.props.totalNews && this.loadingOffset.indexOf(this.props.offset) === -1) {
-            const news = await this.loadNews(this.props.offset + 10);
-            this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews);
+        console.log('load next movie news by offset', this.offset + 5, this.loadingOffset.indexOf(this.offset) === -1);
+        if (this.loadingOffset.indexOf(this.offset) === -1) {
+            const news = await this.loadNews(this.offset + 5);
+            this.updateStore(news);
         }
     }
 
     loadNews = async (offset: number = 0) => {
         this.loadingOffset.push(offset);
-        this.setState({refreshing: true});
-        const news = await getNews(offset);
-        this.setState({refreshing: false});
+        requestAnimationFrame(() => {
+            this.setState({refreshing: true});
+        });
+        const news = await this.props.getNews(this.props, offset);
+        requestAnimationFrame(() => {
+            this.setState({refreshing: false});
+        });
+        this.offset = offset;
         this.loadingOffset.splice(this.loadingOffset.indexOf(offset), 1);
         return news;
     }
 
     refresh = async () => {
-        this.props.newsActions.setNewsOffset(0);
+        // this.props.newsActions.setNewsOffset(0);
+        this.offset = 0;
         const news = await this.loadNews();
-        this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews, true);
+        this.updateStore(news, true);
     }
 
-    updateStore = (items: any[any], offset: number, totalNews: number, replace: boolean = false) => {
-        if (replace) {
-            this.props.newsActions.setNewsItems(items);
-        } else {
-            this.props.newsActions.addNewsItems(items);
+    updateStore = (news: MovieNewsResponseType&TvNewsResponseType&PersonNewsResponseType, replace: boolean = false) => {
+        let items: any[any];
+        if (news.getMovieNews) {
+            items = news.getMovieNews.message;
+        } else if (news.getPersonNews) {
+            items = news.getPersonNews.message;
+        } else if (news.getTvNews) {
+            items = news.getTvNews.message;
         }
-        this.props.newsActions.setNewsOffset(offset);
-        this.props.newsActions.setNewsTotalNews(totalNews);
+
+        if (replace) {
+            this.props.actions.setItemNews(this.props, items);
+        } else {
+            this.props.actions.addItemNews(this.props, items);
+        }
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;

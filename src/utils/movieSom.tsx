@@ -1,8 +1,10 @@
 import React from 'react';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
-import { post } from '../moviesom/MovieSom';
-import {GetUserEpisodeSettings, GetUserMoviesSettings, GetUserTvSettings} from '../interfaces/Movie';
+import { post, getNews, getMovieNews, getPersonNews, getTvNews } from '../moviesom/MovieSom';
+import {GetUserEpisodeSettings, GetUserMoviesSettings, GetUserTvSettings, MovieNewsResponseType} from '../interfaces/Movie';
 import { AsyncStorage } from 'react-native';
+import { TvNewsResponseType } from '../interfaces/Tv';
+import { PersonNewsResponseType } from '../interfaces/Person';
 
 /**
  * Formats given minutes into `(n)h (n)m` format.
@@ -104,6 +106,17 @@ export const getUserEpisodeSettings = async (items: any[], loginToken: string): 
     return [];
 };
 
+async function getNews(item: any, offset: number): Promise<MovieNewsResponseType&TvNewsResponseType&PersonNewsResponseType> {
+    console.log('GET NEWS', offset);
+    if (item.media_type === 'movie') {
+        return await getMovieNews(item, offset);
+    } else if (item.media_type === 'person') {
+        return await getPersonNews(item, offset);
+    } else {
+        return await getTvNews(item, offset);
+    }
+}
+
 /**
  * Enhance a React Component class with some extra functions.
  *
@@ -127,6 +140,7 @@ export const enhanceWithMovieSomFunctions = (Component: any) => (
                     getUserMoviesSettings={getUserMoviesSettings}
                     getUserTvSettings={getUserTvSettings}
                     getUserEpisodeSettings={getUserEpisodeSettings}
+                    getNews={getNews}
                 />
             );
         }

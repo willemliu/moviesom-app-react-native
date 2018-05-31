@@ -1,7 +1,7 @@
 import React from 'react';
-import { TvDetailScreen, CastAndCrewScreen, SeasonsScreen } from '../redux/TmdbReducer';
+import { TvDetailScreen, CastAndCrewScreen, SeasonsScreen, NewsScreen } from '../redux/TmdbReducer';
 import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
 
@@ -11,6 +11,13 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     navigationOptions: {
       title: 'TV details',
       tabBarIcon: <MaterialIcons name="info-outline" size={32} color='#fff'/>,
+    }
+  },
+  TvNews: {
+    screen: NewsScreen,
+    navigationOptions: {
+      title: 'News',
+      tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
     }
   },
   Seasons: {

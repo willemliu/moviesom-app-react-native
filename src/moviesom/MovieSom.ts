@@ -1,5 +1,7 @@
 import {AsyncStorage, Platform} from 'react-native';
 import { MovieProps, MovieNewsResponseType } from '../interfaces/Movie';
+import { TvProps, TvNewsResponseType } from '../interfaces/Tv';
+import { PersonNewsResponseType, PersonProps } from '../interfaces/Person';
 
 interface LoginResponseType {
     login: {
@@ -119,5 +121,17 @@ export async function getNews(offset: number = 0): Promise<NewsResponseType> {
 export async function getMovieNews(item: MovieProps, offset: number = 0): Promise<MovieNewsResponseType> {
     const response = post('getMovieNews', '', JSON.stringify({ offset, movie_tmdb_ids: [{id: item.id}]}));
     const jsonResult: MovieNewsResponseType = await response.then((data) => data.json());
+    return jsonResult;
+}
+
+export async function getTvNews(item: TvProps, offset: number = 0): Promise<TvNewsResponseType> {
+    const response = post('getTvNews', '', JSON.stringify({ offset, tv_tmdb_ids: [{id: item.id}]}));
+    const jsonResult: TvNewsResponseType = await response.then((data) => data.json());
+    return jsonResult;
+}
+
+export async function getPersonNews(item: PersonProps, offset: number = 0): Promise<PersonNewsResponseType> {
+    const response = post('getPersonNews', '', JSON.stringify({ offset, person_tmdb_ids: [{id: item.id}]}));
+    const jsonResult: PersonNewsResponseType = await response.then((data) => data.json());
     return jsonResult;
 }

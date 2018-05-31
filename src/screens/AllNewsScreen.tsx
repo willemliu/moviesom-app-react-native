@@ -1,28 +1,19 @@
 import React from 'react';
 import {Text, View, FlatList} from 'react-native';
 import {viewStyle, searchScreenStyle, sectionListStyle} from "../styles/Styles";
+import {getNews} from "../moviesom/MovieSom";
 import {SearchNewsResult} from "../redux/TmdbReducer";
-import { getMovieNews } from '../moviesom/MovieSom';
-import { MovieProps } from '../interfaces/Movie';
 
-export interface Props extends MovieProps {
-    actions: any;
-    newsItems: any[];
-    offset: number;
-    navigation: any;
-}
-
-export default class MovieNewsScreen extends React.PureComponent<Props, any> {
+export default class AllNewsScreen extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'News'
     };
 
     state: any = {
-        refreshing: true
+        refreshing: true,
     };
 
     private loadingOffset: number[] = [];
-    private offset = 0;
 
     constructor(props: any) {
         super(props);
@@ -33,40 +24,36 @@ export default class MovieNewsScreen extends React.PureComponent<Props, any> {
     }
 
     loadNextPage = async () => {
-        console.log('load next movie news by offset', this.offset + 5, this.loadingOffset.indexOf(this.offset) === -1);
-        if (this.loadingOffset.indexOf(this.offset) === -1) {
-            const news = await this.loadNews(this.offset + 5);
-            this.updateStore(news.getMovieNews.message, news.getMovieNews.offset);
+        console.log('load next news by offset', this.props.offset, this.props.totalNews, this.props.offset < this.props.totalNews, this.loadingOffset.indexOf(this.props.offset) === -1);
+        if (this.props.offset < this.props.totalNews && this.loadingOffset.indexOf(this.props.offset) === -1) {
+            const news = await this.loadNews(this.props.offset + 10);
+            this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews);
         }
     }
 
     loadNews = async (offset: number = 0) => {
         this.loadingOffset.push(offset);
-        requestAnimationFrame(() => {
-            this.setState({refreshing: true});
-        });
-        const news = await getMovieNews(this.props, offset);
-        requestAnimationFrame(() => {
-            this.setState({refreshing: false});
-        });
-        this.offset = offset;
+        this.setState({refreshing: true});
+        const news = await getNews(offset);
+        this.setState({refreshing: false});
         this.loadingOffset.splice(this.loadingOffset.indexOf(offset), 1);
         return news;
     }
 
     refresh = async () => {
-        // this.props.newsActions.setNewsOffset(0);
-        this.offset = 0;
+        this.props.newsActions.setNewsOffset(0);
         const news = await this.loadNews();
-        this.updateStore(news.getMovieNews.message, this.offset, true);
+        this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews, true);
     }
 
-    updateStore = (items: any[any], offset: number, replace: boolean = false) => {
+    updateStore = (items: any[any], offset: number, totalNews: number, replace: boolean = false) => {
         if (replace) {
-            this.props.actions.setItemNews(this.props, items);
+            this.props.newsActions.setNewsItems(items);
         } else {
-            this.props.actions.addItemNews(this.props, items);
+            this.props.newsActions.addNewsItems(items);
         }
+        this.props.newsActions.setNewsOffset(offset);
+        this.props.newsActions.setNewsTotalNews(totalNews);
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;

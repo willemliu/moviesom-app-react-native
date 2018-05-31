@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import {SettingsScreen, SearchScreen, NewsScreen} from '../redux/TmdbReducer';
+import {SettingsScreen, SearchScreen, AllNewsScreen} from '../redux/TmdbReducer';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
@@ -28,7 +28,7 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     //     }
     // },
     News: {
-        screen: NewsScreen,
+        screen: AllNewsScreen,
         navigationOptions: {
             title: 'News',
             tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
