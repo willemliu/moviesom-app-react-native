@@ -1,7 +1,7 @@
 import { Image, Text, View, Modal, Linking, AsyncStorage, NetInfo, ConnectionInfo } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import AboutScreen from './src/screens/AboutScreen';
-import { LoginScreen, SignUpScreen } from './src/redux/TmdbReducer';
+import { LoginScreen, SignUpScreen, RecommendScreen } from './src/redux/TmdbReducer';
 import PasswordResetScreen from './src/screens/PasswordResetScreen';
 import React from 'react';
 import {headerStyle, viewStyle} from "./src/styles/Styles";
@@ -182,6 +182,9 @@ const StackNav = createStackNavigator({
     },
     PersonDetails: {
         screen: PersonDetailsNav,
+    },
+    Recommend: {
+        screen: RecommendScreen,
     },
     Donate: {
         screen: WebScreen,

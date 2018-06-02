@@ -31,6 +31,7 @@ import {mapNewsDispatchToProps, mapNewsStateToProps} from "./news/NewsReducer";
 import AllNewsScreen from '../screens/AllNewsScreen';
 import SearchNewsResult from '../components/SearchNewsResult';
 import NewsScreen from '../screens/NewsScreen';
+import RecommendScreen from '../screens/RecommendScreen';
 
 const defaultState = {
     tmdbItems: new Array()
@@ -249,6 +250,13 @@ export {searchScreen as SearchScreen};
 
 const allNewsScreen = connect(mapAllNewsStateToProps, mapAllNewsDispatchToProps)(enhanceWithMovieSomFunctions(AllNewsScreen));
 export {allNewsScreen as AllNewsScreen};
+
+/**
+ * RECOMMEND
+ */
+
+const recommendScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(enhanceWithMovieSomFunctions(RecommendScreen));
+export {recommendScreen as RecommendScreen};
 
 /**
  * SETTINGS

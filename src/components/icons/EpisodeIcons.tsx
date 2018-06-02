@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleProp, ViewStyle, Share } from 'react-native';
 import { movieSomColor, iconsStyle, watchlistColor } from '../../styles/Styles';
-import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, FontAwesome, Entypo } from '@expo/vector-icons';
 import Touchable from '../Touchable';
 import { get } from '../../tmdb/TMDb';
 import { post } from '../../moviesom/MovieSom';
@@ -99,6 +99,16 @@ export default class EpisodeIcons extends React.Component<Props, any> {
         });
     }
 
+    recommend = () => {
+        requestAnimationFrame(() => {
+            if (this.props.loggedIn) {
+                this.props.navigation.push('Recommend', this.props);
+            } else {
+                this.props.navigation.push('Login');
+            }
+        });
+    }
+
     shareHandler = () => {
         requestAnimationFrame(async () => {
             const service = 'tmdbTvEpisodeId';
@@ -153,6 +163,12 @@ export default class EpisodeIcons extends React.Component<Props, any> {
                             <MaterialIcons name="star-border" size={this.props.size ? this.props.size : 32} color={movieSomColor}/>
                         }
                     </View>
+                </Touchable>
+                <Touchable
+                    style={{flex: 0}}
+                    onPress={this.recommend}
+                >
+                    <View style={{padding: 5}}><Entypo name="slideshare" size={this.props.size ? this.props.size : 32} color={movieSomColor}/></View>
                 </Touchable>
                 <Touchable
                     style={{flex: 0}}
