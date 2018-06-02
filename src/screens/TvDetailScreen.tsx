@@ -13,6 +13,7 @@ export interface Props extends TvProps {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
+    post: (service: string, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 export default class TvDetailScreen extends React.PureComponent<Props, any> {
@@ -43,6 +44,13 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
         await this.loadImage(item.backdrop_path);
         this.props.actions.addItem(item);
         this.props.actions.addItems(await this.props.getUserTvSettings([{...this.props}], this.props.loginToken));
+        const tmdbItem = {
+            ...item,
+            tmdb_id: item.id,
+            tmdb_rating: item.vote_average,
+            tmdb_votes: item.vote_count
+        };
+        await this.props.post('setTvRatings', '', JSON.stringify(tmdbItem));
     }
 
     /**

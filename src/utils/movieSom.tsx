@@ -134,6 +134,7 @@ export const enhanceWithMovieSomFunctions = (Component: any) => (
                     handleOnPress={() => this.props.handleOnPress(this.props)}
                     formatDuration={formatDuration}
                     get={get}
+                    post={post}
                     getBackdropUrl={getBackdropUrl}
                     getProfileUrl={getProfileUrl}
                     getPosterUrl={getPosterUrl}
