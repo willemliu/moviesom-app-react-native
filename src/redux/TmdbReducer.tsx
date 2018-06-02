@@ -255,7 +255,7 @@ export {allNewsScreen as AllNewsScreen};
  * RECOMMEND
  */
 
-const recommendScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(enhanceWithMovieSomFunctions(RecommendScreen));
+const recommendScreen = navigationParamsToProps(connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(enhanceWithMovieSomFunctions(RecommendScreen)));
 export {recommendScreen as RecommendScreen};
 
 /**

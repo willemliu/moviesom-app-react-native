@@ -88,7 +88,11 @@ export default class MovieIcons extends React.Component<Props, any> {
     recommend = () => {
         requestAnimationFrame(() => {
             if (this.props.loggedIn) {
-                this.props.navigation.push('Recommend', this.props);
+                this.props.navigation.push('Recommend', {
+                    ...this.props,
+                    recommendService: 'recommendMovie',
+                    movieBuddiesService: 'getUsersMovieRecommendations'
+                });
             } else {
                 this.props.navigation.push('Login');
             }
