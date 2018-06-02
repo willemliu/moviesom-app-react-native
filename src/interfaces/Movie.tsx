@@ -37,6 +37,21 @@ export interface GetUserMoviesSettings {
     movie_imdb_ids?: [{id: string}]|any;
 }
 
+export interface GetUserMoviesSettingsResponse {
+    watched: number;
+    want_to_watch: number;
+    blu_ray: string;
+    dvd: string;
+    digital: string;
+    other: string;
+    lend_out: string;
+    note: string;
+    recommend: string;
+    added: string;
+    updated: string;
+    in_cinema: string;
+}
+
 export interface GetUserTvSettings {
     token: string;
     tv_ids?: [{id: string}]|any;

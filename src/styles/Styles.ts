@@ -213,7 +213,7 @@ export const animatedHeaderStyle = StyleSheet.create({
     title: {
         backgroundColor: 'transparent',
         color: 'white',
-        fontSize: 25,
+        fontSize: 22,
         textAlign: 'center',
         textShadowRadius: 10,
         textShadowColor: '#000',

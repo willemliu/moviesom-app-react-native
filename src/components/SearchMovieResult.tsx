@@ -3,19 +3,18 @@ import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
 import { NavigationRoute, NavigationScreenProp } from 'react-navigation';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Octicons, MaterialIcons } from '@expo/vector-icons';
 import Touchable from './Touchable';
 import MovieIcons from './icons/MovieIcons';
-import { MovieProps } from '../interfaces/Movie';
+import { MovieProps, GetUserMoviesSettingsResponse } from '../interfaces/Movie';
 import { ActivityIndicator } from 'react-native';
 
-export interface Props extends MovieProps {
+export interface Props extends MovieProps, GetUserMoviesSettingsResponse {
     handleOnPress?: (props: any) => void;
     navigation?: NavigationScreenProp<NavigationRoute>;
     actions?: any;
     loginToken: string;
     loggedIn?: boolean;
-    watched?: number;
     getPosterUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 
@@ -121,6 +120,12 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
                             {this.props.character ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
                             {this.props.job ? <Text style={searchResultStyle.credit}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
+                            <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                                {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
+                                {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
+                                {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
+                                {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
+                            </View>
                         </View>
                     </View>
                     {this.state.loadingUserSettings ? <ActivityIndicator size='small' color='#009688' style={{flex: 1}}/> : <MovieIcons {...this.props as any}/>}

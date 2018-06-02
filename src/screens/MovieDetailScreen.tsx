@@ -4,9 +4,9 @@ import { detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DIST
 import { format, parse } from 'date-fns';
 import MovieIcons from '../components/icons/MovieIcons';
 import numeral from 'numeral';
-import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons, Ionicons, Octicons } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';
-import { MovieProps } from '../interfaces/Movie';
+import { MovieProps, GetUserMoviesSettingsResponse } from '../interfaces/Movie';
 
 numeral.register('locale', 'nl_NL', {
     delimiters: {
@@ -26,11 +26,10 @@ numeral.register('locale', 'nl_NL', {
 
 numeral.locale('nl_NL');
 
-export interface Props extends MovieProps {
+export interface Props extends MovieProps, GetUserMoviesSettingsResponse {
     actions: any;
     loginToken: string;
     navigation: any;
-    watched?: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
     post: (service: string, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
@@ -127,6 +126,12 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
                     />
                     <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
                         <View style={{backgroundColor, margin: 10}}>
+                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
+                                {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
+                                {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
+                                {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
+                            </View>
                             <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                             <View style={detailStyle.metaView}>
                                 {this.props.budget ? <Text style={[detailStyle.metaText]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
