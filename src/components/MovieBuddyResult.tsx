@@ -24,14 +24,21 @@ export interface Props {
 export default class MovieBuddyResult extends React.PureComponent<Props, any> {
     render() {
         return (
-            <View style={[this.props.style, {flexDirection: 'row', marginTop: 2.5, marginBottom: 2.5}]}>
+            <View style={[this.props.style, {flexDirection: 'row', alignItems: 'center', marginTop: 2.5, marginBottom: 2.5}]}>
                 <Switch onValueChange={(value: boolean) => {
                     this.props.onPress({
                         ...this.props,
                         recommend_to: (value ? this.props.user_id2 : null)
                     });
                 }} value={this.props.recommend_to ? true : false}/>
-                <Text style={{marginLeft: 15, fontSize: 20}}>{this.props.alias2 ? this.props.alias2 : this.props.user2} {this.props.recommend_to}</Text>
+                <Text style={{flex: 1, marginLeft: 5}}
+                    onPress={() => {
+                        this.props.onPress({
+                            ...this.props,
+                            recommend_to: (this.props.recommend_to ? null : this.props.user_id2)
+                        });
+                    }}
+                    >{this.props.alias2 ? this.props.alias2 : this.props.user2}</Text>
             </View>
         );
     }

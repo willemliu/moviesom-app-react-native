@@ -92,41 +92,45 @@ export default class AboutScreen extends React.PureComponent<any, any> {
     keyExtractor = (item: any, index: number) => `${item.user_id2}`;
 
     recommendMovie = () => {
-        const recommendTo: RecommendTo[] = [];
-        this.state.movieBuddies.forEach((movieBuddy: iMovieBuddyResult) => {
-            recommendTo.push({
-                id: movieBuddy.user_id2,
-                recommend: movieBuddy.recommend_to ? 1 : 0
+        requestAnimationFrame(() => {
+            const recommendTo: RecommendTo[] = [];
+            this.state.movieBuddies.forEach((movieBuddy: iMovieBuddyResult) => {
+                recommendTo.push({
+                    id: movieBuddy.user_id2,
+                    recommend: movieBuddy.recommend_to ? 1 : 0
+                });
             });
+            const payload: RecommendMovie = {
+                token: this.props.loginToken,
+                recommend_to: recommendTo,
+                movie_tmdb_id: this.props.id,
+                spoiler: this.state.spoiler
+            };
+            this.props.post('recommendMovie', '', JSON.stringify(payload));
         });
-        const payload: RecommendMovie = {
-            token: this.props.loginToken,
-            recommend_to: recommendTo,
-            movie_tmdb_id: this.props.id,
-            spoiler: this.state.spoiler
-        };
-        this.props.post('recommendMovie', '', JSON.stringify(payload));
         this.props.navigation.dispatch(NavigationActions.back());
     }
 
     recommendEpisode = () => {
-        const recommendTo: RecommendTo[] = [];
-        this.state.movieBuddies.forEach((movieBuddy: iMovieBuddyResult) => {
-            recommendTo.push({
-                id: movieBuddy.user_id2,
-                recommend: movieBuddy.recommend_to ? 1 : 0
+        requestAnimationFrame(() => {
+            const recommendTo: RecommendTo[] = [];
+            this.state.movieBuddies.forEach((movieBuddy: iMovieBuddyResult) => {
+                recommendTo.push({
+                    id: movieBuddy.user_id2,
+                    recommend: movieBuddy.recommend_to ? 1 : 0
+                });
             });
+            const payload: RecommendEpisode = {
+                token: this.props.loginToken,
+                recommend_to: recommendTo,
+                tv_tmdb_id: this.props.tv_id,
+                tv_episode_tmdb_id: this.props.id,
+                tv_season_number: this.props.season_number,
+                tv_episode_number: this.props.episode_number,
+                spoiler: this.state.spoiler
+            };
+            this.props.post('recommendTvEpisode', '', JSON.stringify(payload));
         });
-        const payload: RecommendEpisode = {
-            token: this.props.loginToken,
-            recommend_to: recommendTo,
-            tv_tmdb_id: this.props.tv_id,
-            tv_episode_tmdb_id: this.props.id,
-            tv_season_number: this.props.season_number,
-            tv_episode_number: this.props.episode_number,
-            spoiler: this.state.spoiler
-        };
-        this.props.post('recommendTvEpisode', '', JSON.stringify(payload));
         this.props.navigation.dispatch(NavigationActions.back());
     }
 
@@ -138,12 +142,14 @@ export default class AboutScreen extends React.PureComponent<any, any> {
     }
 
     toggleSelection = () => {
-        const newMovieBuddies = [...this.state.movieBuddies];
-        const select = newMovieBuddies.find((val: iMovieBuddyResult) => val.recommend_to === null);
-        newMovieBuddies.forEach((val: iMovieBuddyResult, idx: number, arr: iMovieBuddyResult[]) => {
-            arr[idx] = {...val, recommend_to: select ? val.user_id2 : null};
+        requestAnimationFrame(() => {
+            const newMovieBuddies = [...this.state.movieBuddies];
+            const select = newMovieBuddies.find((val: iMovieBuddyResult) => val.recommend_to === null);
+            newMovieBuddies.forEach((val: iMovieBuddyResult, idx: number, arr: iMovieBuddyResult[]) => {
+                arr[idx] = {...val, recommend_to: select ? val.user_id2 : null};
+            });
+            this.setState({movieBuddies: newMovieBuddies});
         });
-        this.setState({movieBuddies: newMovieBuddies});
     }
 
     /**
@@ -207,6 +213,18 @@ export default class AboutScreen extends React.PureComponent<any, any> {
                                 <Button onPress={this.props.media_type === 'movie' ? this.recommendMovie : this.recommendEpisode} title="Save"/>
                             </View>
                         </View>
+                        <View style={searchScreenStyle.searchBar}>
+                            <TextInput
+                                style={searchScreenStyle.searchInput}
+                                multiline={true}
+                                maxLength={1024}
+                                numberOfLines={3}
+                                onChangeText={(spoiler: string) => this.setState({spoiler})}
+                                value={this.state.spoiler}
+                                underlineColorAndroid={transparentColor}
+                                placeholder="Leave a spoiler i.e.: It was earth all along!"
+                            />
+                        </View>
                         <FlatList
                             style={[searchScreenStyle.flatList, {backgroundColor}]}
                             data={this.state.movieBuddies}
@@ -214,7 +232,7 @@ export default class AboutScreen extends React.PureComponent<any, any> {
                             keyExtractor={this.keyExtractor}
                             ListEmptyComponent={<Text style={sectionListStyle.header}>You have no movie buddies!</Text>}
                             ItemSeparatorComponent={(props: any, state: any) => <Text style={{backgroundColor: '#eee', height: 1}}/>}
-                            initialNumToRender={4}
+                            initialNumToRender={10}
                             renderItem={(data: any) => (
                                 <MovieBuddyResult
                                     {...data.item}
@@ -223,9 +241,9 @@ export default class AboutScreen extends React.PureComponent<any, any> {
                                 />
                             )}
                         />
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={searchScreenStyle.searchBar}>
                             <TextInput
-                                style={[searchScreenStyle.searchInput, {flex: 1}]}
+                                style={searchScreenStyle.searchInput}
                                 multiline={true}
                                 maxLength={1024}
                                 numberOfLines={3}

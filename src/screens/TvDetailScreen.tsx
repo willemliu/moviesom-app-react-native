@@ -3,11 +3,12 @@ import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-nativ
 import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import { format } from 'date-fns';
 import TvIcons from '../components/icons/TvIcons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Octicons, MaterialIcons } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';
-import { TvProps } from '../interfaces/Tv';
+import { TvProps, GetUserTvSettingsResponse } from '../interfaces/Tv';
+import MediumSwitches from '../components/MediumSwitches';
 
-export interface Props extends TvProps {
+export interface Props extends TvProps, GetUserTvSettingsResponse {
     actions: any;
     loginToken: string;
     navigation: any;
@@ -78,6 +79,58 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
         return result.join(', ');
     }
 
+    handleOnBluRay = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'tv',
+            blu_ray: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieBluRay', '', JSON.stringify(payload));
+    }
+
+    handleOnDvd = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'tv',
+            dvd: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieDvd', '', JSON.stringify(payload))
+        .then((data: any) => data.json())
+        .then((data: any) => {
+            console.log(data);
+        });
+    }
+
+    handleOnDigital = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'tv',
+            digital: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieDigital', '', JSON.stringify(payload));
+    }
+
+    handleOnOther = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'tv',
+            other: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieOther', '', JSON.stringify(payload));
+    }
+
     render() {
         const headerHeight = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -112,6 +165,12 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
                     />
                     <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
                         <View style={{backgroundColor, margin: 10}}>
+                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                                {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
+                                {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
+                                {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
+                                {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
+                            </View>
                             <Text style={detailStyle.title}>{this.props.name}</Text>
                             <View style={detailStyle.metaView}>
                                 {this.props.type ? <Text style={detailStyle.metaText}>Type: {this.props.type}</Text> : null}
@@ -123,6 +182,17 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <TvIcons {...this.props}/>
+
+                            <MediumSwitches
+                                handleOnBluRay={this.handleOnBluRay}
+                                handleOnDvd={this.handleOnDvd}
+                                handleOnDigital={this.handleOnDigital}
+                                handleOnOther={this.handleOnOther}
+                                blu_ray={this.props.blu_ray}
+                                dvd={this.props.dvd}
+                                digital={this.props.digital}
+                                other={this.props.other}
+                            />
                         </View>
                     </Touchable>
                 </ScrollView>

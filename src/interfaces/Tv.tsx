@@ -31,6 +31,21 @@ export interface TvProps {
     getUserTvSettings: (items: any[], loginToken: string) => Promise<any[]>;
 }
 
+export interface GetUserTvSettingsResponse {
+    watched: number;
+    want_to_watch: number;
+    blu_ray: string;
+    dvd: string;
+    digital: string;
+    other: string;
+    lend_out: string;
+    note: string;
+    recommend: string;
+    added: string;
+    updated: string;
+    in_cinema: string;
+}
+
 export interface TvNewsResponseType {
     getTvNews?: {
         status: number,

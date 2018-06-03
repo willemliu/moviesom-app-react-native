@@ -7,6 +7,8 @@ import numeral from 'numeral';
 import { MaterialCommunityIcons, MaterialIcons, Ionicons, Octicons } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';
 import { MovieProps, GetUserMoviesSettingsResponse } from '../interfaces/Movie';
+import LabeledSwitch from '../components/LabeledSwitch';
+import MediumSwitches from '../components/MediumSwitches';
 
 numeral.register('locale', 'nl_NL', {
     delimiters: {
@@ -91,6 +93,58 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
         }
     }
 
+    handleOnBluRay = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'movie',
+            blu_ray: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieBluRay', '', JSON.stringify(payload));
+    }
+
+    handleOnDvd = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'movie',
+            dvd: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieDvd', '', JSON.stringify(payload))
+        .then((data: any) => data.json())
+        .then((data: any) => {
+            console.log(data);
+        });
+    }
+
+    handleOnDigital = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'movie',
+            digital: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieDigital', '', JSON.stringify(payload));
+    }
+
+    handleOnOther = (newValue: boolean) => {
+        const payload = {
+            token: this.props.loginToken,
+            id: this.props.id,
+            tmdb_id: this.props.id,
+            media_type: 'movie',
+            other: newValue ? '1' : '0'
+        };
+        this.props.actions.addItem(payload);
+        this.props.post('setUserMovieOther', '', JSON.stringify(payload));
+    }
+
     render() {
         const headerHeight = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
@@ -145,6 +199,17 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
                             </View>
                             <Text style={detailStyle.overview}>{this.props.overview}</Text>
                             <MovieIcons {...this.props}/>
+
+                            <MediumSwitches
+                                handleOnBluRay={this.handleOnBluRay}
+                                handleOnDvd={this.handleOnDvd}
+                                handleOnDigital={this.handleOnDigital}
+                                handleOnOther={this.handleOnOther}
+                                blu_ray={this.props.blu_ray}
+                                dvd={this.props.dvd}
+                                digital={this.props.digital}
+                                other={this.props.other}
+                            />
                         </View>
                     </Touchable>
                 </ScrollView>

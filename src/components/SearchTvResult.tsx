@@ -5,11 +5,11 @@ import {parse, format} from 'date-fns';
 import { Feather } from '@expo/vector-icons';
 import TvIcons from './icons/TvIcons';
 import Touchable from './Touchable';
-import { TvProps } from '../interfaces/Tv';
+import { TvProps, GetUserTvSettingsResponse } from '../interfaces/Tv';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { ActivityIndicator } from 'react-native';
 
-export interface Props extends TvProps {
+export interface Props extends TvProps, GetUserTvSettingsResponse {
     handleOnPress?: (props: any) => void;
     navigation: NavigationScreenProp<NavigationRoute>;
     actions?: any;
@@ -136,6 +136,12 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
                             {this.props.character ? <Text style={[searchResultStyle.credit, {marginLeft: 5, marginRight: 5}]}>as <Text style={{fontWeight: 'bold'}}>{this.props.character}</Text></Text> : null}
                             {this.props.job ? <Text style={[searchResultStyle.credit, {marginLeft: 5, marginRight: 5}]}>as <Text style={{fontWeight: 'bold'}}>{this.props.job}</Text></Text> : null}
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
+                            <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                                {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
+                                {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
+                                {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
+                                {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
+                            </View>
                         </View>
                     </View>
                     {this.state.loadingUserSettings ? <ActivityIndicator size='small' color='#009688' style={{flex: 1}}/> : <TvIcons {...this.props}/>}

@@ -15,3 +15,18 @@ export interface EpisodeProps {
     vote_count?: number;
     getUserEpisodeSettings: (items: any[], loginToken: string) => Promise<any[]>;
 }
+
+export interface GetUserTvEpisodesSettingsResponse {
+    watched: number;
+    want_to_watch: number;
+    blu_ray: string;
+    dvd: string;
+    digital: string;
+    other: string;
+    lend_out: string;
+    note: string;
+    recommend: string;
+    added: string;
+    updated: string;
+    in_cinema: string;
+}
