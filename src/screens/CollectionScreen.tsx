@@ -123,14 +123,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         newResults.forEach((item: GetUsersMoviesListResult, idx: number, arr: GetUsersMoviesListResult[]) => {
             const newItem: GetUsersMoviesListResult = {
                 ...item,
-                want_to_watch: parseInt(`${item.want_to_watch}`, 10),
-                blu_ray: parseInt(`${item.blu_ray}`, 10),
-                dvd: parseInt(`${item.dvd}`, 10),
-                digital: parseInt(`${item.digital}`, 10),
-                other: parseInt(`${item.other}`, 10),
-                lend_out: parseInt(`${item.lend_out}`, 10),
-                recommend: parseInt(`${item.recommend}`, 10),
-                owned: parseInt(`${item.owned}`, 10),
+                want_to_watch: parseInt(`${item.want_to_watch}`, 10) || 0,
                 first_air_date: item.release_date,
                 name: item.title,
             };
