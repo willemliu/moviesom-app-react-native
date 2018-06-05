@@ -15,8 +15,7 @@ export default class SearchScreen extends React.PureComponent<any, any> {
 
     private loadingPage: number[] = [];
 
-    constructor(props: any) {
-        super(props);
+    componentDidMount() {
         if (!this.props.searchItems || !this.props.searchItems.length) {
             this.search();
         } else {

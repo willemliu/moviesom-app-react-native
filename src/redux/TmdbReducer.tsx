@@ -32,9 +32,10 @@ import AllNewsScreen from '../screens/AllNewsScreen';
 import SearchNewsResult from '../components/SearchNewsResult';
 import NewsScreen from '../screens/NewsScreen';
 import RecommendScreen from '../screens/RecommendScreen';
+import { anonymizeItems } from './rootReducer';
 
 const defaultState = {
-    tmdbItems: new Array()
+    tmdbItems: []
 };
 
 const insertOrMergeItem = (newState: any, item: any) => {
@@ -110,6 +111,8 @@ export function tmdbReducer(state: any = defaultState, action: any) {
                 existingItem.newsItems = action.newsItems;
             }
             return newState;
+        case "LOGOUT":
+            return {tmdbItems: anonymizeItems(newState.tmdbItems)};
         default:
             return newState;
     }

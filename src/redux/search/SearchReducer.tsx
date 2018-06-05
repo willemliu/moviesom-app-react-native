@@ -1,9 +1,10 @@
 import * as SearchActions from './SearchActions';
 import { bindActionCreators } from 'redux';
 import { ADD_SEARCH_ITEM, SET_SEARCH_ITEMS, ADD_SEARCH_ITEMS, SET_SEARCH_TOTAL_PAGES, SET_SEARCH_PAGE } from './SearchActions';
+import { anonymizeItems } from '../rootReducer';
 
 const defaultState = {
-    searchItems: new Array()
+    searchItems: []
 };
 
 const addSearchItem = (newState: any, item: any) => {
@@ -44,6 +45,8 @@ export function searchReducer(state: any = defaultState, action: any) {
         case SET_SEARCH_TOTAL_PAGES:
             newState.totalPages = action.totalPages;
             return newState;
+        case "LOGOUT":
+            return {searchItems: anonymizeItems(newState.searchItems)};
        default:
             return newState;
     }

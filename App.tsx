@@ -37,7 +37,10 @@ export default class App extends React.Component<any> {
         Linking.addEventListener('url', this.handleUrl);
         this.checkInitialUrl();
         this.getConfig();
-        this.createStore();
+    }
+
+    componentDidMount() {
+        this.createStore().catch((e: any) => console.log(e));
     }
 
     getConfig = async () => {
@@ -64,7 +67,7 @@ export default class App extends React.Component<any> {
             default:
                 this.setState({
                     online: true,
-                    networkMessage: 'Online'
+                    networkMessage: `Online ${connectionInfo.effectiveType}`
                 });
                 return true;
         }
@@ -83,30 +86,36 @@ export default class App extends React.Component<any> {
                 store.dispatch({type: LOGOUT});
             }
         }
+        return loggedIn;
     }
 
     createStore = async () => {
         // await AsyncStorage.removeItem('store');
         const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
-        const connectionInfo = await NetInfo.getConnectionInfo();
         let store: Store;
-        if (preloadedState) {
-            store = createStore(rootReducer, preloadedState);
+        if (preloadedState && await AsyncStorage.getItem('loggedIn')) {
             console.log('Load Redux store');
+            store = createStore(rootReducer, preloadedState);
         } else {
             console.log('Create Redux store');
             store = createStore(rootReducer);
         }
-
-        // Subscribe to store changes and save them locally on the device for
-        // future sessions.
-        store.subscribe(async () => {
-            await AsyncStorage.setItem('store', JSON.stringify(store.getState()));
-        });
-        await this.checkLoggedIn(store).catch((e: any) => console.log(e));
-        if (this.checkOnline(connectionInfo)) {
+        if (this.checkOnline(await NetInfo.getConnectionInfo())) {
             store.dispatch({type: DEVICE_ONLINE});
+            await this.checkLoggedIn(store);
         }
+        /**
+         * Subscribe to store changes and save them locally on the device for
+         * future sessions. Only save when following conditions are met:
+         * - Logged in
+         * - Online
+         */
+        store.subscribe(async () => {
+            if (await AsyncStorage.getItem('loggedIn')
+                && this.checkOnline(await NetInfo.getConnectionInfo())) {
+                await AsyncStorage.setItem('store', JSON.stringify(store.getState()));
+            }
+        });
         this.setState({store});
     }
 

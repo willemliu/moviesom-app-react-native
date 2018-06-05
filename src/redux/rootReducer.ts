@@ -16,4 +16,23 @@ const rootReducer = combineReducers({
     search
 });
 
+const baseProperties = ['id', 'title', 'name', 'overview',
+    'homepage', 'imdb_id', 'media_type', 'navigation'
+];
+
+export const anonymizeItems = (items: any[]): any[any] => {
+    const newItems = [...items];
+    newItems.forEach((item: any, idx: number, arr: any[]) => {
+        const newItem: any = {};
+        Object.keys(item).forEach((key: string) => {
+            if (baseProperties.indexOf(key) > -1) {
+                newItem[key] = item[key];
+            }
+        });
+        arr[idx] = newItem;
+        console.log('found', arr[idx]);
+    });
+    return newItems;
+};
+
 export { rootReducer };
