@@ -38,10 +38,6 @@ export default class SearchMovieResult extends React.PureComponent<Props, any> {
         )
     };
 
-    constructor(props: Props) {
-        super(props);
-    }
-
     componentDidMount() {
         this.queueGetUserMoviesSettings();
         requestAnimationFrame(() => {

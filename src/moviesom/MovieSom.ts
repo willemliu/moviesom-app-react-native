@@ -3,6 +3,28 @@ import { MovieProps, MovieNewsResponseType } from '../interfaces/Movie';
 import { TvProps, TvNewsResponseType } from '../interfaces/Tv';
 import { PersonNewsResponseType, PersonProps } from '../interfaces/Person';
 
+export type MovieSomServices = 'getUsersMoviesList'
+    |'setTvEpisodeRatings'
+    |'setUserTvEpisodeBluRay'
+    |'setUserTvEpisodeDvd'
+    |'setUserTvEpisodeDigital'
+    |'setUserTvEpisodeOther'
+    |'setMovieRatings'
+    |'setUserMovieBluRay'
+    |'setUserMovieDvd'
+    |'setUserMovieDigital'
+    |'setUserMovieOther'
+    |'getUsersMovieRecommendations'
+    |'getUsersTvEpisodeRecommendations'
+    |'recommendMovie'
+    |'recommendTvEpisode'
+    |'setTvRatings'
+    |'setUserTvBluRay'
+    |'setUserTvDvd'
+    |'setUserTvDigital'
+    |'setUserTvOther'
+;
+
 interface LoginResponseType {
     login: {
         status: number,

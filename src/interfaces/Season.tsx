@@ -1,7 +1,7 @@
 export interface SeasonProps {
     air_date?: string;
     episode_count?: number;
-    id?: number;
+    id: number;
     poster_path?: string;
     tv_id?: number;
     season_number?: number;

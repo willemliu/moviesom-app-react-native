@@ -7,6 +7,7 @@ import {EpisodeProps, GetUserTvEpisodesSettingsResponse} from "../interfaces/Epi
 import EpisodeIcons from "../components/icons/EpisodeIcons";
 import LabeledSwitch from '../components/LabeledSwitch';
 import MediumSwitches from '../components/MediumSwitches';
+import { MovieSomServices } from '../moviesom/MovieSom';
 
 export interface Props extends EpisodeProps, GetUserTvEpisodesSettingsResponse {
     actions: any;
@@ -14,7 +15,7 @@ export interface Props extends EpisodeProps, GetUserTvEpisodesSettingsResponse {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
-    post: (service: string, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
+    post: (service: MovieSomServices, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 export default class EpisodeDetailScreen extends React.PureComponent<Props, any> {
@@ -51,7 +52,7 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
             tmdb_rating: item.vote_average,
             tmdb_votes: item.vote_count
         };
-        await this.props.post('setTvRatings', '', JSON.stringify(tmdbItem));
+        await this.props.post('setTvEpisodeRatings', '', JSON.stringify(tmdbItem));
     }
 
     /**

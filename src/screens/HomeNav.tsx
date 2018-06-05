@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabNavigatorConfig, createBottomTabNavigator, createMaterialTopTabNavigator, NavigationRouteConfigMap } from 'react-navigation';
-import {SettingsScreen, SearchScreen, AllNewsScreen} from '../redux/TmdbReducer';
+import {SettingsScreen, SearchScreen, AllNewsScreen, CollectionScreen} from '../redux/TmdbReducer';
 import { MaterialIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
@@ -13,13 +13,13 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
             tabBarIcon: <MaterialIcons name="search" size={32} color='#fff'/>,
         }
     },
-    // Personal: {
-    //     screen: SearchScreen,
-    //     navigationOptions: {
-    //         title: 'Personal',
-    //         tabBarIcon: <MaterialIcons name="person-outline" size={32} color='#fff'/>,
-    //     }
-    // },
+    Personal: {
+        screen: CollectionScreen,
+        navigationOptions: {
+            title: 'Personal',
+            tabBarIcon: <MaterialIcons name="person-outline" size={32} color='#fff'/>,
+        }
+    },
     // Watchlist: {
     //     screen: SearchScreen,
     //     navigationOptions: {

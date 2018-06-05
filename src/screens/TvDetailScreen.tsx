@@ -7,6 +7,7 @@ import { MaterialCommunityIcons, Octicons, MaterialIcons } from '@expo/vector-ic
 import Touchable from '../components/Touchable';
 import { TvProps, GetUserTvSettingsResponse } from '../interfaces/Tv';
 import MediumSwitches from '../components/MediumSwitches';
+import { MovieSomServices } from '../moviesom/MovieSom';
 
 export interface Props extends TvProps, GetUserTvSettingsResponse {
     actions: any;
@@ -14,7 +15,7 @@ export interface Props extends TvProps, GetUserTvSettingsResponse {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
-    post: (service: string, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
+    post: (service: MovieSomServices, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 export default class TvDetailScreen extends React.PureComponent<Props, any> {
@@ -88,7 +89,7 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
             blu_ray: newValue ? '1' : '0'
         };
         this.props.actions.addItem(payload);
-        this.props.post('setUserMovieBluRay', '', JSON.stringify(payload));
+        this.props.post('setUserTvBluRay', '', JSON.stringify(payload));
     }
 
     handleOnDvd = (newValue: boolean) => {
@@ -100,7 +101,7 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
             dvd: newValue ? '1' : '0'
         };
         this.props.actions.addItem(payload);
-        this.props.post('setUserMovieDvd', '', JSON.stringify(payload))
+        this.props.post('setUserTvDvd', '', JSON.stringify(payload))
         .then((data: any) => data.json())
         .then((data: any) => {
             console.log(data);
@@ -116,7 +117,7 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
             digital: newValue ? '1' : '0'
         };
         this.props.actions.addItem(payload);
-        this.props.post('setUserMovieDigital', '', JSON.stringify(payload));
+        this.props.post('setUserTvDigital', '', JSON.stringify(payload));
     }
 
     handleOnOther = (newValue: boolean) => {
@@ -128,7 +129,7 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
             other: newValue ? '1' : '0'
         };
         this.props.actions.addItem(payload);
-        this.props.post('setUserMovieOther', '', JSON.stringify(payload));
+        this.props.post('setUserTvOther', '', JSON.stringify(payload));
     }
 
     render() {

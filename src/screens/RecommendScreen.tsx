@@ -9,6 +9,9 @@ import { NavigationActions } from 'react-navigation';
 import { TextInput } from 'react-native';
 import { Animated } from 'react-native';
 import { ScrollView } from 'react-native';
+import { MovieSomServices } from '../moviesom/MovieSom';
+import { MovieProps } from '../interfaces/Movie';
+import { EpisodeProps } from '../interfaces/Episode';
 
 export interface UsersMovieRecommendationsResponse {
     getUsersMovieRecommendations: {
@@ -39,10 +42,10 @@ export interface RecommendEpisode {
     token: string;
     recommend_to: RecommendTo[];
     spoiler: string;
-    tv_tmdb_id: number;
-    tv_episode_tmdb_id: number;
-    tv_season_number: number;
-    tv_episode_number: number;
+    tv_tmdb_id?: number;
+    tv_episode_tmdb_id?: number;
+    tv_season_number?: number;
+    tv_episode_number?: number;
 }
 
 export interface RecommendTo {
@@ -50,7 +53,14 @@ export interface RecommendTo {
     recommend: 0|1;
 }
 
-export default class AboutScreen extends React.PureComponent<any, any> {
+export interface Props extends MovieProps, EpisodeProps {
+    navigation: any;
+    loginToken: string;
+    post: (service: MovieSomServices, urlParam?: string, payload?: string) => Promise<any>;
+    getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
+}
+
+export default class AboutScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
         title: 'Recommend',
     };

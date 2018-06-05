@@ -30,10 +30,6 @@ export default class SearchSeasonResult extends React.PureComponent<Props, any> 
         ),
     };
 
-    constructor(props: any) {
-        super(props);
-    }
-
     componentDidMount() {
         requestAnimationFrame(() => {
             this.loadImage(this.props.poster_path);

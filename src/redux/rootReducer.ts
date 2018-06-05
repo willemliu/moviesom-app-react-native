@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { collectionReducer as collection } from './collection/CollectionReducer';
 import { deviceReducer as device } from './device/DeviceReducer';
 import { tmdbReducer as tmdb } from './TmdbReducer';
 import { searchReducer as search } from './search/SearchReducer';
@@ -9,6 +10,7 @@ import { newsReducer as news } from './news/NewsReducer';
  * Combine individual reducers to one root reducer to be used by Redux.
  */
 const rootReducer = combineReducers({
+    collection,
     device,
     login,
     news,

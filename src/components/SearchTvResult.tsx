@@ -2,7 +2,7 @@ import {View, Text, Image, AsyncStorage} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Octicons, MaterialIcons } from '@expo/vector-icons';
 import TvIcons from './icons/TvIcons';
 import Touchable from './Touchable';
 import { TvProps, GetUserTvSettingsResponse } from '../interfaces/Tv';
@@ -37,10 +37,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
             />
         )
     };
-
-    constructor(props: any) {
-        super(props);
-    }
 
     componentDidMount() {
         this.queueGetUserTvSettings();

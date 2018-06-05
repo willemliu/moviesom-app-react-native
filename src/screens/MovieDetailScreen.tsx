@@ -9,6 +9,7 @@ import Touchable from '../components/Touchable';
 import { MovieProps, GetUserMoviesSettingsResponse } from '../interfaces/Movie';
 import LabeledSwitch from '../components/LabeledSwitch';
 import MediumSwitches from '../components/MediumSwitches';
+import { MovieSomServices } from '../moviesom/MovieSom';
 
 numeral.register('locale', 'nl_NL', {
     delimiters: {
@@ -34,7 +35,7 @@ export interface Props extends MovieProps, GetUserMoviesSettingsResponse {
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
-    post: (service: string, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
+    post: (service: MovieSomServices, uriParam?: string, body?: string, baseUrl?: string, apiVersion?: string) => Promise<any>;
     getBackdropUrl: (backdropPath: string|null|undefined, quality?: number) => Promise<any>;
 }
 

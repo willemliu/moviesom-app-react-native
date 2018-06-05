@@ -6,7 +6,7 @@ export interface PersonProps {
     deathday?: string;
     gender?: 0|1|2;
     homepage?: string;
-    id?: number;
+    id: number;
     media_type?: string;
     imdb_id?: string;
     name?: string;

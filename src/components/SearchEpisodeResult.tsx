@@ -2,7 +2,7 @@ import {View, Text, Image} from 'react-native';
 import React from 'react';
 import { searchResultStyle } from '../styles/Styles';
 import {parse, format} from 'date-fns';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Octicons, MaterialIcons } from '@expo/vector-icons';
 import Touchable from './Touchable';
 import { NavigationScreenProp, NavigationRoute } from 'react-navigation';
 import { EpisodeProps, GetUserTvEpisodesSettingsResponse } from '../interfaces/Episode';
@@ -37,10 +37,6 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
             />
         )
     };
-
-    constructor(props: any) {
-        super(props);
-    }
 
     componentDidMount() {
         this.queueGetUserEpisodeSettings();

@@ -5,7 +5,7 @@ export interface TvProps {
     first_air_date?: string;
     genres?: [{id?: number, name?: string}];
     homepage?: string;
-    id?: number;
+    id: number;
     imdb_id?: string;
     in_production?: boolean;
     languages?: string[];

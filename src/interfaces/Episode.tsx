@@ -5,7 +5,7 @@ export interface EpisodeProps {
     first_air_date?: string;
     guest_stars?: [{id?: number, credit_id?: string, name?: string, character?: string, order?: number, profile_path?: string}];
     name?: string;
-    id?: number;
+    id: number;
     overview?: string;
     production_code?: boolean;
     tv_id?: number;

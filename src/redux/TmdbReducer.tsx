@@ -33,6 +33,9 @@ import SearchNewsResult from '../components/SearchNewsResult';
 import NewsScreen from '../screens/NewsScreen';
 import RecommendScreen from '../screens/RecommendScreen';
 import { anonymizeItems } from './rootReducer';
+import { mapCollectionStateToProps, mapCollectionDispatchToProps } from './collection/CollectionReducer';
+import CollectionScreen from '../screens/CollectionScreen';
+import { mapMovieStateToProps, mapAllDispatchToProps, mapTvStateToProps, mapEpisodeStateToProps, mapPersonStateToProps, mapAllStateToProps, mapAllSearchStateToProps, mapAllSearchDispatchToProps, mapAllCollectionStateToProps, mapAllCollectionDispatchToProps, mapAllNewsStateToProps, mapAllNewsDispatchToProps, mapAllLoginStateToProps, mapAllLoginDispatchToProps } from './mapStateToProps';
 
 const defaultState = {
     tmdbItems: []
@@ -45,13 +48,13 @@ const insertOrMergeItem = (newState: any, item: any) => {
             && value.media_type === item.media_type);
         // Merge the new item with the old and return it.
         if (sameItem) {
-            console.log('MERGE', item.media_type, item.id);
+            // console.log('MERGE', item.media_type, item.id);
             arr[index] = {...value, ...item};
         }
         return sameItem;
     });
     if (!itemState) {
-        console.log('INSERT', item.media_type, item.id);
+        // console.log('INSERT', item.media_type, item.id);
         newState.tmdbItems.push(item);
     }
     return newState;
@@ -248,6 +251,13 @@ const searchScreen = connect(mapAllSearchStateToProps, mapAllSearchDispatchToPro
 export {searchScreen as SearchScreen};
 
 /**
+ * COLLECTION
+ */
+
+const collectionScreen = connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(enhanceWithMovieSomFunctions(CollectionScreen));
+export {collectionScreen as CollectionScreen};
+
+/**
  * NEWS
  */
 
@@ -277,151 +287,3 @@ export {loginScreen as LoginScreen};
 
 const signUpScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(SignUpScreen);
 export {signUpScreen as SignUpScreen};
-
-/**
- * STATE 2 PROPS MAPPERS
- */
-
-/**
- * Map multiple Redux store movie states to props.
- * @param state
- * @param ownProps
- */
-function mapMovieStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapTmdbMovieStateToProps(state, ownProps)),
-        ...(mapDeviceStateToProps(state, ownProps)),
-        ...(mapLoginStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store tv states to props.
- * @param state
- * @param ownProps
- */
-function mapTvStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapTmdbTvStateToProps(state, ownProps)),
-        ...(mapDeviceStateToProps(state, ownProps)),
-        ...(mapLoginStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store episode states to props.
- * @param state
- * @param ownProps
- */
-function mapEpisodeStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapTmdbEpisodeStateToProps(state, ownProps)),
-        ...(mapDeviceStateToProps(state, ownProps)),
-        ...(mapLoginStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store person states to props.
- * @param state
- * @param ownProps
- */
-function mapPersonStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapTmdbPersonStateToProps(state, ownProps)),
-        ...(mapDeviceStateToProps(state, ownProps)),
-        ...(mapLoginStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store states to props.
- * @param state
- * @param ownProps
- */
-function mapAllStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapTmdbStateToProps(state, ownProps)),
-        ...(mapDeviceStateToProps(state, ownProps)),
-        ...(mapLoginStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store search states to props.
- * @param state
- * @param ownProps
- */
-function mapAllSearchStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapAllStateToProps(state, ownProps)),
-        ...(mapSearchStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store news states to props.
- * @param state
- * @param ownProps
- */
-function mapAllNewsStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapAllStateToProps(state, ownProps)),
-        ...(mapNewsStateToProps(state, ownProps)),
-    };
-}
-/**
- * Map multiple Redux store login states to props.
- * @param state
- * @param ownProps
- */
-function mapAllLoginStateToProps(state: any, ownProps: any) {
-    return {
-        ...(mapAllStateToProps(state, ownProps)),
-        ...(mapLoginStateToProps(state, ownProps)),
-    };
-}
-
-/**
- * DISPATCHERS
- */
-
-/**
- * Map multiple Redux dispatchers to props.
- * @param dispatch
- * @param ownProps
- */
-function mapAllDispatchToProps(dispatch: any, ownProps: any) {
-    return {
-        ...(mapTmdbDispatchToProps(dispatch, ownProps)),
-        ...(mapDeviceDispatchToProps(dispatch, ownProps)),
-        ...(mapLoginDispatchToProps(dispatch, ownProps)),
-    };
-}
-/**
- * Map multiple Redux dispatchers to props.
- * @param dispatch
- * @param ownProps
- */
-function mapAllSearchDispatchToProps(dispatch: any, ownProps: any) {
-    return {
-        ...(mapAllDispatchToProps(dispatch, ownProps)),
-        ...(mapSearchDispatchToProps(dispatch, ownProps)),
-    };
-}
-/**
- * Map multiple Redux dispatchers to props.
- * @param dispatch
- * @param ownProps
- */
-function mapAllNewsDispatchToProps(dispatch: any, ownProps: any) {
-    return {
-        ...(mapAllDispatchToProps(dispatch, ownProps)),
-        ...(mapNewsDispatchToProps(dispatch, ownProps)),
-    };
-}
-/**
- * Map multiple Redux dispatchers to props.
- * @param dispatch
- * @param ownProps
- */
-function mapAllLoginDispatchToProps(dispatch: any, ownProps: any) {
-    return {
-        ...(mapAllDispatchToProps(dispatch, ownProps)),
-        ...(mapLoginDispatchToProps(dispatch, ownProps)),
-    };
-}
