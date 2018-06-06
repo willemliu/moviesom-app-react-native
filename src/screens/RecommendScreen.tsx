@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View, Image} from 'react-native';
-import { viewStyle, detailStyle, searchScreenStyle, backgroundColor, sectionListStyle, movieSomSecondaryColor, transparentColor, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, animatedHeaderStyle} from "../styles/Styles";
-import TouchTextButton from '../components/TouchTextButton';
+import { viewStyle, searchScreenStyle, backgroundColor, sectionListStyle, movieSomSecondaryColor, transparentColor, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, animatedHeaderStyle} from "../styles/Styles";
 import { FlatList } from 'react-native';
 import MovieBuddyResult, {Props as iMovieBuddyResult} from '../components/MovieBuddyResult';
 import { Button } from 'react-native';

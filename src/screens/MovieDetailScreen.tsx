@@ -1,13 +1,11 @@
 import React from 'react';
-import { Text, ScrollView, View, Image, Animated, Dimensions } from 'react-native';
-import { detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
+import { Text, View, Image, Animated, Dimensions } from 'react-native';
+import { detailStyle, HEADER_MAX_HEIGHT, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, backgroundColor} from "../styles/Styles";
 import { format, parse } from 'date-fns';
 import MovieIcons from '../components/icons/MovieIcons';
 import numeral from 'numeral';
 import { MaterialCommunityIcons, MaterialIcons, Ionicons, Octicons } from '@expo/vector-icons';
-import Touchable from '../components/Touchable';
 import { MovieProps, GetUserMoviesSettingsResponse } from '../interfaces/Movie';
-import LabeledSwitch from '../components/LabeledSwitch';
 import MediumSwitches from '../components/MediumSwitches';
 import { MovieSomServices } from '../moviesom/MovieSom';
 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
-import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
-import TvIcons from '../components/icons/TvIcons';
-import Touchable from '../components/Touchable';
+import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import {SeasonProps} from "../interfaces/Season";
 
 export interface Props extends SeasonProps {

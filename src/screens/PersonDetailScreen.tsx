@@ -1,10 +1,9 @@
 import React from 'react';
 import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
-import {detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT, backgroundColor} from "../styles/Styles";
+import {detailStyle, animatedHeaderStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, backgroundColor} from "../styles/Styles";
 import PersonIcons from '../components/icons/PersonIcons';
 import { MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
 import { parse, format } from 'date-fns';
-import Touchable from '../components/Touchable';
 import { PersonProps } from '../interfaces/Person';
 
 export interface Props extends PersonProps {

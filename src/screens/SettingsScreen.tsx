@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, AsyncStorage, ActivityIndicator} from 'react-native';
+import {View, AsyncStorage} from 'react-native';
 import {viewStyle} from "../styles/Styles";
 import TouchTextButton from '../components/TouchTextButton';
 
