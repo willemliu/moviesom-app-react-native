@@ -1,11 +1,9 @@
 import React from 'react';
 import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
-import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MIN_HEIGHT, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
-import Touchable from '../components/Touchable';
+import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import { Octicons, MaterialIcons } from '@expo/vector-icons';
 import {EpisodeProps, GetUserTvEpisodesSettingsResponse} from "../interfaces/Episode";
 import EpisodeIcons from "../components/icons/EpisodeIcons";
-import LabeledSwitch from '../components/LabeledSwitch';
 import MediumSwitches from '../components/MediumSwitches';
 import { MovieSomServices } from '../moviesom/MovieSom';
 
