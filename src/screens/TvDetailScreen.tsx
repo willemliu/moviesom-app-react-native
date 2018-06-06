@@ -133,71 +133,20 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
     }
 
     render() {
-        const headerHeight = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-            extrapolate: 'clamp',
-        });
         const imageOpacity = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0.4],
+            outputRange: [1, 1, 0.5],
             extrapolate: 'clamp',
         });
 
         const imageTranslate = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -50],
+            outputRange: [0, -100],
             extrapolate: 'clamp',
         });
         return (
-            <View style={{backgroundColor}}>
-                <ScrollView
-                    scrollEventThrottle={1}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-                    )}
-                    style={{backgroundColor, height: '100%'}}
-                >
-                    <Text
-                        style={{
-                            width: 360,
-                            height: HEADER_MAX_HEIGHT,
-                        }}
-                    />
-                    <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
-                        <View style={{backgroundColor, margin: 10}}>
-                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                                {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
-                                {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
-                                {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
-                                {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
-                            </View>
-                            <Text style={detailStyle.title}>{this.props.name}</Text>
-                            <View style={detailStyle.metaView}>
-                                {this.props.type ? <Text style={detailStyle.metaText}>Type: {this.props.type}</Text> : null}
-                                {this.props.created_by ? <Text style={detailStyle.metaText}>Created by: {this.props.created_by.map((creator) => creator.name).join(', ')}</Text> : null}
-                                {this.props.episode_run_time ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.getFormattedEpisodeRunTime(this.props.episode_run_time)}</Text> : null}
-                                {this.props.first_air_date ? <Text style={detailStyle.metaText}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
-                                {this.props.number_of_seasons ? <Text style={detailStyle.metaText}>Seasons: {this.props.number_of_seasons}</Text> : null}
-                                {this.props.number_of_episodes ? <Text style={detailStyle.metaText}>Episodes: {this.props.number_of_episodes}</Text> : null}
-                            </View>
-                            <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <TvIcons {...this.props}/>
-
-                            <MediumSwitches
-                                handleOnBluRay={this.handleOnBluRay}
-                                handleOnDvd={this.handleOnDvd}
-                                handleOnDigital={this.handleOnDigital}
-                                handleOnOther={this.handleOnOther}
-                                blu_ray={this.props.blu_ray}
-                                dvd={this.props.dvd}
-                                digital={this.props.digital}
-                                other={this.props.other}
-                            />
-                        </View>
-                    </Touchable>
-                </ScrollView>
-                <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
+            <View style={{backgroundColor, zIndex: 1}}>
+                <Animated.View style={[animatedHeaderStyle.header, {height: HEADER_MAX_HEIGHT}]}>
                     <Animated.Image
                         style={[
                             animatedHeaderStyle.backgroundImage,
@@ -211,6 +160,44 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
                         source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
                     />
                 </Animated.View>
+                <ScrollView
+                    scrollEventThrottle={16}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+                    )}
+                    style={{backgroundColor: 'transparent', height: '100%'}}
+                >
+                    <View style={{backgroundColor, padding: 10, marginTop: HEADER_MAX_HEIGHT}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
+                            {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
+                            {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
+                            {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
+                        </View>
+                        <Text style={detailStyle.title}>{this.props.name}</Text>
+                        <View style={detailStyle.metaView}>
+                            {this.props.type ? <Text style={detailStyle.metaText}>Type: {this.props.type}</Text> : null}
+                            {this.props.created_by ? <Text style={detailStyle.metaText}>Created by: {this.props.created_by.map((creator) => creator.name).join(', ')}</Text> : null}
+                            {this.props.episode_run_time ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.getFormattedEpisodeRunTime(this.props.episode_run_time)}</Text> : null}
+                            {this.props.first_air_date ? <Text style={detailStyle.metaText}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
+                            {this.props.number_of_seasons ? <Text style={detailStyle.metaText}>Seasons: {this.props.number_of_seasons}</Text> : null}
+                            {this.props.number_of_episodes ? <Text style={detailStyle.metaText}>Episodes: {this.props.number_of_episodes}</Text> : null}
+                        </View>
+                        <Text style={detailStyle.overview}>{this.props.overview}</Text>
+                        <TvIcons {...this.props}/>
+
+                        <MediumSwitches
+                            handleOnBluRay={this.handleOnBluRay}
+                            handleOnDvd={this.handleOnDvd}
+                            handleOnDigital={this.handleOnDigital}
+                            handleOnOther={this.handleOnOther}
+                            blu_ray={this.props.blu_ray}
+                            dvd={this.props.dvd}
+                            digital={this.props.digital}
+                            other={this.props.other}
+                        />
+                    </View>
+                </ScrollView>
             </View>
         );
     }

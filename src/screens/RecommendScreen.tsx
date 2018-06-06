@@ -181,40 +181,52 @@ export default class AboutScreen extends React.PureComponent<Props, any> {
     }
 
     render() {
-        const headerHeight = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-            extrapolate: 'clamp',
-        });
         const imageOpacity = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0.4],
+            outputRange: [1, 1, 0.5],
             extrapolate: 'clamp',
         });
 
         const imageTranslate = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -50],
+            outputRange: [0, -100],
             extrapolate: 'clamp',
         });
 
         const title = this.props.title ? this.props.title : this.props.name;
         return (
             <View style={{backgroundColor}}>
+                <Animated.View style={[animatedHeaderStyle.header, {height: HEADER_MAX_HEIGHT}]}>
+                    <Animated.Image
+                        style={[
+                            animatedHeaderStyle.backgroundImage,
+                            {
+                                opacity: imageOpacity,
+                                transform: [{translateY: imageTranslate}]
+                            },
+                        ]}
+                        loadingIndicatorSource={require('../../assets/eyecon360x219.png')}
+                        defaultSource={require('../../assets/eyecon360x219.png')}
+                        resizeMode='cover'
+                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
+                    />
+                    <Animated.View style={[animatedHeaderStyle.bar,
+                            {
+                                transform: [{translateY: imageTranslate}]
+                            },
+                        ]}>
+                        <Text style={[animatedHeaderStyle.title, {fontSize: 15}]}>Recommend</Text>
+                        <Text style={animatedHeaderStyle.title}>{title}</Text>
+                    </Animated.View>
+                </Animated.View>
                 <ScrollView
-                    scrollEventThrottle={1}
+                    scrollEventThrottle={16}
                     onScroll={Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                     )}
-                    style={{backgroundColor, minHeight: '100%'}}
+                    style={{backgroundColor: 'transparent', minHeight: '100%'}}
                 >
-                    <Text
-                        style={{
-                            width: 360,
-                            height: HEADER_MAX_HEIGHT,
-                        }}
-                    />
-                    <View style={viewStyle.view}>
+                    <View style={[viewStyle.view, {marginTop: HEADER_MAX_HEIGHT}]}>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignContent: 'space-between'}}>
                             <View style={{flex: 1}}>
                                 <Button onPress={this.toggleSelection} color={movieSomSecondaryColor} title="Select/Deselect all"/>
@@ -273,25 +285,6 @@ export default class AboutScreen extends React.PureComponent<Props, any> {
                         </View>
                     </View>
                 </ScrollView>
-                <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
-                    <Animated.Image
-                        style={[
-                            animatedHeaderStyle.backgroundImage,
-                            {
-                                opacity: imageOpacity,
-                                transform: [{translateY: imageTranslate}]
-                            },
-                        ]}
-                        loadingIndicatorSource={require('../../assets/eyecon360x219.png')}
-                        defaultSource={require('../../assets/eyecon360x219.png')}
-                        resizeMode='cover'
-                        source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
-                    />
-                    <View style={animatedHeaderStyle.bar}>
-                        <Text style={[animatedHeaderStyle.title, {fontSize: 15}]}>Recommend</Text>
-                        <Text style={animatedHeaderStyle.title}>{title}</Text>
-                    </View>
-                </Animated.View>
             </View>
 
         );

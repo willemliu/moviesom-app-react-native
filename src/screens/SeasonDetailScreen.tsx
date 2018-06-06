@@ -68,11 +68,6 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
     }
 
     render() {
-        const headerHeight = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-            extrapolate: 'clamp',
-        });
         const imageOpacity = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
             outputRange: [1, 1, 0.4],
@@ -81,35 +76,12 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
 
         const imageTranslate = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -50],
+            outputRange: [0, -100],
             extrapolate: 'clamp',
         });
         return (
             <View style={{backgroundColor}}>
-                <ScrollView
-                    scrollEventThrottle={1}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-                    )}
-                    style={{backgroundColor, height: '100%'}}
-                >
-                    <Text
-                        style={{
-                            width: 360,
-                            height: HEADER_MAX_HEIGHT,
-                        }}
-                    />
-                    <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
-                        <View style={{backgroundColor, margin: 10}}>
-                            <Text style={detailStyle.title}>{this.props.name}</Text>
-                            <View style={detailStyle.metaView}>
-                                <Text>META</Text>
-                            </View>
-                            <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                        </View>
-                    </Touchable>
-                </ScrollView>
-                <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
+                <Animated.View style={[animatedHeaderStyle.header, {height: HEADER_MAX_HEIGHT}]}>
                     <Animated.Image
                         style={[
                             animatedHeaderStyle.backgroundImage,
@@ -123,6 +95,21 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
                         source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
                     />
                 </Animated.View>
+                <ScrollView
+                    scrollEventThrottle={1}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+                    )}
+                    style={{backgroundColor: 'transparent', height: '100%'}}
+                >
+                    <View style={{backgroundColor, padding: 10, marginTop: HEADER_MAX_HEIGHT}}>
+                        <Text style={detailStyle.title}>{this.props.name}</Text>
+                        <View style={detailStyle.metaView}>
+                            <Text>META</Text>
+                        </View>
+                        <Text style={detailStyle.overview}>{this.props.overview}</Text>
+                    </View>
+                </ScrollView>
             </View>
         );
     }

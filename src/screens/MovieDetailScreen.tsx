@@ -147,74 +147,26 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
     }
 
     render() {
-        const headerHeight = this.state.scrollY.interpolate({
-            inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
-            extrapolate: 'clamp',
-        });
+        // const headerHeight = this.state.scrollY.interpolate({
+        //     inputRange: [0, HEADER_SCROLL_DISTANCE],
+        //     outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
+        //     extrapolate: 'clamp',
+        // });
         const imageOpacity = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-            outputRange: [1, 1, 0.4],
+            outputRange: [1, 1, 0.5],
             extrapolate: 'clamp',
         });
 
         const imageTranslate = this.state.scrollY.interpolate({
             inputRange: [0, HEADER_SCROLL_DISTANCE],
-            outputRange: [0, -50],
+            outputRange: [0, -100],
             extrapolate: 'clamp',
         });
 
         return (
             <View style={{backgroundColor}}>
-                <ScrollView
-                    scrollEventThrottle={1}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
-                    )}
-                    style={{backgroundColor, minHeight: '100%'}}
-                >
-                    <Text
-                        style={{
-                            width: 360,
-                            height: HEADER_MAX_HEIGHT,
-                        }}
-                    />
-                    <Touchable style={{marginTop: HEADER_MAX_HEIGHT}}>
-                        <View style={{backgroundColor, margin: 10}}>
-                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                                {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
-                                {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
-                                {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
-                                {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
-                            </View>
-                            <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
-                            <View style={detailStyle.metaView}>
-                                {this.props.budget ? <Text style={[detailStyle.metaText]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
-                                {this.props.revenue ? <Text style={[detailStyle.metaText]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
-                                {this.props.runtime ? <Text style={[detailStyle.metaText]}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
-                                {this.props.vote_average ?
-                                    <Text style={[detailStyle.metaText]}>
-                                        <MaterialIcons name="thumbs-up-down" size={13}/> {this.props.vote_average}
-                                        {this.props.vote_count ? <Text> <Ionicons name="ios-people" size={13}/> {this.props.vote_count}</Text> : null}
-                                    </Text> : null}
-                            </View>
-                            <Text style={detailStyle.overview}>{this.props.overview}</Text>
-                            <MovieIcons {...this.props}/>
-
-                            <MediumSwitches
-                                handleOnBluRay={this.handleOnBluRay}
-                                handleOnDvd={this.handleOnDvd}
-                                handleOnDigital={this.handleOnDigital}
-                                handleOnOther={this.handleOnOther}
-                                blu_ray={this.props.blu_ray}
-                                dvd={this.props.dvd}
-                                digital={this.props.digital}
-                                other={this.props.other}
-                            />
-                        </View>
-                    </Touchable>
-                </ScrollView>
-                <Animated.View style={[animatedHeaderStyle.header, {height: headerHeight}]}>
+                <Animated.View style={[animatedHeaderStyle.header, {height: HEADER_MAX_HEIGHT}]}>
                     <Animated.Image
                         style={[
                             animatedHeaderStyle.backgroundImage,
@@ -229,6 +181,47 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
                         source={this.state.imageUrl ? {uri: this.state.imageUrl} : require('../../assets/eyecon360x219.png')}
                     />
                 </Animated.View>
+                <Animated.ScrollView
+                    scrollEventThrottle={16}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+                    )}
+                    style={{backgroundColor: 'transparent', minHeight: '100%'}}
+                >
+
+                    <View style={{backgroundColor, padding: 10, marginTop: HEADER_MAX_HEIGHT}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}
+                            {this.props.dvd === "1" ? <Image style={{marginLeft: 5, width: 20}} resizeMode='contain' source={require('../../img/dvd.png')}/> : null}
+                            {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
+                            {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
+                        </View>
+                        <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
+                        <View style={detailStyle.metaView}>
+                            {this.props.budget ? <Text style={[detailStyle.metaText]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
+                            {this.props.revenue ? <Text style={[detailStyle.metaText]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
+                            {this.props.runtime ? <Text style={[detailStyle.metaText]}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
+                            {this.props.vote_average ?
+                                <Text style={[detailStyle.metaText]}>
+                                    <MaterialIcons name="thumbs-up-down" size={13}/> {this.props.vote_average}
+                                    {this.props.vote_count ? <Text> <Ionicons name="ios-people" size={13}/> {this.props.vote_count}</Text> : null}
+                                </Text> : null}
+                        </View>
+                        <Text style={detailStyle.overview}>{this.props.overview}</Text>
+                        <MovieIcons {...this.props}/>
+
+                        <MediumSwitches
+                            handleOnBluRay={this.handleOnBluRay}
+                            handleOnDvd={this.handleOnDvd}
+                            handleOnDigital={this.handleOnDigital}
+                            handleOnOther={this.handleOnOther}
+                            blu_ray={this.props.blu_ray}
+                            dvd={this.props.dvd}
+                            digital={this.props.digital}
+                            other={this.props.other}
+                        />
+                    </View>
+                </Animated.ScrollView>
             </View>
         );
     }

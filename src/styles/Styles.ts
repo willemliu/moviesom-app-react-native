@@ -155,9 +155,7 @@ export const detailStyle = StyleSheet.create({
     },
     metaView: {
         flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        flexDirection: 'column',
         marginTop: 10,
         marginBottom: 10,
     },
@@ -190,7 +188,7 @@ export const touchTextButtonStyle = StyleSheet.create({
 });
 
 export const HEADER_MAX_HEIGHT = 219;
-export const HEADER_MIN_HEIGHT = 50;
+export const HEADER_MIN_HEIGHT = 0;
 export const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 export const animatedHeaderStyle = StyleSheet.create({
     header: {

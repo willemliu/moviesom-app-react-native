@@ -1,8 +1,10 @@
 import React from 'react';
 import {Button, Text, TextInput, View, FlatList, AsyncStorage} from 'react-native';
-import {viewStyle, searchScreenStyle, transparentColor, sectionListStyle} from "../styles/Styles";
+import {viewStyle, searchScreenStyle, transparentColor, sectionListStyle, movieSomColor, backgroundColor} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 import { MovieSomServices } from '../moviesom/MovieSom';
+import { Feather } from '@expo/vector-icons';
+import Touchable from '../components/Touchable';
 
 export interface GetUsersMoviesList {
     token: string;
@@ -37,6 +39,9 @@ export interface GetUsersMoviesListResult {
     id: number;
     title: string;
     name: string;
+    overview: string;
+    description: string;
+    biography: string;
     runtime: number;
     number_of_episodes: number;
     number_of_seasons: number;
@@ -123,9 +128,10 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         newResults.forEach((item: GetUsersMoviesListResult, idx: number, arr: GetUsersMoviesListResult[]) => {
             const newItem: GetUsersMoviesListResult = {
                 ...item,
+                id: parseInt(`${item.id}`, 10),
                 want_to_watch: parseInt(`${item.want_to_watch}`, 10) || 0,
                 first_air_date: item.release_date,
-                name: item.title,
+                name: item.title
             };
             arr[idx] = newItem;
         });
@@ -136,8 +142,8 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
      * Make sure the TMDb items in the Store are up-to-date.
      */
     updateStore = (results: GetUsersMoviesListResult[], replace: boolean = false, page: number, totalPages: number) => {
+        if (!results) { return; }
         const sanitizedResults = this.sanitize(results);
-        console.log(sanitizedResults[0]);
         if (replace) {
             this.props.collectionActions.setCollectionItems(sanitizedResults);
         } else {
@@ -236,6 +242,18 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                     onEndReached={this.loadNextPage}
                 />
                 <View style={searchScreenStyle.searchBar}>
+                    <Touchable
+                        style={{flex: 0}}
+                        onPress={() => alert('PRESS')}
+                    >
+                        <View style={{backgroundColor: movieSomColor,
+                            width: 40,
+                            justifyContent: 'space-around',
+                            alignItems: 'center'
+                        }}>
+                            <Feather name="filter" size={32} color={backgroundColor}/>
+                        </View>
+                    </Touchable>
                     <TextInput
                         accessibilityLabel='Search movie or tv series in your collection'
                         style={searchScreenStyle.searchInput}
