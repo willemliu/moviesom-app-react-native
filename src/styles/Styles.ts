@@ -2,6 +2,7 @@ import { StyleSheet, Platform } from 'react-native';
 
 export const movieSomColor = '#008CBA';
 export const movieSomSecondaryColor = '#31C3E7';
+export const movieSomTertiaryColor = '#666666';
 export const watchlistColor = '#f08a24';
 export const transparentColor = 'transparent';
 export const backgroundColor = '#fff';
@@ -50,6 +51,13 @@ export const headerStyle = StyleSheet.create({
 });
 
 export const textStyle = StyleSheet.create({
+    loginReason: {
+        margin: 10,
+        marginBottom: 20,
+        fontSize: 15,
+        textAlign: 'center',
+        color: movieSomTertiaryColor,
+    },
     smallLink: {
         marginTop: 10,
         marginBottom: 10,

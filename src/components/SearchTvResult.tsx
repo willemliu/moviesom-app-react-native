@@ -99,24 +99,6 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
         }
     }
 
-    wantToWatch = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`want to watch ${this.props.id}`);
-        } else {
-            this.props.navigation.push('Login');
-        }
-    }
-
-    share = async () => {
-        const loggedIn = await AsyncStorage.getItem('loggedIn');
-        if (loggedIn) {
-            alert(`share ${this.props.id}`);
-        } else {
-            this.props.navigation.push('Login');
-        }
-    }
-
     render() {
         return (
             <Touchable onPress={this.props.handleOnPress}>

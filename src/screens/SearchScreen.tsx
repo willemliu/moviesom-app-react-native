@@ -64,7 +64,6 @@ export default class SearchScreen extends React.PureComponent<any, any> {
 
     loadNextPage = async () => {
         this.setState({refreshing: true});
-        console.log('load next page', this.props.page < this.props.totalPages, this.loadingPage.indexOf(this.props.page) === -1);
         if (this.props.page < this.props.totalPages && this.loadingPage.indexOf(this.props.page) === -1) {
             if (this.state.searchText) {
                 await this.getSearchMulti(this.props.page + 1);

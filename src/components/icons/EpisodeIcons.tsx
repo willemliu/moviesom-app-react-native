@@ -50,7 +50,9 @@ export default class EpisodeIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setTvEpisodeRatings,setUserTvEpisodeWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to mark this episode as watched.'
+                });
             }
         });
     }
@@ -72,7 +74,9 @@ export default class EpisodeIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setTvEpisodeRatings,setUserTvEpisodeWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to use this function.'
+                });
             }
         });
     }
@@ -94,7 +98,9 @@ export default class EpisodeIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setTvEpisodeRatings,setUserTvEpisodeWantToWatch`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to add this episode to your watchlist.'
+                });
             }
         });
     }
@@ -104,7 +110,9 @@ export default class EpisodeIcons extends React.Component<Props, any> {
             if (this.props.loggedIn) {
                 this.props.navigation.push('Recommend', this.props);
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to recommend this episode to your Movie Buddies.'
+                });
             }
         });
     }

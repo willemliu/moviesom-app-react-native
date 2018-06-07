@@ -44,7 +44,9 @@ export default class MovieIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setMovieRatings,setUserMovieWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to mark this movie as watched.'
+                });
             }
         });
     }
@@ -62,7 +64,9 @@ export default class MovieIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setMovieRatings,setUserMovieWatched`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to use this function.'
+                });
             }
         });
     }
@@ -80,7 +84,9 @@ export default class MovieIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setMovieRatings,setUserMovieWantToWatch`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to add this movie to your watchlist.'
+                });
             }
         });
     }
@@ -94,7 +100,9 @@ export default class MovieIcons extends React.Component<Props, any> {
                     movieBuddiesService: 'getUsersMovieRecommendations'
                 });
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to recommend this movie to your Movie Buddies.'
+                });
             }
         });
     }

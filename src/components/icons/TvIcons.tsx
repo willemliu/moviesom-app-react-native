@@ -44,7 +44,9 @@ export default class TvIcons extends React.Component<Props, any> {
                 this.props.actions.addItem(detailedItem);
                 await post(`setTvRatings,setUserTvWantToWatch`, '', JSON.stringify(detailedItem)).then((data: any) => data.json());
             } else {
-                this.props.navigation.push('Login');
+                this.props.navigation.push('Login', {
+                    loginReason: 'Log in to add this TV series to your watchlist.'
+                });
             }
         });
     }

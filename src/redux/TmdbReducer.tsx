@@ -282,7 +282,7 @@ export {settingsScreen as SettingsScreen};
  * LOGIN
  */
 
-const loginScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(LoginScreen);
+const loginScreen = navigationParamsToProps(connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(LoginScreen));
 export {loginScreen as LoginScreen};
 
 const signUpScreen = connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(SignUpScreen);

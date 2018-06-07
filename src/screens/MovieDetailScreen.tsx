@@ -30,6 +30,7 @@ numeral.locale('nl_NL');
 export interface Props extends MovieProps, GetUserMoviesSettingsResponse {
     actions: any;
     loginToken: string;
+    loggedIn: boolean;
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
@@ -55,7 +56,6 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
     }
 
     checkOrientation = (width: number, height: number) => {
-        console.log('Landscape', (width > height));
         this.props.navigation.setParams({hideTabBar: (width > height)});
     }
 
@@ -93,6 +93,12 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
     }
 
     handleOnBluRay = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this movie to your Blu-Ray collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
@@ -105,6 +111,12 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
     }
 
     handleOnDvd = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this movie to your DVD collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
@@ -113,14 +125,16 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
             dvd: newValue ? '1' : '0'
         };
         this.props.actions.addItem(payload);
-        this.props.post('setUserMovieDvd', '', JSON.stringify(payload))
-        .then((data: any) => data.json())
-        .then((data: any) => {
-            console.log(data);
-        });
+        this.props.post('setUserMovieDvd', '', JSON.stringify(payload));
     }
 
     handleOnDigital = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this movie to your Digital collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
@@ -133,6 +147,12 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
     }
 
     handleOnOther = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this movie to your collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,

@@ -1,8 +1,5 @@
 import React from 'react';
-import { webViewStyle, transparentColor } from '../styles/Styles';
 import {View, Text} from 'react-native';
-import { NavState } from 'react-native';
-import { Switch } from 'react-native';
 import { StyleProp } from 'react-native';
 import { ViewStyle } from 'react-native';
 import LabeledSwitch from './LabeledSwitch';

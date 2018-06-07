@@ -24,7 +24,6 @@ export default class AllNewsScreen extends React.PureComponent<any, any> {
     }
 
     loadNextPage = async () => {
-        console.log('load next news by offset', this.props.offset, this.props.totalNews, this.props.offset < this.props.totalNews, this.loadingOffset.indexOf(this.props.offset) === -1);
         if (this.props.offset < this.props.totalNews && this.loadingOffset.indexOf(this.props.offset) === -1) {
             const news = await this.loadNews(this.props.offset + 10);
             this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews);

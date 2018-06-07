@@ -32,7 +32,6 @@ export const anonymizeItems = (items: any[]): any[any] => {
             }
         });
         arr[idx] = newItem;
-        console.log('found', arr[idx]);
     });
     return newItems;
 };

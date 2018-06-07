@@ -38,6 +38,7 @@ export default class LoginScreen extends React.PureComponent<any, State> {
         return (
             <View style={viewStyle.view}>
                 <View style={viewStyle.formView}>
+                    {this.props.loginReason ? <Text style={textStyle.loginReason}>{this.props.loginReason}</Text> : null}
                     <TextInput
                         accessibilityLabel='E-mail address'
                         style={textInputStyle.textInput}

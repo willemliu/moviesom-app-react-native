@@ -35,7 +35,6 @@ export default class NewsScreen extends React.PureComponent<Props, any> {
     }
 
     loadNextPage = async () => {
-        console.log('load next movie news by offset', this.offset + 5, this.loadingOffset.indexOf(this.offset) === -1);
         if (this.loadingOffset.indexOf(this.offset) === -1) {
             const news = await this.loadNews(this.offset + 5);
             this.updateStore(news);

@@ -168,7 +168,6 @@ export default class AboutScreen extends React.PureComponent<Props, any> {
      * a re-render.
      */
     loadImage = async (imagePath: string|null|undefined) => {
-        console.log('BACKDROP', imagePath);
         const imageUrl = await this.props.getBackdropUrl(imagePath);
         if (imageUrl) {
             Image.getSize(imageUrl, (width: number, height: number) => {

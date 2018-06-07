@@ -1,6 +1,14 @@
 import React from 'react';
 import {Button, Text, TextInput, View, FlatList, AsyncStorage} from 'react-native';
-import {viewStyle, searchScreenStyle, transparentColor, sectionListStyle, movieSomColor, backgroundColor} from "../styles/Styles";
+import {
+    viewStyle,
+    searchScreenStyle,
+    transparentColor,
+    sectionListStyle,
+    movieSomColor,
+    backgroundColor,
+    textStyle
+} from "../styles/Styles";
 import SearchResultTemplate from '../components/SearchResultTemplate';
 import { MovieSomServices } from '../moviesom/MovieSom';
 import { Feather } from '@expo/vector-icons';
@@ -101,6 +109,7 @@ export interface Props {
     spoilerFilter: 'true'|'false';
     sort: 'added'|'updated'|'sort_watched'|'title'|'';
     allFilter: 'true'|'false';
+    refreshView: boolean;
     post: (service: MovieSomServices, urlParams: string, payload: string) => Promise<any>;
 }
 
@@ -108,6 +117,13 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
         title: 'Collection'
     };
+
+    static getDerivedStateFromProps(props: Props, state: any) {
+        if (props.loggedIn !== state.loggedIn) {
+            return {loggedIn: props.loggedIn};
+        }
+        return null;
+    }
 
     state: any = {
         refreshing: true,
@@ -126,6 +142,12 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                     collectionSearchText
                 });
             });
+        }
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: any) {
+        if (this.state.loggedIn !== prevState.loggedIn) {
+            this.refresh();
         }
     }
 
@@ -170,7 +192,6 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
 
     loadNextPage = async () => {
         this.setState({refreshing: true});
-        console.log('load next page', this.props.page < this.props.totalPages, this.loadingPage.indexOf(this.props.page) === -1);
         if (this.props.page < this.props.totalPages && this.loadingPage.indexOf(this.props.page) === -1) {
             await this.searchCollection(this.state.collectionSearchText, this.props.page + 1);
         }
@@ -196,7 +217,6 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
             all_filter: this.props.allFilter,
             page
         };
-        console.log(payload.sort);
         const response: GetUsersMoviesListResponse = await this.props.post('getUsersMoviesList', '', JSON.stringify(payload)).then((data: any) => data.json());
         if (page > 1) {
             this.updateStore(payload, response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
@@ -289,7 +309,10 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         ) :
         (
             <View style={viewStyle.view}>
-                <Button title="Login" onPress={() => this.props.navigation.push('Login')}/>
+                <Text style={textStyle.loginReason}>Log in to keep track of your personal collection.</Text>
+                <Button title="Login" onPress={() => this.props.navigation.push('Login', {
+                    loginReason: 'Log in to keep track of your personal collection.'
+                })}/>
             </View>
         );
     }

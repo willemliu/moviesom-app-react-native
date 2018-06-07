@@ -10,6 +10,7 @@ import { MovieSomServices } from '../moviesom/MovieSom';
 export interface Props extends EpisodeProps, GetUserTvEpisodesSettingsResponse {
     actions: any;
     loginToken: string;
+    loggedIn: boolean;
     navigation: any;
     formatDuration: any;
     get: (route: string, uriParam: string) => Promise<any>;
@@ -79,6 +80,12 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
     }
 
     handleOnBluRay = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this episode to your Blu-Ray collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
@@ -91,6 +98,12 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
     }
 
     handleOnDvd = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this episode to your DVD collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
@@ -99,14 +112,16 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
             dvd: newValue ? '1' : '0'
         };
         this.props.actions.addItem(payload);
-        this.props.post('setUserTvEpisodeDvd', '', JSON.stringify(payload))
-        .then((data: any) => data.json())
-        .then((data: any) => {
-            console.log(data);
-        });
+        this.props.post('setUserTvEpisodeDvd', '', JSON.stringify(payload));
     }
 
     handleOnDigital = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this episode to your Digital collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
@@ -119,6 +134,12 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
     }
 
     handleOnOther = (newValue: boolean) => {
+        if (!this.props.loggedIn) {
+            this.props.navigation.push('Login', {
+                loginReason: 'Log in to add this episode to your collection.'
+            });
+            return;
+        }
         const payload = {
             token: this.props.loginToken,
             id: this.props.id,
