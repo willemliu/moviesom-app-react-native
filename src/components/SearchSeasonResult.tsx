@@ -6,8 +6,11 @@ import { StyleProp } from 'react-native';
 import { ViewStyle } from 'react-native';
 import {SeasonProps} from "../interfaces/Season";
 import {format} from "date-fns";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export interface Props extends SeasonProps {
+    episode_run_time: number[];
+    formatDuration: any;
     getPosterUrl: (posterPath: string|null|undefined, quality?: number) => Promise<any>;
     handleOnPress: (props: any) => void;
     style?: StyleProp<ViewStyle>;
@@ -75,6 +78,7 @@ export default class SearchSeasonResult extends React.PureComponent<Props, any> 
                             <View style={[detailStyle.metaView, {margin: 5}]}>
                                 <Text style={detailStyle.metaText}>{format(this.props.air_date as string, 'DD-MM-YYYY')}</Text>
                                 <Text style={detailStyle.metaText}>Episodes: {this.props.episode_count}</Text>
+                                {this.props.episode_count && this.props.episode_run_time ? <Text style={detailStyle.metaText}>Total duration: <MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration(this.props.episode_count * this.props.episode_run_time[0])}</Text> : null}
                             </View>
                         </View>
                     </View>

@@ -110,7 +110,7 @@ export default class SearchEpisodeResult extends React.PureComponent<Props, any>
                             {this.state.image}
                         </View>
                         <View style={{flex: 10}}>
-                            <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
+                            <Text style={searchResultStyle.title}><Feather name="tv" size={16}/> {this.props.episode_number ? `#${this.props.episode_number} ` : ''}{this.props.name}{this.props.first_air_date ? ` (${format(parse(this.props.first_air_date as string), 'YYYY')})` : null}</Text>
                             <Text style={searchResultStyle.overview} numberOfLines={2}>{this.props.overview}</Text>
                             <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
                                 {this.props.blu_ray === "1" ? <Image style={{width: 20}} resizeMode='contain' source={require('../../img/blu-ray.png')}/> : null}

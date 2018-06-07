@@ -61,22 +61,6 @@ export function collectionReducer(state: any = defaultState, action: any) {
 }
 
 export function mapCollectionStateToProps(state: any, ownProps: any) {
-    console.log('MAPPED', {
-        filterConnection: state.collection.filterConnection,
-        watchedFilter: state.collection.watchedFilter,
-        bluRayFilter: state.collection.bluRayFilter,
-        dvdFilter: state.collection.dvdFilter,
-        digitalFilter: state.collection.digitalFilter,
-        otherFilter: state.collection.otherFilter,
-        lendOutFilter: state.collection.lendOutFilter,
-        noteFilter: state.collection.noteFilter,
-        spoilerFilter: state.collection.spoilerFilter,
-        sort: state.collection.sort,
-        allFilter: state.collection.allFilter,
-        page: state.collection.page,
-        totalPages: state.collection.totalPages
-    });
-
     return {
         ...(state.collection.collectionItems.find((value: any) => {
             let result = false;

@@ -149,8 +149,20 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     }
 
     componentDidUpdate(prevProps: Props, prevState: any) {
-        if (this.state.loggedIn !== prevState.loggedIn) {
-            this.refresh();
+        // If login state changed or any of the filter settings
+        if (this.state.loggedIn !== prevState.loggedIn
+            || this.props.filterConnection !== prevProps.filterConnection
+            || this.props.watchedFilter !== prevProps.watchedFilter
+            || this.props.bluRayFilter !== prevProps.bluRayFilter
+            || this.props.dvdFilter !== prevProps.dvdFilter
+            || this.props.digitalFilter !== prevProps.digitalFilter
+            || this.props.otherFilter !== prevProps.otherFilter
+            || this.props.lendOutFilter !== prevProps.lendOutFilter
+            || this.props.noteFilter !== prevProps.noteFilter
+            || this.props.spoilerFilter !== prevProps.spoilerFilter
+            || this.props.allFilter !== prevProps.allFilter
+        ) {
+            this.searchCollection();
         }
     }
 
@@ -177,7 +189,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     /**
      * Make sure the TMDb items in the Store are up-to-date.
      */
-    updateStore = (filters: GetUsersMoviesList, results: GetUsersMoviesListResult[], replace: boolean = false, page: number, totalPages: number) => {
+    updateStore = (results: GetUsersMoviesListResult[], replace: boolean = false, page: number, totalPages: number) => {
         if (!results) { return; }
         const sanitizedResults = this.sanitize(results);
         if (replace) {
@@ -188,7 +200,6 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         }
         // Add/merge items to the `tmdb` Redux store.
         this.props.actions.addItems(sanitizedResults);
-        this.props.collectionActions.setCollectionFilters(filters);
         this.props.collectionActions.setCollectionPage(page);
         this.props.collectionActions.setCollectionTotalPages(totalPages);
     }
@@ -222,16 +233,11 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         };
         const response: GetUsersMoviesListResponse = await this.props.post('getUsersMoviesList', '', JSON.stringify(payload)).then((data: any) => data.json());
         if (page > 1) {
-            this.updateStore(payload, response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+            this.updateStore(response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
         } else {
-            this.updateStore(payload, response.getUsersMoviesList.results, true, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+            this.updateStore(response.getUsersMoviesList.results, true, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
         }
         this.setState({refreshing: false});
-    }
-
-    refresh = () => {
-        this.props.collectionActions.setCollectionPage(1);
-        this.searchCollection(this.state.collectionSearchText);
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;
@@ -257,8 +263,6 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     render() {
         return this.props.loggedIn ? (
             <View style={viewStyle.view}>
-                <Text>{this.props.allFilter}</Text>
-                <Text>{this.props.watchedFilter}</Text>
                 <FlatList
                     style={searchScreenStyle.flatList}
                     data={this.props.collectionItems}
@@ -276,31 +280,13 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                         />
                     )}
                     refreshing={this.state.refreshing}
-                    onRefresh={this.refresh}
+                    onRefresh={this.searchCollection}
                     onEndReached={this.loadNextPage}
                 />
                 <View style={searchScreenStyle.searchBar}>
                     <Touchable
                         style={{flex: 0}}
-                        onPress={() => this.props.navigation.push('CollectionFilter', {onPress: (filters: Filters) => {
-                            this.props.collectionActions.setCollectionFilters(filters);
-
-                            console.log('BLA', {
-                                watched_filter: this.props.watchedFilter,
-                                spoiler_filter: this.props.spoilerFilter,
-                                sort: this.props.sort,
-                                lend_out_filter: this.props.lendOutFilter,
-                                dvd_filter: this.props.dvdFilter,
-                                blu_ray_filter: this.props.bluRayFilter,
-                                all_filter: this.props.allFilter,
-                                filter_connection: this.props.filterConnection,
-                                digital_filter: this.props.digitalFilter,
-                                note_filter: this.props.noteFilter,
-                                other_filter: this.props.otherFilter
-                            });
-                            console.log('REFRESH');
-                            this.refresh();
-                        }})}
+                        onPress={() => this.props.navigation.push('CollectionFilter')}
                     >
                         <View style={{backgroundColor: movieSomColor,
                             width: 44,

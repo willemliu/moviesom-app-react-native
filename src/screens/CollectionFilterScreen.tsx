@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView, Text, Picker} from 'react-native';
 import {viewStyle, searchScreenStyle, backgroundColor, movieSomColor, touchTextButtonStyle} from "../styles/Styles";
 import {Filters} from "./CollectionScreen";
 import LabeledSwitch from "../components/LabeledSwitch";
@@ -21,7 +21,6 @@ export interface Props {
     spoilerFilter: 'true'|'false';
     sort: 'added'|'updated'|'sort_watched'|'title'|'';
     allFilter: 'true'|'false';
-    onPress: (filters: Filters) => void;
 }
 
 export default class CollectionFilterScreen extends React.PureComponent<Props, any> {
@@ -54,8 +53,9 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
     }
 
     handleFilterPress = () => {
+        const filters = this.getFilters();
+        this.props.collectionActions.setCollectionFilters(filters);
         this.props.navigation.goBack();
-        this.props.onPress(this.getFilters());
     }
 
     handleAllPress = (checked: boolean) => {
@@ -89,6 +89,18 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
                     <LabeledSwitch onValueChange={(checked: boolean) => this.setState({dvdFilter: `${checked}`})} value={this.checkFilter('dvdFilter')}>DVD</LabeledSwitch>
                     <LabeledSwitch onValueChange={(checked: boolean) => this.setState({digitalFilter: `${checked}`})} value={this.checkFilter('digitalFilter')}>Digital</LabeledSwitch>
                     <LabeledSwitch onValueChange={(checked: boolean) => this.setState({otherFilter: `${checked}`})} value={this.checkFilter('otherFilter')}>Other</LabeledSwitch>
+                    <LabeledSwitch onValueChange={(checked: boolean) => this.setState({lendOutFilter: `${checked}`})} value={this.checkFilter('lendOutFilter')}>Lend out</LabeledSwitch>
+                    <LabeledSwitch onValueChange={(checked: boolean) => this.setState({noteFilter: `${checked}`})} value={this.checkFilter('noteFilter')}>Note</LabeledSwitch>
+                    <LabeledSwitch onValueChange={(checked: boolean) => this.setState({spoilerFilter: `${checked}`})} value={this.checkFilter('spoilerFilter')}>Spoiler</LabeledSwitch>
+                    <Picker
+                        selectedValue={this.state ? this.state.sort : 'title'}
+                        style={{ height: 50 }}
+                        onValueChange={(itemValue: string, itemIndex: number) => this.setState({sort: itemValue})}>
+                        <Picker.Item label="By title" value="title" />
+                        <Picker.Item label="By when added" value="added" />
+                        <Picker.Item label="By when updated" value="updated" />
+                        <Picker.Item label="By most watched" value="sort_watched" />
+                    </Picker>
                 </ScrollView>
                 <Touchable style={searchScreenStyle.searchBar}>
                     <View style={touchTextButtonStyle.view}><Text style={touchTextButtonStyle.text} onPress={this.handleFilterPress}>Filter</Text></View>

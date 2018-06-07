@@ -2,12 +2,15 @@ import React from 'react';
 import { Text, ScrollView, View, Animated, Image, Dimensions } from 'react-native';
 import {detailStyle, HEADER_SCROLL_DISTANCE, HEADER_MAX_HEIGHT, animatedHeaderStyle, backgroundColor} from "../styles/Styles";
 import {SeasonProps} from "../interfaces/Season";
+import {format, parse} from "date-fns";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 export interface Props extends SeasonProps {
     actions: any;
     loginToken: string;
     navigation: any;
     formatDuration: any;
+    episode_run_time: number[];
     get: (route: string, uriParam: string) => Promise<any>;
     getPosterUrl: (imagePath: string|null|undefined, quality?: number) => Promise<any>;
 }
@@ -103,7 +106,10 @@ export default class SeasonDetailScreen extends React.PureComponent<Props, any> 
                     <View style={{backgroundColor, padding: 10, marginTop: HEADER_MAX_HEIGHT}}>
                         <Text style={detailStyle.title}>{this.props.name}</Text>
                         <View style={detailStyle.metaView}>
-                            <Text>META</Text>
+                            {this.props.air_date ? <Text style={[detailStyle.metaText]}>First aired: {format(parse(this.props.air_date as string), 'dddd DD-MM-YYYY')}</Text> : null}
+                            {this.props.season_number ? <Text style={[detailStyle.metaText]}>Season: {this.props.season_number}</Text> : null}
+                            {this.props.episode_count ? <Text style={[detailStyle.metaText]}>Episodes: {this.props.episode_count}</Text> : null}
+                            {this.props.episode_count && this.props.episode_run_time ? <Text style={detailStyle.metaText}>Total duration: <MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration(this.props.episode_count * this.props.episode_run_time[0])}</Text> : null}
                         </View>
                         <Text style={detailStyle.overview}>{this.props.overview}</Text>
                     </View>

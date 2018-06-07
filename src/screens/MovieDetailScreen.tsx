@@ -216,12 +216,13 @@ export default class MovieDetailScreen extends React.PureComponent<Props, any> {
                         </View>
                         <Text style={detailStyle.title}>{this.props.title}{this.props.release_date ? ` (${format(parse(this.props.release_date as string), 'YYYY')})` : null}</Text>
                         <View style={detailStyle.metaView}>
+                            {this.props.release_date ? <Text style={[detailStyle.metaText]}>Released: {format(parse(this.props.release_date as string), 'dddd DD-MM-YYYY')}</Text> : null}
                             {this.props.budget ? <Text style={[detailStyle.metaText]}>Budget: {numeral(this.props.budget).format('$0,0')}</Text> : null}
                             {this.props.revenue ? <Text style={[detailStyle.metaText]}>Revenue: {numeral(this.props.revenue).format('$0,0')}</Text> : null}
-                            {this.props.runtime ? <Text style={[detailStyle.metaText]}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
+                            {this.props.runtime ? <Text style={[detailStyle.metaText]}>Runtime: <MaterialCommunityIcons name="timer-sand" size={13}/> {this.props.formatDuration ? this.props.formatDuration(this.props.runtime) : this.props.runtime}</Text> : null}
                             {this.props.vote_average ?
                                 <Text style={[detailStyle.metaText]}>
-                                    <MaterialIcons name="thumbs-up-down" size={13}/> {this.props.vote_average}
+                                    Rating: <MaterialIcons name="thumbs-up-down" size={13}/> {this.props.vote_average}
                                     {this.props.vote_count ? <Text> <Ionicons name="ios-people" size={13}/> {this.props.vote_count}</Text> : null}
                                 </Text> : null}
                         </View>

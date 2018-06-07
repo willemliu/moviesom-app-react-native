@@ -6,6 +6,7 @@ import {EpisodeProps, GetUserTvEpisodesSettingsResponse} from "../interfaces/Epi
 import EpisodeIcons from "../components/icons/EpisodeIcons";
 import MediumSwitches from '../components/MediumSwitches';
 import { MovieSomServices } from '../moviesom/MovieSom';
+import {format, parse} from "date-fns";
 
 export interface Props extends EpisodeProps, GetUserTvEpisodesSettingsResponse {
     actions: any;
@@ -193,9 +194,11 @@ export default class EpisodeDetailScreen extends React.PureComponent<Props, any>
                             {this.props.digital === "1" ? <Octicons name="file-binary" size={10} style={{marginLeft: 5}}/> : null}
                             {this.props.other === "1" ? <MaterialIcons name="devices-other" size={10} style={{marginLeft: 5}}/> : null}
                         </View>
-                        <Text style={detailStyle.title}>{this.props.name}</Text>
+                        <Text style={detailStyle.title}>{this.props.episode_number ? `#${this.props.episode_number} ` : ''}{this.props.name}</Text>
                         <View style={detailStyle.metaView}>
-                            <Text>META</Text>
+                            {this.props.air_date ? <Text style={[detailStyle.metaText]}>First aired: {format(parse(this.props.air_date as string), 'dddd DD-MM-YYYY')}</Text> : null}
+                            {this.props.season_number ? <Text style={[detailStyle.metaText]}>Season: {this.props.season_number}</Text> : null}
+                            {this.props.episode_number ? <Text style={[detailStyle.metaText]}>Episode: {this.props.episode_number}</Text> : null}
                         </View>
                         <Text style={detailStyle.overview}>{this.props.overview}</Text>
                         <EpisodeIcons {...this.props}/>

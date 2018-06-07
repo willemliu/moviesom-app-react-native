@@ -198,7 +198,7 @@ export default class TvDetailScreen extends React.PureComponent<Props, any> {
                         <View style={detailStyle.metaView}>
                             {this.props.type ? <Text style={detailStyle.metaText}>Type: {this.props.type}</Text> : null}
                             {this.props.created_by ? <Text style={detailStyle.metaText}>Created by: {this.props.created_by.map((creator) => creator.name).join(', ')}</Text> : null}
-                            {this.props.episode_run_time ? <Text style={detailStyle.metaText}><MaterialCommunityIcons name="timer-sand" size={13}/> {this.getFormattedEpisodeRunTime(this.props.episode_run_time)}</Text> : null}
+                            {this.props.episode_run_time ? <Text style={detailStyle.metaText}>Runtime: <MaterialCommunityIcons name="timer-sand" size={13}/> {this.getFormattedEpisodeRunTime(this.props.episode_run_time)}</Text> : null}
                             {this.props.first_air_date ? <Text style={detailStyle.metaText}>First air date: {format(this.props.first_air_date, 'DD-MM-YYYY')}</Text> : null}
                             {this.props.number_of_seasons ? <Text style={detailStyle.metaText}>Seasons: {this.props.number_of_seasons}</Text> : null}
                             {this.props.number_of_episodes ? <Text style={detailStyle.metaText}>Episodes: {this.props.number_of_episodes}</Text> : null}
