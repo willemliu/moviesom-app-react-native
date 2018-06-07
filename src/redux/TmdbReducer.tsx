@@ -36,6 +36,7 @@ import { anonymizeItems } from './rootReducer';
 import { mapCollectionStateToProps, mapCollectionDispatchToProps } from './collection/CollectionReducer';
 import CollectionScreen from '../screens/CollectionScreen';
 import { mapMovieStateToProps, mapAllDispatchToProps, mapTvStateToProps, mapEpisodeStateToProps, mapPersonStateToProps, mapAllStateToProps, mapAllSearchStateToProps, mapAllSearchDispatchToProps, mapAllCollectionStateToProps, mapAllCollectionDispatchToProps, mapAllNewsStateToProps, mapAllNewsDispatchToProps, mapAllLoginStateToProps, mapAllLoginDispatchToProps } from './mapStateToProps';
+import CollectionFilterScreen from "../screens/CollectionFilterScreen";
 
 const defaultState = {
     tmdbItems: []
@@ -256,6 +257,9 @@ export {searchScreen as SearchScreen};
 
 const collectionScreen = connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(enhanceWithMovieSomFunctions(CollectionScreen));
 export {collectionScreen as CollectionScreen};
+
+const collectionFilterScreen = navigationParamsToProps(connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(CollectionFilterScreen));
+export {collectionFilterScreen as CollectionFilterScreen};
 
 /**
  * NEWS

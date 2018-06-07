@@ -14,9 +14,13 @@ import { MovieSomServices } from '../moviesom/MovieSom';
 import { Feather } from '@expo/vector-icons';
 import Touchable from '../components/Touchable';
 
-export interface GetUsersMoviesList {
+export interface GetUsersMoviesList extends Filters {
     token: string;
     query: string;
+    page: number;
+}
+
+export interface Filters {
     filter_connection: number|'';
     all_filter: 'true'|'false';
     watched_filter: 'true'|'false';
@@ -28,7 +32,6 @@ export interface GetUsersMoviesList {
     note_filter: 'true'|'false';
     spoiler_filter: 'true'|'false';
     sort: 'added'|'updated'|'sort_watched'|'title'|'';
-    page: number;
 }
 
 export interface GetUsersMoviesListResponse {
@@ -254,6 +257,8 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     render() {
         return this.props.loggedIn ? (
             <View style={viewStyle.view}>
+                <Text>{this.props.allFilter}</Text>
+                <Text>{this.props.watchedFilter}</Text>
                 <FlatList
                     style={searchScreenStyle.flatList}
                     data={this.props.collectionItems}
@@ -277,7 +282,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                 <View style={searchScreenStyle.searchBar}>
                     <Touchable
                         style={{flex: 0}}
-                        onPress={() => alert('PRESS')}
+                        onPress={() => this.props.navigation.push('CollectionFilter', {onPress: () => {}})}
                     >
                         <View style={{backgroundColor: movieSomColor,
                             width: 44,

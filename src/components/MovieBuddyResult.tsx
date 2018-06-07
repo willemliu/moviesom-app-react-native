@@ -1,8 +1,5 @@
-import {View, Text} from 'react-native';
+import {View, Text, Switch, StyleProp, ViewStyle } from 'react-native';
 import React from 'react';
-import { StyleProp } from 'react-native';
-import { ViewStyle } from 'react-native';
-import { Switch } from 'react-native';
 
 export interface Props {
     children?: any;

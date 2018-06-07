@@ -1,4 +1,4 @@
-import {GetUsersMoviesList} from "../../screens/CollectionScreen";
+import {Filters} from "../../screens/CollectionScreen";
 
 export const ADD_COLLECTION_ITEM = 'ADD_COLLECTION_ITEM';
 export const ADD_COLLECTION_ITEMS = 'ADD_COLLECTION_ITEMS';
@@ -23,7 +23,8 @@ export function setCollectionPage(page: number) {
     return { type: SET_COLLECTION_PAGE, page };
 }
 
-export function setCollectionFilters(filters: GetUsersMoviesList) {
+export function setCollectionFilters(filters: Filters) {
+    console.log('ACTION', filters);
     return { type: SET_COLLECTION_FILTERS, filters };
 }
 

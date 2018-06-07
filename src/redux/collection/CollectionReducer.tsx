@@ -1,8 +1,7 @@
 import * as CollectionActions from './CollectionActions';
 import { bindActionCreators } from 'redux';
-import { ADD_COLLECTION_ITEM, ADD_COLLECTION_ITEMS, SET_COLLECTION_ITEMS, SET_COLLECTION_PAGE, SET_COLLECTION_TOTAL_PAGES } from './CollectionActions';
+import { SET_COLLECTION_FILTERS, ADD_COLLECTION_ITEM, ADD_COLLECTION_ITEMS, SET_COLLECTION_ITEMS, SET_COLLECTION_PAGE, SET_COLLECTION_TOTAL_PAGES } from './CollectionActions';
 import { anonymizeItems } from '../rootReducer';
-import {SET_COLLECTION_FILTERS} from "./CollectionActions";
 
 const defaultState = {
     filterConnection: '',
@@ -64,8 +63,9 @@ export function collectionReducer(state: any = defaultState, action: any) {
             newState.lendOutFilter = action.filters.lend_out_filter;
             newState.noteFilter = action.filters.note_filter;
             newState.sort = action.filters.sort;
-            newState.spoiler_filter = action.filters.spoiler_filter;
-            newState.watched_filter = action.filters.watched_filter;
+            newState.spoilerFilter = action.filters.spoiler_filter;
+            newState.watchedFilter = action.filters.watched_filter;
+            console.log(newState.allFilter, newState.watchedFilter);
             return newState;
         case "LOGOUT":
             return {collectionItems: anonymizeItems(newState.collectionItems)};
