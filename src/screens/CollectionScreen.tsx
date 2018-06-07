@@ -19,7 +19,7 @@ export interface GetUsersMoviesList {
     lend_out_filter: 'true'|'false';
     note_filter: 'true'|'false';
     spoiler_filter: 'true'|'false';
-    sort: 'added'|'updated'|'sort_watched'|'default'|'';
+    sort: 'added'|'updated'|'sort_watched'|'title'|'';
     page: number;
 }
 
@@ -90,6 +90,17 @@ export interface Props {
     actions: any;
     collectionActions: any;
     collectionItems: any[any];
+    filterConnection: number|'';
+    watchedFilter: 'true'|'false';
+    bluRayFilter: 'true'|'false';
+    dvdFilter: 'true'|'false';
+    digitalFilter: 'true'|'false';
+    otherFilter: 'true'|'false';
+    lendOutFilter: 'true'|'false';
+    noteFilter: 'true'|'false';
+    spoilerFilter: 'true'|'false';
+    sort: 'added'|'updated'|'sort_watched'|'title'|'';
+    allFilter: 'true'|'false';
     post: (service: MovieSomServices, urlParams: string, payload: string) => Promise<any>;
 }
 
@@ -141,7 +152,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     /**
      * Make sure the TMDb items in the Store are up-to-date.
      */
-    updateStore = (results: GetUsersMoviesListResult[], replace: boolean = false, page: number, totalPages: number) => {
+    updateStore = (filters: GetUsersMoviesList, results: GetUsersMoviesListResult[], replace: boolean = false, page: number, totalPages: number) => {
         if (!results) { return; }
         const sanitizedResults = this.sanitize(results);
         if (replace) {
@@ -152,6 +163,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         }
         // Add/merge items to the `tmdb` Redux store.
         this.props.actions.addItems(sanitizedResults);
+        this.props.collectionActions.setCollectionFilters(filters);
         this.props.collectionActions.setCollectionPage(page);
         this.props.collectionActions.setCollectionTotalPages(totalPages);
     }
@@ -171,24 +183,25 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         const payload: GetUsersMoviesList = {
             token: this.props.loginToken,
             query,
-            filter_connection: '',
-            watched_filter: 'true',
-            blu_ray_filter: 'true',
-            dvd_filter: 'true',
-            digital_filter: 'true',
-            other_filter: 'true',
-            lend_out_filter: 'true',
-            note_filter: 'true',
-            spoiler_filter: 'true',
-            sort: 'updated',
-            all_filter: 'true',
+            filter_connection: this.props.filterConnection,
+            watched_filter: this.props.watchedFilter,
+            blu_ray_filter: this.props.bluRayFilter,
+            dvd_filter: this.props.dvdFilter,
+            digital_filter: this.props.digitalFilter,
+            other_filter: this.props.otherFilter,
+            lend_out_filter: this.props.lendOutFilter,
+            note_filter: this.props.noteFilter,
+            spoiler_filter: this.props.spoilerFilter,
+            sort: this.props.sort,
+            all_filter: this.props.allFilter,
             page
         };
+        console.log(payload.sort);
         const response: GetUsersMoviesListResponse = await this.props.post('getUsersMoviesList', '', JSON.stringify(payload)).then((data: any) => data.json());
         if (page > 1) {
-            this.updateStore(response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+            this.updateStore(payload, response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
         } else {
-            this.updateStore(response.getUsersMoviesList.results, true, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+            this.updateStore(payload, response.getUsersMoviesList.results, true, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
         }
         this.setState({refreshing: false});
     }
@@ -247,7 +260,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                         onPress={() => alert('PRESS')}
                     >
                         <View style={{backgroundColor: movieSomColor,
-                            width: 40,
+                            width: 44,
                             justifyContent: 'space-around',
                             alignItems: 'center'
                         }}>

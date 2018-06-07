@@ -40,9 +40,7 @@ export default class SearchTvResult extends React.PureComponent<Props, any> {
 
     componentDidMount() {
         this.queueGetUserTvSettings();
-        requestAnimationFrame(() => {
-            this.loadImage(this.props.poster_path);
-        });
+        this.loadImage(this.props.poster_path);
     }
 
     componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {

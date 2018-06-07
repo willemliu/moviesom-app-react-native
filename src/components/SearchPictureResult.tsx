@@ -23,13 +23,11 @@ export default class SearchPictureResult extends React.PureComponent<any, any> {
     }
 
     componentDidMount() {
-        requestAnimationFrame(() => {
-            if (this.props.backdrop_path) {
-                this.loadImage(this.props.backdrop_path);
-            } else {
-                this.loadProfile(this.props.file_path);
-            }
-        });
+        if (this.props.backdrop_path) {
+            this.loadImage(this.props.backdrop_path);
+        } else {
+            this.loadProfile(this.props.file_path);
+        }
     }
 
     /**
