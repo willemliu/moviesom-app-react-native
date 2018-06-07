@@ -96,10 +96,10 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
                         selectedValue={this.state ? this.state.sort : 'title'}
                         style={{ height: 50 }}
                         onValueChange={(itemValue: string, itemIndex: number) => this.setState({sort: itemValue})}>
-                        <Picker.Item label="By title" value="title" />
-                        <Picker.Item label="By when added" value="added" />
-                        <Picker.Item label="By when updated" value="updated" />
-                        <Picker.Item label="By most watched" value="sort_watched" />
+                        <Picker.Item label="Sort by title alphabetically" value="title" />
+                        <Picker.Item label="Sort by when added" value="added" />
+                        <Picker.Item label="Sort by last updated" value="updated" />
+                        <Picker.Item label="Sort by most watched" value="sort_watched" />
                     </Picker>
                 </ScrollView>
                 <Touchable style={searchScreenStyle.searchBar}>

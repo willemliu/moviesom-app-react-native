@@ -90,7 +90,13 @@ export default class App extends React.Component<any> {
     }
 
     createStore = async () => {
-        // await AsyncStorage.removeItem('store');
+        // Always reset the store if not reset before a specified date.
+        const baselineTimestamp = +new Date('2018-06-06');
+        const lastResetTimestamp = await AsyncStorage.getItem('lastResetTimestamp');
+        if (baselineTimestamp > parseInt(lastResetTimestamp, 10)) {
+            await AsyncStorage.removeItem('store');
+            AsyncStorage.setItem('lastResetTimestamp', `${+new Date()}`);
+        }
         const preloadedState = JSON.parse(await AsyncStorage.getItem('store'));
         let store: Store;
         if (preloadedState && await AsyncStorage.getItem('loggedIn')) {
