@@ -4,19 +4,6 @@ import { SET_COLLECTION_FILTERS, ADD_COLLECTION_ITEM, ADD_COLLECTION_ITEMS, SET_
 import { anonymizeItems } from '../rootReducer';
 
 const defaultState = {
-    filterConnection: '',
-    watchedFilter: 'true',
-    bluRayFilter: 'false',
-    dvdFilter: 'false',
-    digitalFilter: 'false',
-    otherFilter: 'false',
-    lendOutFilter: 'false',
-    noteFilter: 'false',
-    spoilerFilter: 'false',
-    sort: '',
-    allFilter: 'false',
-    page: 1,
-    totalPages: 1,
     collectionItems: []
 };
 
@@ -65,7 +52,6 @@ export function collectionReducer(state: any = defaultState, action: any) {
             newState.sort = action.filters.sort;
             newState.spoilerFilter = action.filters.spoiler_filter;
             newState.watchedFilter = action.filters.watched_filter;
-            console.log(newState.allFilter, newState.watchedFilter);
             return newState;
         case "LOGOUT":
             return {collectionItems: anonymizeItems(newState.collectionItems)};
@@ -75,6 +61,22 @@ export function collectionReducer(state: any = defaultState, action: any) {
 }
 
 export function mapCollectionStateToProps(state: any, ownProps: any) {
+    console.log('MAPPED', {
+        filterConnection: state.collection.filterConnection,
+        watchedFilter: state.collection.watchedFilter,
+        bluRayFilter: state.collection.bluRayFilter,
+        dvdFilter: state.collection.dvdFilter,
+        digitalFilter: state.collection.digitalFilter,
+        otherFilter: state.collection.otherFilter,
+        lendOutFilter: state.collection.lendOutFilter,
+        noteFilter: state.collection.noteFilter,
+        spoilerFilter: state.collection.spoilerFilter,
+        sort: state.collection.sort,
+        allFilter: state.collection.allFilter,
+        page: state.collection.page,
+        totalPages: state.collection.totalPages
+    });
+
     return {
         ...(state.collection.collectionItems.find((value: any) => {
             let result = false;

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, View, ScrollView, Text} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 import {viewStyle, searchScreenStyle, backgroundColor, movieSomColor, touchTextButtonStyle} from "../styles/Styles";
 import {Filters} from "./CollectionScreen";
 import LabeledSwitch from "../components/LabeledSwitch";
@@ -53,15 +53,7 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
         return filters;
     }
 
-    /**
-     * Make sure the TMDb items in the Store are up-to-date.
-     */
-    updateStore = () => {
-        this.props.collectionActions.setCollectionFilters(this.getFilters());
-    }
-
     handleFilterPress = () => {
-        this.updateStore();
         this.props.navigation.goBack();
         this.props.onPress(this.getFilters());
     }

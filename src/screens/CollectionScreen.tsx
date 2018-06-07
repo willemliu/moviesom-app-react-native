@@ -282,7 +282,25 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                 <View style={searchScreenStyle.searchBar}>
                     <Touchable
                         style={{flex: 0}}
-                        onPress={() => this.props.navigation.push('CollectionFilter', {onPress: () => {}})}
+                        onPress={() => this.props.navigation.push('CollectionFilter', {onPress: (filters: Filters) => {
+                            this.props.collectionActions.setCollectionFilters(filters);
+
+                            console.log('BLA', {
+                                watched_filter: this.props.watchedFilter,
+                                spoiler_filter: this.props.spoilerFilter,
+                                sort: this.props.sort,
+                                lend_out_filter: this.props.lendOutFilter,
+                                dvd_filter: this.props.dvdFilter,
+                                blu_ray_filter: this.props.bluRayFilter,
+                                all_filter: this.props.allFilter,
+                                filter_connection: this.props.filterConnection,
+                                digital_filter: this.props.digitalFilter,
+                                note_filter: this.props.noteFilter,
+                                other_filter: this.props.otherFilter
+                            });
+                            console.log('REFRESH');
+                            this.refresh();
+                        }})}
                     >
                         <View style={{backgroundColor: movieSomColor,
                             width: 44,

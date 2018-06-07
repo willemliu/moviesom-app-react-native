@@ -13,9 +13,6 @@ import { navigationParamsToProps } from '../utils/navigation';
 import { enhanceWithMovieSomFunctions } from '../utils/movieSom';
 import SearchTvResult from '../components/SearchTvResult';
 import FilmographyScreen from '../screens/FilmographyScreen';
-import { mapDeviceStateToProps, mapDeviceDispatchToProps } from './device/DeviceReducer';
-import { mapLoginStateToProps, mapLoginDispatchToProps } from './login/LoginReducer';
-import { mapSearchStateToProps, mapSearchDispatchToProps } from './search/SearchReducer';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import PicturesScreen from '../screens/PicturesScreen';
@@ -27,13 +24,12 @@ import SearchEpisodeResult from '../components/SearchEpisodeResult';
 import EpisodesScreen from '../screens/EpisodesScreen';
 import SeasonDetailScreen from '../screens/SeasonDetailScreen';
 import EpisodeDetailScreen from '../screens/EpisodeDetailScreen';
-import {mapNewsDispatchToProps, mapNewsStateToProps} from "./news/NewsReducer";
+import {mapNewsStateToProps} from "./news/NewsReducer";
 import AllNewsScreen from '../screens/AllNewsScreen';
 import SearchNewsResult from '../components/SearchNewsResult';
 import NewsScreen from '../screens/NewsScreen';
 import RecommendScreen from '../screens/RecommendScreen';
 import { anonymizeItems } from './rootReducer';
-import { mapCollectionStateToProps, mapCollectionDispatchToProps } from './collection/CollectionReducer';
 import CollectionScreen from '../screens/CollectionScreen';
 import { mapMovieStateToProps, mapAllDispatchToProps, mapTvStateToProps, mapEpisodeStateToProps, mapPersonStateToProps, mapAllStateToProps, mapAllSearchStateToProps, mapAllSearchDispatchToProps, mapAllCollectionStateToProps, mapAllCollectionDispatchToProps, mapAllNewsStateToProps, mapAllNewsDispatchToProps, mapAllLoginStateToProps, mapAllLoginDispatchToProps } from './mapStateToProps';
 import CollectionFilterScreen from "../screens/CollectionFilterScreen";
@@ -255,7 +251,7 @@ export {searchScreen as SearchScreen};
  * COLLECTION
  */
 
-const collectionScreen = connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(enhanceWithMovieSomFunctions(CollectionScreen));
+const collectionScreen = navigationParamsToProps(connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(enhanceWithMovieSomFunctions(CollectionScreen)));
 export {collectionScreen as CollectionScreen};
 
 const collectionFilterScreen = navigationParamsToProps(connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(CollectionFilterScreen));
