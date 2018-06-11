@@ -6,6 +6,13 @@ import { movieSomColor, movieSomSecondaryColor } from '../styles/Styles';
 import { Platform } from 'react-native';
 
 const navigationRouteConfigMap: NavigationRouteConfigMap = {
+    News: {
+        screen: AllNewsScreen,
+        navigationOptions: {
+            title: 'News',
+            tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
+        }
+    },
     Search: {
         screen: SearchScreen,
         navigationOptions: {
@@ -27,13 +34,6 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
     //         tabBarIcon: <MaterialIcons name="playlist-add" size={32} color='#fff'/>,
     //     }
     // },
-    News: {
-        screen: AllNewsScreen,
-        navigationOptions: {
-            title: 'News',
-            tabBarIcon: <FontAwesome name="newspaper-o" size={32} color='#fff'/>,
-        }
-    },
     Settings: {
         screen: SettingsScreen,
         navigationOptions: {
