@@ -20,7 +20,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",
     "jest": "^22.4.4",
-    "jest-expo": "^27.0.1",
+    "jest-expo": "^28.0.0",
     "react-native-mock-render": "0.0.25",
     "react-native-scripts-ts": "1.13.0",
     "react-native-typescript-transformer": "^1.2.3",
