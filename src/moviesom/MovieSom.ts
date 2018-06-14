@@ -134,6 +134,12 @@ export async function loginWithToken(token: string): Promise<LoginResponseType> 
     return jsonResult;
 }
 
+export async function sendResetPasswordMail(email: string) {
+    post('sendPasswordResetMail', '', JSON.stringify({
+        username: email
+    }));
+}
+
 export async function getNews(offset: number = 0): Promise<NewsResponseType> {
     const response = post('getNews', '', JSON.stringify({ offset }));
     const jsonResult: NewsResponseType = await response.then((data) => data.json());
