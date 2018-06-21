@@ -2,7 +2,7 @@
   "name": "react-native-ts",
   "displayName": "react-native-ts",
   "expo": {
-    "sdkVersion": "26.0.0",
+    "sdkVersion": "28.0.0",
     "name": "react-native-ts",
     "description": "React Native test application showcasing navigation logic.",
     "icon": "./assets/eyecon512x512.png",
