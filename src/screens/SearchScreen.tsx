@@ -75,16 +75,20 @@ export default class SearchScreen extends React.PureComponent<any, any> {
     }
 
     search = async (searchText: string = this.state.searchText) => {
-        this.setState({refreshing: true});
-        if (searchText) {
-            // Store searchText in storage for next sessions.
-            AsyncStorage.setItem('searchText', searchText);
-            await this.getSearchMulti();
-        } else {
-            AsyncStorage.removeItem('searchText');
-            await this.getNowPlaying();
+        try {
+            this.setState({refreshing: true});
+            if (searchText) {
+                // Store searchText in storage for next sessions.
+                AsyncStorage.setItem('searchText', searchText);
+                await this.getSearchMulti();
+            } else {
+                AsyncStorage.removeItem('searchText');
+                await this.getNowPlaying();
+            }
+            this.setState({refreshing: false});
+        } catch {
+            this.setState({refreshing: false});
         }
-        this.setState({refreshing: false});
     }
 
     refresh = () => {

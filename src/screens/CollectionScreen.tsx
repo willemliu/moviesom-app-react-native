@@ -213,31 +213,35 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
     }
 
     searchCollection = async (query: string = '', page: number = 1) => {
-        this.setState({refreshing: true});
-        AsyncStorage.setItem('collectionSearchText', query);
-        const payload: GetUsersMoviesList = {
-            token: this.props.loginToken,
-            query,
-            filter_connection: this.props.filterConnection,
-            watched_filter: this.props.watchedFilter,
-            blu_ray_filter: this.props.bluRayFilter,
-            dvd_filter: this.props.dvdFilter,
-            digital_filter: this.props.digitalFilter,
-            other_filter: this.props.otherFilter,
-            lend_out_filter: this.props.lendOutFilter,
-            note_filter: this.props.noteFilter,
-            spoiler_filter: this.props.spoilerFilter,
-            sort: this.props.sort,
-            all_filter: this.props.allFilter,
-            page
-        };
-        const response: GetUsersMoviesListResponse = await this.props.post('getUsersMoviesList', '', JSON.stringify(payload)).then((data: any) => data.json());
-        if (page > 1) {
-            this.updateStore(response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
-        } else {
-            this.updateStore(response.getUsersMoviesList.results, true, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+        try {
+            this.setState({refreshing: true});
+            AsyncStorage.setItem('collectionSearchText', query);
+            const payload: GetUsersMoviesList = {
+                token: this.props.loginToken,
+                query,
+                filter_connection: this.props.filterConnection,
+                watched_filter: this.props.watchedFilter,
+                blu_ray_filter: this.props.bluRayFilter,
+                dvd_filter: this.props.dvdFilter,
+                digital_filter: this.props.digitalFilter,
+                other_filter: this.props.otherFilter,
+                lend_out_filter: this.props.lendOutFilter,
+                note_filter: this.props.noteFilter,
+                spoiler_filter: this.props.spoilerFilter,
+                sort: this.props.sort,
+                all_filter: this.props.allFilter,
+                page
+            };
+            const response: GetUsersMoviesListResponse = await this.props.post('getUsersMoviesList', '', JSON.stringify(payload)).then((data: any) => data.json());
+            if (page > 1) {
+                this.updateStore(response.getUsersMoviesList.results, false, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+            } else {
+                this.updateStore(response.getUsersMoviesList.results, true, response.getUsersMoviesList.page, response.getUsersMoviesList.total_pages);
+            }
+            this.setState({refreshing: false});
+        } catch {
+            this.setState({refreshing: false});
         }
-        this.setState({refreshing: false});
     }
 
     keyExtractor = (item: any, index: number) => `${item.id}${index}`;

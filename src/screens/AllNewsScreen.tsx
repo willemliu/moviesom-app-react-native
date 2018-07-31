@@ -24,9 +24,13 @@ export default class AllNewsScreen extends React.PureComponent<any, any> {
     }
 
     loadNextPage = async () => {
-        if (this.props.offset < this.props.totalNews && this.loadingOffset.indexOf(this.props.offset) === -1) {
-            const news = await this.loadNews(this.props.offset + 10);
-            this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews);
+        try {
+            if (this.props.offset < this.props.totalNews && this.loadingOffset.indexOf(this.props.offset) === -1) {
+                const news = await this.loadNews(this.props.offset + 10);
+                this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews);
+            }
+        } catch {
+            this.setState({refreshing: false});
         }
     }
 
@@ -40,9 +44,13 @@ export default class AllNewsScreen extends React.PureComponent<any, any> {
     }
 
     refresh = async () => {
-        this.props.newsActions.setNewsOffset(0);
-        const news = await this.loadNews();
-        this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews, true);
+        try {
+            this.props.newsActions.setNewsOffset(0);
+            const news = await this.loadNews();
+            this.updateStore(news.getNews.message, news.getNews.offset, news.getNews.totalNews, true);
+        } catch {
+            this.setState({refreshing: false});
+        }
     }
 
     updateStore = (items: any[any], offset: number, totalNews: number, replace: boolean = false) => {

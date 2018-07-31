@@ -56,10 +56,13 @@ export default class NewsScreen extends React.PureComponent<Props, any> {
     }
 
     refresh = async () => {
-        // this.props.newsActions.setNewsOffset(0);
-        this.offset = 0;
-        const news = await this.loadNews();
-        this.updateStore(news, true);
+        try {
+            this.offset = 0;
+            const news = await this.loadNews();
+            this.updateStore(news, true);
+        } catch {
+            this.setState({refreshing: false});
+        }
     }
 
     updateStore = (news: MovieNewsResponseType&TvNewsResponseType&PersonNewsResponseType, replace: boolean = false) => {
