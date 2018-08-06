@@ -53,7 +53,8 @@ export default class App extends React.Component<any> {
     }
 
     checkOnline = (connectionInfo: ConnectionInfo) => {
-        switch (connectionInfo.type) {
+        const type = connectionInfo ? connectionInfo.type : 'none';
+        switch (type) {
             case 'none':
             case 'NONE':
             case 'unknown':
