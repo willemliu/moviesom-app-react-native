@@ -1,6 +1,6 @@
 import React from 'react';
 import { get, getBackdropUrl, getProfileUrl, getPosterUrl } from '../tmdb/TMDb';
-import { post, getNews, getMovieNews, getPersonNews, getTvNews } from '../moviesom/MovieSom';
+import { post, getMovieNews, getPersonNews, getTvNews } from '../moviesom/MovieSom';
 import {GetUserEpisodeSettings, GetUserMoviesSettings, GetUserTvSettings, MovieNewsResponseType} from '../interfaces/Movie';
 import { AsyncStorage } from 'react-native';
 import { TvNewsResponseType } from '../interfaces/Tv';

@@ -121,7 +121,7 @@ export default class EpisodeIcons extends React.Component<Props, any> {
         requestAnimationFrame(async () => {
             const service = 'tmdbTvEpisodeId';
             const title = this.props.name;
-            const message = `${this.props.overview ? this.props.overview : title}`;
+            const message = this.props.overview ? `${title} - ${this.props.overview}` : title;
             Share.share({
                 title,
                 message: `${message} https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,

@@ -111,7 +111,7 @@ export default class MovieIcons extends React.Component<Props, any> {
         requestAnimationFrame(async () => {
             const service = 'tmdbMovieId';
             const title = this.props.title;
-            const message = `${this.props.overview ? this.props.overview : title}`;
+            const message = this.props.overview ? `${title} - ${this.props.overview}` : title;
             Share.share({
                 title,
                 message: `${message} https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,

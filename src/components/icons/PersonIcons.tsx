@@ -34,7 +34,7 @@ export default class PersonIcons extends React.Component<Props, any> {
         requestAnimationFrame(async () => {
             const service = 'tmdbPersonId';
             const title = this.props.name;
-            const message = this.props.biography;
+            const message = `${this.props.name} - ${this.props.biography}`;
             Share.share({
                 title,
                 message: `${message}https://www.moviesom.com/moviesom.php?${service}=${this.props.id}`,

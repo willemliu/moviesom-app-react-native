@@ -23,7 +23,7 @@ export default class SearchNewsResult extends React.PureComponent<Props, any> {
     shareHandler = () => {
         requestAnimationFrame(async () => {
             const title = this.props.title;
-            const message = `${this.props.description ? this.props.description : title}`;
+            const message = this.props.description ? `${title} - ${this.props.description}` : title;
             Share.share({
                 title,
                 message: `${message} ${this.props.url}`,
