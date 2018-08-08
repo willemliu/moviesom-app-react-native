@@ -262,3 +262,14 @@ export const sectionListStyle = StyleSheet.create({
         padding: 10,
     }
 });
+
+export const filterStyle = StyleSheet.create({
+    explanation: {
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 10,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }, 
+});

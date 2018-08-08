@@ -43,6 +43,7 @@ export function collectionReducer(state: any = defaultState, action: any) {
         case SET_COLLECTION_FILTERS:
             newState.filterConnection = action.filters.filter_connection;
             newState.allFilter = action.filters.all_filter;
+            newState.wantToWatchFilter = action.filters.want_to_watch_filter;
             newState.bluRayFilter = action.filters.blu_ray_filter;
             newState.dvdFilter = action.filters.dvd_filter;
             newState.digitalFilter = action.filters.digital_filter;
@@ -74,6 +75,7 @@ export function mapCollectionStateToProps(state: any, ownProps: any) {
         })),
         filterConnection: state.collection.filterConnection,
         watchedFilter: state.collection.watchedFilter,
+        wantToWatchFilter: state.collection.wantToWatchFilter,
         bluRayFilter: state.collection.bluRayFilter,
         dvdFilter: state.collection.dvdFilter,
         digitalFilter: state.collection.digitalFilter,

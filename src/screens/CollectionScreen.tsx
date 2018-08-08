@@ -24,6 +24,7 @@ export interface Filters {
     filter_connection: number|'';
     all_filter: 'true'|'false';
     watched_filter: 'true'|'false';
+    want_to_watch_filter: 'true'|'false';
     blu_ray_filter: 'true'|'false';
     dvd_filter: 'true'|'false';
     digital_filter: 'true'|'false';
@@ -103,6 +104,7 @@ export interface Props {
     collectionItems: any[any];
     filterConnection: number|'';
     watchedFilter: 'true'|'false';
+    wantToWatchFilter: 'true'|'false';
     bluRayFilter: 'true'|'false';
     dvdFilter: 'true'|'false';
     digitalFilter: 'true'|'false';
@@ -153,6 +155,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
         if (this.state.loggedIn !== prevState.loggedIn
             || this.props.filterConnection !== prevProps.filterConnection
             || this.props.watchedFilter !== prevProps.watchedFilter
+            || this.props.wantToWatchFilter !== prevProps.wantToWatchFilter
             || this.props.bluRayFilter !== prevProps.bluRayFilter
             || this.props.dvdFilter !== prevProps.dvdFilter
             || this.props.digitalFilter !== prevProps.digitalFilter
@@ -161,6 +164,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
             || this.props.noteFilter !== prevProps.noteFilter
             || this.props.spoilerFilter !== prevProps.spoilerFilter
             || this.props.allFilter !== prevProps.allFilter
+            || this.props.sort !== prevProps.sort
         ) {
             this.searchCollection();
         }
@@ -221,6 +225,7 @@ export default class CollectionScreen extends React.PureComponent<Props, any> {
                 query,
                 filter_connection: this.props.filterConnection,
                 watched_filter: this.props.watchedFilter,
+                want_to_watch_filter: this.props.wantToWatchFilter,
                 blu_ray_filter: this.props.bluRayFilter,
                 dvd_filter: this.props.dvdFilter,
                 digital_filter: this.props.digitalFilter,
