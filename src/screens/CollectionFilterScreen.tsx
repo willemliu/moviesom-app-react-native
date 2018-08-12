@@ -4,6 +4,7 @@ import {viewStyle, searchScreenStyle, backgroundColor, movieSomColor, touchTextB
 import {Filters} from "./CollectionScreen";
 import LabeledSwitch from "../components/LabeledSwitch";
 import Touchable from "../components/Touchable";
+import { MovieSomServices } from '../moviesom/MovieSom';
 
 export interface Props {
     navigation: any;
@@ -22,7 +23,12 @@ export interface Props {
     spoilerFilter: 'true'|'false';
     sort: 'added'|'updated'|'sort_watched'|'title'|'';
     allFilter: 'true'|'false';
+    loggedIn: boolean;
+    loginToken: string;
+    post: (service: MovieSomServices, urlParams: string, payload: string) => Promise<any>;
 }
+
+export interface FilterConnection {alias: string, user_id: number, username: string}
 
 export default class CollectionFilterScreen extends React.PureComponent<Props, any> {
     static navigationOptions = {
@@ -33,7 +39,23 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
 
     constructor(props: Props) {
         super(props);
-        this.state = this.props;
+        this.state = {
+            filterConnections: [],
+            ...this.props
+        };
+    }
+
+    componentDidMount() {
+        this.getConnections();
+    }
+
+    getConnections = async () => {
+        const response = await this.props.post('getUserFilterConnections', '', JSON.stringify({
+            token: this.props.loginToken
+        })).then((data: any) => data.json());
+        this.setState({
+            filterConnections: response.getUserFilterConnections.message
+        });
     }
 
     getFilters = () => {
@@ -83,12 +105,18 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
 
     getExplanation = () => {
         const explanation: string[] = ['Show'];
+        let user = 'you';
+        const foundUser: FilterConnection = this.state.filterConnections.find((el: FilterConnection) => el.user_id === this.state.filterConnection );
+        if (foundUser) {
+            user = foundUser.alias ? foundUser.alias : foundUser.username;
+        }
+
         if (this.state.allFilter === 'true') {
-            explanation.push(`everything you've seen or not`);
+            explanation.push(`everything ${user} have seen or not`);
         } else if (this.state.watchedFilter === 'true') {
-            explanation.push(`everything you've seen`);
+            explanation.push(`everything ${user} have seen`);
         } else {
-            explanation.push(`everything you haven't seen`);
+            explanation.push(`everything ${user} haven't seen`);
         }
         if (this.state.wantToWatchFilter === 'true') {
             explanation.push(`and want to watch`);
@@ -124,10 +152,30 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
         if (this.state.spoilerFilter === 'true') {
             explanation.push(`and contains a spoiler left by a movie buddy`);
         }
+        switch (this.state.sort) {
+            case 'added':
+                explanation.push(`ordered by last added`);
+                break;
+            case 'updated':
+                explanation.push(`ordered by last updated`);
+                break;
+            case 'sort_watched':
+                explanation.push(`ordered by most watched`);
+                break;
+            case 'title':
+            default:
+                explanation.push(`ordered by title alphabetically`);
+                break;
+        }
         return explanation.join(' ');
     }
 
     render() {
+        const connections: JSX.Element[] = [];
+        this.state.filterConnections.forEach((connection: FilterConnection) => {
+            connections.push(<Picker.Item key={connection.user_id} label={connection.alias ? connection.alias : connection.username} value={connection.user_id}/>);
+        });
+
         return (
             <View style={viewStyle.view}>
                 <ScrollView style={[searchScreenStyle.flatList, {backgroundColor}]}>
@@ -150,11 +198,17 @@ export default class CollectionFilterScreen extends React.PureComponent<Props, a
                         <Picker.Item label="Sort by last updated" value="updated" />
                         <Picker.Item label="Sort by most watched" value="sort_watched" />
                     </Picker>
-                    <Text style={filterStyle.explanation}>{this.getExplanation()}</Text>
+                    <Picker selectedValue={this.state.filterConnection}
+                        style={{ height: 50 }}
+                        onValueChange={(itemValue: string, itemIndex: number) => this.setState({filterConnection: itemValue})}>
+                        <Picker.Item label='Yourself' value=''/>
+                        {connections}
+                    </Picker>
                     <Touchable style={searchScreenStyle.searchBar}>
                         <View style={touchTextButtonStyle.view}><Text style={touchTextButtonStyle.text} onPress={this.handleFilterPress}>Filter</Text></View>
                     </Touchable>
                 </ScrollView>
+                <Text style={filterStyle.explanation}>{this.getExplanation()}</Text>
             </View>
         );
     }

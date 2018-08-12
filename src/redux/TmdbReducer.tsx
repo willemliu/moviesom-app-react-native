@@ -254,7 +254,7 @@ export {searchScreen as SearchScreen};
 const collectionScreen = connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(navigationParamsToProps(enhanceWithMovieSomFunctions(CollectionScreen)));
 export {collectionScreen as CollectionScreen};
 
-const collectionFilterScreen = connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(navigationParamsToProps(CollectionFilterScreen));
+const collectionFilterScreen = connect(mapAllCollectionStateToProps, mapAllCollectionDispatchToProps)(navigationParamsToProps(enhanceWithMovieSomFunctions(CollectionFilterScreen)));
 export {collectionFilterScreen as CollectionFilterScreen};
 
 /**
