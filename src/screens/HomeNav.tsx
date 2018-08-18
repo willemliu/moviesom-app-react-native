@@ -27,13 +27,6 @@ const navigationRouteConfigMap: NavigationRouteConfigMap = {
             tabBarIcon: <MaterialIcons name="person-outline" size={32} color='#fff'/>,
         }
     },
-    // Watchlist: {
-    //     screen: SearchScreen,
-    //     navigationOptions: {
-    //         title: 'Watchlist',
-    //         tabBarIcon: <MaterialIcons name="playlist-add" size={32} color='#fff'/>,
-    //     }
-    // },
     Settings: {
         screen: SettingsScreen,
         navigationOptions: {

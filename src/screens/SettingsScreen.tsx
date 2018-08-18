@@ -34,13 +34,29 @@ export default class SettingsScreen extends React.PureComponent<any, any> {
                 )}
 
                 {this.props.loggedIn ? (
-                    <TouchTextButton style={{marginBottom: 10}} onPress={this.logOut}>Log out</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Profile'))}>Profile</TouchTextButton>
+                ) : null}
+
+                {this.props.loggedIn ? (
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Profile'))}>Movie buddies</TouchTextButton>
+                ) : null}
+
+                {this.props.loggedIn ? (
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Profile'))}>Stats</TouchTextButton>
+                ) : null}
+
+                {this.props.loggedIn ? (
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Profile'))}>Rankings</TouchTextButton>
                 ) : null}
 
                 <TouchTextButton
                     style={{marginBottom: 10}}
                     onPress={() => requestAnimationFrame(() => navigation.push('About', {name: 'Willem Liu'}))}
                 >About</TouchTextButton>
+
+                {this.props.loggedIn ? (
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(this.logOut)}>Log out</TouchTextButton>
+                ) : null}
 
                 <TouchTextButton
                     style={{marginBottom: 10}}

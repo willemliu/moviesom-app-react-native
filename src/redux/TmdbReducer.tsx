@@ -33,6 +33,8 @@ import { anonymizeItems } from './rootReducer';
 import CollectionScreen from '../screens/CollectionScreen';
 import { mapMovieStateToProps, mapAllDispatchToProps, mapTvStateToProps, mapEpisodeStateToProps, mapPersonStateToProps, mapAllStateToProps, mapAllSearchStateToProps, mapAllSearchDispatchToProps, mapAllCollectionStateToProps, mapAllCollectionDispatchToProps, mapAllNewsStateToProps, mapAllNewsDispatchToProps, mapAllLoginStateToProps, mapAllLoginDispatchToProps } from './mapStateToProps';
 import CollectionFilterScreen from "../screens/CollectionFilterScreen";
+import ProfileScreen from '../screens/ProfileScreen';
+import { mapLoginDispatchToProps, mapLoginStateToProps } from './login/LoginReducer';
 
 const defaultState = {
     tmdbItems: []
@@ -270,6 +272,13 @@ export {allNewsScreen as AllNewsScreen};
 
 const recommendScreen = navigationParamsToProps(connect(mapAllLoginStateToProps, mapAllLoginDispatchToProps)(enhanceWithMovieSomFunctions(RecommendScreen)));
 export {recommendScreen as RecommendScreen};
+
+/**
+ * PROFILE
+ */
+
+const profileScreen = connect(mapLoginStateToProps, mapLoginDispatchToProps)(enhanceWithMovieSomFunctions(ProfileScreen));
+export {profileScreen as ProfileScreen};
 
 /**
  * SETTINGS
