@@ -1,7 +1,7 @@
 # React Native implementation of MovieSom
 
-[![Build Status](https://travis-ci.com/willemliu/react-native-ts-test.svg?branch=master)](https://travis-ci.com/willemliu/react-native-ts-test)
-[![Greenkeeper badge](https://badges.greenkeeper.io/willemliu/react-native-ts-test.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.com/willemliu/moviesom-app-react-native.svg?branch=master)](https://travis-ci.com/willemliu/moviesom-app-react-native)
+[![Greenkeeper badge](https://badges.greenkeeper.io/willemliu/moviesom-app-react-native.svg)](https://greenkeeper.io/)
 
 Test app created with React Native and React Navigator.
 
@@ -14,7 +14,7 @@ Override Expo IP: `set REACT_NATIVE_PACKAGER_HOSTNAME=10.20.1.65`
 
 [View on Expo](https://expo.io/@willem_liu/react-native-ts)
 
-[exp://exp.host/@willem_liu/react-native-ts](exp://exp.host/@willem_liu/react-native-ts)
+[exp://exp.host/@willem_liu/react-native-ts](exp://exp.host/@willem_liu/moviesom-rn)
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
