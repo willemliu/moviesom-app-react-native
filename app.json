@@ -7,7 +7,7 @@
     "description": "React Native implementation of MovieSom",
     "icon": "./assets/eyecon512x512.png",
     "version": "3.0.0",
-    "githubUrl": "https://github.com/willemliu/react-native-ts-test",
+    "githubUrl": "https://github.com/willemliu/moviesom-app-react-native",
     "primaryColor": "#008CBA",
     "packagerOpts": {
       "sourceExts": ["ts", "tsx"],
@@ -20,7 +20,6 @@
       "backgroundColor": "#000000"
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
       "package": "com.moviesom.rn",
       "permissions": []
     },
