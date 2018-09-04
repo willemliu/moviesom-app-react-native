@@ -1,4 +1,4 @@
-# React Native test app
+# React Native implementation of MovieSom
 
 [![Build Status](https://travis-ci.com/willemliu/react-native-ts-test.svg?branch=master)](https://travis-ci.com/willemliu/react-native-ts-test)
 [![Greenkeeper badge](https://badges.greenkeeper.io/willemliu/react-native-ts-test.svg)](https://greenkeeper.io/)

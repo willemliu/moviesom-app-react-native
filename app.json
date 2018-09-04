@@ -1,10 +1,10 @@
 {
-  "name": "react-native-ts",
-  "displayName": "react-native-ts",
+  "name": "moviesom-rn",
+  "displayName": "MovieSom RN",
   "expo": {
     "sdkVersion": "29.0.0",
-    "name": "react-native-ts",
-    "description": "React Native test application showcasing navigation logic.",
+    "name": "moviesom-rn",
+    "description": "React Native implementation of MovieSom",
     "icon": "./assets/eyecon512x512.png",
     "version": "3.0.0",
     "githubUrl": "https://github.com/willemliu/react-native-ts-test",
@@ -21,7 +21,7 @@
     },
     "android": {
       "googleServicesFile": "./google-services.json",
-      "package": "com.moviesom",
+      "package": "com.moviesom.rn",
       "permissions": []
     },
     "notification": {

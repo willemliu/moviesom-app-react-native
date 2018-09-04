@@ -38,7 +38,7 @@ export default class SettingsScreen extends React.PureComponent<any, any> {
                 ) : null}
 
                 {this.props.loggedIn ? (
-                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('Profile'))}>Movie buddies</TouchTextButton>
+                    <TouchTextButton style={{marginBottom: 10}} onPress={() => requestAnimationFrame(() => navigation.push('MovieBuddies'))}>Movie buddies</TouchTextButton>
                 ) : null}
 
                 {this.props.loggedIn ? (

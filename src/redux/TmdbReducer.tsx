@@ -35,6 +35,7 @@ import { mapMovieStateToProps, mapAllDispatchToProps, mapTvStateToProps, mapEpis
 import CollectionFilterScreen from "../screens/CollectionFilterScreen";
 import ProfileScreen from '../screens/ProfileScreen';
 import { mapLoginDispatchToProps, mapLoginStateToProps } from './login/LoginReducer';
+import MovieBuddiesScreen from '../screens/MovieBuddies';
 
 const defaultState = {
     tmdbItems: []
@@ -279,6 +280,13 @@ export {recommendScreen as RecommendScreen};
 
 const profileScreen = connect(mapLoginStateToProps, mapLoginDispatchToProps)(enhanceWithMovieSomFunctions(ProfileScreen));
 export {profileScreen as ProfileScreen};
+
+/**
+ * MOVIE BUDDIES
+ */
+
+const movieBuddiesScreen = connect(mapLoginStateToProps, mapLoginDispatchToProps)(enhanceWithMovieSomFunctions(MovieBuddiesScreen));
+export {movieBuddiesScreen as MovieBuddiesScreen};
 
 /**
  * SETTINGS
