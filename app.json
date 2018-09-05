@@ -21,6 +21,7 @@
     },
     "android": {
       "package": "com.moviesom.rn",
+      "versionCode": 2,
       "permissions": []
     },
     "notification": {
