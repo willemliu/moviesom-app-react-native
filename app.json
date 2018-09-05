@@ -3,7 +3,7 @@
   "displayName": "MovieSom RN",
   "expo": {
     "sdkVersion": "29.0.0",
-    "name": "moviesom-rn",
+    "name": "MovieSom RN",
     "description": "React Native implementation of MovieSom",
     "icon": "./assets/eyecon512x512.png",
     "version": "3.0.0",
