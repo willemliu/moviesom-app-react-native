@@ -4,7 +4,7 @@
   "expo": {
     "sdkVersion": "29.0.0",
     "name": "MovieSom RN",
-    "description": "React Native implementation of MovieSom.\r\nhttps://www.moviesom.com",
+    "description": "React Native implementation of MovieSom. https://www.moviesom.com",
     "icon": "./assets/eyecon512x512.png",
     "version": "3.0.0",
     "githubUrl": "https://github.com/willemliu/moviesom-app-react-native",
