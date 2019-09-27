@@ -14,7 +14,7 @@
     "@types/react-native": "^0.55.28",
     "@types/react-native-keyboard-spacer": "^0.4.0",
     "@types/react-navigation": "^2.0.12",
-    "@types/react-redux": "^6.0.0",
+    "@types/react-redux": "^7.1.4",
     "@types/react-test-renderer": "^16.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
