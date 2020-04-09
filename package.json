@@ -10,7 +10,7 @@
     "@types/expo__vector-icons": "^6.2.2",
     "@types/jest": "^23.3.1",
     "@types/numeral": "0.0.22",
-    "@types/react": "^16.3.14",
+    "@types/react": "^16.9.34",
     "@types/react-native": "^0.55.28",
     "@types/react-native-keyboard-spacer": "^0.4.0",
     "@types/react-navigation": "^2.0.12",
